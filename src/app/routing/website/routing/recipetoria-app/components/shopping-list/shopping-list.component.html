@@ -1,0 +1,100 @@
+<div class="app-shopping-list">
+	<div class="container">
+		<div class="app-shopping-list__inner">
+			<div class="toolbar">
+				<h2 class="toolbar-title">Shopping list</h2>
+				<ul class="icon-list">
+					<li class="icon-list__item">
+						<button class="icon-list__button bttn" type="button">
+							<mat-icon aria-label="print" fontIcon="print"></mat-icon>
+						</button>
+					</li>
+					<li class="icon-list__item">
+						<button class="icon-list__button bttn" type="button">
+							<mat-icon aria-label="share" fontIcon="share"></mat-icon>
+						</button>
+					</li>
+					<li class="icon-list__item">
+						<button class="icon-list__button bttn" type="button">
+							<mat-icon aria-label="delete" fontIcon="delete"></mat-icon>
+						</button>
+					</li>
+				</ul>
+			</div>
+			<div class="shopping-list">
+				<table mat-table [dataSource]="dataItems">
+					<ng-container [matColumnDef]="col.key" *ngFor="let col of columnsSchema">
+						<th mat-header-cell *matHeaderCellDef [ngSwitch]="col.key">
+							<span *ngSwitchCase="'isSelected'">
+								<mat-checkbox
+									(change)="selectAll($event)"
+									[checked]="isAllSelected()"
+									[indeterminate]="!isAllSelected() && isAnySelected()"
+								></mat-checkbox>
+							</span>
+							<span *ngSwitchDefault>{{ col.label }}</span>
+						</th>
+						<td mat-cell *matCellDef="let element">
+							<div [ngSwitch]="col.type" *ngIf="!element.isEdit">
+								<ng-container *ngSwitchCase="'isSelected'">
+									<mat-checkbox
+										(change)="element.isSelected = $event.checked"
+										[checked]="element.isSelected"
+									></mat-checkbox>
+								</ng-container>
+								<div class="btn-edit" *ngSwitchCase="'isEdit'">
+									<button mat-flat-button (click)="element.isEdit = !element.isEdit">
+										<mat-icon fontIcon="edit_note"></mat-icon>
+									</button>
+									<button mat-flat-button class="button-remove" (click)="removeRow(element.id)">
+										<mat-icon fontIcon="delete"></mat-icon>
+									</button>
+								</div>
+								<span *ngSwitchCase="'amount'"> {{ element[col.key] }} </span>
+								<span *ngSwitchDefault> {{ element[col.key] }} </span>
+							</div>
+							<div [ngSwitch]="col.type" *ngIf="element.isEdit">
+								<div *ngSwitchCase="'isSelected'"></div>
+								<div class="btn-edit" *ngSwitchCase="'isEdit'">
+									<button class="bttn" type="button" (click)="editRow(element)" [disabled]="disableSubmit(element.id)">
+										<mat-icon fontIcon="done"></mat-icon>
+									</button>
+								</div>
+								<mat-form-field appearance="outline" *ngSwitchCase="'measurementUnit'">
+									<mat-label>Select measure</mat-label>
+									<mat-select placeholder="KG">
+										<mat-option value="gram">Gram</mat-option>
+										<mat-option value="kilogram">Kilogram</mat-option>
+										<mat-option value="litr">Litr</mat-option>
+										<mat-option value="2-litres">Maybe 2?</mat-option>
+										<mat-option value="ounce">Ounce</mat-option>
+										<mat-option value="pound">pound</mat-option>
+										<mat-option value="pack">Pack</mat-option>
+										<mat-option value="box">Box</mat-option>
+										<mat-option value="bottle">Bottle</mat-option>
+									</mat-select>
+								</mat-form-field>
+								<mat-form-field class="form-input" *ngSwitchDefault>
+									<input
+										matInput
+										[required]="col.required"
+										[pattern]="col.pattern"
+										[type]="col.type"
+										[(ngModel)]="element[col.key]"
+										(change)="inputHandler($event, element.id, col.key)"
+									/>
+								</mat-form-field>
+							</div>
+						</td>
+					</ng-container>
+					<tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+					<tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+				</table>
+				<button mat-flat-button (click)="addRow()">
+					<mat-icon fontIcon="add"></mat-icon>
+					<span>Add new item</span>
+				</button>
+			</div>
+		</div>
+	</div>
+</div>

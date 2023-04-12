@@ -1,0 +1,50 @@
+.app-footer {
+
+	.container {
+		max-width: 1120px;
+		margin: 0 auto;
+	}
+
+	&__inner {
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+		align-items: center;
+		background-color: #35201A;
+		padding: 0 156px;
+
+		.menu {
+
+			padding: 25px 0 25px 0;
+
+			&__list {
+				display: flex;
+				flex-direction: row;
+				align-items: center;
+				justify-content: space-between;
+				gap: 56px;
+
+				&-item {
+
+				}
+
+				&-link {
+					color: #FAE8CD;
+					font-size: 14px;
+					font-weight: 500;
+					line-height: 20px;
+					letter-spacing: 0.1px;
+				}
+			}
+		}
+
+		span {
+			font-style: normal;
+			font-weight: 400;
+			font-size: 16px;
+			line-height: 24px;
+			letter-spacing: 0.5px;
+			color: #725E58
+		}
+	}
+}

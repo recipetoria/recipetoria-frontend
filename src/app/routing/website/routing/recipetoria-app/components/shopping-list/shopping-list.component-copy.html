@@ -1,0 +1,87 @@
+<div class="app-shopping-list">
+	<div class="container">
+		<div class="app-shopping-list__inner">
+			<div class="toolbar">
+				<h2 class="toolbar-title">Shopping list</h2>
+				<ul class="icon-list">
+					<li class="icon-list__item">
+						<button class="icon-list__button">
+							<mat-icon aria-label="print" fontIcon="print"></mat-icon>
+						</button>
+					</li>
+					<li class="icon-list__item">
+						<button class="icon-list__button">
+							<mat-icon aria-label="share" fontIcon="share"></mat-icon>
+						</button>
+					</li>
+					<li class="icon-list__item">
+						<button class="icon-list__button">
+							<mat-icon aria-label="delete" fontIcon="delete"></mat-icon>
+						</button>
+					</li>
+				</ul>
+			</div>
+			<div class="shopping-list">
+				<table mat-table [dataSource]="dataItems" class="mat-elevation-z8">
+					<!-- Position Column -->
+					<ng-container matColumnDef="#">
+						<th mat-header-cell *matHeaderCellDef>#</th>
+						<td mat-cell *matCellDef="let element">
+							<input matInput type="text" [(ngModel)]="element.id" />
+						</td>
+					</ng-container>
+
+					<!-- Name Column -->
+					<ng-container matColumnDef="name">
+						<th mat-header-cell *matHeaderCellDef>Name</th>
+						<td mat-cell *matCellDef="let element">
+							<input matInput type="text" [(ngModel)]="element.name" />
+						</td>
+					</ng-container>
+
+					<!-- Weight Column -->
+					<ng-container matColumnDef="amount">
+						<th mat-header-cell *matHeaderCellDef>Amount</th>
+						<td mat-cell *matCellDef="let element">
+							<input matInput type="text" [(ngModel)]="element.amount" />
+						</td>
+					</ng-container>
+
+					<!-- Symbol Column -->
+					<ng-container matColumnDef="measure">
+						<th mat-header-cell *matHeaderCellDef>Measure</th>
+						<td mat-cell *matCellDef>
+							<mat-form-field appearance="fill">
+								<mat-label>Select measure</mat-label>
+								<mat-select>
+									<mat-option *ngFor="let item of dataItems"> {{item.measurementUnit}} </mat-option>
+								</mat-select>
+							</mat-form-field>
+						</td>
+					</ng-container>
+
+					<!-- Delete Column -->
+					<ng-container matColumnDef="delete">
+						<th mat-header-cell *matHeaderCellDef>Delete</th>
+						<td mat-cell *matCellDef="let element">
+							<button>
+								<mat-icon fontIcon="edit" (click)="editItem(element.id)"></mat-icon>
+							</button>
+							<button>
+								<mat-icon fontIcon="delete" (click)="deleteItem(element.id)"></mat-icon>
+							</button>
+						</td>
+					</ng-container>
+
+					<tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+					<tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+				</table>
+				<button mat-button type="submit" (click)="addNewItem()">
+					<mat-icon fontIcon="add">
+						<span>Add new item</span>
+					</mat-icon>
+				</button>
+			</div>
+		</div>
+	</div>
+</div>
