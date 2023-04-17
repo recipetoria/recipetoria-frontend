@@ -2,6 +2,7 @@ export interface IShoppingList {
 	isSelected: boolean;
 	id: number;
 	name: string;
+	// firstName: string;
 	amount: number;
 	measurementUnit: string;
 	isEdit: boolean;

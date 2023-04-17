@@ -34,7 +34,7 @@
 							</span>
 							<span *ngSwitchDefault>{{ col.label }}</span>
 						</th>
-						<td mat-cell *matCellDef="let element">
+						<td mat-cell *matCellDef="let element, let i = index">
 							<div [ngSwitch]="col.type" *ngIf="!element.isEdit">
 								<ng-container *ngSwitchCase="'isSelected'">
 									<mat-checkbox
@@ -42,21 +42,20 @@
 										[checked]="element.isSelected"
 									></mat-checkbox>
 								</ng-container>
-								<div class="btn-edit" *ngSwitchCase="'isEdit'">
-									<button mat-flat-button (click)="element.isEdit = !element.isEdit">
+								<div *ngSwitchCase="'isEdit'">
+									<button class="bttn" (click)="element.isEdit = !element.isEdit">
 										<mat-icon fontIcon="edit_note"></mat-icon>
 									</button>
-									<button mat-flat-button class="button-remove" (click)="removeRow(element.id)">
-										<mat-icon fontIcon="delete"></mat-icon>
+									<button class="bttn" (click)="removeRow(element.id)">
+										<mat-icon svgIcon="delete"></mat-icon>
 									</button>
 								</div>
-								<span *ngSwitchCase="'amount'"> {{ element[col.key] }} </span>
 								<span *ngSwitchDefault> {{ element[col.key] }} </span>
 							</div>
 							<div [ngSwitch]="col.type" *ngIf="element.isEdit">
 								<div *ngSwitchCase="'isSelected'"></div>
 								<div class="btn-edit" *ngSwitchCase="'isEdit'">
-									<button class="bttn" type="button" (click)="editRow(element)" [disabled]="disableSubmit(element.id)">
+									<button class="bttn" (click)="editRow(element)" [disabled]="disableSubmit(element.id)">
 										<mat-icon fontIcon="done"></mat-icon>
 									</button>
 								</div>
@@ -78,7 +77,6 @@
 									<input
 										matInput
 										[required]="col.required"
-										[pattern]="col.pattern"
 										[type]="col.type"
 										[(ngModel)]="element[col.key]"
 										(change)="inputHandler($event, element.id, col.key)"

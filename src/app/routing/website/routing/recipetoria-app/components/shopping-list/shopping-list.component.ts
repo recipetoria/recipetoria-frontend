@@ -23,11 +23,12 @@ export class ShoppingListComponent implements OnInit {
 	addRow() {
 		const newRow: IShoppingList = <IShoppingList>{
 			isSelected: false,
-			// id: 0,
+			id: 0,
 			name: '',
+			// firstName: '',
 			amount: 0,
 			measurementUnit: '',
-			isEdit: true,
+			isEdit: false,
 			applicationUser: {}
 		};
 		// eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -49,7 +50,8 @@ export class ShoppingListComponent implements OnInit {
 
 	removeRow(id: number) {
 		this.shoppingListService.deleteItem(id).subscribe(() => {
-			this.dataItems.data = this.dataItems.data.filter((i: IShoppingList) => i.id !== id);
+			this.dataItems.data = this.dataItems.data.filter((i: IShoppingList) => i.id == id);
+			// this.dataItems.data = this.dataItems.data.splice(id, 1);
 		});
 	}
 	inputHandler(e: any, id: number, key: string) {
@@ -59,7 +61,7 @@ export class ShoppingListComponent implements OnInit {
 			this.valid[id] = {};
 		}
 		// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment,@typescript-eslint/no-unsafe-member-access
-		this.valid.id[key] = e.target.validity.valid;
+		this.valid[id][key] = e.target.validity.valid;
 	}
 
 	disableSubmit(id: number) {
