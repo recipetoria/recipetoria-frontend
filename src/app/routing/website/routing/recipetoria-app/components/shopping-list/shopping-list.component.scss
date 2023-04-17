@@ -11,14 +11,27 @@
 	box-shadow: 3px 3px #333;
 
 	&:hover {
-		background-color: #e0e0e0;
+		background-color: #ffdfd7;
 	}
 
 	&:active {
 		box-shadow: none;
 		transform: translate(3px, 3px);
 		transition: all .1s;
+		background-color: #fff;
 	}
+
+	&:disabled {
+		color: #94959a;
+		background-color: #f7f6f6;
+		border: 1px solid #94959a;
+		box-shadow: 3px 3px #94959a;
+	}
+}
+
+.bttn-icon {
+	width: 24px;
+	height: 24px;
 }
 
 .app-shopping-list {
