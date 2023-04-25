@@ -1,1 +1,55 @@
 @import '../../styles/variables';
+
+.header {
+  font-size: .875rem;
+  font-weight: 500;
+  line-height: 1.43;
+
+  background-color: $primary-color;
+  border-bottom: 1px solid $black-color;
+
+  &__wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 1rem 11.04vw 1rem 10.83vw;
+  }
+
+  .logo {
+    object-fit: contain;
+
+    &__wrapper {
+      width: 72px;
+      height: 60px;
+    }
+  }
+
+  .links-n-avatar {
+    display: flex;
+    gap: 2.98vw;
+    align-items: center;
+  }
+
+  .links {
+    display: flex;
+    gap: 2.77vw;
+    align-items: center;
+  }
+
+  .default-avatar {
+    position: absolute;
+    top: -2px;
+    left: -3px;
+
+    &__wrapper {
+      position: relative;
+
+      flex-shrink: 0;
+      width: 52px;
+      height: 52px;
+
+      background-color: #2D2B2B;
+      border-radius: 50%;
+    }
+  }
+}

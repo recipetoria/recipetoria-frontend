@@ -7,6 +7,7 @@ export default function DefaultAvatar() {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       xmlnsXlink="http://www.w3.org/1999/xlink"
+      className="default-avatar"
     >
       <circle cx="26" cy="26" r="25.5" fill="url(#pattern0)" stroke="#2D2B2B" />
       <defs>

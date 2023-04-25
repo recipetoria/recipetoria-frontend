@@ -5,7 +5,7 @@ import Logo from "../../assets/svg/Logo";
 
 export default function Header() {
   return (
-    <header>
+    <header className="header">
       <div className="header__wrapper">
         <div className="logo__wrapper">
           <Logo />
@@ -14,7 +14,9 @@ export default function Header() {
           <section className="links">
             <Link to="/all_categories">All Categories</Link>
             <Link to="/shopping_list">Shopping list</Link>
-            <Link to="/add_recipe">Add recipe</Link>
+            <Link to="/add_recipe" className="btn">
+              Add recipe
+            </Link>
           </section>
           <div className="default-avatar__wrapper">
             <DefaultAvatar />
