@@ -2,6 +2,7 @@ import Print from "../../assets/svg/Print";
 import Share from "../../assets/svg/Share";
 import Trash from "../../assets/svg/Trash";
 import Button from "../../components/Button/Button";
+import ShoppingListTable from "../../components/ShoppingListTable/ShoppingListTable";
 import "./ShoppingListPage.scss";
 
 export default function ShoppingListPage() {
@@ -18,6 +19,9 @@ export default function ShoppingListPage() {
                 <Button icon={<Share />} />
                 <Button icon={<Trash />} />
               </section>
+            </article>
+            <article className="shopping-list-block__table">
+              <ShoppingListTable />
             </article>
           </div>
         </section>
