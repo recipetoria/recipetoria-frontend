@@ -1,1 +1,46 @@
 @import '../../styles/variables';
+
+.shopping-list-page {
+  display: flex;
+  height: 100%;
+
+  .img-block {
+    display: block;
+    width: 37.5vw;
+
+    background-color: $grey-color;
+  }
+
+  .shopping-list-block {
+    flex-grow: 1;
+
+    background-color: $primary-color;
+
+    &__wrapper {
+      margin: 0 17.56% 0 8%;
+    }
+
+    &__header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    &__btns {
+      display: flex;
+      gap: 1rem;
+
+      .btn {
+        width: 54px;
+        height: 54px;
+        padding: 3px 4px;
+      }
+    }
+
+    &__h2 {
+      font-size: 2rem;
+      font-weight: 400;
+      line-height: 1.25;
+    }
+  }
+}
