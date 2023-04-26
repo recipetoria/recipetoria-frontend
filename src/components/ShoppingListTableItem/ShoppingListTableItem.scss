@@ -1,0 +1,32 @@
+@import '../../styles/variables';
+
+.shopping-list-table-item {
+  .td-id,
+  .td-amount {
+    text-align: end;
+  }
+
+  .td-select {
+    width: 104px;
+    overflow: hidden;
+
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
+    text-overflow: ellipsis;
+
+    background: url('../../assets/png/icon-up.png') no-repeat right;
+    border: none;
+
+    outline: none;
+    appearance: none;
+  }
+
+  .td-trash {
+    text-align: center;
+    
+    .trash {
+      fill: $grey-color;
+    }
+  }
+}

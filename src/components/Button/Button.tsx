@@ -1,3 +1,5 @@
+import "./Button.scss";
+
 export default function Button(props: { icon: JSX.Element }) {
   const { icon } = props;
 

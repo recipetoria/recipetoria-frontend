@@ -1,9 +1,10 @@
 import ShoppingListTableItem from "../ShoppingListTableItem/ShoppingListTableItem";
+import "./ShoppingListTable.scss";
 
 export default function ShoppingListTable() {
   return (
-    <div className="shopping-list-table__wrapper">
-      <table>
+    <div className="shopping-list-table">
+      <table className="table">
         <tr>
           <th>#</th>
           <th>Name</th>

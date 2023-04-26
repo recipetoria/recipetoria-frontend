@@ -1,4 +1,5 @@
 import Trash from "../../assets/svg/Trash";
+import "./ShoppingListTableItem.scss";
 
 /* eslint-disable jsx-a11y/control-has-associated-label */
 interface IShoppingListTableItem {
@@ -11,16 +12,16 @@ export default function ShoppingListTableItem(props: IShoppingListTableItem) {
   const { id, name, amount } = props;
 
   return (
-    <tr>
-      <td>{id}</td>
-      <td>{name}</td>
-      <td>{amount}</td>
+    <tr className="shopping-list-table-item">
+      <td className="td-id">{id}</td>
+      <td className="td-name">{name}</td>
+      <td className="td-amount">{amount}</td>
       <td>
-        <select name="measure">
+        <select name="measure" className="td-select">
           <option value="table spoon">table spoon</option>
         </select>
       </td>
-      <td>
+      <td className="td-trash">
         <Trash />
       </td>
     </tr>
