@@ -38,6 +38,10 @@ export default function ShoppingListTable() {
           amount={2}
         />
       </table>
+      <button type="button" className="shopping-list-table__add-btn">
+        <span className="shopping-list-table__add-btn-plus">+</span>
+        <span className="shopping-list-table__add-btn-text">Add new item</span>
+      </button>
     </div>
   );
 }
