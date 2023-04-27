@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Trash from "../../assets/svg/Trash";
 import "./ShoppingListTableItem.scss";
+import customArrow from "../../assets/png/icon-up.png";
 
 /* eslint-disable jsx-a11y/control-has-associated-label */
 
@@ -17,6 +18,35 @@ export default function ShoppingListTableItem(props: IShoppingListTableItem) {
   const [valueId, setValueId] = useState<number>();
   const [valueName, setValueName] = useState<string>();
   const [valueAmount, setValueAmount] = useState<number>();
+  const [valueMeasure, setValueMeasure] = useState<string>("table spoon");
+  const measureValues = [
+    "table spoon",
+    "gram",
+    "kilogram",
+    "ounce",
+    "pound",
+    "pack",
+    "box",
+    "bottle",
+    "tea spoon",
+    "glass",
+  ];
+
+  const measuresList = measureValues
+    .filter((el) => el !== valueMeasure)
+    .map((item) => (
+      <button
+        type="button"
+        className="options__list-el"
+        key={item}
+        onClick={() => {
+          setClick("");
+          setValueMeasure(item);
+        }}
+      >
+        {item}
+      </button>
+    ));
 
   return (
     <>
@@ -101,18 +131,27 @@ export default function ShoppingListTableItem(props: IShoppingListTableItem) {
         )}
       </div>
       <div className={`td-select td ${isLined ? "td__with-line" : ""}`}>
-        <select name="measure" className="select">
-          <option value="table spoon">table spoon</option>
-          <option value="gram">gram</option>
-          <option value="kilogram">kilogram</option>
-          <option value="ounce">ounce</option>
-          <option value="pound">pound</option>
-          <option value="pack">pack</option>
-          <option value="box">box</option>
-          <option value="bottle">bottle</option>
-          <option value="tea spoon">tea spoon</option>
-          <option value="glass">glass</option>
-        </select>
+        <button
+          type="button"
+          className="td__button td__button_with-arrow"
+          onClick={() =>
+            isClicked === "measure" ? setClick("") : setClick("measure")
+          }
+        >
+          {valueMeasure}
+          <img
+            src={customArrow}
+            alt="arrow"
+            className={isClicked === "measure" ? "arrow-up" : "arrow-down"}
+          />
+        </button>
+        {isClicked === "measure" ? (
+          <div className="options">
+            <div className="options__list">{measuresList}</div>
+          </div>
+        ) : (
+          ""
+        )}
       </div>
       <div className={`td-trash td ${isLined ? "td__with-line" : ""}`}>
         <Trash />

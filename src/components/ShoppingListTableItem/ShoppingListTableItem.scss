@@ -1,6 +1,8 @@
 @import '../../styles/variables';
 
 .td {
+  position: relative;
+
   color: $black-color;
 
   &__with-line {
@@ -17,14 +19,12 @@
     background: none;
   }
 
-  .select {  
-    font-weight: 400;
-  
-    background: url('../../assets/png/icon-up.png') no-repeat right;
-    outline: none;
-    box-shadow: none;
-  
-    appearance: none;
+  &__button_with-arrow {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 130px;
+    padding-right: 12px;
   }
 
   &__button,
@@ -47,6 +47,66 @@
       border-radius: 4px;
     }
   }
+
+  .options {
+    position: absolute;
+    z-index: 3;
+
+    width: 130px;
+
+    background-color: $btn-bg-color;
+    border: 1px solid #2D2D2B;
+    border-radius: 4px;
+    box-shadow: 2px 2px 0 $black-color;
+
+    &__list {
+      display: flex;
+      flex-direction: column;
+      height: 240px;
+      margin-right: 4px;
+
+      overflow-y: scroll;
+
+      list-style-type: none;
+
+      &::-webkit-scrollbar {
+        width: 4px;
+      }
+
+      &::-webkit-scrollbar-track {
+        width: 4px;
+        margin: 8px;
+        background-color: transparent;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        background-color: $gray-light-color;
+        border-radius: 100px;
+      }
+
+      scrollbar-width: thin;
+    }
+
+    &__list-el {
+      padding: 8px 0 8px 16px;
+      margin-right: 4px;
+
+      font-size: 1rem;
+      line-height: 24px;
+      color: $black-1-color;
+      text-align: start;
+
+      background-color: transparent;
+      border: none;
+      outline: none;
+
+      &:hover {
+        cursor: pointer;
+
+        background-color: $primary-color;
+      }
+    }
+  }
 }
 
 .td-id,
@@ -60,4 +120,8 @@
   .trash {
     fill: $gray-light-color;
   }
+}
+
+.arrow-up {
+  transform: scale(1, -1);
 }
