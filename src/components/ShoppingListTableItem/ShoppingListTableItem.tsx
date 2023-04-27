@@ -17,7 +17,6 @@ export default function ShoppingListTableItem(props: IShoppingListTableItem) {
   const [valueId, setValueId] = useState<number>();
   const [valueName, setValueName] = useState<string>();
   const [valueAmount, setValueAmount] = useState<number>();
-  console.log(isLined);
 
   return (
     <>
