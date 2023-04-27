@@ -154,7 +154,9 @@ export default function ShoppingListTableItem(props: IShoppingListTableItem) {
         )}
       </div>
       <div className={`td-trash td ${isLined ? "td__with-line" : ""}`}>
-        <Trash />
+        <button type="button" className="td__button" onClick={() => {}}>
+          <Trash />
+        </button>
       </div>
     </>
   );
