@@ -1,32 +1,63 @@
 @import '../../styles/variables';
 
-.shopping-list-table-item {
-  .td-id,
-  .td-amount {
-    text-align: end;
+.td {
+  color: $black-color;
+
+  &__with-line {
+    border-bottom: 1px solid $gray-light-1-color;
   }
 
-  .td-select {
-    width: 104px;
-    overflow: hidden;
+  &__input {
+    width: fit-content;
+  }
 
-    font-size: 16px;
+  &__button {
+    text-align: start;
+
+    background: none;
+  }
+
+  .select {  
     font-weight: 400;
-    line-height: 24px;
-    text-overflow: ellipsis;
-
+  
     background: url('../../assets/png/icon-up.png') no-repeat right;
-    border: none;
-
     outline: none;
+    box-shadow: none;
+  
     appearance: none;
   }
 
-  .td-trash {
-    text-align: center;
+  &__button,
+  .select {
+    padding: 8px 12px;
+    margin: 4px 0;
 
-    .trash {
-      fill: $gray-light-color;
+    font-size: 16px;
+    line-height: 24px;
+    color: $black-color;
+
+    border: 1px solid transparent;
+
+    transition: all .5s;
+
+    &:hover {
+      cursor: pointer;
+  
+      border: 1px solid $gray-light-1-color;
+      border-radius: 4px;
     }
+  }
+}
+
+.td-id,
+.td-amount {
+  text-align: end;
+}
+
+.td-trash {
+  text-align: center;
+
+  .trash {
+    fill: $gray-light-color;
   }
 }
