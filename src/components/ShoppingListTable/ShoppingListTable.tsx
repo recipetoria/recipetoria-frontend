@@ -2,6 +2,8 @@ import { useState } from "react";
 import { IShoppingListItems } from "../../types/types";
 import ShoppingListTableItem from "../ShoppingListTableItem/ShoppingListTableItem";
 import "./ShoppingListTable.scss";
+import customArrow from "../../assets/png/icon-up.png";
+import Trash from "../../assets/svg/Trash";
 
 export default function ShoppingListTable() {
   const shoppingItems: IShoppingListItems[] = [
@@ -24,6 +26,40 @@ export default function ShoppingListTable() {
     },
   ];
 
+  const measureValues = [
+    "table spoon",
+    "gram",
+    "kilogram",
+    "ounce",
+    "pound",
+    "pack",
+    "box",
+    "bottle",
+    "tea spoon",
+    "glass",
+  ];
+
+  const [isHover, setHover] = useState(false);
+  const [isClicked, setClick] = useState<string>();
+  const [valueMeasure, setValueMeasure] = useState<string>("select");
+  const [isClickedSelect, setClickedSelect] = useState(false);
+
+  const measuresList = measureValues
+    .filter((el) => el !== valueMeasure)
+    .map((item) => (
+      <button
+        type="button"
+        className="options__list-el"
+        key={item}
+        onClick={() => {
+          setClickedSelect(false);
+          setValueMeasure(item);
+        }}
+      >
+        {item}
+      </button>
+    ));
+
   const shoppingItemsJSX = shoppingItems.map((item, index) => (
     <ShoppingListTableItem
       id={item.id}
@@ -34,8 +70,6 @@ export default function ShoppingListTable() {
     />
   ));
 
-  const [isHover, setHover] = useState(false);
-
   return (
     <div className="shopping-list-table">
       <article className="table">
@@ -45,6 +79,49 @@ export default function ShoppingListTable() {
         <div className="table__head">Measure</div>
         <div className="table__head">Delete</div>
         {shoppingItemsJSX}
+        {isClicked === "newString" ? (
+          <>
+            <button type="button" className="td__button">
+              {shoppingItems.length + 1}
+            </button>
+            <form>
+              <textarea className="td__input" />
+            </form>
+            <form>
+              <input type="number" className="td__input" />
+            </form>
+            <div className="td-select td">
+              <button
+                type="button"
+                className="td__button td__button_with-arrow"
+                onClick={() =>
+                  isClickedSelect
+                    ? setClickedSelect(false)
+                    : setClickedSelect(true)
+                }
+              >
+                {valueMeasure}
+                <img
+                  src={customArrow}
+                  alt="arrow"
+                  className={isClickedSelect ? "arrow-up" : "arrow-down"}
+                />
+              </button>
+              {isClickedSelect ? (
+                <div className="options">
+                  <div className="options__list">{measuresList}</div>
+                </div>
+              ) : (
+                ""
+              )}
+            </div>
+            <button type="button" className="td__button" onClick={() => {}}>
+              <Trash />
+            </button>
+          </>
+        ) : (
+          ""
+        )}
       </article>
       <div
         className={`empty-string-on-hover_${isHover}`}
@@ -52,7 +129,14 @@ export default function ShoppingListTable() {
           setHover(false);
         }}
         onBlur={() => {}}
-      />
+      >
+        <button
+          type="button"
+          aria-label="Empty string"
+          className="empty-string-on-hover_true__button"
+          onClick={() => setClick("newString")}
+        />
+      </div>
       <button
         type="button"
         className="shopping-list-table__add-btn"
