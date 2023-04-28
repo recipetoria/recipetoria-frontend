@@ -2,6 +2,7 @@ import { useState } from "react";
 import Trash from "../../assets/svg/Trash";
 import "./ShoppingListTableItem.scss";
 import customArrow from "../../assets/png/icon-up.png";
+import measureValues from "../../assets/data/measureArray";
 
 /* eslint-disable jsx-a11y/control-has-associated-label */
 
@@ -19,18 +20,6 @@ export default function ShoppingListTableItem(props: IShoppingListTableItem) {
   const [valueName, setValueName] = useState<string>();
   const [valueAmount, setValueAmount] = useState<number>();
   const [valueMeasure, setValueMeasure] = useState<string>("table spoon");
-  const measureValues = [
-    "table spoon",
-    "gram",
-    "kilogram",
-    "ounce",
-    "pound",
-    "pack",
-    "box",
-    "bottle",
-    "tea spoon",
-    "glass",
-  ];
 
   const measuresList = measureValues
     .filter((el) => el !== valueMeasure)

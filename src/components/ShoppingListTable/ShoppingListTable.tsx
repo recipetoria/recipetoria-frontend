@@ -4,6 +4,7 @@ import ShoppingListTableItem from "../ShoppingListTableItem/ShoppingListTableIte
 import "./ShoppingListTable.scss";
 import customArrow from "../../assets/png/icon-up.png";
 import Trash from "../../assets/svg/Trash";
+import measureValues from "../../assets/data/measureArray";
 
 export default function ShoppingListTable() {
   const shoppingItems: IShoppingListItems[] = [
@@ -24,19 +25,6 @@ export default function ShoppingListTable() {
       name: "Super long name of Item",
       amount: 2,
     },
-  ];
-
-  const measureValues = [
-    "table spoon",
-    "gram",
-    "kilogram",
-    "ounce",
-    "pound",
-    "pack",
-    "box",
-    "bottle",
-    "tea spoon",
-    "glass",
   ];
 
   const [isHover, setHover] = useState(false);
