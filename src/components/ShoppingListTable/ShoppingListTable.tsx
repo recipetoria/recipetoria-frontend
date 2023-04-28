@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { IShoppingListItems } from "../../types/types";
 import ShoppingListTableItem from "../ShoppingListTableItem/ShoppingListTableItem";
 import "./ShoppingListTable.scss";
@@ -33,6 +34,8 @@ export default function ShoppingListTable() {
     />
   ));
 
+  const [isHover, setHover] = useState(false);
+
   return (
     <div className="shopping-list-table">
       <article className="table">
@@ -43,7 +46,21 @@ export default function ShoppingListTable() {
         <div className="table__head">Delete</div>
         {shoppingItemsJSX}
       </article>
-      <button type="button" className="shopping-list-table__add-btn">
+      <div
+        className={`empty-string-on-hover_${isHover}`}
+        onMouseOut={() => {
+          setHover(false);
+        }}
+        onBlur={() => {}}
+      />
+      <button
+        type="button"
+        className="shopping-list-table__add-btn"
+        onMouseOver={() => {
+          setHover(true);
+        }}
+        onFocus={() => {}}
+      >
         <span className="shopping-list-table__add-btn-plus">+</span>
         <span className="shopping-list-table__add-btn-text">Add new item</span>
       </button>
