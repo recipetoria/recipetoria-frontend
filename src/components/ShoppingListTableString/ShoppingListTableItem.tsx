@@ -13,7 +13,7 @@ export default function ShoppingListTableItem(props: IShoppingListTableItem) {
   return (
     <div className={`td ${isLined ? "td__with-line" : ""}`}>
       <div
-        className={`td__button ${classMode}`}
+        className={`td__button ${classMode} ${value ? "" : "td__button_empty"}`}
         onInput={(e) => {
           if (e.currentTarget.textContent) {
             setValue(e.currentTarget.textContent);

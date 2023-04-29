@@ -1,4 +1,5 @@
 @import '../../styles/variables';
+@import '../../styles/mixins';
 
 .td {
   position: relative;
@@ -10,6 +11,8 @@
   }
 
   &__button {
+    @include btn-n-select-table;
+
     text-align: start;
 
     background: none;
@@ -17,6 +20,11 @@
     &_id,
     &_amount {
       text-align: end;
+    }
+
+    &_empty {
+      border: 1px solid $gray-light-1-color;
+      border-radius: 4px;
     }
   }
 
@@ -28,25 +36,8 @@
     padding-right: 12px;
   }
 
-  &__button,
   .select {
-    padding: 8px 12px;
-    margin: 4px 0;
-
-    font-size: 16px;
-    line-height: 24px;
-    color: $black-color;
-
-    border: 1px solid transparent;
-
-    transition: all .5s;
-
-    &:hover {
-      cursor: pointer;
-  
-      border: 1px solid $gray-light-1-color;
-      border-radius: 4px;
-    }
+    @include btn-n-select-table;
   }
 
   .options {
