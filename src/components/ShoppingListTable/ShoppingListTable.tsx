@@ -1,32 +1,13 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import { useState } from "react";
-import { IShoppingListItems } from "../../types/types";
 import ShoppingListTableItem from "../ShoppingListTableString/ShoppingListTableString";
 import "./ShoppingListTable.scss";
+import { useAppSelector } from "../../app/hooks";
 
 export default function ShoppingListTable() {
-  const shoppingItems: IShoppingListItems[] = [
-    { id: 232, name: "Super long name of Item", amount: 25.302 },
-    { id: 23, name: "Super long name of Item", amount: 2502 },
-    {
-      id: 223,
-      name: "Super long name of Item and one more super long",
-      amount: 3.342,
-    },
-    {
-      id: 123,
-      name: "Super long name of Item Super long name of Item one more super long",
-      amount: 12,
-    },
-    {
-      id: 321,
-      name: "Super long name of Item",
-      amount: 2,
-    },
-  ];
-
   const [isHover, setHover] = useState(false);
   const [isClicked, setClick] = useState<string>();
+  const shoppingItems = useAppSelector((state) => state.shopList.value);
 
   const shoppingItemsJSX = shoppingItems.map((item, index) => (
     <ShoppingListTableItem
