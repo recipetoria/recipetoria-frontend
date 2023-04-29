@@ -9,14 +9,15 @@
     border-bottom: 1px solid $gray-light-1-color;
   }
 
-  &__input {
-    width: fit-content;
-  }
-
   &__button {
     text-align: start;
 
     background: none;
+
+    &_id,
+    &_amount {
+      text-align: end;
+    }
   }
 
   &__button_with-arrow {
@@ -107,11 +108,6 @@
       }
     }
   }
-}
-
-.td-id,
-.td-amount {
-  text-align: end;
 }
 
 .td-trash {

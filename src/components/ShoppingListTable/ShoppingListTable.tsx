@@ -1,7 +1,7 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import { useState } from "react";
 import { IShoppingListItems } from "../../types/types";
-import ShoppingListTableItem from "../ShoppingListTableItem/ShoppingListTableItem";
+import ShoppingListTableItem from "../ShoppingListTableString/ShoppingListTableString";
 import "./ShoppingListTable.scss";
 
 export default function ShoppingListTable() {
