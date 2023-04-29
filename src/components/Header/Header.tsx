@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import "./Header.scss";
-import DefaultAvatar from "../../assets/svg/DefaultAvatar";
 import Logo from "../../assets/svg/Logo";
+import DefaultAvatar from "../../assets/png/default_ava.png";
 
 export default function Header() {
   return (
@@ -19,7 +19,7 @@ export default function Header() {
             </Link>
           </section>
           <div className="default-avatar__wrapper">
-            <DefaultAvatar />
+            <img src={DefaultAvatar} alt="" className="default-avatar" />
           </div>
         </article>
       </div>

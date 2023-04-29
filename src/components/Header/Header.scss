@@ -37,9 +37,12 @@
   }
 
   .default-avatar {
-    position: absolute;
-    top: -2px;
-    left: -3px;
+    width: 100%;
+    padding-top: 8px;
+
+    background-color: $green-color;
+
+    transform: scale(-1, 1) scale(1.16);
 
     &__wrapper {
       position: relative;
@@ -48,8 +51,11 @@
       width: 52px;
       height: 52px;
 
-      background-color: #2D2B2B;
+      overflow: hidden;
+
+      border: 1.5px solid $black-color;
       border-radius: 50%;
+      box-shadow: 3px 2px 0 0 $black-color;
     }
   }
 }
