@@ -17,6 +17,7 @@ export default function ShoppingListTable() {
       measureDefault="table spoon"
       key={item.id}
       isLined={index !== shoppingItems.length - 1}
+      editMode="edit"
     />
   ));
 
@@ -36,6 +37,7 @@ export default function ShoppingListTable() {
             amount={0}
             measureDefault="select"
             isLined={false}
+            editMode="new"
           />
         ) : (
           ""

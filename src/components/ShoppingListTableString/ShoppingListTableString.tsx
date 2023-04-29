@@ -13,12 +13,13 @@ interface IShoppingListTableString {
   amount: number;
   measureDefault: string;
   isLined: boolean;
+  editMode: string;
 }
 
 export default function ShoppingListTableString(
   props: IShoppingListTableString
 ) {
-  const { id, name, amount, measureDefault, isLined } = props;
+  const { id, name, amount, measureDefault, isLined, editMode } = props;
   const [isClicked, setClick] = useState("");
   const [valueMeasure, setValueMeasure] = useState<string>(measureDefault);
 
@@ -44,16 +45,22 @@ export default function ShoppingListTableString(
         isLined={isLined}
         defaultValue={id}
         classMode="td__button_id"
+        editMode={editMode}
+        canItBeEmpty
       />
       <ShoppingListTableItem
         isLined={isLined}
         defaultValue={name}
         classMode="td__button_name"
+        editMode={editMode}
+        canItBeEmpty={false}
       />
       <ShoppingListTableItem
         isLined={isLined}
         defaultValue={amount}
         classMode="td__button_amount"
+        editMode={editMode}
+        canItBeEmpty
       />
       <div className={`td-select td ${isLined ? "td__with-line" : ""}`}>
         <button

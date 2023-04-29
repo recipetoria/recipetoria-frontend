@@ -26,6 +26,12 @@
       border: 1px solid $gray-light-1-color;
       border-radius: 4px;
     }
+
+    &_error {
+      border-radius: 4px;
+      outline: 2px solid $error-color;
+      caret-color: $error-color;
+    }
   }
 
   &__button_with-arrow {
@@ -98,6 +104,14 @@
         background-color: $primary-color;
       }
     }
+  }
+
+  .error {
+    margin: 0 15px;
+
+    font-size: 12px;
+    line-height: 16px;
+    color: $error-color;
   }
 }
 

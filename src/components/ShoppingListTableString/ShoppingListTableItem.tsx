@@ -4,16 +4,21 @@ interface IShoppingListTableItem {
   isLined: boolean;
   defaultValue: number | string;
   classMode: string;
+  editMode: string;
+  canItBeEmpty: boolean;
 }
 
 export default function ShoppingListTableItem(props: IShoppingListTableItem) {
-  const { isLined, defaultValue, classMode } = props;
+  const { isLined, defaultValue, classMode, editMode, canItBeEmpty } = props;
   const [value, setValue] = useState<string | number>(defaultValue);
+  const [error, setError] = useState("");
 
   return (
     <div className={`td ${isLined ? "td__with-line" : ""}`}>
       <div
-        className={`td__button ${classMode} ${value ? "" : "td__button_empty"}`}
+        className={`td__button ${classMode} ${
+          value ? "" : "td__button_empty"
+        } ${error ? "td__button_error" : ""}`}
         onInput={(e) => {
           if (e.currentTarget.textContent) {
             setValue(e.currentTarget.textContent);
@@ -29,7 +34,19 @@ export default function ShoppingListTableItem(props: IShoppingListTableItem) {
         }}
         onKeyDown={(e) => {
           if (e.key === "Enter") {
+            e.preventDefault();
             e.currentTarget.blur();
+          }
+        }}
+        onBlur={(e) => {
+          if (
+            e.currentTarget.textContent?.trim() === "" &&
+            canItBeEmpty === false
+          ) {
+            e.currentTarget.focus();
+            setError("Can't be empty");
+          } else {
+            setError("");
           }
         }}
         contentEditable
@@ -39,6 +56,7 @@ export default function ShoppingListTableItem(props: IShoppingListTableItem) {
       >
         {value}
       </div>
+      {error ? <p className="error">{error}</p> : ""}
     </div>
   );
 }
