@@ -1,10 +1,8 @@
+/* eslint-disable react/jsx-props-no-spreading */
 import { useState } from "react";
 import { IShoppingListItems } from "../../types/types";
 import ShoppingListTableItem from "../ShoppingListTableItem/ShoppingListTableItem";
 import "./ShoppingListTable.scss";
-import customArrow from "../../assets/png/icon-up.png";
-import Trash from "../../assets/svg/Trash";
-import measureValues from "../../assets/data/measureArray";
 
 export default function ShoppingListTable() {
   const shoppingItems: IShoppingListItems[] = [
@@ -29,30 +27,13 @@ export default function ShoppingListTable() {
 
   const [isHover, setHover] = useState(false);
   const [isClicked, setClick] = useState<string>();
-  const [valueMeasure, setValueMeasure] = useState<string>("select");
-  const [isClickedSelect, setClickedSelect] = useState(false);
-
-  const measuresList = measureValues
-    .filter((el) => el !== valueMeasure)
-    .map((item) => (
-      <button
-        type="button"
-        className="options__list-el"
-        key={item}
-        onClick={() => {
-          setClickedSelect(false);
-          setValueMeasure(item);
-        }}
-      >
-        {item}
-      </button>
-    ));
 
   const shoppingItemsJSX = shoppingItems.map((item, index) => (
     <ShoppingListTableItem
       id={item.id}
       name={item.name}
       amount={item.amount}
+      measureDefault="table spoon"
       key={item.id}
       isLined={index !== shoppingItems.length - 1}
     />
@@ -68,45 +49,13 @@ export default function ShoppingListTable() {
         <div className="table__head">Delete</div>
         {shoppingItemsJSX}
         {isClicked === "newString" ? (
-          <>
-            <button type="button" className="td__button">
-              {shoppingItems.length + 1}
-            </button>
-            <form>
-              <textarea className="td__input" />
-            </form>
-            <form>
-              <input type="number" className="td__input" />
-            </form>
-            <div className="td-select td">
-              <button
-                type="button"
-                className="td__button td__button_with-arrow"
-                onClick={() =>
-                  isClickedSelect
-                    ? setClickedSelect(false)
-                    : setClickedSelect(true)
-                }
-              >
-                {valueMeasure}
-                <img
-                  src={customArrow}
-                  alt="arrow"
-                  className={isClickedSelect ? "arrow-up" : "arrow-down"}
-                />
-              </button>
-              {isClickedSelect ? (
-                <div className="options">
-                  <div className="options__list">{measuresList}</div>
-                </div>
-              ) : (
-                ""
-              )}
-            </div>
-            <button type="button" className="td__button" onClick={() => {}}>
-              <Trash />
-            </button>
-          </>
+          <ShoppingListTableItem
+            id={shoppingItems.length + 1}
+            name=""
+            amount={0}
+            measureDefault="select"
+            isLined={false}
+          />
         ) : (
           ""
         )}
@@ -122,20 +71,29 @@ export default function ShoppingListTable() {
           type="button"
           aria-label="Empty string"
           className="empty-string-on-hover_true__button"
-          onClick={() => setClick("newString")}
+          onClick={() => {
+            setHover(false);
+            setClick("newString");
+          }}
         />
       </div>
-      <button
-        type="button"
-        className="shopping-list-table__add-btn"
-        onMouseOver={() => {
-          setHover(true);
-        }}
-        onFocus={() => {}}
-      >
-        <span className="shopping-list-table__add-btn-plus">+</span>
-        <span className="shopping-list-table__add-btn-text">Add new item</span>
-      </button>
+      {isClicked === "newString" ? (
+        ""
+      ) : (
+        <button
+          type="button"
+          className="shopping-list-table__add-btn"
+          onMouseOver={() => {
+            setHover(true);
+          }}
+          onFocus={() => {}}
+        >
+          <span className="shopping-list-table__add-btn-plus">+</span>
+          <span className="shopping-list-table__add-btn-text">
+            Add new item
+          </span>
+        </button>
+      )}
     </div>
   );
 }

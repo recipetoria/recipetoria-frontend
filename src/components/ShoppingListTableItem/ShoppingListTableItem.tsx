@@ -10,16 +10,17 @@ interface IShoppingListTableItem {
   id: number;
   name: string;
   amount: number;
+  measureDefault: string;
   isLined: boolean;
 }
 
 export default function ShoppingListTableItem(props: IShoppingListTableItem) {
-  const { id, name, amount, isLined } = props;
+  const { id, name, amount, measureDefault, isLined } = props;
   const [isClicked, setClick] = useState("");
   const [valueId, setValueId] = useState<number>();
   const [valueName, setValueName] = useState<string>();
   const [valueAmount, setValueAmount] = useState<number>();
-  const [valueMeasure, setValueMeasure] = useState<string>("table spoon");
+  const [valueMeasure, setValueMeasure] = useState<string>(measureDefault);
 
   const measuresList = measureValues
     .filter((el) => el !== valueMeasure)
