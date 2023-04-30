@@ -1,4 +1,4 @@
-import { FocusEvent, KeyboardEvent, useEffect, useRef, useState } from "react";
+import { FocusEvent, useEffect, useRef, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { IShoppingListItems } from "../../types/types";
 import {
