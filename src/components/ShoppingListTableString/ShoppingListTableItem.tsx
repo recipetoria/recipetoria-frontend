@@ -1,7 +1,11 @@
-import { useState } from "react";
+import { FocusEvent, KeyboardEvent, useEffect, useRef, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { IShoppingListItems } from "../../types/types";
-import { updateShopElement } from "../../features/ShopListSlice";
+import {
+  updateShopElement,
+  addNewShopElement,
+} from "../../features/ShopListSlice";
+import { shopListNewStringValue } from "../../features/ShopListNewStringSlice";
 
 interface IShoppingListTableItem {
   isLined: boolean;
@@ -27,6 +31,52 @@ export default function ShoppingListTableItem(props: IShoppingListTableItem) {
   const [error, setError] = useState("");
   const dispatch = useAppDispatch();
   const shoppingItems = useAppSelector((state) => state.shopList.value);
+  const cellRef = useRef(null);
+
+  useEffect(() => {
+    if (cellRef.current && field === "name" && editMode === "new") {
+      (cellRef.current as HTMLDivElement).focus();
+    }
+  }, [field, editMode]);
+
+  function updateStore(e: FocusEvent<HTMLDivElement, Element>) {
+    const foundIndexFromStore = shoppingItems.findIndex(
+      (item) => item.id === +e.currentTarget.id
+    );
+
+    const foundElFromStore = shoppingItems[foundIndexFromStore];
+
+    (
+      Object.keys(foundElFromStore) as (keyof typeof foundElFromStore)[]
+    ).forEach((key) => {
+      if (field && key === field) {
+        const newEl: IShoppingListItems = {
+          id: foundElFromStore.id,
+          name: foundElFromStore.name,
+          amount: foundElFromStore.amount,
+        };
+        newEl[key] = e.currentTarget.textContent as never;
+        dispatch(updateShopElement(newEl));
+      }
+    });
+  }
+
+  function addNewElStore(e: KeyboardEvent<HTMLDivElement>) {
+    const newEl: IShoppingListItems = {
+      id: shoppingItems.length + 1,
+      name: "",
+      amount: 0,
+    };
+    if (e.currentTarget.textContent) {
+      if (field === "name") {
+        newEl.name = e.currentTarget.textContent;
+      } else if (field === "amount") {
+        newEl.amount = +e.currentTarget.textContent;
+      }
+    }
+    dispatch(shopListNewStringValue(false));
+    dispatch(addNewShopElement(newEl));
+  }
 
   return (
     <div className={`td ${isLined ? "td__with-line" : ""}`}>
@@ -52,6 +102,9 @@ export default function ShoppingListTableItem(props: IShoppingListTableItem) {
           if (e.key === "Enter") {
             e.preventDefault();
             e.currentTarget.blur();
+            if (editMode === "new") {
+              addNewElStore(e);
+            }
           }
         }}
         onBlur={(e) => {
@@ -62,26 +115,9 @@ export default function ShoppingListTableItem(props: IShoppingListTableItem) {
             e.currentTarget.focus();
             setError("Can't be empty");
           } else if (field !== "id") {
-            const foundIndexFromStore = shoppingItems.findIndex(
-              (item) => item.id === +e.currentTarget.id
-            );
-
-            const foundElFromStore = shoppingItems[foundIndexFromStore];
-
-            (
-              Object.keys(foundElFromStore) as (keyof typeof foundElFromStore)[]
-            ).forEach((key) => {
-              if (field && key === field) {
-                const newEl: IShoppingListItems = {
-                  name: foundElFromStore.name,
-                  id: foundElFromStore.id,
-                  amount: foundElFromStore.amount,
-                };
-                newEl[key] = e.currentTarget.textContent as never;
-                dispatch(updateShopElement(newEl));
-              }
-            });
-
+            if (editMode === "edit") {
+              updateStore(e);
+            }
             setError("");
           }
         }}
@@ -89,6 +125,7 @@ export default function ShoppingListTableItem(props: IShoppingListTableItem) {
         suppressContentEditableWarning
         role="textbox"
         tabIndex={0}
+        ref={cellRef}
       >
         {value}
       </div>

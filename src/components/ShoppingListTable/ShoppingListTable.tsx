@@ -2,12 +2,16 @@
 import { useState } from "react";
 import ShoppingListTableString from "../ShoppingListTableString/ShoppingListTableString";
 import "./ShoppingListTable.scss";
-import { useAppSelector } from "../../app/hooks";
+import { useAppDispatch, useAppSelector } from "../../app/hooks";
+import { shopListNewStringValue } from "../../features/ShopListNewStringSlice";
 
 export default function ShoppingListTable() {
   const [isHover, setHover] = useState(false);
-  const [isClicked, setClick] = useState<string>();
   const shoppingItems = useAppSelector((state) => state.shopList.value);
+  const isNewString = useAppSelector(
+    (state) => state.shopListNewStringSlice.value
+  );
+  const dispatch = useAppDispatch();
 
   const shoppingItemsJSX = shoppingItems.map((item, index) => (
     <ShoppingListTableString
@@ -30,7 +34,7 @@ export default function ShoppingListTable() {
         <div className="table__head">Measure</div>
         <div className="table__head">Delete</div>
         {shoppingItemsJSX}
-        {isClicked === "newString" ? (
+        {isNewString ? (
           <ShoppingListTableString
             id={shoppingItems.length + 1}
             name=""
@@ -56,11 +60,11 @@ export default function ShoppingListTable() {
           className="empty-string-on-hover_true__button"
           onClick={() => {
             setHover(false);
-            setClick("newString");
+            dispatch(shopListNewStringValue(true));
           }}
         />
       </div>
-      {isClicked === "newString" ? (
+      {isNewString ? (
         ""
       ) : (
         <button

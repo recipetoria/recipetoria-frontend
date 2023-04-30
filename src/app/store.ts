@@ -1,9 +1,11 @@
 import { configureStore, ThunkAction, Action } from "@reduxjs/toolkit";
 import ShopListSlice from "../features/ShopListSlice";
+import ShopListNewStringSlice from "../features/ShopListNewStringSlice";
 
 export const store = configureStore({
   reducer: {
     shopList: ShopListSlice,
+    shopListNewStringSlice: ShopListNewStringSlice,
   },
 });
 
