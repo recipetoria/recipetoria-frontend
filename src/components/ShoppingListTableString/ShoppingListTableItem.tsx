@@ -61,7 +61,7 @@ export default function ShoppingListTableItem(props: IShoppingListTableItem) {
     });
   }
 
-  function addNewElStore(e: KeyboardEvent<HTMLDivElement>) {
+  function addNewElStore(e: FocusEvent<HTMLDivElement>) {
     const newEl: IShoppingListItems = {
       id: shoppingItems.length + 1,
       name: "",
@@ -102,9 +102,6 @@ export default function ShoppingListTableItem(props: IShoppingListTableItem) {
           if (e.key === "Enter") {
             e.preventDefault();
             e.currentTarget.blur();
-            if (editMode === "new") {
-              addNewElStore(e);
-            }
           }
         }}
         onBlur={(e) => {
@@ -117,6 +114,9 @@ export default function ShoppingListTableItem(props: IShoppingListTableItem) {
           } else if (field !== "id") {
             if (editMode === "edit") {
               updateStore(e);
+            }
+            if (editMode === "new") {
+              addNewElStore(e);
             }
             setError("");
           }
