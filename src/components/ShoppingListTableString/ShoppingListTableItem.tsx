@@ -6,6 +6,7 @@ import {
   addNewShopElement,
 } from "../../features/ShopListSlice";
 import { shopListNewStringValue } from "../../features/ShopListNewStringSlice";
+import getObjectForUpdate from "../../utils/updateSelectedObj";
 
 interface IShoppingListTableItem {
   isLined: boolean;
@@ -38,28 +39,6 @@ export default function ShoppingListTableItem(props: IShoppingListTableItem) {
       (cellRef.current as HTMLDivElement).focus();
     }
   }, [field, editMode]);
-
-  function updateStore(e: FocusEvent<HTMLDivElement, Element>) {
-    const foundIndexFromStore = shoppingItems.findIndex(
-      (item) => item.id === +e.currentTarget.id
-    );
-
-    const foundElFromStore = shoppingItems[foundIndexFromStore];
-
-    (
-      Object.keys(foundElFromStore) as (keyof typeof foundElFromStore)[]
-    ).forEach((key) => {
-      if (field && key === field) {
-        const newEl: IShoppingListItems = {
-          id: foundElFromStore.id,
-          name: foundElFromStore.name,
-          amount: foundElFromStore.amount,
-        };
-        newEl[key] = e.currentTarget.textContent as never;
-        dispatch(updateShopElement(newEl));
-      }
-    });
-  }
 
   function addNewElStore(e: FocusEvent<HTMLDivElement>) {
     const newEl: IShoppingListItems = {
@@ -113,7 +92,9 @@ export default function ShoppingListTableItem(props: IShoppingListTableItem) {
             setError("Can't be empty");
           } else if (field !== "id") {
             if (editMode === "edit") {
-              updateStore(e);
+              dispatch(
+                updateShopElement(getObjectForUpdate(e, shoppingItems, field))
+              );
             }
             if (editMode === "new") {
               addNewElStore(e);
