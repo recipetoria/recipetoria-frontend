@@ -1,14 +1,17 @@
 const measureValues = [
-  "table spoon",
   "gram",
   "kilogram",
+  "liter",
+  "milliliter",
   "ounce",
   "pound",
   "pack",
   "box",
   "bottle",
-  "tea spoon",
+  "tablespoon",
+  "teaspoon",
   "glass",
+  "piece",
 ];
 
 export default measureValues;
