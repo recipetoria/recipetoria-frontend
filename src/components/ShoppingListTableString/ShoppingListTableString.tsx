@@ -47,6 +47,8 @@ export default function ShoppingListTableString(
         classMode="td__button_id"
         editMode={editMode}
         canItBeEmpty
+        id={id}
+        field="id"
       />
       <ShoppingListTableItem
         isLined={isLined}
@@ -54,6 +56,8 @@ export default function ShoppingListTableString(
         classMode="td__button_name"
         editMode={editMode}
         canItBeEmpty={false}
+        id={id}
+        field="name"
       />
       <ShoppingListTableItem
         isLined={isLined}
@@ -61,6 +65,8 @@ export default function ShoppingListTableString(
         classMode="td__button_amount"
         editMode={editMode}
         canItBeEmpty
+        id={id}
+        field="amount"
       />
       <div className={`td-select td ${isLined ? "td__with-line" : ""}`}>
         <button

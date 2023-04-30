@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import { useState } from "react";
-import ShoppingListTableItem from "../ShoppingListTableString/ShoppingListTableString";
+import ShoppingListTableString from "../ShoppingListTableString/ShoppingListTableString";
 import "./ShoppingListTable.scss";
 import { useAppSelector } from "../../app/hooks";
 
@@ -10,7 +10,7 @@ export default function ShoppingListTable() {
   const shoppingItems = useAppSelector((state) => state.shopList.value);
 
   const shoppingItemsJSX = shoppingItems.map((item, index) => (
-    <ShoppingListTableItem
+    <ShoppingListTableString
       id={item.id}
       name={item.name}
       amount={item.amount}
@@ -31,7 +31,7 @@ export default function ShoppingListTable() {
         <div className="table__head">Delete</div>
         {shoppingItemsJSX}
         {isClicked === "newString" ? (
-          <ShoppingListTableItem
+          <ShoppingListTableString
             id={shoppingItems.length + 1}
             name=""
             amount={0}
