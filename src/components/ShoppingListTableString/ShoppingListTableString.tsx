@@ -27,6 +27,11 @@ export default function ShoppingListTableString(
   const [valueMeasure, setValueMeasure] = useState<string>(measureDefault);
   const shoppingItems = useAppSelector((state) => state.shopList.value);
   const dispatch = useAppDispatch();
+  const [isDisabled, setDisabled] = useState<boolean>();
+
+  const updateDisable = (value: boolean) => {
+    setDisabled(value);
+  };
 
   const measuresList = measureValues
     .filter((el) => el !== valueMeasure)
@@ -59,6 +64,7 @@ export default function ShoppingListTableString(
         canItBeEmpty
         id={id}
         field="id"
+        isDisable={updateDisable}
       />
       <ShoppingListTableItem
         isLined={isLined}
@@ -68,6 +74,7 @@ export default function ShoppingListTableString(
         canItBeEmpty={false}
         id={id}
         field="name"
+        isDisable={updateDisable}
       />
       <ShoppingListTableItem
         isLined={isLined}
@@ -77,6 +84,7 @@ export default function ShoppingListTableString(
         canItBeEmpty
         id={id}
         field="amount"
+        isDisable={updateDisable}
       />
       <div className={`td-select td ${isLined ? "td__with-line" : ""}`}>
         <button
@@ -85,8 +93,9 @@ export default function ShoppingListTableString(
           onClick={() =>
             isClicked === "measure" ? setClick("") : setClick("measure")
           }
+          disabled={isDisabled}
         >
-          {valueMeasure}
+          {valueMeasure || "select"}
           <img
             src={customArrow}
             alt="arrow"

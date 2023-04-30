@@ -29,6 +29,7 @@ const ShopListSlice = createSlice({
           id: action.payload.id,
           name: action.payload.name,
           amount: action.payload.amount,
+          measure: action.payload.measure,
         },
       ];
       state.value = newArray;

@@ -16,6 +16,7 @@ interface IShoppingListTableItem {
   canItBeEmpty: boolean;
   id: number;
   field: string;
+  isDisable: (a: boolean) => void;
 }
 
 export default function ShoppingListTableItem(props: IShoppingListTableItem) {
@@ -27,6 +28,7 @@ export default function ShoppingListTableItem(props: IShoppingListTableItem) {
     canItBeEmpty,
     id,
     field,
+    isDisable,
   } = props;
   const [value, setValue] = useState<string | number>(defaultValue);
   const [error, setError] = useState("");
@@ -76,6 +78,11 @@ export default function ShoppingListTableItem(props: IShoppingListTableItem) {
               e.currentTarget,
               e.currentTarget.childNodes.length
             );
+            if (e.currentTarget.textContent.trim() === "") {
+              isDisable(true);
+            } else {
+              isDisable(false);
+            }
           }
         }}
         onKeyDown={(e) => {
@@ -89,9 +96,11 @@ export default function ShoppingListTableItem(props: IShoppingListTableItem) {
             e.currentTarget.textContent?.trim() === "" &&
             canItBeEmpty === false
           ) {
+            isDisable(true);
             e.currentTarget.focus();
             setError("Can't be empty");
           } else if (field !== "id") {
+            isDisable(false);
             if (editMode === "edit") {
               if (e.currentTarget.textContent) {
                 dispatch(
