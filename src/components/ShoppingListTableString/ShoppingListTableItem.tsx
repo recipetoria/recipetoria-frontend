@@ -45,6 +45,7 @@ export default function ShoppingListTableItem(props: IShoppingListTableItem) {
       id: shoppingItems.length + 1,
       name: "",
       amount: 0,
+      measure: "select",
     };
     if (e.currentTarget.textContent) {
       if (field === "name") {
@@ -92,9 +93,18 @@ export default function ShoppingListTableItem(props: IShoppingListTableItem) {
             setError("Can't be empty");
           } else if (field !== "id") {
             if (editMode === "edit") {
-              dispatch(
-                updateShopElement(getObjectForUpdate(e, shoppingItems, field))
-              );
+              if (e.currentTarget.textContent) {
+                dispatch(
+                  updateShopElement(
+                    getObjectForUpdate(
+                      id,
+                      e.currentTarget.textContent,
+                      shoppingItems,
+                      field
+                    )
+                  )
+                );
+              }
             }
             if (editMode === "new") {
               addNewElStore(e);

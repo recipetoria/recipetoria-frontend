@@ -4,6 +4,9 @@ import "./ShoppingListTableString.scss";
 import customArrow from "../../assets/png/icon-up.png";
 import measureValues from "../../assets/data/measureArray";
 import ShoppingListTableItem from "./ShoppingListTableItem";
+import getObjectForUpdate from "../../utils/updateSelectedObj";
+import { useAppDispatch, useAppSelector } from "../../app/hooks";
+import { updateShopElement } from "../../features/ShopListSlice";
 
 /* eslint-disable jsx-a11y/control-has-associated-label */
 
@@ -22,6 +25,8 @@ export default function ShoppingListTableString(
   const { id, name, amount, measureDefault, isLined, editMode } = props;
   const [isClicked, setClick] = useState("");
   const [valueMeasure, setValueMeasure] = useState<string>(measureDefault);
+  const shoppingItems = useAppSelector((state) => state.shopList.value);
+  const dispatch = useAppDispatch();
 
   const measuresList = measureValues
     .filter((el) => el !== valueMeasure)
@@ -33,6 +38,11 @@ export default function ShoppingListTableString(
         onClick={() => {
           setClick("");
           setValueMeasure(item);
+          dispatch(
+            updateShopElement(
+              getObjectForUpdate(id, item, shoppingItems, "measure")
+            )
+          );
         }}
       >
         {item}
