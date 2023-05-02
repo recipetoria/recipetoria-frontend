@@ -32,6 +32,12 @@
       outline: 2px solid $error-color;
       caret-color: $error-color;
     }
+
+    &:focus {
+      border-radius: 4px;
+      outline: 2px solid $purple-color;
+      caret-color: $purple-color;
+    }
   }
 
   &__button_with-arrow {
