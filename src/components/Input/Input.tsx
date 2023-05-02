@@ -1,3 +1,4 @@
+/* eslint-disable react/require-default-props */
 /* eslint-disable react/jsx-props-no-spreading */
 import { UseFormRegister, FieldErrors } from "react-hook-form";
 import { FormValues } from "../../types/types";
@@ -9,10 +10,18 @@ interface InputProps {
   errors: FieldErrors<FormValues>;
   required: boolean;
   type: string;
-  validationSchema: {
-    required: string;
+  validationSchema?: {
+    required?: string;
     minLength?: {
       value: number;
+      message: string;
+    };
+    maxLength?: {
+      value: number;
+      message: string;
+    };
+    pattern?: {
+      value: RegExp;
       message: string;
     };
   };
@@ -24,11 +33,13 @@ export default function Input(props: InputProps) {
 
   return (
     <div className="form-control-input">
-      <label htmlFor={name}>
-        {label}
-        {required && "*"}
-      </label>
-      <input type={type} id={name} {...register(name, validationSchema)} />
+      <label htmlFor={name}>{label}</label>
+      <input
+        type={type}
+        id={name}
+        required={required}
+        {...register(name, validationSchema)}
+      />
       {errors && errors[name]?.type === "required" && (
         <span className="error">{errors[name]?.message}</span>
       )}

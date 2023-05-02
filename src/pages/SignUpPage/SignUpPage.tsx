@@ -33,7 +33,6 @@ export default function SignPage(props: ISignPageProps) {
 
   const onSubmit: SubmitHandler<FormValues> = (data) => {
     const { nickname, email, password } = data;
-    console.log(data);
     reset();
   };
 
@@ -45,25 +44,73 @@ export default function SignPage(props: ISignPageProps) {
         </section>
         <section className="sign-page__form-n-header">
           <h2>Welcome to Reciptopedia</h2>
-          <form onSubmit={(e) => {
-            handleSubmit(onSubmit);
-          }}>
+          <form onSubmit={handleSubmit(onSubmit)}>
+            {signMode === "signUp" && (
+              <Input
+                label="Nickname"
+                name="nickname"
+                type="text"
+                register={register}
+                errors={errors}
+                required
+                validationSchema={{
+                  required: "Nickname is required",
+                  minLength: {
+                    value: 3,
+                    message: "Please enter a minimum of 3 characters",
+                  },
+                  maxLength: {
+                    value: 30,
+                    message: "Please enter a maximum of 30 characters",
+                  },
+                }}
+              />
+            )}
             <Input
-              label="Nickname"
-              name="nickname"
+              label="E-mail"
+              name="email"
               type="text"
               register={register}
               errors={errors}
               required
               validationSchema={{
-                required: "Todo deadline is required",
-                minLength: {
-                  value: 3,
-                  message: "Please enter a minimum of 3 characters",
+                required: "E-mail is required",
+                pattern: {
+                  value:
+                    /[A-Za-z0-9/,.;-]{5,}\\b.+?[A-Za-z0-9/,.;-]{5,}\\b.+?[A-Za-z0-9/,.;-]{5,}/,
+                  message: "Please enter a correct e-mail",
                 },
               }}
             />
-            <button type="submit">{submitText()}</button>
+            <Input
+              label="Password"
+              name="password"
+              type="text"
+              register={register}
+              errors={errors}
+              required
+              validationSchema={{
+                required: "Password is required",
+                minLength: {
+                  value: 6,
+                  message: "Please enter a minimum of 6 characters",
+                },
+              }}
+            />
+            {signMode && (
+              <Input
+                label="Repeat password"
+                name="password"
+                type="text"
+                register={register}
+                errors={errors}
+                required
+                validationSchema={{
+                  required: "Repeat password is required",
+                }}
+              />
+            )}
+            <input type="submit" value={submitText()} />
           </form>
         </section>
       </article>
