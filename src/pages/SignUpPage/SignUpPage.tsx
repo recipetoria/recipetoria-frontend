@@ -1,5 +1,7 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 
+import { useForm } from "react-hook-form";
+
 type SignMode = "signUp" | "signIn";
 
 interface ISignPageProps {
@@ -8,6 +10,19 @@ interface ISignPageProps {
 
 export default function SignPage(props: ISignPageProps) {
   const { signMode } = props;
+
+  const { register, handleSubmit } = useForm();
+
+  const submitText = () => {
+    let text = "";
+    if (signMode === "signUp") {
+      text = "Get started";
+    }
+    if (signMode === "signIn") {
+      text = "Sign in";
+    }
+    return text;
+  };
 
   return (
     <main className="main">
@@ -20,6 +35,7 @@ export default function SignPage(props: ISignPageProps) {
           <form>
             <label htmlFor="nickname">Nickname</label>
             <input type="text" id="nickname" />
+            <button type="submit">{submitText()}</button>
           </form>
         </section>
       </article>
