@@ -64,6 +64,7 @@ export default function SignPage(props: ISignPageProps) {
                     message: "Please enter a maximum of 30 characters",
                   },
                 }}
+                placeholder="Enter your text here"
               />
             )}
             <Input
@@ -81,6 +82,7 @@ export default function SignPage(props: ISignPageProps) {
                   message: "Please enter a correct e-mail",
                 },
               }}
+              placeholder="example@gmail.com"
             />
             <Input
               label="Password"
@@ -96,6 +98,7 @@ export default function SignPage(props: ISignPageProps) {
                   message: "Please enter a minimum of 6 characters",
                 },
               }}
+              placeholder="Enter password"
             />
             {signMode && (
               <Input
@@ -108,6 +111,7 @@ export default function SignPage(props: ISignPageProps) {
                 validationSchema={{
                   required: "Repeat password is required",
                 }}
+                placeholder="Enter password"
               />
             )}
             <input type="submit" value={submitText()} />

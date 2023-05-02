@@ -2,7 +2,7 @@ import { Route, Routes } from "react-router-dom";
 import ShoppingListPage from "./pages/ShoppingListPage/ShoppingListPage";
 import AllCategoriesPage from "./pages/AllCategoriesPage/AllCategoriesPage";
 import AddRecipePage from "./pages/AddRecipePage/AddRecipePage";
-import SignPage from "./pages/SignUpPage/SignUpPage";
+import SignPage from "./pages/SignPage/SignPage";
 
 function App() {
   return (

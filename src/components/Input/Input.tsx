@@ -25,11 +25,20 @@ interface InputProps {
       message: string;
     };
   };
+  placeholder: string;
 }
 
 export default function Input(props: InputProps) {
-  const { name, label, register, errors, required, type, validationSchema } =
-    props;
+  const {
+    name,
+    label,
+    register,
+    errors,
+    required,
+    type,
+    validationSchema,
+    placeholder,
+  } = props;
 
   return (
     <div className="form-control-input">
@@ -38,6 +47,7 @@ export default function Input(props: InputProps) {
         type={type}
         id={name}
         required={required}
+        placeholder={placeholder}
         {...register(name, validationSchema)}
       />
       {errors && errors[name]?.type === "required" && (
