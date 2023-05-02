@@ -1,6 +1,8 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 
-import { useForm } from "react-hook-form";
+import { useForm, SubmitHandler } from "react-hook-form";
+import Input from "../../components/Input/Input";
+import { FormValues } from "../../types/types";
 
 type SignMode = "signUp" | "signIn";
 
@@ -11,7 +13,12 @@ interface ISignPageProps {
 export default function SignPage(props: ISignPageProps) {
   const { signMode } = props;
 
-  const { register, handleSubmit } = useForm();
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm<FormValues>();
 
   const submitText = () => {
     let text = "";
@@ -24,6 +31,12 @@ export default function SignPage(props: ISignPageProps) {
     return text;
   };
 
+  const onSubmit: SubmitHandler<FormValues> = (data) => {
+    const { nickname, email, password } = data;
+    console.log(data);
+    reset();
+  };
+
   return (
     <main className="main">
       <article className="sign-page">
@@ -32,9 +45,24 @@ export default function SignPage(props: ISignPageProps) {
         </section>
         <section className="sign-page__form-n-header">
           <h2>Welcome to Reciptopedia</h2>
-          <form>
-            <label htmlFor="nickname">Nickname</label>
-            <input type="text" id="nickname" />
+          <form onSubmit={(e) => {
+            handleSubmit(onSubmit);
+          }}>
+            <Input
+              label="Nickname"
+              name="nickname"
+              type="text"
+              register={register}
+              errors={errors}
+              required
+              validationSchema={{
+                required: "Todo deadline is required",
+                minLength: {
+                  value: 3,
+                  message: "Please enter a minimum of 3 characters",
+                },
+              }}
+            />
             <button type="submit">{submitText()}</button>
           </form>
         </section>
