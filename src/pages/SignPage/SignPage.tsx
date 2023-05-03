@@ -52,7 +52,14 @@ export default function SignPage(props: ISignPageProps) {
             <img src={Image} alt="recipe and plate" />
           </section>
           <section className="sign-page__form-n-header">
-            <h2>Welcome to Reciptopedia</h2>
+            {signMode === "signUp" ? (
+              <h2>Welcome to Reciptopedia</h2>
+            ) : (
+              <>
+                <h2>Welcome back!</h2>
+                <h2>Michael</h2>
+              </>
+            )}
             <form onSubmit={handleSubmit(onSubmit)}>
               {signMode === "signUp" && (
                 <Input
