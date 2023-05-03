@@ -1,1 +1,14 @@
 @import '../../styles/variables';
+
+.sign-page {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &__wrapper {
+    display: flex;
+    gap: 2.5rem;
+    align-items: center;
+    padding: 56px;
+  }
+}
