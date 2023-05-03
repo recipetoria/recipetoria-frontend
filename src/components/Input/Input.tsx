@@ -52,6 +52,7 @@ export default function Input(props: InputProps) {
           required={required}
           placeholder={placeholder}
           {...register(name, validationSchema)}
+          className="input"
         />
         {name === "password" ? (
           <button type="button" onClick={() => {}}>
