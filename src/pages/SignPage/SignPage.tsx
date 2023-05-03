@@ -3,6 +3,7 @@
 import { useForm, SubmitHandler } from "react-hook-form";
 import Input from "../../components/Input/Input";
 import { FormValues } from "../../types/types";
+import "./SignPage.scss";
 
 type SignMode = "signUp" | "signIn";
 

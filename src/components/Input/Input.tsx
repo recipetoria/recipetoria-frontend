@@ -2,6 +2,8 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import { UseFormRegister, FieldErrors } from "react-hook-form";
 import { FormValues } from "../../types/types";
+import "./Input.scss";
+import EyeIcon from "../../assets/svg/EyeIcon";
 
 interface InputProps {
   name: "nickname" | "email" | "password";
@@ -43,13 +45,22 @@ export default function Input(props: InputProps) {
   return (
     <div className="form-control-input">
       <label htmlFor={name}>{label}</label>
-      <input
-        type={type}
-        id={name}
-        required={required}
-        placeholder={placeholder}
-        {...register(name, validationSchema)}
-      />
+      <div className="input__wrapper">
+        <input
+          type={type}
+          id={name}
+          required={required}
+          placeholder={placeholder}
+          {...register(name, validationSchema)}
+        />
+        {name === "password" ? (
+          <button type="button" onClick={() => {}}>
+            <EyeIcon />
+          </button>
+        ) : (
+          ""
+        )}
+      </div>
       {errors && errors[name]?.type === "required" && (
         <span className="error">{errors[name]?.message}</span>
       )}
