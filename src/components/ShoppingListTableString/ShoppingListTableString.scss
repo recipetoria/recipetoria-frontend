@@ -33,6 +33,12 @@
       caret-color: $error-color;
     }
 
+    &_trash {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
     &:focus {
       border-radius: 4px;
       outline: 2px solid $purple-color;

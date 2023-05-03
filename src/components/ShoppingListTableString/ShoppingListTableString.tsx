@@ -111,7 +111,11 @@ export default function ShoppingListTableString(
         )}
       </div>
       <div className={`td-trash td ${isLined ? "td__with-line" : ""}`}>
-        <button type="button" className="td__button" onClick={() => {}}>
+        <button
+          type="button"
+          className="td__button td__button_trash"
+          onClick={() => {}}
+        >
           <Trash />
         </button>
       </div>
