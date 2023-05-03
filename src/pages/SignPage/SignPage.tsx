@@ -133,7 +133,7 @@ export default function SignPage(props: ISignPageProps) {
               <input
                 type="submit"
                 value={submitText()}
-                className="submit-btn"
+                className="submit-btn btn"
               />
               <Input
                 name="checkbox"
