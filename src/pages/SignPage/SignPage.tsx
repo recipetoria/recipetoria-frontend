@@ -107,7 +107,7 @@ export default function SignPage(props: ISignPageProps) {
               }}
               placeholder="Enter password"
             />
-            {signMode && (
+            {signMode === "signUp" && (
               <Input
                 label="Repeat password"
                 name="password"
