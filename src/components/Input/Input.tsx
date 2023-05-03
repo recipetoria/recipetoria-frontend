@@ -44,7 +44,9 @@ export default function Input(props: InputProps) {
 
   return (
     <div className="form-control-input">
-      <label htmlFor={name}>{label}</label>
+      <label htmlFor={name} className="form-control-input__label">
+        {label}
+      </label>
       <div className="input__wrapper">
         <input
           type={type}

@@ -1,6 +1,12 @@
 @import '../../styles/variables';
 
 .form-control-input {
+  &__label {
+    font-weight: 500;
+    color: $black-color;
+    letter-spacing: 0.15px;
+  }
+
   .input {
     width: 100%;
     padding: 1rem 0;
