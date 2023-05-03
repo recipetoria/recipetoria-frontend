@@ -10,6 +10,7 @@ import { Link } from "react-router-dom";
 import Input from "../../components/Input/Input";
 import { FormValues } from "../../types/types";
 import "./SignPage.scss";
+import Image from "../../assets/png/bg_img.png";
 
 type SignMode = "signUp" | "signIn";
 
@@ -47,7 +48,7 @@ export default function SignPage(props: ISignPageProps) {
     <main className="main">
       <article className="sign-page">
         <section className="sign-page__img-wrapper">
-          <img src="" alt="" />
+          <img src={Image} alt="recipe and plate" />
         </section>
         <section className="sign-page__form-n-header">
           <h2>Welcome to Reciptopedia</h2>
