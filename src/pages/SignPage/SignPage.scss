@@ -1,4 +1,5 @@
 @import '../../styles/variables';
+@import '../../styles/mixins';
 
 .sign-page {
   display: flex;
@@ -10,5 +11,22 @@
     gap: 2.5rem;
     align-items: center;
     padding: 56px;
+  }
+
+  .submit-btn {
+    @include border($color: $black-color);
+
+    width: 100%;
+    padding: 12px 0;
+
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 20px;
+    color: $btn-bg-color;
+    letter-spacing: 0.1px;
+    cursor: pointer;
+
+    background: $orange-color;
+    box-shadow: 3px 3px 0 0 $black-color;
   }
 }

@@ -130,7 +130,11 @@ export default function SignPage(props: ISignPageProps) {
                   placeholder="Enter password"
                 />
               )}
-              <input type="submit" value={submitText()} />
+              <input
+                type="submit"
+                value={submitText()}
+                className="submit-btn"
+              />
               <Input
                 name="checkbox"
                 label={
