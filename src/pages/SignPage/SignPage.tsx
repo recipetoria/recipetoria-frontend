@@ -1,6 +1,11 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 
-import { useForm, SubmitHandler } from "react-hook-form";
+import {
+  useForm,
+  SubmitHandler,
+  RegisterOptions,
+  UseFormRegisterReturn,
+} from "react-hook-form";
 import Input from "../../components/Input/Input";
 import { FormValues } from "../../types/types";
 import "./SignPage.scss";
@@ -33,7 +38,7 @@ export default function SignPage(props: ISignPageProps) {
   };
 
   const onSubmit: SubmitHandler<FormValues> = (data) => {
-    const { nickname, email, password } = data;
+    const { nickname, email, password, checkbox } = data;
     reset();
   };
 
@@ -116,6 +121,19 @@ export default function SignPage(props: ISignPageProps) {
               />
             )}
             <input type="submit" value={submitText()} />
+            <Input
+              name="checkbox"
+              label={
+                signMode === "signUp"
+                  ? "Agree to terms & conditions"
+                  : "Remember me"
+              }
+              register={register}
+              errors={errors}
+              required
+              type="checkbox"
+              placeholder=""
+            />
           </form>
         </section>
       </article>
