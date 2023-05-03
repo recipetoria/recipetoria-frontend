@@ -44,6 +44,10 @@
       outline: 2px solid $purple-color;
       caret-color: $purple-color;
     }
+
+    &:hover:focus {
+      border: 1px solid transparent;
+    }
   }
 
   &__button_with-arrow {
