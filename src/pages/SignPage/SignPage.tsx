@@ -6,6 +6,7 @@ import {
   RegisterOptions,
   UseFormRegisterReturn,
 } from "react-hook-form";
+import { Link } from "react-router-dom";
 import Input from "../../components/Input/Input";
 import { FormValues } from "../../types/types";
 import "./SignPage.scss";
@@ -134,6 +135,25 @@ export default function SignPage(props: ISignPageProps) {
               type="checkbox"
               placeholder=""
             />
+            <span>or sign up with</span>
+            <section className="icons__wrapper">
+              <img src="" alt="google icon" />
+              <img src="" alt="twitter icon" />
+              <img src="" alt="facebook icon" />
+            </section>
+            <section className="switch-block">
+              {signMode === "signUp" ? (
+                <>
+                  <span>Already have an account?</span>
+                  <Link to="/sign_in">Sign in</Link>
+                </>
+              ) : (
+                <>
+                  <span>Create a new account?</span>
+                  <Link to="/sign_up">Sign up</Link>
+                </>
+              )}
+            </section>
           </form>
         </section>
       </article>
