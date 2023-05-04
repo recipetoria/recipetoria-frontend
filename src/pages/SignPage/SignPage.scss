@@ -44,4 +44,25 @@
       gap: 16px;
     }
   }
+
+  .switch-block {
+    display: flex;
+    gap: 4px;
+    align-items: center;
+    justify-content: space-between;
+
+    &__text {
+      letter-spacing: 0.5px;
+    }
+
+    &__link {
+      padding: 3px;
+
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 20px;
+      color: $blue-color;
+      letter-spacing: 0.1px;
+    }
+  }
 }
