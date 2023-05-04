@@ -58,7 +58,7 @@ export default function SignPage(props: ISignPageProps) {
           </section>
           <section className="sign-page__form-n-header">
             {signMode === "signUp" ? (
-              <h2>Welcome to Reciptopedia</h2>
+              <h3 className="sign-page__header">Welcome to Reciptopedia</h3>
             ) : (
               <>
                 <h2>Welcome back!</h2>
