@@ -6,7 +6,7 @@ import "./Input.scss";
 import EyeIcon from "../../assets/svg/EyeIcon";
 
 interface InputProps {
-  name: "nickname" | "email" | "password" | "checkbox";
+  name: "nickname" | "email" | "password" | "checkbox" | "repeatPassword";
   label: string;
   register: UseFormRegister<FormValues>;
   errors: FieldErrors<FormValues>;

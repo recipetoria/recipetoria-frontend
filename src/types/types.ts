@@ -10,4 +10,5 @@ export type FormValues = {
   email: string;
   password: string;
   checkbox: string;
+  repeatPassword: string;
 };

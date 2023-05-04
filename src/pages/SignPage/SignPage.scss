@@ -48,6 +48,16 @@
     letter-spacing: 0.1px;
 
     background: $orange-color;
+
+    &:disabled {
+      @include border($color: $gray-light-color);
+
+      color: $gray-light-color;
+      cursor: not-allowed;
+
+      background: $gray-light-1-color;
+      box-shadow: 3px 3px 0 0 $gray-light-color;
+    }
   }
 
   .sign-social {

@@ -49,6 +49,15 @@ export default function SignPage(props: ISignPageProps) {
     reset();
   };
 
+  const errorsArr = [
+    errors.checkbox?.message,
+    errors.email?.message,
+    errors.nickname?.message,
+    errors.password?.message,
+    errors.repeatPassword?.message,
+    errors.root?.message,
+  ].filter((item) => item !== undefined);
+
   return (
     <main className="main">
       <article className="sign-page">
@@ -99,8 +108,7 @@ export default function SignPage(props: ISignPageProps) {
                 validationSchema={{
                   required: "E-mail is required",
                   pattern: {
-                    value:
-                      /[A-Za-z0-9/,.;-]{5,}\\b.+?[A-Za-z0-9/,.;-]{5,}\\b.+?[A-Za-z0-9/,.;-]{5,}/,
+                    value: /^[\w-\\.]+@([\w-]+\.)+[\w-]{2,4}$/,
                     message: "Please enter a correct e-mail",
                   },
                 }}
@@ -126,7 +134,7 @@ export default function SignPage(props: ISignPageProps) {
               {signMode === "signUp" && (
                 <Input
                   label="Repeat password"
-                  name="password"
+                  name="repeatPassword"
                   type="password"
                   register={register}
                   errors={errors}
@@ -134,13 +142,14 @@ export default function SignPage(props: ISignPageProps) {
                   validationSchema={{
                     required: "Repeat password is required",
                   }}
-                  placeholder="Enter password"
+                  placeholder="Repeat password"
                 />
               )}
               <input
                 type="submit"
                 value={submitText()}
                 className="submit-btn btn"
+                disabled={errorsArr.length !== 0}
               />
               <Input
                 name="checkbox"
