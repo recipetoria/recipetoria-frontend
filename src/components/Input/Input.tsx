@@ -70,7 +70,7 @@ export default function Input(props: InputProps) {
           className={`input ${type === "checkbox" ? "input_checkbox" : ""}`}
         />
         {name === "password" ? (
-          <button type="button" onClick={() => {}}>
+          <button type="button" onClick={() => {}} className="input__btn">
             <EyeIcon />
           </button>
         ) : (

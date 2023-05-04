@@ -71,6 +71,13 @@
         background-position: center;
       }
     }
+
+    &__btn {
+      cursor: pointer;
+
+      background: transparent;
+      border: none;
+    }
   
     &::placeholder {
       font-size: 16px;
