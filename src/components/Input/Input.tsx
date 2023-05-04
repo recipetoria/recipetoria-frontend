@@ -50,14 +50,14 @@ export default function Input(props: InputProps) {
     >
       <label
         htmlFor={name}
-        className={`"form-control-input__label" ${
+        className={`form-control-input__label ${
           type === "checkbox" ? "form-control-input__label_checkbox" : ""
         }`}
       >
         {label}
       </label>
       <div
-        className={`"input__wrapper" ${
+        className={`input__wrapper ${
           type === "checkbox" ? "input__wrapper_checkbox" : ""
         }`}
       >
@@ -67,7 +67,7 @@ export default function Input(props: InputProps) {
           required={required}
           placeholder={placeholder}
           {...register(name, validationSchema)}
-          className={`"input" ${type === "checkbox" ? "input_checkbox" : ""}`}
+          className={`input ${type === "checkbox" ? "input_checkbox" : ""}`}
         />
         {name === "password" ? (
           <button type="button" onClick={() => {}}>
