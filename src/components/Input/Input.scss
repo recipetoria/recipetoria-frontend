@@ -2,10 +2,25 @@
 @import '../../styles/mixins';
 
 .form-control-input {
+  &_checkbox {
+    display: flex;
+    flex-direction: row-reverse;
+    gap: 9px;
+    align-items: center;
+  }
+
   &__label {
     font-weight: 500;
     color: $black-color;
     letter-spacing: 0.15px;
+
+    &_checkbox {
+      font-size: 12px;
+      font-weight: 400;
+      line-height: 16px;
+
+      letter-spacing: 0.4px;
+    }
   }
 
   .input {
@@ -28,6 +43,24 @@
       display: flex;
       justify-content: space-between;
       padding: 0 1rem;
+    }
+
+    &_checkbox {
+      @include border($color: $black-light);
+      
+      width: 18px;
+      height: 18px;
+
+      border-radius: 2px;
+      box-shadow: 2px 2px 0 0 $black-light;
+
+      appearance: none;
+
+      &:checked {
+        background: url('../../assets/png/icon-checked.png');
+        background-repeat: no-repeat;
+        background-position: center;
+      }
     }
   
     &::placeholder {

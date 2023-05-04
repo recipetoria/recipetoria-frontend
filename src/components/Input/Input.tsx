@@ -43,18 +43,31 @@ export default function Input(props: InputProps) {
   } = props;
 
   return (
-    <div className="form-control-input">
-      <label htmlFor={name} className="form-control-input__label">
+    <div
+      className={`form-control-input ${
+        type === "checkbox" ? "form-control-input_checkbox" : ""
+      }`}
+    >
+      <label
+        htmlFor={name}
+        className={`"form-control-input__label" ${
+          type === "checkbox" ? "form-control-input__label_checkbox" : ""
+        }`}
+      >
         {label}
       </label>
-      <div className="input__wrapper">
+      <div
+        className={`"input__wrapper" ${
+          type === "checkbox" ? "input__wrapper_checkbox" : ""
+        }`}
+      >
         <input
           type={type}
           id={name}
           required={required}
           placeholder={placeholder}
           {...register(name, validationSchema)}
-          className="input"
+          className={`"input" ${type === "checkbox" ? "input_checkbox" : ""}`}
         />
         {name === "password" ? (
           <button type="button" onClick={() => {}}>
