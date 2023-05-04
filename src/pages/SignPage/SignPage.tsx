@@ -7,6 +7,11 @@ import {
   UseFormRegisterReturn,
 } from "react-hook-form";
 import { Link } from "react-router-dom";
+import {
+  FacebookIcon,
+  GoogleIcon,
+  TwitterIcon,
+} from "../../assets/svg/social-icons";
 import Input from "../../components/Input/Input";
 import { FormValues } from "../../types/types";
 import "./SignPage.scss";
@@ -148,12 +153,20 @@ export default function SignPage(props: ISignPageProps) {
                 type="checkbox"
                 placeholder=""
               />
-              <span>or sign up with</span>
-              <section className="icons__wrapper">
-                <img src="" alt="google icon" />
-                <img src="" alt="twitter icon" />
-                <img src="" alt="facebook icon" />
-              </section>
+              <article className="sign-social">
+                <span className="sign-social__text">or sign up with</span>
+                <section className="icons">
+                  <a href="https://www.google.com/">
+                    <GoogleIcon />
+                  </a>
+                  <a href="https://twitter.com/">
+                    <TwitterIcon />
+                  </a>
+                  <a href="https://www.facebook.com/">
+                    <FacebookIcon />
+                  </a>
+                </section>
+              </article>
               <section className="switch-block">
                 {signMode === "signUp" ? (
                   <>

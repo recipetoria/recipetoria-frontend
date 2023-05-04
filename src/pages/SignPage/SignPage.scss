@@ -25,4 +25,23 @@
 
     background: $orange-color;
   }
+
+  .sign-social {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    align-items: center;
+
+    &__text {
+      font-size: 12px;
+      line-height: 16px;
+      color: $gray-1-color;
+      letter-spacing: 0.4px;
+    }
+
+    .icons {
+      display: flex;
+      gap: 16px;
+    }
+  }
 }
