@@ -86,6 +86,7 @@ export default function SignPage(props: ISignPageProps) {
                     },
                   }}
                   placeholder="Enter your text here"
+                  caption="Max 30 symbols"
                 />
               )}
               <Input
@@ -120,6 +121,7 @@ export default function SignPage(props: ISignPageProps) {
                   },
                 }}
                 placeholder="Enter password"
+                caption="Minimum 6 characters"
               />
               {signMode === "signUp" && (
                 <Input

@@ -16,7 +16,7 @@
   }
 }
 
-@mixin border($color) {
-  border: 1px solid $color;
+@mixin border($color, $width: 1px) {
+  border: $width solid $color;
   border-radius: 4px;
 }

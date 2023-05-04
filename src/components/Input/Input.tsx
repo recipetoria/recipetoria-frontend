@@ -28,6 +28,7 @@ interface InputProps {
     };
   };
   placeholder: string;
+  caption?: string;
 }
 
 export default function Input(props: InputProps) {
@@ -40,7 +41,18 @@ export default function Input(props: InputProps) {
     type,
     validationSchema,
     placeholder,
+    caption,
   } = props;
+
+  const captionText = () => {
+    let text: string | undefined;
+    if (errors[name]?.message) {
+      text = errors[name]?.message;
+    } else if (caption) {
+      text = caption;
+    }
+    return text;
+  };
 
   return (
     <div
@@ -58,8 +70,8 @@ export default function Input(props: InputProps) {
       </label>
       <div
         className={`input__wrapper ${
-          type === "checkbox" ? "input__wrapper_checkbox" : ""
-        }`}
+          errors[name]?.message ? "input__wrapper_error" : ""
+        } ${type === "checkbox" ? "input__wrapper_checkbox" : ""}`}
       >
         <input
           type={type}
@@ -77,11 +89,14 @@ export default function Input(props: InputProps) {
           ""
         )}
       </div>
-      {errors && errors[name]?.type === "required" && (
-        <span className="error">{errors[name]?.message}</span>
-      )}
-      {errors && errors[name]?.type === "minLength" && (
-        <span className="error">{errors[name]?.message}</span>
+      {caption || errors[name]?.message ? (
+        <span
+          className={`caption ${errors[name]?.message ? "caption_error" : ""}`}
+        >
+          {captionText()}
+        </span>
+      ) : (
+        ""
       )}
     </div>
   );
