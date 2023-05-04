@@ -30,6 +30,13 @@ interface InputProps {
   };
   placeholder: string;
   caption?: string;
+  updateData?: (value: string) => void;
+  passwordValue?: string;
+  updateCustomError?: (value: boolean) => void;
+}
+
+interface ICustomError {
+  errorMessage: string;
 }
 
 export default function Input(props: InputProps) {
@@ -43,13 +50,19 @@ export default function Input(props: InputProps) {
     validationSchema,
     placeholder,
     caption,
+    updateData,
+    passwordValue,
+    updateCustomError,
   } = props;
 
   const [isShowedPassword, setShowPassword] = useState(false);
+  const [customError, setCustomError] = useState<ICustomError>();
 
   const captionText = () => {
     let text: string | undefined;
-    if (errors[name]?.message) {
+    if (customError?.errorMessage && customError.errorMessage.length > 0) {
+      text = customError?.errorMessage;
+    } else if (errors[name]?.message) {
       text = errors[name]?.message;
     } else if (caption) {
       text = caption;
@@ -83,6 +96,20 @@ export default function Input(props: InputProps) {
           placeholder={placeholder}
           {...register(name, validationSchema)}
           className={`input ${type === "checkbox" ? "input_checkbox" : ""}`}
+          onInput={(e) => {
+            if (updateData) {
+              updateData(e.currentTarget.value);
+            }
+            if (passwordValue) {
+              if (passwordValue !== e.currentTarget.value) {
+                setCustomError({ errorMessage: "Password should be equal" });
+                if (updateCustomError) updateCustomError(true);
+              } else {
+                setCustomError({ errorMessage: "" });
+                if (updateCustomError) updateCustomError(false);
+              }
+            }
+          }}
         />
         {name === "password" || name === "repeatPassword" ? (
           <button
@@ -96,9 +123,13 @@ export default function Input(props: InputProps) {
           ""
         )}
       </div>
-      {caption || errors[name]?.message ? (
+      {caption ||
+      (customError && customError?.errorMessage.length > 0) ||
+      errors[name]?.message ? (
         <span
-          className={`caption ${errors[name]?.message ? "caption_error" : ""}`}
+          className={`caption ${
+            customError || errors[name]?.message ? "caption_error" : ""
+          }`}
         >
           {captionText()}
         </span>

@@ -7,6 +7,7 @@ import {
   UseFormRegisterReturn,
 } from "react-hook-form";
 import { Link } from "react-router-dom";
+import { useState } from "react";
 import {
   FacebookIcon,
   GoogleIcon,
@@ -33,6 +34,10 @@ export default function SignPage(props: ISignPageProps) {
     formState: { errors },
   } = useForm<FormValues>();
 
+  const [passwordValue, setPasswordValue] = useState("");
+  const [customError, setCustomError] = useState<boolean>();
+  console.log(passwordValue);
+
   const submitText = () => {
     let text = "";
     if (signMode === "signUp") {
@@ -56,7 +61,10 @@ export default function SignPage(props: ISignPageProps) {
     errors.password?.message,
     errors.repeatPassword?.message,
     errors.root?.message,
-  ].filter((item) => item !== undefined);
+    customError,
+  ]
+    .filter((item) => item !== undefined)
+    .filter((item) => item);
 
   return (
     <main className="main">
@@ -130,6 +138,7 @@ export default function SignPage(props: ISignPageProps) {
                 }}
                 placeholder="Enter password"
                 caption="Minimum 6 characters"
+                updateData={(value: string) => setPasswordValue(value)}
               />
               {signMode === "signUp" && (
                 <Input
@@ -143,6 +152,8 @@ export default function SignPage(props: ISignPageProps) {
                     required: "Repeat password is required",
                   }}
                   placeholder="Repeat password"
+                  passwordValue={passwordValue}
+                  updateCustomError={(value: boolean) => setCustomError(value)}
                 />
               )}
               <input
