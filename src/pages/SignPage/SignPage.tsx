@@ -132,12 +132,12 @@ export default function SignPage(props: ISignPageProps) {
                 validationSchema={{
                   required: "Password is required",
                   minLength: {
-                    value: 6,
+                    value: signMode === "signUp" ? 6 : 0,
                     message: "Please enter a minimum of 6 characters",
                   },
                 }}
                 placeholder="Enter password"
-                caption="Minimum 6 characters"
+                caption={signMode === "signUp" ? "Minimum 6 characters" : ""}
                 updateData={(value: string) => setPasswordValue(value)}
               />
               {signMode === "signUp" && (
@@ -171,7 +171,7 @@ export default function SignPage(props: ISignPageProps) {
                 }
                 register={register}
                 errors={errors}
-                required
+                required={signMode === "signUp"}
                 type="checkbox"
                 placeholder=""
               />
