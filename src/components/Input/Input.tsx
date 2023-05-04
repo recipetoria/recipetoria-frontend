@@ -1,6 +1,7 @@
 /* eslint-disable react/require-default-props */
 /* eslint-disable react/jsx-props-no-spreading */
 import { UseFormRegister, FieldErrors } from "react-hook-form";
+import { useState } from "react";
 import { FormValues } from "../../types/types";
 import "./Input.scss";
 import EyeIcon from "../../assets/svg/EyeIcon";
@@ -44,6 +45,8 @@ export default function Input(props: InputProps) {
     caption,
   } = props;
 
+  const [isShowedPassword, setShowPassword] = useState(false);
+
   const captionText = () => {
     let text: string | undefined;
     if (errors[name]?.message) {
@@ -74,15 +77,19 @@ export default function Input(props: InputProps) {
         } ${type === "checkbox" ? "input__wrapper_checkbox" : ""}`}
       >
         <input
-          type={type}
+          type={isShowedPassword ? "text" : type}
           id={name}
           required={required}
           placeholder={placeholder}
           {...register(name, validationSchema)}
           className={`input ${type === "checkbox" ? "input_checkbox" : ""}`}
         />
-        {name === "password" ? (
-          <button type="button" onClick={() => {}} className="input__btn">
+        {name === "password" || name === "repeatPassword" ? (
+          <button
+            type="button"
+            onClick={() => setShowPassword(!isShowedPassword)}
+            className="input__btn"
+          >
             <EyeIcon />
           </button>
         ) : (
