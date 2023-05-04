@@ -58,14 +58,14 @@ export default function SignPage(props: ISignPageProps) {
           </section>
           <section className="sign-page__form-n-header">
             {signMode === "signUp" ? (
-              <h3 className="sign-page__header">Welcome to Reciptopedia</h3>
+              <h3 className="sign-page__header">Welcome to Reciptopedia!</h3>
             ) : (
-              <>
-                <h2>Welcome back!</h2>
-                <h2>Michael</h2>
-              </>
+              <div className="sign-page__headers">
+                <h3 className="sign-page__header">Welcome back!</h3>
+                <h3 className="sign-page__header">Michael</h3>
+              </div>
             )}
-            <form onSubmit={handleSubmit(onSubmit)}>
+            <form onSubmit={handleSubmit(onSubmit)} className="sign-page__form">
               {signMode === "signUp" && (
                 <Input
                   label="Nickname"
@@ -108,7 +108,7 @@ export default function SignPage(props: ISignPageProps) {
               <Input
                 label="Password"
                 name="password"
-                type="text"
+                type="password"
                 register={register}
                 errors={errors}
                 required
@@ -125,7 +125,7 @@ export default function SignPage(props: ISignPageProps) {
                 <Input
                   label="Repeat password"
                   name="password"
-                  type="text"
+                  type="password"
                   register={register}
                   errors={errors}
                   required
