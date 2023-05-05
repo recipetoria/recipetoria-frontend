@@ -16,7 +16,7 @@ export default function AllCategoriesPage() {
     const dataFetch = async () => {
       const data = await (
         await fetch(
-          "https://recipetoria-production.up.railway.app/api/v1/auth/verify-email?token=eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJyZWNpcGV0b3JpYSIsInN1YiI6InB1a2Z1a0BtYWlsLmNvbSIsImlhdCI6MTY4Mjg1OTY4NywiZXhwIjoxNjgyOTQ2MDg3fQ.XFGD_QsQcNn3RudQ50lZ2rUxE9WCklkpCQbFRiBmFr8"
+          "https://recipetoria-production.up.railway.app/api/v1/client/ingridients/{0}"
         )
       ).json();
       setState(data);
