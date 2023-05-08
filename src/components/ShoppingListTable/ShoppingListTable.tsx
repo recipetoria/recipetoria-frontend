@@ -7,6 +7,7 @@ import { shopListNewStringValue } from "../../features/ShopListNewStringSlice";
 
 export default function ShoppingListTable() {
   const [isHover, setHover] = useState(false);
+  const [activeSelect, setActiveSelect] = useState<number>(0);
   const shoppingItems = useAppSelector((state) => state.shopList.value);
   const isNewString = useAppSelector(
     (state) => state.shopListNewStringSlice.value
@@ -22,6 +23,8 @@ export default function ShoppingListTable() {
       key={item.id}
       isLined={index !== shoppingItems.length - 1}
       editMode="edit"
+      setActiveSelect={(id: number) => setActiveSelect(id)}
+      isActiveSelect={activeSelect === item.id}
     />
   ));
 
@@ -42,6 +45,8 @@ export default function ShoppingListTable() {
             measureDefault="select"
             isLined={false}
             editMode="new"
+            setActiveSelect={(id: number) => setActiveSelect(id)}
+            isActiveSelect={activeSelect === shoppingItems.length + 1}
           />
         ) : (
           ""
