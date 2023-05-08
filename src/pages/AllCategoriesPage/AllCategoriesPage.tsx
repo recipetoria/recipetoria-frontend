@@ -11,18 +11,46 @@ interface IResponse {
 
 export default function AllCategoriesPage() {
   const [state, setState] = useState<IResponse>();
+  const [stateShop, setStateShop] = useState<IResponse>();
 
   useEffect(() => {
-    const dataFetch = async () => {
-      const data = await (
+    const dataFetchShop = async () => {
+      const dataShopGet = await (
         await fetch(
-          "https://recipetoria-production.up.railway.app/api/v1/client/ingridients/{0}"
+          "https://recipetoria-production.up.railway.app/api/v1/client",
+          {
+            method: "GET",
+            headers: {
+              Authorization: `Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJyZWNpcGV0b3JpYSIsInN1YiI6IkhlbGVuX01jR2x5bm42NkBnbWFpbC5jb20iLCJpYXQiOjE2ODM0ODMzMjgsImV4cCI6MTY4MzU2OTcyOH0.JzSXC2KKo4uCE3nIiJSgut1KSScqibjV2dHYgxFfxGU`,
+            },
+          }
         )
       ).json();
-      setState(data);
+      setStateShop(dataShopGet);
     };
-
-    dataFetch();
+    // const dataFetch = async () => {
+    //   const data = await (
+    //     await fetch(
+    //       "https://recipetoria-production.up.railway.app/api/v1/auth/register",
+    //       {
+    //         method: "POST",
+    //         headers: {
+    //           "Content-Type": "application/json;charset=utf-8",
+    //         },
+    //         body: JSON.stringify({
+    //           name: "dfsdfsd",
+    //           email: "alydd1111111f@fjfj.com",
+    //           password: "fsdfsdfds",
+    //         }),
+    //       }
+    //     )
+    //   ).json();
+    //   setState(data);
+    // };
+    // dataFetch();
+    setTimeout(() => {
+      dataFetchShop();
+    }, 1000);
   }, []);
 
   return (
@@ -38,6 +66,9 @@ export default function AllCategoriesPage() {
         </p>
         <p>
           <b>statusCode:</b> {state?.statusCode}{" "}
+        </p>
+        <p>
+          <b>statusCodeShop:</b> {stateShop?.statusCode}{" "}
         </p>
       </article>
     </main>
