@@ -5,9 +5,10 @@
   &_checkbox {
     display: flex;
     flex-direction: row-reverse;
-    gap: 6px;
+    gap: 7px;
     align-items: center;
     justify-content: flex-end;
+    margin-top: -6px;
   }
 
   &__label {
