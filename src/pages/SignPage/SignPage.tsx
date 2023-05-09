@@ -189,28 +189,28 @@ export default function SignPage(props: ISignPageProps) {
                   </a>
                 </section>
               </article>
-              <section className="switch-block">
-                {signMode === "signUp" ? (
-                  <>
-                    <span className="switch-block__text">
-                      Already have an account?
-                    </span>
-                    <Link to="/sign_in" className="switch-block__link">
-                      Sign in
-                    </Link>
-                  </>
-                ) : (
-                  <>
-                    <span className="switch-block__text">
-                      Create a new account?
-                    </span>
-                    <Link to="/sign_up" className="switch-block__link">
-                      Sign up
-                    </Link>
-                  </>
-                )}
-              </section>
             </form>
+            <section className="switch-block">
+              {signMode === "signUp" ? (
+                <>
+                  <span className="switch-block__text">
+                    Already have an account?
+                  </span>
+                  <Link to="/sign_in" className="switch-block__link">
+                    Sign in
+                  </Link>
+                </>
+              ) : (
+                <>
+                  <span className="switch-block__text">
+                    Create a new account?
+                  </span>
+                  <Link to="/sign_up" className="switch-block__link">
+                    Sign up
+                  </Link>
+                </>
+              )}
+            </section>
           </section>
         </div>
       </article>
