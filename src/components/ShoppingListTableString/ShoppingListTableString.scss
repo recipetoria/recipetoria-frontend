@@ -139,6 +139,10 @@
 
   .trash {
     fill: $gray-light-color;
+
+    &:hover {
+      fill: $black-color;
+    }
   }
 }
 
