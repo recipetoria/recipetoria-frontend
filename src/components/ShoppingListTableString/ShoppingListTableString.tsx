@@ -38,6 +38,7 @@ export default function ShoppingListTableString(
   const shoppingItems = useAppSelector((state) => state.shopList.value);
   const dispatch = useAppDispatch();
   const [isDisabled, setDisabled] = useState<boolean>();
+  const [hoverTrashId, setHoverTrashId] = useState<number | null>(null);
 
   const updateDisable = (value: boolean) => {
     setDisabled(value);
@@ -75,6 +76,7 @@ export default function ShoppingListTableString(
         id={id}
         field="id"
         isDisable={updateDisable}
+        isHoverByTrash={id === hoverTrashId}
       />
       <ShoppingListTableItem
         isLined={isLined}
@@ -85,6 +87,7 @@ export default function ShoppingListTableString(
         id={id}
         field="name"
         isDisable={updateDisable}
+        isHoverByTrash={id === hoverTrashId}
       />
       <ShoppingListTableItem
         isLined={isLined}
@@ -95,8 +98,13 @@ export default function ShoppingListTableString(
         id={id}
         field="amount"
         isDisable={updateDisable}
+        isHoverByTrash={id === hoverTrashId}
       />
-      <div className={`td-select td ${isLined ? "td__with-line" : ""}`}>
+      <div
+        className={`td-select td ${
+          isLined && !(id === hoverTrashId) ? "td__with-line" : ""
+        } ${id === hoverTrashId ? "td_hover-by-trash" : ""}`}
+      >
         <button
           type="button"
           className="td__button td__button_with-arrow"
@@ -118,11 +126,21 @@ export default function ShoppingListTableString(
           ""
         )}
       </div>
-      <div className={`td-trash td ${isLined ? "td__with-line" : ""}`}>
+      <div
+        className={`td-trash td ${
+          isLined && !(id === hoverTrashId) ? "td__with-line" : ""
+        } ${id === hoverTrashId ? "td_hover-by-trash" : ""}`}
+      >
         <button
           type="button"
           className="td__button td__button_trash"
           onClick={() => {}}
+          onMouseEnter={() => {
+            setHoverTrashId(id);
+          }}
+          onMouseLeave={() => {
+            setHoverTrashId(null);
+          }}
         >
           <Trash />
         </button>

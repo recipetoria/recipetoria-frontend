@@ -36,6 +36,18 @@
       display: flex;
       align-items: center;
       justify-content: center;
+
+      .trash {
+        fill: $gray-light-color;
+      }
+
+      &:hover {
+        border: 1px solid transparent;
+
+        .trash {
+          fill: $black-color;
+        }
+      }
     }
 
     &:focus {
@@ -129,6 +141,10 @@
     line-height: 16px;
     color: $error-color;
   }
+
+  &_hover-by-trash {
+    background: $bg-menu-active-color;
+  }
 }
 
 .td-trash {
@@ -136,14 +152,6 @@
   align-items: flex-start;
   justify-content: center;
   text-align: center;
-
-  .trash {
-    fill: $gray-light-color;
-
-    &:hover {
-      fill: $black-color;
-    }
-  }
 }
 
 .arrow-up {

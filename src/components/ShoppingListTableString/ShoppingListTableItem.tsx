@@ -17,6 +17,7 @@ interface IShoppingListTableItem {
   id: number;
   field: string;
   isDisable: (a: boolean) => void;
+  isHoverByTrash: boolean;
 }
 
 export default function ShoppingListTableItem(props: IShoppingListTableItem) {
@@ -29,6 +30,7 @@ export default function ShoppingListTableItem(props: IShoppingListTableItem) {
     id,
     field,
     isDisable,
+    isHoverByTrash,
   } = props;
   const [value, setValue] = useState<string | number>(defaultValue);
   const [error, setError] = useState("");
@@ -61,7 +63,11 @@ export default function ShoppingListTableItem(props: IShoppingListTableItem) {
   }
 
   return (
-    <div className={`td ${isLined ? "td__with-line" : ""}`}>
+    <div
+      className={`td ${isLined && !isHoverByTrash ? "td__with-line" : ""} ${
+        isHoverByTrash ? "td_hover-by-trash" : ""
+      }`}
+    >
       <div
         id={id.toString()}
         className={`td__button ${classMode} ${
