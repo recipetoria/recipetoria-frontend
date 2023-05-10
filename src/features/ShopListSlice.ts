@@ -34,10 +34,22 @@ const ShopListSlice = createSlice({
       ];
       state.value = newArray;
     },
+    removeShopElement: (state, action: PayloadAction<IShoppingListItems>) => {
+      const index = state.value.findIndex(
+        (element) => element.id === action.payload.id
+      );
+      const newArray = [...state.value];
+      newArray.splice(index, 1);
+      state.value = newArray;
+    },
   },
 });
 
-export const { shopListValue, updateShopElement, addNewShopElement } =
-  ShopListSlice.actions;
+export const {
+  shopListValue,
+  updateShopElement,
+  addNewShopElement,
+  removeShopElement,
+} = ShopListSlice.actions;
 
 export default ShopListSlice.reducer;

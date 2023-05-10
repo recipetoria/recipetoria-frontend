@@ -6,7 +6,10 @@ import measureValues from "../../assets/data/measureArray";
 import ShoppingListTableItem from "./ShoppingListTableItem";
 import getObjectForUpdate from "../../utils/updateSelectedObj";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import { updateShopElement } from "../../features/ShopListSlice";
+import {
+  removeShopElement,
+  updateShopElement,
+} from "../../features/ShopListSlice";
 
 /* eslint-disable jsx-a11y/control-has-associated-label */
 
@@ -134,7 +137,16 @@ export default function ShoppingListTableString(
         <button
           type="button"
           className="td__button td__button_trash"
-          onClick={() => {}}
+          onClick={() => {
+            dispatch(
+              removeShopElement({
+                id,
+                name: "",
+                amount: 0,
+                measure: "",
+              })
+            );
+          }}
           onMouseEnter={() => {
             setHoverTrashId(id);
           }}
