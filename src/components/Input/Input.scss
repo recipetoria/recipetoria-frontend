@@ -1,0 +1,106 @@
+@import '../../styles/variables';
+@import '../../styles/mixins';
+
+.form-control-input {
+  &_checkbox {
+    display: flex;
+    flex-direction: row-reverse;
+    gap: 7px;
+    align-items: center;
+    justify-content: flex-end;
+    margin-top: -6px;
+  }
+
+  &__label {
+    font-weight: 500;
+    color: $black-color;
+    letter-spacing: 0.15px;
+
+    &_checkbox {
+      font-size: 12px;
+      font-weight: 400;
+      line-height: 16px;
+
+      letter-spacing: 0.4px;
+    }
+  }
+
+  .input {
+    width: 100%;
+    padding: 1rem 0;
+
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
+    color: $black-color;
+    letter-spacing: 0.5px;
+
+    border: none;
+    appearance: none;
+    outline: none;
+
+    &__wrapper {
+      @include border($color: $gray-1-color);
+      
+      display: flex;
+      justify-content: space-between;
+      padding: 0 1rem;
+
+      &_checkbox {
+        padding: 0;
+
+        border: none;
+        border-radius: 0;
+      }
+
+      &_error {
+        @include border($color: $error-color, $width: 2px);
+      }
+    }
+
+    &_checkbox {
+      @include border($color: $black-light);
+      
+      width: 18px;
+      height: 18px;
+      padding: 0;
+      margin: 0;
+
+      border-radius: 2px;
+      box-shadow: 2px 2px 0 0 $black-light;
+
+      appearance: none;
+
+      &:checked {
+        background: url('../../assets/png/icon-checked.png');
+        background-repeat: no-repeat;
+        background-position: center;
+      }
+    }
+
+    &__btn {
+      cursor: pointer;
+
+      background: transparent;
+      border: none;
+    }
+  
+    &::placeholder {
+      font-size: 16px;
+      color: $gray-1-color;
+    }
+  }
+
+  .caption {
+    margin-left: 16px;
+
+    font-size: 12px;
+    line-height: 1.33;
+    color: $gray-1-color;
+    letter-spacing: 0.4px;
+
+    &_error {
+      color: $error-color;
+    }
+  }
+}

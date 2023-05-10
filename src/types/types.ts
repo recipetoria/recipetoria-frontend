@@ -4,3 +4,11 @@ export interface IShoppingListItems {
   amount: number;
   measure: string;
 }
+
+export type FormValues = {
+  nickname: string;
+  email: string;
+  password: string;
+  checkbox: string;
+  repeatPassword: string;
+};

@@ -11,9 +11,12 @@
   transition: all .5s;
 
   &:hover {
+    @include border($color: $gray-light-1-color);
     cursor: pointer;
-
-    border: 1px solid $gray-light-1-color;
-    border-radius: 4px;
   }
+}
+
+@mixin border($color, $width: 1px) {
+  border: $width solid $color;
+  border-radius: 4px;
 }

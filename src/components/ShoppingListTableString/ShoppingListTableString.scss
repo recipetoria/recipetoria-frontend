@@ -23,8 +23,7 @@
     }
 
     &_empty {
-      border: 1px solid $gray-light-1-color;
-      border-radius: 4px;
+      @include border($color: $gray-light-1-color);
     }
 
     &_error {
@@ -63,6 +62,8 @@
   }
 
   .options {
+    @include border($color: $black-color);
+    
     position: absolute;
     left: 10px;
     z-index: 3;
@@ -70,8 +71,6 @@
     width: 130px;
 
     background-color: $btn-bg-color;
-    border: 1px solid #2D2D2B;
-    border-radius: 4px;
     box-shadow: 2px 2px 0 $black-color;
 
     &__list {
