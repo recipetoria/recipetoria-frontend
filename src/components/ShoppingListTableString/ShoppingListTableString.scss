@@ -157,3 +157,21 @@
 .arrow-up {
   transform: scale(1, -1);
 }
+
+.popup-tip {
+  position: absolute;
+  right: -10px;
+  bottom: -30px;
+  z-index: 3;
+  
+  padding: 4px 12px;
+
+  font-size: 14px;
+  color: #F6F4EF;
+  letter-spacing: 0.25px;
+
+  background: $black-color;
+  border-radius: 4px;
+  box-shadow: 0 4px 8px 3px rgba(0 0 0 / 15%), 0 1px 3px rgba(0 0 0 / 30%);
+  opacity: 0.8;
+}

@@ -144,6 +144,11 @@ export default function ShoppingListTableString(
         >
           <Trash />
         </button>
+        {hoverTrashId && (
+          <div className="popup-tip">
+            <span>Delete</span>
+          </div>
+        )}
       </div>
     </>
   );
