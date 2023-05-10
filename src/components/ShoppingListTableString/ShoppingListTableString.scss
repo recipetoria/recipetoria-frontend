@@ -32,6 +32,22 @@
       outline: 2px solid $error-color;
       caret-color: $error-color;
     }
+
+    &_trash {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    &:focus {
+      border-radius: 4px;
+      outline: 2px solid $purple-color;
+      caret-color: $purple-color;
+    }
+
+    &:hover:focus {
+      border: 1px solid transparent;
+    }
   }
 
   &__button_with-arrow {
@@ -48,6 +64,7 @@
 
   .options {
     position: absolute;
+    left: 10px;
     z-index: 3;
 
     width: 130px;
@@ -86,7 +103,7 @@
     }
 
     &__list-el {
-      padding: 8px 0 8px 16px;
+      padding: 8px 0 8px 17px;
       margin-right: 4px;
 
       font-size: 1rem;
@@ -101,7 +118,7 @@
       &:hover {
         cursor: pointer;
 
-        background-color: $primary-color;
+        background-color: $bg-menu-active-color;
       }
     }
   }
@@ -116,6 +133,9 @@
 }
 
 .td-trash {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
   text-align: center;
 
   .trash {
