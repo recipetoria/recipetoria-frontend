@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { useReactToPrint } from "react-to-print";
 import Print from "../../assets/svg/Print";
 import Share from "../../assets/svg/Share";
 import Trash from "../../assets/svg/Trash";
@@ -17,6 +18,8 @@ interface IResponse {
 }
 
 export default function ShoppingListPage() {
+  const componentRef = useRef(null);
+
   const [stateShop, setStateShop] = useState<IResponse>();
 
   useEffect(() => {
@@ -39,6 +42,13 @@ export default function ShoppingListPage() {
     }, 1000);
   }, []);
   console.log(stateShop);
+
+  const handlePrint = useReactToPrint({
+    content: () => componentRef.current,
+    documentTitle: "AwesomeFileName",
+    removeAfterPrint: true,
+  });
+
   return (
     <>
       <Header />
@@ -50,12 +60,15 @@ export default function ShoppingListPage() {
               <article className="shopping-list-block__header">
                 <h2 className="shopping-list-block__h2">Shopping list</h2>
                 <section className="shopping-list-block__btns">
-                  <Button icon={<Print />} />
-                  <Button icon={<Share />} />
-                  <Button icon={<Trash />} />
+                  <Button icon={<Print />} onClick={handlePrint} />
+                  <Button icon={<Share />} onClick={() => {}} />
+                  <Button icon={<Trash />} onClick={() => {}} />
                 </section>
               </article>
-              <article className="shopping-list-block__table">
+              <article
+                className="shopping-list-block__table"
+                ref={componentRef}
+              >
                 <ShoppingListTable />
               </article>
             </div>
