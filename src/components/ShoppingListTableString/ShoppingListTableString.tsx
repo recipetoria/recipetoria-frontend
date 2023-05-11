@@ -10,6 +10,7 @@ import {
   removeShopElement,
   updateShopElement,
 } from "../../features/ShopListSlice";
+import { SnackbarTextValue } from "../../features/SnackbarTextSlice";
 
 /* eslint-disable jsx-a11y/control-has-associated-label */
 
@@ -138,6 +139,7 @@ export default function ShoppingListTableString(
           type="button"
           className="td__button td__button_trash"
           onClick={() => {
+            dispatch(SnackbarTextValue("The row was moved to trash"));
             dispatch(
               removeShopElement({
                 id,

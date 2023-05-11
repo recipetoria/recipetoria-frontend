@@ -2,9 +2,6 @@
 
 .snackbar {
   position: absolute;
-  bottom: 32px;
-  left: 32px;
-
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -14,6 +11,22 @@
   background: $black-2-color;
   border-radius: 4px;
   box-shadow: 0 4px 8px 3px rgba(0 0 0 / 15%), 0 1px 3px rgba(0 0 0 / 30%);
+
+  transition: bottom .5s linear;
+
+  &_show {
+    bottom: 32px;
+    left: 32px;
+
+    opacity: 1;
+  }
+
+  &_hide {
+    bottom: -32px;
+    left: -32px;
+
+    opacity: 0;
+  }
 
   &__text {
     font-size: 14px;

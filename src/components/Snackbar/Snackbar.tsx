@@ -1,14 +1,15 @@
 import { ActionCreators as UndoActionCreators } from "redux-undo";
 import CrossIcon from "../../assets/svg/CrossIcon";
 import "./Snackbar.scss";
-import { useAppDispatch } from "../../app/hooks";
+import { useAppDispatch, useAppSelector } from "../../app/hooks";
+import { SnackbarTextValue } from "../../features/SnackbarTextSlice";
 
-export default function Snackbar(props: { text: string }) {
-  const { text } = props;
+export default function Snackbar() {
   const dispatch = useAppDispatch();
+  const text = useAppSelector((state) => state.present.snackbarTextSlice.value);
 
   return (
-    <aside className="snackbar">
+    <aside className={`snackbar snackbar_${text.length > 0 ? "show" : "hide"}`}>
       <span className="snackbar__text">{text}</span>
       <section className="snackbar__btns">
         <button
@@ -16,11 +17,16 @@ export default function Snackbar(props: { text: string }) {
           className="snackbar__btn snackbar__btn_undo"
           onClick={() => {
             dispatch(UndoActionCreators.undo());
+            dispatch(SnackbarTextValue(""));
           }}
         >
           Undo
         </button>
-        <button type="button" className="snackbar__btn snackbar__btn_cross">
+        <button
+          type="button"
+          className="snackbar__btn snackbar__btn_cross"
+          onClick={() => dispatch(SnackbarTextValue(""))}
+        >
           <CrossIcon />
         </button>
       </section>

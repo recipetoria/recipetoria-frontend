@@ -82,7 +82,7 @@ export default function ShoppingListPage() {
               </article>
             </div>
           </section>
-          <Snackbar text="The row was moved to trash" />
+          <Snackbar />
         </article>
       </main>
       <Footer />

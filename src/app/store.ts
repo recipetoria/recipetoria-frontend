@@ -7,10 +7,12 @@ import {
 import undoable from "redux-undo";
 import ShopListSlice from "../features/ShopListSlice";
 import ShopListNewStringSlice from "../features/ShopListNewStringSlice";
+import SnackbarTextSlice from "../features/SnackbarTextSlice";
 
 const rootReducer = combineReducers({
-  shopList: ShopListSlice,
   shopListNewStringSlice: ShopListNewStringSlice,
+  snackbarTextSlice: SnackbarTextSlice,
+  shopList: ShopListSlice,
 });
 
 const undoableRootReducer = undoable(rootReducer);
