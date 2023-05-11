@@ -5,6 +5,9 @@
   bottom: 32px;
   left: 32px;
 
+  display: flex;
+  justify-content: space-between;
+  width: 312px;
   padding: 14px 16px;
 
   background: $black-2-color;
