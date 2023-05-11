@@ -21,7 +21,7 @@ export default function AllCategoriesPage() {
           {
             method: "GET",
             headers: {
-              Authorization: `Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJyZWNpcGV0b3JpYSIsInN1YiI6ImVtYWlsOEBtYWlsLmNvbSIsImlhdCI6MTY4MzgyMzY5NywiZXhwIjoxNjgzOTEwMDk3fQ.IXCNiUZAwOE2_wx1l5BB8dd9TAazGOIzWrCQhr2LBR4`,
+              Authorization: `Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJyZWNpcGV0b3JpYSIsInN1YiI6ImVtYWlsOEBtYWlsLmNvbSIsImlhdCI6MTY4MzgyNTAyMiwiZXhwIjoxNjgzOTExNDIyfQ.v_5VQ9l0p1z9GWhcGQaPEaOYqVK_Lj2RJ1Gfhzpegtw`,
             },
           }
         )
