@@ -1,4 +1,6 @@
-export default function SnackBar(props: { text: string }) {
+import "./Snackbar.scss";
+
+export default function Snackbar(props: { text: string }) {
   const { text } = props;
 
   return (

@@ -10,6 +10,7 @@ import ShoppingListTable from "../../components/ShoppingListTable/ShoppingListTa
 import "./ShoppingListPage.scss";
 import { useAppDispatch } from "../../app/hooks";
 import { cleanShopList } from "../../features/ShopListSlice";
+import Snackbar from "../../components/Snackbar/Snackbar";
 
 interface IResponse {
   developerMessage: string;
@@ -81,6 +82,7 @@ export default function ShoppingListPage() {
               </article>
             </div>
           </section>
+          <Snackbar text="The row was moved to trash" />
         </article>
       </main>
       <Footer />

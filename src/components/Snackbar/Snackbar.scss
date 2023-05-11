@@ -1,0 +1,19 @@
+@import '../../styles/variables';
+
+.snackbar {
+  position: absolute;
+  bottom: 32px;
+  left: 32px;
+
+  padding: 14px 16px;
+
+  background: $black-2-color;
+  border-radius: 4px;
+  box-shadow: 0 4px 8px 3px rgba(0 0 0 / 15%), 0 1px 3px rgba(0 0 0 / 30%);
+
+  &__text {
+    font-size: 14px;
+    color: $snackbar-text-color;
+    letter-spacing: 0.25px;
+  }
+}
