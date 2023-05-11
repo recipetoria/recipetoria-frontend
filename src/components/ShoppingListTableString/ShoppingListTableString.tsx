@@ -17,13 +17,23 @@ interface IShoppingListTableString {
   measureDefault: string;
   isLined: boolean;
   editMode: string;
+  setActiveSelect: (id: number) => void;
+  isActiveSelect: boolean;
 }
 
 export default function ShoppingListTableString(
   props: IShoppingListTableString
 ) {
-  const { id, name, amount, measureDefault, isLined, editMode } = props;
-  const [isClicked, setClick] = useState("");
+  const {
+    id,
+    name,
+    amount,
+    measureDefault,
+    isLined,
+    editMode,
+    setActiveSelect,
+    isActiveSelect,
+  } = props;
   const [valueMeasure, setValueMeasure] = useState<string>(measureDefault);
   const shoppingItems = useAppSelector((state) => state.shopList.value);
   const dispatch = useAppDispatch();
@@ -41,7 +51,7 @@ export default function ShoppingListTableString(
         className="options__list-el"
         key={item}
         onClick={() => {
-          setClick("");
+          setActiveSelect(0);
           setValueMeasure(item);
           dispatch(
             updateShopElement(
@@ -90,19 +100,17 @@ export default function ShoppingListTableString(
         <button
           type="button"
           className="td__button td__button_with-arrow"
-          onClick={() =>
-            isClicked === "measure" ? setClick("") : setClick("measure")
-          }
+          onClick={() => setActiveSelect(isActiveSelect ? 0 : id)}
           disabled={isDisabled}
         >
           {valueMeasure || "select"}
           <img
             src={customArrow}
             alt="arrow"
-            className={isClicked === "measure" ? "arrow-up" : "arrow-down"}
+            className={isActiveSelect ? "arrow-up" : "arrow-down"}
           />
         </button>
-        {isClicked === "measure" ? (
+        {isActiveSelect ? (
           <div className="options">
             <div className="options__list">{measuresList}</div>
           </div>
@@ -111,7 +119,11 @@ export default function ShoppingListTableString(
         )}
       </div>
       <div className={`td-trash td ${isLined ? "td__with-line" : ""}`}>
-        <button type="button" className="td__button" onClick={() => {}}>
+        <button
+          type="button"
+          className="td__button td__button_trash"
+          onClick={() => {}}
+        >
           <Trash />
         </button>
       </div>

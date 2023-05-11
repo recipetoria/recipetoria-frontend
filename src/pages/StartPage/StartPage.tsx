@@ -1,12 +1,11 @@
 import Footer from "../../components/Footer/Footer";
 import Header from "../../components/Header/Header";
-import "./AddRecipePage.scss";
 
-export default function AddRecipePage() {
+export default function StartPage() {
   return (
     <>
       <Header />
-      <main>Add Recipe</main>
+      <h3>Start page</h3>
       <Footer />
     </>
   );

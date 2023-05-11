@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react";
+import Footer from "../../components/Footer/Footer";
+import Header from "../../components/Header/Header";
 import "./AllCategoriesPage.scss";
 
 interface IResponse {
@@ -54,23 +56,27 @@ export default function AllCategoriesPage() {
   }, []);
 
   return (
-    <main>
-      <article className="all-categories-page">
-        <h1>All Categories</h1>
-        <p className="check">Checking the request for success: </p>
-        <p>
-          <b>message:</b> {state?.message}{" "}
-        </p>
-        <p>
-          <b>path:</b> {state?.path}{" "}
-        </p>
-        <p>
-          <b>statusCode:</b> {state?.statusCode}{" "}
-        </p>
-        <p>
-          <b>statusCodeShop:</b> {stateShop?.statusCode}{" "}
-        </p>
-      </article>
-    </main>
+    <>
+      <Header />
+      <main>
+        <article className="all-categories-page">
+          <h1>All Categories</h1>
+          <p className="check">Checking the request for success: </p>
+          <p>
+            <b>message:</b> {state?.message}{" "}
+          </p>
+          <p>
+            <b>path:</b> {state?.path}{" "}
+          </p>
+          <p>
+            <b>statusCode:</b> {state?.statusCode}{" "}
+          </p>
+          <p>
+            <b>statusCodeShop:</b> {stateShop?.statusCode}{" "}
+          </p>
+        </article>
+      </main>
+      <Footer />
+    </>
   );
 }
