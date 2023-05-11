@@ -1,1 +1,13 @@
 @import '../../styles/variables';
+
+.all-categories-page {
+  display: flex;
+  flex-flow: column wrap;
+  align-items: center;
+  margin: 20px;
+
+  .check {
+    font-weight: 700;
+    text-decoration: underline;
+  }
+}
