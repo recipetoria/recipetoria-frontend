@@ -8,6 +8,8 @@ import Footer from "../../components/Footer/Footer";
 import Header from "../../components/Header/Header";
 import ShoppingListTable from "../../components/ShoppingListTable/ShoppingListTable";
 import "./ShoppingListPage.scss";
+import { useAppDispatch } from "../../app/hooks";
+import { cleanShopList } from "../../features/ShopListSlice";
 
 interface IResponse {
   developerMessage: string;
@@ -19,6 +21,7 @@ interface IResponse {
 
 export default function ShoppingListPage() {
   const componentRef = useRef(null);
+  const dispatch = useAppDispatch();
 
   const [stateShop, setStateShop] = useState<IResponse>();
 
@@ -62,7 +65,12 @@ export default function ShoppingListPage() {
                 <section className="shopping-list-block__btns">
                   <Button icon={<Print />} onClick={handlePrint} />
                   <Button icon={<Share />} onClick={() => {}} />
-                  <Button icon={<Trash />} onClick={() => {}} />
+                  <Button
+                    icon={<Trash />}
+                    onClick={() => {
+                      dispatch(cleanShopList());
+                    }}
+                  />
                 </section>
               </article>
               <article

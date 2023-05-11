@@ -42,6 +42,9 @@ const ShopListSlice = createSlice({
       newArray.splice(index, 1);
       state.value = newArray;
     },
+    cleanShopList: (state) => {
+      state.value = [];
+    },
   },
 });
 
@@ -50,6 +53,7 @@ export const {
   updateShopElement,
   addNewShopElement,
   removeShopElement,
+  cleanShopList,
 } = ShopListSlice.actions;
 
 export default ShopListSlice.reducer;
