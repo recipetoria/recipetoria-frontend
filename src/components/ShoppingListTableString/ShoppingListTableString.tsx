@@ -38,7 +38,7 @@ export default function ShoppingListTableString(
     isActiveSelect,
   } = props;
   const [valueMeasure, setValueMeasure] = useState<string>(measureDefault);
-  const shoppingItems = useAppSelector((state) => state.shopList.value);
+  const shoppingItems = useAppSelector((state) => state.present.shopList.value);
   const dispatch = useAppDispatch();
   const [isDisabled, setDisabled] = useState<boolean>();
   const [hoverTrashId, setHoverTrashId] = useState<number | null>(null);

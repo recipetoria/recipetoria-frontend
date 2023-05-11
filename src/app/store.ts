@@ -1,12 +1,22 @@
-import { configureStore, ThunkAction, Action } from "@reduxjs/toolkit";
+import {
+  configureStore,
+  ThunkAction,
+  Action,
+  combineReducers,
+} from "@reduxjs/toolkit";
+import undoable from "redux-undo";
 import ShopListSlice from "../features/ShopListSlice";
 import ShopListNewStringSlice from "../features/ShopListNewStringSlice";
 
+const rootReducer = combineReducers({
+  shopList: ShopListSlice,
+  shopListNewStringSlice: ShopListNewStringSlice,
+});
+
+const undoableRootReducer = undoable(rootReducer);
+
 export const store = configureStore({
-  reducer: {
-    shopList: ShopListSlice,
-    shopListNewStringSlice: ShopListNewStringSlice,
-  },
+  reducer: undoableRootReducer,
 });
 
 export type AppDispatch = typeof store.dispatch;

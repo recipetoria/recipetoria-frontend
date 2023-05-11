@@ -35,7 +35,7 @@ export default function ShoppingListTableItem(props: IShoppingListTableItem) {
   const [value, setValue] = useState<string | number>(defaultValue);
   const [error, setError] = useState("");
   const dispatch = useAppDispatch();
-  const shoppingItems = useAppSelector((state) => state.shopList.value);
+  const shoppingItems = useAppSelector((state) => state.present.shopList.value);
   const cellRef = useRef(null);
 
   useEffect(() => {

@@ -8,9 +8,9 @@ import { shopListNewStringValue } from "../../features/ShopListNewStringSlice";
 export default function ShoppingListTable() {
   const [isHover, setHover] = useState(false);
   const [activeSelect, setActiveSelect] = useState<number>(0);
-  const shoppingItems = useAppSelector((state) => state.shopList.value);
+  const shoppingItems = useAppSelector((state) => state.present.shopList.value);
   const isNewString = useAppSelector(
-    (state) => state.shopListNewStringSlice.value
+    (state) => state.present.shopListNewStringSlice.value
   );
   const dispatch = useAppDispatch();
 
