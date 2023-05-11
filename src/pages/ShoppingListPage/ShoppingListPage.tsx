@@ -34,7 +34,7 @@ export default function ShoppingListPage() {
           {
             method: "GET",
             headers: {
-              Authorization: `Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJyZWNpcGV0b3JpYSIsInN1YiI6IkhlbGVuX01jR2x5bm42NkBnbWFpbC5jb20iLCJpYXQiOjE2ODM0ODMzMjgsImV4cCI6MTY4MzU2OTcyOH0.JzSXC2KKo4uCE3nIiJSgut1KSScqibjV2dHYgxFfxGU`,
+              Authorization: `Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJyZWNpcGV0b3JpYSIsInN1YiI6ImVtYWlsOEBtYWlsLmNvbSIsImlhdCI6MTY4MzgyMzY5NywiZXhwIjoxNjgzOTEwMDk3fQ.IXCNiUZAwOE2_wx1l5BB8dd9TAazGOIzWrCQhr2LBR4`,
             },
           }
         )
