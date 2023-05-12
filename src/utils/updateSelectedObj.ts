@@ -10,7 +10,7 @@ export default function getObjectForUpdate(
     id: 0,
     name: "",
     amount: 0,
-    measure: "",
+    measurementUnit: "",
   };
   const foundIndexFromStore = objArr.findIndex((item) => item.id === id);
 
@@ -23,7 +23,7 @@ export default function getObjectForUpdate(
           id: foundElFromStore.id,
           name: foundElFromStore.name,
           amount: foundElFromStore.amount,
-          measure: foundElFromStore.measure,
+          measurementUnit: foundElFromStore.measurementUnit,
         };
         newEl[key] = value as never;
       }

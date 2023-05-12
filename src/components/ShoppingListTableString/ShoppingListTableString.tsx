@@ -60,7 +60,7 @@ export default function ShoppingListTableString(
           setValueMeasure(item);
           dispatch(
             updateShopElement(
-              getObjectForUpdate(id, item, shoppingItems, "measure")
+              getObjectForUpdate(id, item, shoppingItems, "measurementUnit")
             )
           );
         }}
@@ -145,7 +145,7 @@ export default function ShoppingListTableString(
                 id,
                 name: "",
                 amount: 0,
-                measure: "",
+                measurementUnit: "",
               })
             );
           }}

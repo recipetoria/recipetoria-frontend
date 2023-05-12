@@ -44,7 +44,7 @@ const ShopListSlice = createSlice({
       const newArray = [...state.value];
       newArray[index].name = action.payload.name;
       newArray[index].amount = action.payload.amount;
-      newArray[index].measure = action.payload.measure;
+      newArray[index].measurementUnit = action.payload.measurementUnit;
       state.value = newArray;
     },
     addNewShopElement: (state, action: PayloadAction<IShoppingListItems>) => {
@@ -54,7 +54,7 @@ const ShopListSlice = createSlice({
           id: action.payload.id,
           name: action.payload.name,
           amount: action.payload.amount,
-          measure: action.payload.measure,
+          measurementUnit: action.payload.measurementUnit,
         },
       ];
       state.value = newArray;

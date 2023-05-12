@@ -49,7 +49,7 @@ export default function ShoppingListTableItem(props: IShoppingListTableItem) {
       id: shoppingItems.length + 1,
       name: "",
       amount: 0,
-      measure: "select",
+      measurementUnit: "select",
     };
     if (e.currentTarget.textContent) {
       if (field === "name") {

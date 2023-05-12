@@ -2,7 +2,7 @@ export interface IShoppingListItems {
   id: number;
   name: string;
   amount: number;
-  measure: string;
+  measurementUnit: string;
 }
 
 export type FormValues = {

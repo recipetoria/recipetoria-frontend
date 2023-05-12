@@ -35,7 +35,7 @@ export default function ShoppingListTable() {
       id={item.id}
       name={item.name}
       amount={item.amount}
-      measureDefault={item.measure}
+      measureDefault={item.measurementUnit}
       key={item.id}
       isLined={index !== shoppingItems.length - 1}
       editMode="edit"
