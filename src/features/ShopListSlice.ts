@@ -26,6 +26,36 @@ export const fetchIngredients = createAsyncThunk(
   }
 );
 
+// export const addIngredient = createAsyncThunk(
+//   "ingredients/addIngredient",
+//   async (
+//     { id, name, amount, measurementUnit }: IShoppingListItems,
+//     { dispatch }
+//   ) => {
+//     console.log(id, name, amount, measurementUnit);
+//     const res = await axios.post(url, {
+//       headers: {
+//         Authorization: `Bearer ${token}`,
+//       },
+//       data: {
+//         id: 9,
+//         name: "fee",
+//         amount: 1,
+//         measurementUnit: measurementUnit.toUpperCase(),
+//       },
+//     });
+//     dispatch(
+//       // eslint-disable-next-line @typescript-eslint/no-use-before-define
+//       addNewShopElement({
+//         id: 9,
+//         name: "fee",
+//         amount: 1,
+//         measurementUnit: measurementUnit.toUpperCase(),
+//       })
+//     );
+//   }
+// );
+
 const ShopListSlice = createSlice({
   name: "shopList",
   initialState: {

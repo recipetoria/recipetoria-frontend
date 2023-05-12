@@ -65,7 +65,7 @@ export default function ShoppingListTableString(
           );
         }}
       >
-        {item}
+        {item.toLowerCase()}
       </button>
     ));
 
