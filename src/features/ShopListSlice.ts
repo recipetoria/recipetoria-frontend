@@ -1,12 +1,37 @@
 /* eslint-disable no-param-reassign */
-import { PayloadAction, createSlice } from "@reduxjs/toolkit";
+import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import axios from "axios";
 import { IShoppingListItems } from "../types/types";
-import shopListData from "../assets/data/shopListData";
+
+interface IFetchedValue {
+  data: {
+    allIngredientDTOs: IShoppingListItems[];
+  };
+}
+
+const url = "https://recipetoria-production.up.railway.app/api/v1/client";
+const token =
+  "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJyZWNpcGV0b3JpYSIsInN1YiI6ImVtYWlsOEBtYWlsLmNvbSIsImlhdCI6MTY4MzgyMzY5NywiZXhwIjoxNjgzOTEwMDk3fQ.IXCNiUZAwOE2_wx1l5BB8dd9TAazGOIzWrCQhr2LBR4";
+
+export const fetchIngredients = createAsyncThunk(
+  "ingredients/fetchIngredients",
+  async () => {
+    const res = await axios.get(url, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    const data = await res.data;
+    return data;
+  }
+);
 
 const ShopListSlice = createSlice({
   name: "shopList",
   initialState: {
-    value: <IShoppingListItems[]>[...shopListData],
+    value: <IShoppingListItems[]>[],
+    isLoading: false,
+    error: <string | undefined | null>null,
   },
   reducers: {
     shopListValue: (state, action: PayloadAction<IShoppingListItems[]>) => {
@@ -45,6 +70,22 @@ const ShopListSlice = createSlice({
     cleanShopList: (state) => {
       state.value = [];
     },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(fetchIngredients.pending, (state) => {
+      state.isLoading = true;
+    });
+    builder.addCase(
+      fetchIngredients.fulfilled,
+      (state, action: PayloadAction<IFetchedValue>) => {
+        state.isLoading = false;
+        state.value = action.payload.data.allIngredientDTOs;
+      }
+    );
+    builder.addCase(fetchIngredients.rejected, (state, action) => {
+      state.isLoading = false;
+      state.error = action.error.message;
+    });
   },
 });
 

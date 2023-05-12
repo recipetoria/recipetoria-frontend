@@ -1,18 +1,34 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ShoppingListTableString from "../ShoppingListTableString/ShoppingListTableString";
 import "./ShoppingListTable.scss";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { shopListNewStringValue } from "../../features/ShopListNewStringSlice";
+import { fetchIngredients } from "../../features/ShopListSlice";
 
 export default function ShoppingListTable() {
   const [isHover, setHover] = useState(false);
   const [activeSelect, setActiveSelect] = useState<number>(0);
-  const shoppingItems = useAppSelector((state) => state.present.shopList.value);
   const isNewString = useAppSelector(
     (state) => state.present.shopListNewStringSlice.value
   );
   const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(fetchIngredients());
+  }, [dispatch]);
+
+  const shoppingItems = useAppSelector((state) => state.present.shopList.value);
+  const isLoading = useAppSelector((state) => state.present.shopList.isLoading);
+  const error = useAppSelector((state) => state.present.shopList.error);
+
+  if (isLoading) {
+    console.log("loading...");
+  } else if (error) {
+    console.log(error);
+  } else if (shoppingItems) {
+    console.log(shoppingItems);
+  }
 
   const shoppingItemsJSX = shoppingItems.map((item, index) => (
     <ShoppingListTableString
