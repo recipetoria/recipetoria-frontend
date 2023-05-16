@@ -7,7 +7,7 @@ import ShoppingListTableItem from "./ShoppingListTableItem";
 import getObjectForUpdate from "../../utils/updateSelectedObj";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import {
-  removeShopElement,
+  removeIngredientByID,
   updateShopElement,
 } from "../../features/ShopListSlice";
 import { SnackbarTextValue } from "../../features/SnackbarTextSlice";
@@ -140,14 +140,7 @@ export default function ShoppingListTableString(
           className="td__button td__button_trash"
           onClick={() => {
             dispatch(SnackbarTextValue("The row was moved to trash"));
-            dispatch(
-              removeShopElement({
-                id,
-                name: "",
-                amount: 0,
-                measurementUnit: "",
-              })
-            );
+            dispatch(removeIngredientByID(id));
           }}
           onMouseEnter={() => {
             setHoverTrashId(id);

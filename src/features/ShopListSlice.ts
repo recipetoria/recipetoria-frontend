@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-use-before-define */
 /* eslint-disable no-param-reassign */
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
@@ -43,7 +44,7 @@ export const addIngredient = createAsyncThunk(
     const config = {
       method: "post",
       maxBodyLength: Infinity,
-      url: "http://localhost:8080/api/v1/client",
+      url,
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
@@ -55,13 +56,42 @@ export const addIngredient = createAsyncThunk(
       .request(config)
       .then((response) => {
         dispatch(
-          // eslint-disable-next-line @typescript-eslint/no-use-before-define
           addNewShopElement({
             id: response.data.data.createdIngredientDTO.id,
             name: response.data.data.createdIngredientDTO.name,
             amount: response.data.data.createdIngredientDTO.amount,
             measurementUnit:
               response.data.data.createdIngredientDTO.measurementUnit,
+          })
+        );
+      })
+      .catch((error) => {
+        throw new Error(error.message);
+      });
+  }
+);
+
+export const removeIngredientByID = createAsyncThunk(
+  "ingredients/removeIngredientByID",
+  async (id: number, { dispatch }) => {
+    const config = {
+      method: "delete",
+      maxBodyLength: Infinity,
+      url: `${url}/ingredients/${id}`,
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+
+    axios
+      .request(config)
+      .then(() => {
+        dispatch(
+          removeShopElement({
+            id,
+            name: "",
+            amount: 0,
+            measurementUnit: "",
           })
         );
       })
