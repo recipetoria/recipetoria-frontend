@@ -6,6 +6,7 @@ import { IShoppingListItems } from "../types/types";
 interface IFetchedValue {
   data: {
     allIngredientDTOs: IShoppingListItems[];
+    createdIngredientDTO: IShoppingListItems;
   };
 }
 
@@ -26,35 +27,49 @@ export const fetchIngredients = createAsyncThunk(
   }
 );
 
-// export const addIngredient = createAsyncThunk(
-//   "ingredients/addIngredient",
-//   async (
-//     { id, name, amount, measurementUnit }: IShoppingListItems,
-//     { dispatch }
-//   ) => {
-//     console.log(id, name, amount, measurementUnit);
-//     const res = await axios.post(url, {
-//       headers: {
-//         Authorization: `Bearer ${token}`,
-//       },
-//       data: {
-//         id: 9,
-//         name: "fee",
-//         amount: 1,
-//         measurementUnit: measurementUnit.toUpperCase(),
-//       },
-//     });
-//     dispatch(
-//       // eslint-disable-next-line @typescript-eslint/no-use-before-define
-//       addNewShopElement({
-//         id: 9,
-//         name: "fee",
-//         amount: 1,
-//         measurementUnit: measurementUnit.toUpperCase(),
-//       })
-//     );
-//   }
-// );
+export const addIngredient = createAsyncThunk(
+  "ingredients/addIngredient",
+  async (
+    { id, name, amount, measurementUnit }: IShoppingListItems,
+    { dispatch }
+  ) => {
+    const data = JSON.stringify({
+      id,
+      name,
+      amount,
+      measurementUnit: measurementUnit.toUpperCase(),
+    });
+
+    const config = {
+      method: "post",
+      maxBodyLength: Infinity,
+      url: "http://localhost:8080/api/v1/client",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      data,
+    };
+
+    axios
+      .request(config)
+      .then((response) => {
+        dispatch(
+          // eslint-disable-next-line @typescript-eslint/no-use-before-define
+          addNewShopElement({
+            id: response.data.data.createdIngredientDTO.id,
+            name: response.data.data.createdIngredientDTO.name,
+            amount: response.data.data.createdIngredientDTO.amount,
+            measurementUnit:
+              response.data.data.createdIngredientDTO.measurementUnit,
+          })
+        );
+      })
+      .catch((error) => {
+        throw new Error(error.message);
+      });
+  }
+);
 
 const ShopListSlice = createSlice({
   name: "shopList",

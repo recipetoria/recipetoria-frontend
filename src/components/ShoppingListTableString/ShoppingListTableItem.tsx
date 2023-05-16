@@ -1,12 +1,10 @@
 import { FocusEvent, useEffect, useRef, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { IShoppingListItems } from "../../types/types";
-import {
-  updateShopElement,
-  addNewShopElement,
-} from "../../features/ShopListSlice";
+import { updateShopElement, addIngredient } from "../../features/ShopListSlice";
 import { shopListNewStringValue } from "../../features/ShopListNewStringSlice";
 import getObjectForUpdate from "../../utils/updateSelectedObj";
+import measureValues from "../../assets/data/measureArray";
 
 interface IShoppingListTableItem {
   isLined: boolean;
@@ -46,10 +44,10 @@ export default function ShoppingListTableItem(props: IShoppingListTableItem) {
 
   function addNewElStore(e: FocusEvent<HTMLDivElement>) {
     const newEl: IShoppingListItems = {
-      id: shoppingItems.length + 1,
+      id,
       name: "",
-      amount: 0,
-      measurementUnit: "select",
+      amount: 1,
+      measurementUnit: measureValues[0],
     };
     if (e.currentTarget.textContent) {
       if (field === "name") {
@@ -59,7 +57,7 @@ export default function ShoppingListTableItem(props: IShoppingListTableItem) {
       }
     }
     dispatch(shopListNewStringValue(false));
-    dispatch(addNewShopElement(newEl));
+    dispatch(addIngredient(newEl));
   }
 
   return (
