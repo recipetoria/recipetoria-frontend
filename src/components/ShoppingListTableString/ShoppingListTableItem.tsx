@@ -1,7 +1,7 @@
 import { FocusEvent, useEffect, useRef, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { IShoppingListItems } from "../../types/types";
-import { updateShopElement, addIngredient } from "../../features/ShopListSlice";
+import { addIngredient, updateIngredient } from "../../features/ShopListSlice";
 import { shopListNewStringValue } from "../../features/ShopListNewStringSlice";
 import getObjectForUpdate from "../../utils/updateSelectedObj";
 import measureValues from "../../assets/data/measureArray";
@@ -108,7 +108,7 @@ export default function ShoppingListTableItem(props: IShoppingListTableItem) {
             if (editMode === "edit") {
               if (e.currentTarget.textContent) {
                 dispatch(
-                  updateShopElement(
+                  updateIngredient(
                     getObjectForUpdate(
                       id,
                       e.currentTarget.textContent,

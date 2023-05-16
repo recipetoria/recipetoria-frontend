@@ -101,6 +101,40 @@ export const removeIngredientByID = createAsyncThunk(
   }
 );
 
+export const updateIngredient = createAsyncThunk(
+  "ingredients/updateIngredient",
+  async (
+    { id, name, amount, measurementUnit }: IShoppingListItems,
+    { dispatch }
+  ) => {
+    const data = JSON.stringify({
+      id,
+      name,
+      amount,
+      measurementUnit: measurementUnit.toUpperCase(),
+    });
+
+    const config = {
+      method: "patch",
+      maxBodyLength: Infinity,
+      url: `${url}/ingredients/${id}`,
+      headers: {
+        "Content-Type": "application/json",
+      },
+      data,
+    };
+
+    axios
+      .request(config)
+      .then(() => {
+        dispatch(updateShopElement({ id, name, amount, measurementUnit }));
+      })
+      .catch((error) => {
+        throw new Error(error.message);
+      });
+  }
+);
+
 const ShopListSlice = createSlice({
   name: "shopList",
   initialState: {

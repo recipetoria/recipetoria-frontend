@@ -8,7 +8,7 @@ import getObjectForUpdate from "../../utils/updateSelectedObj";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import {
   removeIngredientByID,
-  updateShopElement,
+  updateIngredient,
 } from "../../features/ShopListSlice";
 import { SnackbarTextValue } from "../../features/SnackbarTextSlice";
 
@@ -59,7 +59,7 @@ export default function ShoppingListTableString(
           setActiveSelect(0);
           setValueMeasure(item);
           dispatch(
-            updateShopElement(
+            updateIngredient(
               getObjectForUpdate(id, item, shoppingItems, "measurementUnit")
             )
           );
@@ -115,7 +115,7 @@ export default function ShoppingListTableString(
           onClick={() => setActiveSelect(isActiveSelect ? 0 : id)}
           disabled={isDisabled}
         >
-          {valueMeasure || "select"}
+          {valueMeasure.toLowerCase() || "select"}
           <img
             src={customArrow}
             alt="arrow"
