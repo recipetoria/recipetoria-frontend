@@ -30,19 +30,21 @@ export default function ShoppingListTable() {
     console.log(shoppingItems);
   }
 
-  const shoppingItemsJSX = shoppingItems.map((item, index) => (
-    <ShoppingListTableString
-      id={item.id}
-      name={item.name}
-      amount={item.amount}
-      measureDefault={item.measurementUnit}
-      key={item.id}
-      isLined={index !== shoppingItems.length - 1}
-      editMode="edit"
-      setActiveSelect={(id: number) => setActiveSelect(id)}
-      isActiveSelect={activeSelect === item.id}
-    />
-  ));
+  const shoppingItemsJSX = [...shoppingItems]
+    .sort((a, b) => a.id - b.id)
+    .map((item, index) => (
+      <ShoppingListTableString
+        id={item.id}
+        name={item.name}
+        amount={item.amount}
+        measureDefault={item.measurementUnit}
+        key={item.id}
+        isLined={index !== shoppingItems.length - 1}
+        editMode="edit"
+        setActiveSelect={(id: number) => setActiveSelect(id)}
+        isActiveSelect={activeSelect === item.id}
+      />
+    ));
 
   return (
     <div className="shopping-list-table">
