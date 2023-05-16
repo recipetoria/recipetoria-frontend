@@ -9,9 +9,9 @@ interface IFetchedValue {
   };
 }
 
-const url = "https://recipetoria-production.up.railway.app/api/v1/client";
+const url = "http://localhost:8080/api/v1/client";
 const token =
-  "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJyZWNpcGV0b3JpYSIsInN1YiI6ImVtYWlsOEBtYWlsLmNvbSIsImlhdCI6MTY4MzgyMzY5NywiZXhwIjoxNjgzOTEwMDk3fQ.IXCNiUZAwOE2_wx1l5BB8dd9TAazGOIzWrCQhr2LBR4";
+  "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJyZWNpcGV0b3JpYSIsInN1YiI6ImFseWFAZ21haWwuY29tIiwiaWF0IjoxNjg0MjQ3NDQ1LCJleHAiOjE2ODQzMzM4NDV9.-HgBcNd8lzalwWy8LaGlLneVOaVo5bSM6APuzINXNl0";
 
 export const fetchIngredients = createAsyncThunk(
   "ingredients/fetchIngredients",
