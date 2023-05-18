@@ -22,13 +22,13 @@ export default function ShoppingListTable() {
   const isLoading = useAppSelector((state) => state.present.shopList.isLoading);
   const error = useAppSelector((state) => state.present.shopList.error);
 
-  if (isLoading) {
-    console.log("loading...");
-  } else if (error) {
-    console.log(error);
-  } else if (shoppingItems) {
-    console.log(shoppingItems);
-  }
+  // if (isLoading) {
+  //   console.log("loading...");
+  // } else if (error) {
+  //   console.log(error);
+  // } else if (shoppingItems) {
+  //   console.log(shoppingItems);
+  // }
 
   const shoppingItemsJSX = [...shoppingItems]
     .sort((a, b) => a.id - b.id)
