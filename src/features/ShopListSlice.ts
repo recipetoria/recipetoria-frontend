@@ -13,7 +13,7 @@ interface IFetchedValue {
 
 const url = "http://localhost:8080/api/v1/client";
 const token =
-  "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJyZWNpcGV0b3JpYSIsInN1YiI6ImFseWFAZ21haWwuY29tIiwiaWF0IjoxNjg0MjQ3NDQ1LCJleHAiOjE2ODQzMzM4NDV9.-HgBcNd8lzalwWy8LaGlLneVOaVo5bSM6APuzINXNl0";
+  "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJyZWNpcGV0b3JpYSIsInN1YiI6Ikx1aXNfTGFraW43MUB5YWhvby5jb20iLCJpYXQiOjE2ODQ0MTAwMDUsImV4cCI6MTY4NDQ5NjQwNX0.77OPJLKRGaIKmoe4VEADBjN5jAZ1SjgSr6B3i5kiEZc";
 
 export const fetchIngredients = createAsyncThunk(
   "ingredients/fetchIngredients",
