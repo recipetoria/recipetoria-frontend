@@ -13,7 +13,7 @@ interface IFetchedValue {
 
 const url = "http://localhost:8080/api/v1/client";
 const token =
-  "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJyZWNpcGV0b3JpYSIsInN1YiI6Ikx1aXNfTGFraW43MUB5YWhvby5jb20iLCJpYXQiOjE2ODQ0MTAwMDUsImV4cCI6MTY4NDQ5NjQwNX0.77OPJLKRGaIKmoe4VEADBjN5jAZ1SjgSr6B3i5kiEZc";
+  "eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJyZWNpcGV0b3JpYSIsInN1YiI6Ikxsb3lkX09ydGl6QGdtYWlsLmNvbSIsImlhdCI6MTY4NDQyNzc4NywiZXhwIjoxNjg0NTE0MTg3fQ.mskPz5fHK01qjVD7zSc2UMoKBRRgIbbqsTFT0sOwYl8";
 
 export const fetchIngredients = createAsyncThunk(
   "ingredients/fetchIngredients",
@@ -129,6 +129,26 @@ export const updateIngredient = createAsyncThunk(
       .then(() => {
         dispatch(updateShopElement({ id, name, amount, measurementUnit }));
       })
+      .catch((error) => {
+        throw new Error(error.message);
+      });
+  }
+);
+
+export const cleanShopListServer = createAsyncThunk(
+  "ingredients/cleanShopListServer",
+  async (_, { dispatch }) => {
+    const config = {
+      method: "delete",
+      maxBodyLength: Infinity,
+      url: `${url}`,
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+    axios
+      .request(config)
+      .then(() => dispatch(cleanShopList()))
       .catch((error) => {
         throw new Error(error.message);
       });

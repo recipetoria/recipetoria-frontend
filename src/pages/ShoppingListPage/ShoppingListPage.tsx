@@ -9,7 +9,7 @@ import Header from "../../components/Header/Header";
 import ShoppingListTable from "../../components/ShoppingListTable/ShoppingListTable";
 import "./ShoppingListPage.scss";
 import { useAppDispatch } from "../../app/hooks";
-import { cleanShopList } from "../../features/ShopListSlice";
+import { cleanShopListServer } from "../../features/ShopListSlice";
 import Snackbar from "../../components/Snackbar/Snackbar";
 
 export default function ShoppingListPage() {
@@ -38,7 +38,7 @@ export default function ShoppingListPage() {
                   <Button
                     icon={<Trash />}
                     onClick={() => {
-                      dispatch(cleanShopList());
+                      dispatch(cleanShopListServer());
                     }}
                   />
                 </section>
