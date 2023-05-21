@@ -1,32 +1,40 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ShoppingListTableString from "../ShoppingListTableString/ShoppingListTableString";
 import "./ShoppingListTable.scss";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { shopListNewStringValue } from "../../features/ShopListNewStringSlice";
+import { fetchIngredients } from "../../features/ShopListSlice";
 
 export default function ShoppingListTable() {
   const [isHover, setHover] = useState(false);
   const [activeSelect, setActiveSelect] = useState<number>(0);
-  const shoppingItems = useAppSelector((state) => state.shopList.value);
   const isNewString = useAppSelector(
-    (state) => state.shopListNewStringSlice.value
+    (state) => state.present.shopListNewStringSlice.value
   );
   const dispatch = useAppDispatch();
 
-  const shoppingItemsJSX = shoppingItems.map((item, index) => (
-    <ShoppingListTableString
-      id={item.id}
-      name={item.name}
-      amount={item.amount}
-      measureDefault={item.measure}
-      key={item.id}
-      isLined={index !== shoppingItems.length - 1}
-      editMode="edit"
-      setActiveSelect={(id: number) => setActiveSelect(id)}
-      isActiveSelect={activeSelect === item.id}
-    />
-  ));
+  useEffect(() => {
+    dispatch(fetchIngredients());
+  }, [dispatch]);
+
+  const shoppingItems = useAppSelector((state) => state.present.shopList.value);
+
+  const shoppingItemsJSX = [...shoppingItems]
+    .sort((a, b) => a.id - b.id)
+    .map((item, index) => (
+      <ShoppingListTableString
+        id={item.id}
+        name={item.name}
+        amount={item.amount}
+        measureDefault={item.measurementUnit}
+        key={item.id}
+        isLined={index !== shoppingItems.length - 1}
+        editMode="edit"
+        setActiveSelect={(id: number) => setActiveSelect(id)}
+        isActiveSelect={activeSelect === item.id}
+      />
+    ));
 
   return (
     <div className="shopping-list-table">

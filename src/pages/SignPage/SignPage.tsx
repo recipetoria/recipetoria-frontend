@@ -1,11 +1,6 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 
-import {
-  useForm,
-  SubmitHandler,
-  RegisterOptions,
-  UseFormRegisterReturn,
-} from "react-hook-form";
+import { useForm, SubmitHandler } from "react-hook-form";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import {
@@ -36,7 +31,6 @@ export default function SignPage(props: ISignPageProps) {
 
   const [passwordValue, setPasswordValue] = useState("");
   const [customError, setCustomError] = useState<boolean>();
-  console.log(passwordValue);
 
   const submitText = () => {
     let text = "";

@@ -6,7 +6,11 @@ import measureValues from "../../assets/data/measureArray";
 import ShoppingListTableItem from "./ShoppingListTableItem";
 import getObjectForUpdate from "../../utils/updateSelectedObj";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import { updateShopElement } from "../../features/ShopListSlice";
+import {
+  removeIngredientByID,
+  updateIngredient,
+} from "../../features/ShopListSlice";
+import { SnackbarTextValue } from "../../features/SnackbarTextSlice";
 
 /* eslint-disable jsx-a11y/control-has-associated-label */
 
@@ -35,9 +39,10 @@ export default function ShoppingListTableString(
     isActiveSelect,
   } = props;
   const [valueMeasure, setValueMeasure] = useState<string>(measureDefault);
-  const shoppingItems = useAppSelector((state) => state.shopList.value);
+  const shoppingItems = useAppSelector((state) => state.present.shopList.value);
   const dispatch = useAppDispatch();
   const [isDisabled, setDisabled] = useState<boolean>();
+  const [hoverTrashId, setHoverTrashId] = useState<number | null>(null);
 
   const updateDisable = (value: boolean) => {
     setDisabled(value);
@@ -54,13 +59,13 @@ export default function ShoppingListTableString(
           setActiveSelect(0);
           setValueMeasure(item);
           dispatch(
-            updateShopElement(
-              getObjectForUpdate(id, item, shoppingItems, "measure")
+            updateIngredient(
+              getObjectForUpdate(id, item, shoppingItems, "measurementUnit")
             )
           );
         }}
       >
-        {item}
+        {item.toLowerCase()}
       </button>
     ));
 
@@ -75,6 +80,7 @@ export default function ShoppingListTableString(
         id={id}
         field="id"
         isDisable={updateDisable}
+        isHoverByTrash={id === hoverTrashId}
       />
       <ShoppingListTableItem
         isLined={isLined}
@@ -85,6 +91,7 @@ export default function ShoppingListTableString(
         id={id}
         field="name"
         isDisable={updateDisable}
+        isHoverByTrash={id === hoverTrashId}
       />
       <ShoppingListTableItem
         isLined={isLined}
@@ -95,15 +102,20 @@ export default function ShoppingListTableString(
         id={id}
         field="amount"
         isDisable={updateDisable}
+        isHoverByTrash={id === hoverTrashId}
       />
-      <div className={`td-select td ${isLined ? "td__with-line" : ""}`}>
+      <div
+        className={`td-select td ${
+          isLined && !(id === hoverTrashId) ? "td__with-line" : ""
+        } ${id === hoverTrashId ? "td_hover-by-trash" : ""}`}
+      >
         <button
           type="button"
           className="td__button td__button_with-arrow"
           onClick={() => setActiveSelect(isActiveSelect ? 0 : id)}
           disabled={isDisabled}
         >
-          {valueMeasure || "select"}
+          {valueMeasure.toLowerCase() || "select"}
           <img
             src={customArrow}
             alt="arrow"
@@ -118,14 +130,32 @@ export default function ShoppingListTableString(
           ""
         )}
       </div>
-      <div className={`td-trash td ${isLined ? "td__with-line" : ""}`}>
+      <div
+        className={`td-trash td ${
+          isLined && !(id === hoverTrashId) ? "td__with-line" : ""
+        } ${id === hoverTrashId ? "td_hover-by-trash" : ""}`}
+      >
         <button
           type="button"
           className="td__button td__button_trash"
-          onClick={() => {}}
+          onClick={() => {
+            dispatch(SnackbarTextValue("The row was moved to trash"));
+            dispatch(removeIngredientByID(id));
+          }}
+          onMouseEnter={() => {
+            setHoverTrashId(id);
+          }}
+          onMouseLeave={() => {
+            setHoverTrashId(null);
+          }}
         >
           <Trash />
         </button>
+        {hoverTrashId && (
+          <div className="popup-tip">
+            <span>Delete</span>
+          </div>
+        )}
       </div>
     </>
   );

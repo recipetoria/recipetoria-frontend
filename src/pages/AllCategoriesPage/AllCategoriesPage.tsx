@@ -12,7 +12,7 @@ interface IResponse {
 }
 
 export default function AllCategoriesPage() {
-  const [state, setState] = useState<IResponse>();
+  const [state] = useState<IResponse>();
   const [stateShop, setStateShop] = useState<IResponse>();
 
   useEffect(() => {
@@ -30,26 +30,6 @@ export default function AllCategoriesPage() {
       ).json();
       setStateShop(dataShopGet);
     };
-    // const dataFetch = async () => {
-    //   const data = await (
-    //     await fetch(
-    //       "https://recipetoria-production.up.railway.app/api/v1/auth/register",
-    //       {
-    //         method: "POST",
-    //         headers: {
-    //           "Content-Type": "application/json;charset=utf-8",
-    //         },
-    //         body: JSON.stringify({
-    //           name: "dfsdfsd",
-    //           email: "alydd1111111f@fjfj.com",
-    //           password: "fsdfsdfds",
-    //         }),
-    //       }
-    //     )
-    //   ).json();
-    //   setState(data);
-    // };
-    // dataFetch();
     setTimeout(() => {
       dataFetchShop();
     }, 1000);

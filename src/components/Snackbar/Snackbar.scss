@@ -1,0 +1,68 @@
+@import '../../styles/variables';
+
+.snackbar {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 312px;
+  padding: 14px 16px;
+
+  background: $black-2-color;
+  border-radius: 4px;
+  box-shadow: 0 4px 8px 3px rgba(0 0 0 / 15%), 0 1px 3px rgba(0 0 0 / 30%);
+
+  transition: bottom .5s linear;
+
+  &_show {
+    bottom: 32px;
+    left: 32px;
+
+    opacity: 1;
+  }
+
+  &_hide {
+    bottom: -32px;
+    left: -32px;
+
+    opacity: 0;
+  }
+
+  &__text {
+    font-size: 14px;
+    color: $snackbar-text-color;
+    letter-spacing: 0.25px;
+  }
+
+  &__btns {
+    position: relative;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 80px;
+  }
+
+  &__btn {
+    font-size: 14px;
+    font-weight: 500;
+    color: $snackbar-text-color;
+    letter-spacing: 0.1px;
+
+    cursor: pointer;
+
+    background: transparent;
+    border: none;
+    outline: none;
+
+    &_undo {
+      color: $blue-color;
+    }
+
+    &_cross {
+      position: absolute;
+      top: 10%;
+      right: 0;
+    }
+  }
+}

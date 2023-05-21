@@ -1,12 +1,10 @@
 import { FocusEvent, useEffect, useRef, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { IShoppingListItems } from "../../types/types";
-import {
-  updateShopElement,
-  addNewShopElement,
-} from "../../features/ShopListSlice";
+import { addIngredient, updateIngredient } from "../../features/ShopListSlice";
 import { shopListNewStringValue } from "../../features/ShopListNewStringSlice";
 import getObjectForUpdate from "../../utils/updateSelectedObj";
+import measureValues from "../../assets/data/measureArray";
 
 interface IShoppingListTableItem {
   isLined: boolean;
@@ -17,6 +15,7 @@ interface IShoppingListTableItem {
   id: number;
   field: string;
   isDisable: (a: boolean) => void;
+  isHoverByTrash: boolean;
 }
 
 export default function ShoppingListTableItem(props: IShoppingListTableItem) {
@@ -29,11 +28,12 @@ export default function ShoppingListTableItem(props: IShoppingListTableItem) {
     id,
     field,
     isDisable,
+    isHoverByTrash,
   } = props;
   const [value, setValue] = useState<string | number>(defaultValue);
   const [error, setError] = useState("");
   const dispatch = useAppDispatch();
-  const shoppingItems = useAppSelector((state) => state.shopList.value);
+  const shoppingItems = useAppSelector((state) => state.present.shopList.value);
   const cellRef = useRef(null);
 
   useEffect(() => {
@@ -44,10 +44,10 @@ export default function ShoppingListTableItem(props: IShoppingListTableItem) {
 
   function addNewElStore(e: FocusEvent<HTMLDivElement>) {
     const newEl: IShoppingListItems = {
-      id: shoppingItems.length + 1,
+      id,
       name: "",
-      amount: 0,
-      measure: "select",
+      amount: 1,
+      measurementUnit: measureValues[0],
     };
     if (e.currentTarget.textContent) {
       if (field === "name") {
@@ -57,11 +57,15 @@ export default function ShoppingListTableItem(props: IShoppingListTableItem) {
       }
     }
     dispatch(shopListNewStringValue(false));
-    dispatch(addNewShopElement(newEl));
+    dispatch(addIngredient(newEl));
   }
 
   return (
-    <div className={`td ${isLined ? "td__with-line" : ""}`}>
+    <div
+      className={`td ${isLined && !isHoverByTrash ? "td__with-line" : ""} ${
+        isHoverByTrash ? "td_hover-by-trash" : ""
+      }`}
+    >
       <div
         id={id.toString()}
         className={`td__button ${classMode} ${
@@ -104,7 +108,7 @@ export default function ShoppingListTableItem(props: IShoppingListTableItem) {
             if (editMode === "edit") {
               if (e.currentTarget.textContent) {
                 dispatch(
-                  updateShopElement(
+                  updateIngredient(
                     getObjectForUpdate(
                       id,
                       e.currentTarget.textContent,
