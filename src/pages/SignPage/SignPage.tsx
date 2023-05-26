@@ -12,7 +12,7 @@ import Input from "../../components/Input/Input";
 import { FormValues } from "../../types/types";
 import "./SignPage.scss";
 import Image from "../../assets/png/bg_img.png";
-import { signUp } from "../../utils/sighUp";
+import signUp from "../../utils/sighUp";
 
 type SignMode = "signUp" | "signIn";
 

@@ -1,5 +1,6 @@
 import axios, { AxiosResponse } from "axios";
 import { SignUpResponseMessage } from "../types/types";
+import { URL_REGISTER } from "./constants";
 
 interface SignUpResponse {
   timeStamp: string;
@@ -12,10 +13,7 @@ interface SignUpResponse {
   };
 }
 
-export const BASE_URL = "http://localhost:8080/api/v1/";
-export const URL_REGISTER = `${BASE_URL}auth/register`;
-
-export function signUp(name: string, email: string, password: string) {
+export default function signUp(name: string, email: string, password: string) {
   const data = JSON.stringify({
     name,
     email,
@@ -41,7 +39,7 @@ export function signUp(name: string, email: string, password: string) {
         "authRegister",
         JSON.stringify({
           name,
-          token: response.data.data.authenticationResponse,
+          token: response.data.data.authenticationResponse.token,
         })
       );
       responseMessage = response.data.message;
