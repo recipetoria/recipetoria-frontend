@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 
 import { useForm, SubmitHandler } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import {
   FacebookIcon,
@@ -12,6 +12,7 @@ import Input from "../../components/Input/Input";
 import { FormValues } from "../../types/types";
 import "./SignPage.scss";
 import Image from "../../assets/png/bg_img.png";
+import { signUp } from "../../utils/sighUp";
 
 type SignMode = "signUp" | "signIn";
 
@@ -43,8 +44,17 @@ export default function SignPage(props: ISignPageProps) {
     return text;
   };
 
+  const navigate = useNavigate();
   const onSubmit: SubmitHandler<FormValues> = (data) => {
-    const { nickname, email, password, checkbox } = data;
+    const { nickname, email, password } = data;
+
+    if (signMode === "signUp") {
+      const signUpResult = signUp(nickname, email, password);
+      if (signUpResult === "User registered successfully") {
+        navigate("/");
+      }
+    }
+
     reset();
   };
 

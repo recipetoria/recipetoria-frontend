@@ -12,3 +12,5 @@ export type FormValues = {
   checkbox: string;
   repeatPassword: string;
 };
+
+export type SignUpResponseMessage = "User registered successfully";
