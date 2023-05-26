@@ -13,6 +13,8 @@ import { FormValues } from "../../types/types";
 import "./SignPage.scss";
 import Image from "../../assets/png/bg_img.png";
 import signUp from "../../utils/sighUp";
+import { PARSED_NAME } from "../../utils/constants";
+import SignIn from "../../utils/signIn";
 
 type SignMode = "signUp" | "signIn";
 
@@ -45,14 +47,19 @@ export default function SignPage(props: ISignPageProps) {
   };
 
   const navigate = useNavigate();
-  const onSubmit: SubmitHandler<FormValues> = (data) => {
+  const onSubmit: SubmitHandler<FormValues> = async (data) => {
     const { nickname, email, password } = data;
 
-    if (signMode === "signUp") {
-      const signUpResult = signUp(nickname, email, password);
-      if (signUpResult === "User registered successfully") {
+    function navIfSuccess(signUpResult: number) {
+      if (signUpResult === 200 || signUpResult === 201) {
         navigate("/");
       }
+    }
+
+    if (signMode === "signUp") {
+      navIfSuccess(await signUp(nickname, email, password));
+    } else if (signMode === "signIn") {
+      navIfSuccess(await SignIn(email, password));
     }
 
     reset();
@@ -83,7 +90,11 @@ export default function SignPage(props: ISignPageProps) {
             ) : (
               <div className="sign-page__headers">
                 <h3 className="sign-page__header">Welcome back!</h3>
-                <h3 className="sign-page__header">Michael</h3>
+                {PARSED_NAME ? (
+                  <h3 className="sign-page__header">{PARSED_NAME}</h3>
+                ) : (
+                  ""
+                )}
               </div>
             )}
             <form onSubmit={handleSubmit(onSubmit)} className="sign-page__form">

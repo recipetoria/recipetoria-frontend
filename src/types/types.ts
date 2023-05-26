@@ -13,4 +13,13 @@ export type FormValues = {
   repeatPassword: string;
 };
 
-export type SignUpResponseMessage = "User registered successfully";
+export interface SignResponse {
+  timeStamp: string;
+  statusCode: number;
+  message: string;
+  data: {
+    authenticationResponse: {
+      token: string;
+    };
+  };
+}

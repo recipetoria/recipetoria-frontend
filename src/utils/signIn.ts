@@ -1,14 +1,9 @@
-import axios, { AxiosError, AxiosResponse } from "axios";
+import axios, { AxiosResponse, AxiosError } from "axios";
+import { PARSED_NAME, URL_AUTHENTICATE } from "./constants";
 import { SignResponse } from "../types/types";
-import { URL_REGISTER } from "./constants";
 
-export default async function signUp(
-  name: string,
-  email: string,
-  password: string
-) {
+export default async function signIn(email: string, password: string) {
   const data = JSON.stringify({
-    name,
     email,
     password,
   });
@@ -16,15 +11,13 @@ export default async function signUp(
   const config = {
     method: "post",
     maxBodyLength: Infinity,
-    url: URL_REGISTER,
+    url: URL_AUTHENTICATE,
     headers: {
       "Content-Type": "application/json",
     },
     data,
   };
-
   let resp;
-
   try {
     resp = await axios
       .request(config)
@@ -32,7 +25,7 @@ export default async function signUp(
         localStorage.setItem(
           "authRegister",
           JSON.stringify({
-            name,
+            name: PARSED_NAME,
             token: response.data.data.authenticationResponse.token,
           })
         );
