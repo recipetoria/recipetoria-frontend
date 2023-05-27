@@ -174,7 +174,7 @@ export default function SignPage(props: ISignPageProps) {
               <input
                 type="submit"
                 value={submitText()}
-                className="submit-btn btn"
+                className="submit-btn"
                 disabled={errorsArr.length !== 0}
               />
               <Input

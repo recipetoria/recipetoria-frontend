@@ -20,3 +20,35 @@
   border: $width solid $color;
   border-radius: 4px;
 }
+
+@mixin btn {
+  @include border($color: $black-color);
+  padding: 12px 24px;
+
+  cursor: pointer;
+
+  background-color: $btn-bg-color;
+  box-shadow: 3px 3px 0 0 $black-color;
+}
+
+@mixin orange-btn {
+  @include btn;
+
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+  color: $btn-bg-color;
+  letter-spacing: 0.1px;
+
+  background: $orange-color;
+
+  &:disabled {
+    @include border($color: $gray-light-color);
+
+    color: $gray-light-color;
+    cursor: not-allowed;
+
+    background: $gray-light-1-color;
+    box-shadow: 3px 3px 0 0 $gray-light-color;
+  }
+}

@@ -1,6 +1,7 @@
 import axios, { AxiosError, AxiosResponse } from "axios";
 import { SignResponse } from "../types/types";
 import { URL_REGISTER } from "./constants";
+import setRegister from "./storage";
 
 export default async function signUp(
   name: string,
@@ -29,13 +30,7 @@ export default async function signUp(
     resp = await axios
       .request(config)
       .then((response: AxiosResponse<SignResponse>) => {
-        localStorage.setItem(
-          "authRegister",
-          JSON.stringify({
-            name,
-            token: response.data.data.authenticationResponse.token,
-          })
-        );
+        setRegister(response, name);
         return response.status;
       });
   } catch (error) {

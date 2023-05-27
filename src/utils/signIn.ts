@@ -1,6 +1,7 @@
 import axios, { AxiosResponse, AxiosError } from "axios";
 import { PARSED_NAME, URL_AUTHENTICATE } from "./constants";
 import { SignResponse } from "../types/types";
+import setRegister from "./storage";
 
 export default async function signIn(email: string, password: string) {
   const data = JSON.stringify({
@@ -22,13 +23,7 @@ export default async function signIn(email: string, password: string) {
     resp = await axios
       .request(config)
       .then((response: AxiosResponse<SignResponse>) => {
-        localStorage.setItem(
-          "authRegister",
-          JSON.stringify({
-            name: PARSED_NAME,
-            token: response.data.data.authenticationResponse.token,
-          })
-        );
+        setRegister(response, PARSED_NAME);
         return response.status;
       });
   } catch (error) {
