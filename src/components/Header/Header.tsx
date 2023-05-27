@@ -7,9 +7,11 @@ export default function Header() {
   return (
     <header className="header">
       <div className="header__wrapper">
-        <div className="logo__wrapper">
-          <Logo />
-        </div>
+        <Link to="/">
+          <div className="logo__wrapper">
+            <Logo color="#35201A" />
+          </div>
+        </Link>
         <article className="links-n-avatar">
           <section className="links">
             <Link to="/all_categories">All Categories</Link>

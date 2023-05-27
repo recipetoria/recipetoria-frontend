@@ -19,7 +19,8 @@
     object-fit: contain;
 
     &__wrapper {
-      width: 72px;
+      display: flex;
+      align-items: center;
       height: 60px;
     }
   }
