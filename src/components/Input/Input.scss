@@ -2,6 +2,10 @@
 @import '../../styles/mixins';
 
 .form-control-input {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+
   &_checkbox {
     display: flex;
     flex-direction: row-reverse;
@@ -27,7 +31,7 @@
 
   .input {
     width: 100%;
-    padding: 1rem 0;
+    padding: 15.8px 0;
 
     font-size: 16px;
     font-weight: 400;
@@ -79,6 +83,11 @@
     }
 
     &__btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+
       cursor: pointer;
 
       background: transparent;
@@ -92,6 +101,7 @@
   }
 
   .caption {
+    height: 1rem;
     margin-left: 16px;
 
     font-size: 12px;

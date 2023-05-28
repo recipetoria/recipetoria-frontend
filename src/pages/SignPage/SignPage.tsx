@@ -166,7 +166,7 @@ export default function SignPage(props: ISignPageProps) {
                   validationSchema={{
                     required: "Repeat password is required",
                   }}
-                  placeholder="Repeat password"
+                  placeholder="Enter password"
                   passwordValue={passwordValue}
                   updateCustomError={(value: boolean) => setCustomError(value)}
                 />
