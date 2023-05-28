@@ -3,17 +3,18 @@ import { useNavigate } from "react-router-dom";
 import Footer from "../../components/Footer/Footer";
 import Header from "../../components/Header/Header";
 import "./AddRecipePage.scss";
-import { STORAGE_AUTH } from "../../utils/constants";
+import { useAppSelector } from "../../app/hooks";
 
 export default function AddRecipePage() {
+  const isAuth = useAppSelector((state) => state.present.authData.value.isAuth);
   const navigate = useNavigate();
 
   useEffect(() => {
-    const isAuth = STORAGE_AUTH ? JSON.parse(STORAGE_AUTH).isAuth : "";
-    if (isAuth === false) {
-      navigate("*");
+    if (isAuth !== true) {
+      navigate("/*");
     }
   });
+
   return (
     <>
       <Header />

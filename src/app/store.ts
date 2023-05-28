@@ -14,7 +14,7 @@ const rootReducer = combineReducers({
   shopListNewStringSlice: ShopListNewStringSlice,
   snackbarTextSlice: SnackbarTextSlice,
   shopList: ShopListSlice,
-  isAuth: AuthSlice,
+  authData: AuthSlice,
 });
 
 const undoableRootReducer = undoable(rootReducer);

@@ -12,11 +12,12 @@ export default function ShoppingListTable() {
   const isNewString = useAppSelector(
     (state) => state.present.shopListNewStringSlice.value
   );
+  const token = useAppSelector((state) => state.present.authData.value.token);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(fetchIngredients());
-  }, [dispatch]);
+    dispatch(fetchIngredients(token));
+  }, [dispatch, token]);
 
   const shoppingItems = useAppSelector((state) => state.present.shopList.value);
 

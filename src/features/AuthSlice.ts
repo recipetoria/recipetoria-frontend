@@ -1,15 +1,29 @@
 /* eslint-disable no-param-reassign */
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
+interface IAuth {
+  name: string;
+  token: string;
+  isAuth: boolean;
+}
+
 const AuthSlice = createSlice({
-  name: "isAuth",
+  name: "authData",
   initialState: {
-    value: localStorage.getItem("authRegister")
-      ? !!JSON.parse(localStorage.getItem("authRegister") || "").isAuth
-      : false,
+    value: <IAuth>{
+      name: localStorage.getItem("authRegister")
+        ? JSON.parse(localStorage.getItem("authRegister") || "").name
+        : "",
+      token: localStorage.getItem("authRegister")
+        ? JSON.parse(localStorage.getItem("authRegister") || "").token
+        : "",
+      isAuth: localStorage.getItem("authRegister")
+        ? !!JSON.parse(localStorage.getItem("authRegister") || "").isAuth
+        : false,
+    },
   },
   reducers: {
-    isAuthValue: (state, action: PayloadAction<boolean>) => {
+    isAuthValue: (state, action: PayloadAction<IAuth>) => {
       state.value = action.payload;
     },
   },

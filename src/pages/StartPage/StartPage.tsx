@@ -9,11 +9,17 @@ export default function StartPage() {
 
   useEffect(() => {
     dispatch(
-      isAuthValue(
-        localStorage.getItem("authRegister")
+      isAuthValue({
+        name: localStorage.getItem("authRegister")
+          ? JSON.parse(localStorage.getItem("authRegister") || "").name
+          : "",
+        token: localStorage.getItem("authRegister")
+          ? JSON.parse(localStorage.getItem("authRegister") || "").token
+          : "",
+        isAuth: localStorage.getItem("authRegister")
           ? !!JSON.parse(localStorage.getItem("authRegister") || "").isAuth
-          : false
-      )
+          : false,
+      })
     );
   });
 

@@ -13,8 +13,8 @@ import { FormValues } from "../../types/types";
 import "./SignPage.scss";
 import Image from "../../assets/png/bg_img.png";
 import signUp from "../../utils/sighUp";
-import { PARSED_NAME } from "../../utils/constants";
 import SignIn from "../../utils/signIn";
+import { useAppSelector } from "../../app/hooks";
 
 type SignMode = "signUp" | "signIn";
 
@@ -34,6 +34,7 @@ export default function SignPage(props: ISignPageProps) {
 
   const [passwordValue, setPasswordValue] = useState("");
   const [customError, setCustomError] = useState<boolean>();
+  const name = useAppSelector((state) => state.present.authData.value.name);
 
   const submitText = () => {
     let text = "";
@@ -59,7 +60,7 @@ export default function SignPage(props: ISignPageProps) {
     if (signMode === "signUp") {
       navIfSuccess(await signUp(nickname, email, password));
     } else if (signMode === "signIn") {
-      navIfSuccess(await SignIn(email, password));
+      navIfSuccess(await SignIn(email, password, name));
     }
 
     reset();
@@ -90,11 +91,7 @@ export default function SignPage(props: ISignPageProps) {
             ) : (
               <div className="sign-page__headers">
                 <h3 className="sign-page__header">Welcome back!</h3>
-                {PARSED_NAME ? (
-                  <h3 className="sign-page__header">{PARSED_NAME}</h3>
-                ) : (
-                  ""
-                )}
+                {name ? <h3 className="sign-page__header">{name}</h3> : ""}
               </div>
             )}
             <form onSubmit={handleSubmit(onSubmit)} className="sign-page__form">

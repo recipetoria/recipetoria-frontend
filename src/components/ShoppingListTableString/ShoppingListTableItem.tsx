@@ -1,7 +1,10 @@
 import { FocusEvent, useEffect, useRef, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import { IShoppingListItems } from "../../types/types";
-import { addIngredient, updateIngredient } from "../../features/ShopListSlice";
+import {
+  IAddIngredient,
+  addIngredient,
+  updateIngredient,
+} from "../../features/ShopListSlice";
 import { shopListNewStringValue } from "../../features/ShopListNewStringSlice";
 import getObjectForUpdate from "../../utils/updateSelectedObj";
 import measureValues from "../../assets/data/measureArray";
@@ -34,6 +37,7 @@ export default function ShoppingListTableItem(props: IShoppingListTableItem) {
   const [error, setError] = useState("");
   const dispatch = useAppDispatch();
   const shoppingItems = useAppSelector((state) => state.present.shopList.value);
+  const token = useAppSelector((state) => state.present.authData.value.token);
   const cellRef = useRef(null);
 
   useEffect(() => {
@@ -43,11 +47,12 @@ export default function ShoppingListTableItem(props: IShoppingListTableItem) {
   }, [field, editMode]);
 
   function addNewElStore(e: FocusEvent<HTMLDivElement>) {
-    const newEl: IShoppingListItems = {
+    const newEl: IAddIngredient = {
       id,
       name: "",
       amount: 1,
       measurementUnit: measureValues[0],
+      token,
     };
     if (e.currentTarget.textContent) {
       if (field === "name") {

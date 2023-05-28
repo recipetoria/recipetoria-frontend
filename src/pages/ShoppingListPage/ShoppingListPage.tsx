@@ -17,7 +17,8 @@ export default function ShoppingListPage() {
   const componentRef = useRef(null);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const isAuth = useAppSelector((state) => state.present.isAuth.value);
+  const isAuth = useAppSelector((state) => state.present.authData.value.isAuth);
+  const token = useAppSelector((state) => state.present.authData.value.token);
 
   useEffect(() => {
     if (isAuth !== true) {
@@ -32,7 +33,7 @@ export default function ShoppingListPage() {
   });
 
   return (
-    <div>
+    <div className="app__wrapper">
       {isAuth && (
         <>
           <Header />
@@ -49,7 +50,7 @@ export default function ShoppingListPage() {
                       <Button
                         icon={<Trash />}
                         onClick={() => {
-                          dispatch(cleanShopListServer());
+                          dispatch(cleanShopListServer(token));
                         }}
                       />
                     </section>
