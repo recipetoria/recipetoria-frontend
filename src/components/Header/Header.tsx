@@ -16,7 +16,7 @@ export default function Header() {
           </div>
         </Link>
         <article className="links-n-avatar">
-          <section className="links">
+          <section className={`links ${!isAuth ? "links_not-auth" : ""}`}>
             {isAuth ? (
               <>
                 <Link to="/all_categories">All Categories</Link>

@@ -36,6 +36,10 @@
     display: flex;
     gap: 2.77vw;
     align-items: center;
+
+    &_not-auth {
+      gap: 1.11vw;
+    }
   }
 
   .default-avatar {
