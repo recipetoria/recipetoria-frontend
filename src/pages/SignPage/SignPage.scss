@@ -23,6 +23,13 @@
   &__img-wrapper {
     display: flex;
     align-items: center;
+    width: calc(42.709vw - 110px);
+
+    img {
+      width: 100%;
+
+      object-fit: cover;
+    }
   }
 
   &__form-n-header {
