@@ -12,3 +12,14 @@ export type FormValues = {
   checkbox: string;
   repeatPassword: string;
 };
+
+export interface SignResponse {
+  timeStamp: string;
+  statusCode: number;
+  message: string;
+  data: {
+    authenticationResponse: {
+      token: string;
+    };
+  };
+}

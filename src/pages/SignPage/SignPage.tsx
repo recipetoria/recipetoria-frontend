@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 
 import { useForm, SubmitHandler } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import {
   FacebookIcon,
@@ -12,6 +12,9 @@ import Input from "../../components/Input/Input";
 import { FormValues } from "../../types/types";
 import "./SignPage.scss";
 import Image from "../../assets/png/bg_img.png";
+import signUp from "../../utils/sighUp";
+import SignIn from "../../utils/signIn";
+import { useAppSelector } from "../../app/hooks";
 
 type SignMode = "signUp" | "signIn";
 
@@ -31,6 +34,7 @@ export default function SignPage(props: ISignPageProps) {
 
   const [passwordValue, setPasswordValue] = useState("");
   const [customError, setCustomError] = useState<boolean>();
+  const name = useAppSelector((state) => state.present.authData.value.name);
 
   const submitText = () => {
     let text = "";
@@ -43,8 +47,22 @@ export default function SignPage(props: ISignPageProps) {
     return text;
   };
 
-  const onSubmit: SubmitHandler<FormValues> = (data) => {
-    const { nickname, email, password, checkbox } = data;
+  const navigate = useNavigate();
+  const onSubmit: SubmitHandler<FormValues> = async (data) => {
+    const { nickname, email, password } = data;
+
+    function navIfSuccess(signUpResult: number) {
+      if (signUpResult === 200 || signUpResult === 201) {
+        navigate("/");
+      }
+    }
+
+    if (signMode === "signUp") {
+      navIfSuccess(await signUp(nickname, email, password));
+    } else if (signMode === "signIn") {
+      navIfSuccess(await SignIn(email, password, name));
+    }
+
     reset();
   };
 
@@ -73,7 +91,7 @@ export default function SignPage(props: ISignPageProps) {
             ) : (
               <div className="sign-page__headers">
                 <h3 className="sign-page__header">Welcome back!</h3>
-                <h3 className="sign-page__header">Michael</h3>
+                {name ? <h3 className="sign-page__header">{name}</h3> : ""}
               </div>
             )}
             <form onSubmit={handleSubmit(onSubmit)} className="sign-page__form">
@@ -145,7 +163,7 @@ export default function SignPage(props: ISignPageProps) {
                   validationSchema={{
                     required: "Repeat password is required",
                   }}
-                  placeholder="Repeat password"
+                  placeholder="Enter password"
                   passwordValue={passwordValue}
                   updateCustomError={(value: boolean) => setCustomError(value)}
                 />
@@ -153,7 +171,7 @@ export default function SignPage(props: ISignPageProps) {
               <input
                 type="submit"
                 value={submitText()}
-                className="submit-btn btn"
+                className="submit-btn"
                 disabled={errorsArr.length !== 0}
               />
               <Input

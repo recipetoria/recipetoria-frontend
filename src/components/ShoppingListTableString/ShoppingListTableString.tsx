@@ -43,6 +43,7 @@ export default function ShoppingListTableString(
   const dispatch = useAppDispatch();
   const [isDisabled, setDisabled] = useState<boolean>();
   const [hoverTrashId, setHoverTrashId] = useState<number | null>(null);
+  const token = useAppSelector((state) => state.present.authData.value.token);
 
   const updateDisable = (value: boolean) => {
     setDisabled(value);
@@ -140,7 +141,7 @@ export default function ShoppingListTableString(
           className="td__button td__button_trash"
           onClick={() => {
             dispatch(SnackbarTextValue("The row was moved to trash"));
-            dispatch(removeIngredientByID(id));
+            dispatch(removeIngredientByID({ id, token }));
           }}
           onMouseEnter={() => {
             setHoverTrashId(id);

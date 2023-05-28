@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Footer from "../../components/Footer/Footer";
 import Header from "../../components/Header/Header";
 import "./AllCategoriesPage.scss";
+import { useAppSelector } from "../../app/hooks";
 
 interface IResponse {
   developerMessage: string;
@@ -14,6 +16,17 @@ interface IResponse {
 export default function AllCategoriesPage() {
   const [state] = useState<IResponse>();
   const [stateShop, setStateShop] = useState<IResponse>();
+  const isAuth = useAppSelector(
+    (authState) => authState.present.authData.value.isAuth
+  );
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (isAuth !== true) {
+      navigate("/*");
+    }
+  });
 
   useEffect(() => {
     const dataFetchShop = async () => {

@@ -18,6 +18,12 @@ body {
 .app {
   display: flex;
   flex-direction: column;
+
+  &__wrapper {
+    display: flex;
+    flex-direction: column;
+    height: inherit;
+  }
 }
 
 main {
@@ -30,11 +36,5 @@ a {
 }
 
 .btn {
-  @include border($color: $black-color);
-  padding: 12px 24px;
-
-  cursor: pointer;
-
-  background-color: $btn-bg-color;
-  box-shadow: 3px 3px 0 0 $black-color;
+  @include btn;
 }
