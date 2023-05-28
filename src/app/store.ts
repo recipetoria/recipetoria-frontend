@@ -8,11 +8,13 @@ import undoable from "redux-undo";
 import ShopListSlice from "../features/ShopListSlice";
 import ShopListNewStringSlice from "../features/ShopListNewStringSlice";
 import SnackbarTextSlice from "../features/SnackbarTextSlice";
+import AuthSlice from "../features/AuthSlice";
 
 const rootReducer = combineReducers({
   shopListNewStringSlice: ShopListNewStringSlice,
   snackbarTextSlice: SnackbarTextSlice,
   shopList: ShopListSlice,
+  isAuth: AuthSlice,
 });
 
 const undoableRootReducer = undoable(rootReducer);
