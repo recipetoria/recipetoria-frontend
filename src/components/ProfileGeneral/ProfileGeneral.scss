@@ -1,2 +1,19 @@
 @import '../../styles/variables';
 @import '../../styles/mixins';
+
+.general {
+  &__avatar-wrapper {
+    @include default-avatar-wrapper;
+
+    width: 84px;
+    height: 84px;
+
+    .default-avatar {
+      @include default-avatar;
+
+      padding-top: 12px;
+  
+      transform: scale(1.2);
+    }
+  }
+}
