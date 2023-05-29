@@ -9,6 +9,12 @@
     align-items: flex-end;
   }
 
+  &__submit-btn {
+    @include orange-btn;
+
+    font-weight: 500;
+  }
+
   .general {
     @include border($color: $total-black, $rad: 8px);
 
