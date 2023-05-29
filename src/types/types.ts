@@ -11,6 +11,7 @@ export type FormValues = {
   password?: string;
   checkbox?: string;
   repeatPassword?: string;
+  oldPassword?: string;
 };
 
 export interface SignResponse {

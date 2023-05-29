@@ -79,7 +79,7 @@ export default function ProfileGeneral() {
             </div>
           </div>
         </section>
-        <section className="profile-general__btn-wrapper">
+        <section>
           <input
             type="submit"
             value="Save changes"

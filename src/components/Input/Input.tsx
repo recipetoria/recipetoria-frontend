@@ -7,7 +7,13 @@ import "./Input.scss";
 import EyeIcon from "../../assets/svg/EyeIcon";
 
 interface InputProps {
-  name: "nickname" | "email" | "password" | "checkbox" | "repeatPassword";
+  name:
+    | "nickname"
+    | "email"
+    | "password"
+    | "checkbox"
+    | "repeatPassword"
+    | "oldPassword";
   label: string;
   register: UseFormRegister<FormValues>;
   errors: FieldErrors<FormValues>;
@@ -111,7 +117,9 @@ export default function Input(props: InputProps) {
             }
           }}
         />
-        {name === "password" || name === "repeatPassword" ? (
+        {name === "password" ||
+        name === "repeatPassword" ||
+        name === "oldPassword" ? (
           <button
             type="button"
             onClick={() => setShowPassword(!isShowedPassword)}

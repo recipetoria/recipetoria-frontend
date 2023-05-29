@@ -59,6 +59,10 @@
       &:hover {
         background: $bg-menu-active-color;
       }
+
+      &_active {
+        background: $bg-menu-active-color;
+      }
     }
   }
 
