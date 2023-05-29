@@ -84,6 +84,7 @@ export default function ProfileChangePassword() {
                 placeholder="Enter new password"
                 passwordValue={passwordValue}
                 updateCustomError={(value: boolean) => setCustomError(value)}
+                caption="Minimum 6 characters"
               />
             </div>
           </div>
