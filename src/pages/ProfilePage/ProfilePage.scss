@@ -1,2 +1,10 @@
 @import '../../styles/variables';
 @import '../../styles/mixins';
+
+.profile-page {
+  display: flex;
+  flex-grow: 1;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
