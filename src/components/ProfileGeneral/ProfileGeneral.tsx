@@ -30,10 +30,10 @@ export default function ProfileGeneral() {
                 <img src={DefaultAvatar} alt="" className="default-avatar" />
               </div>
               <div className="general__btn-n-caption">
-                <button type="button" className="btn">
+                <button type="button" className="general__btn btn">
                   Replace picture
                 </button>
-                <span className="caption">
+                <span className="general__caption">
                   Allowed types: jpeg, jpg or png Maximum file size is 5 MB
                 </span>
               </div>
