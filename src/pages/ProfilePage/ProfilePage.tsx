@@ -21,7 +21,29 @@ export default function ProfilePage() {
         <>
           <Header />
           <main>
-            <article className="profile-page">Profile page</article>
+            <article className="profile-page">
+              <div className="profile-page__wrapper">
+                <section className="profile-menu">
+                  <div className="profile-menu__btns">
+                    <button type="button" className="profile-menu__btn">
+                      General
+                    </button>
+                    <button type="button" className="profile-menu__btn">
+                      Change password
+                    </button>
+                    <button type="button" className="profile-menu__btn">
+                      Log Out
+                    </button>
+                  </div>
+                  <button type="button" className="profile-menu__btn">
+                    Delete account
+                  </button>
+                </section>
+                <section className="profile-data">
+                  <h3>Profile</h3>
+                </section>
+              </div>
+            </article>
           </main>
           <Footer />
         </>
