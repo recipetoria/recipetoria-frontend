@@ -43,7 +43,7 @@ export default function ProfilePage() {
                   </div>
                 </section>
                 <section className="profile-data">
-                  <h3>Profile</h3>
+                  <h3 className="profile-data__h3">Profile</h3>
                   <ProfileGeneral />
                 </section>
               </div>

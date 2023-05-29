@@ -1,19 +1,28 @@
 @import '../../styles/variables';
 @import '../../styles/mixins';
 
-.general {
-  &__avatar-wrapper {
-    @include default-avatar-wrapper;
+.profile-general {
+  &__form {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    align-items: flex-end;
+  }
 
-    width: 84px;
-    height: 84px;
-
-    .default-avatar {
-      @include default-avatar;
-
-      padding-top: 12px;
+  .general {
+    &__avatar-wrapper {
+      @include default-avatar-wrapper;
   
-      transform: scale(1.2);
+      width: 84px;
+      height: 84px;
+  
+      .default-avatar {
+        @include default-avatar;
+  
+        padding-top: 12px;
+    
+        transform: scale(1.2);
+      }
     }
   }
 }

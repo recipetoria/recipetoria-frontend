@@ -21,7 +21,7 @@ export default function ProfileGeneral() {
 
   return (
     <article className="profile-general">
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={handleSubmit(onSubmit)} className="profile-general__form">
         <section className="general">
           <div className="general__wrapper">
             <span className="general__header">General</span>
