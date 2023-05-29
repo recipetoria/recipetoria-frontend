@@ -2,42 +2,10 @@
 @import '../../styles/mixins';
 
 .profile-general {
-  &__form {
-    display: flex;
-    flex-direction: column;
-    gap: 40px;
-    align-items: flex-end;
-  }
-
-  &__submit-btn {
-    @include orange-btn;
-
-    font-weight: 500;
-  }
+  @include profile-data-container;
 
   .general {
-    @include border($color: $total-black, $rad: 8px);
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    background: $white-color;
-
-    &__wrapper {
-      display: flex;
-      flex-direction: column;
-      gap: 24px;
-      max-width: 274px;
-      margin: 40px 2.7777vw;
-    }
-
-    &__header {
-      font-size: 1.375rem;
-      font-style: normal;
-      line-height: 1.2727;
-      color: $black-color;
-    }
+    @include profile-data;
 
     &__avatar-n-btn {
       display: flex;
@@ -86,12 +54,6 @@
       line-height: 1.3333;
       color: $gray-1-color;
       letter-spacing: 0.4px;
-    }
-
-    &__fields {
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
     }
   }
 }
