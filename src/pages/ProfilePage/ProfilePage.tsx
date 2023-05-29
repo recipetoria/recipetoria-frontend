@@ -4,6 +4,7 @@ import { useAppSelector } from "../../app/hooks";
 import Footer from "../../components/Footer/Footer";
 import Header from "../../components/Header/Header";
 import "./ProfilePage.scss";
+import ProfileGeneral from "../../components/ProfileGeneral/ProfileGeneral";
 
 export default function ProfilePage() {
   const isAuth = useAppSelector((state) => state.present.authData.value.isAuth);
@@ -41,6 +42,7 @@ export default function ProfilePage() {
                 </section>
                 <section className="profile-data">
                   <h3>Profile</h3>
+                  <ProfileGeneral />
                 </section>
               </div>
             </article>

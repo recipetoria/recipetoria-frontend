@@ -6,11 +6,11 @@ export interface IShoppingListItems {
 }
 
 export type FormValues = {
-  nickname: string;
-  email: string;
-  password: string;
-  checkbox: string;
-  repeatPassword: string;
+  nickname?: string;
+  email?: string;
+  password?: string;
+  checkbox?: string;
+  repeatPassword?: string;
 };
 
 export interface SignResponse {
