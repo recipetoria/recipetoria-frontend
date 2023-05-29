@@ -81,5 +81,11 @@
       color: $gray-1-color;
       letter-spacing: 0.4px;
     }
+
+    &__fields {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
   }
 }
