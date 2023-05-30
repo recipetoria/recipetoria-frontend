@@ -1,15 +1,18 @@
 import { SubmitHandler, useForm } from "react-hook-form";
 import "./ProfileGeneral.scss";
+import { ReactNode } from "react";
 import DefaultAvatar from "../../assets/png/default_ava.png";
 import Input from "../Input/Input";
 import { FormValues } from "../../types/types";
+import AddProfilePhoto from "../AddProfilePhoto/AddProfilePhoto";
 
 interface ProfileGeneralProps {
   toggle: () => void;
+  modalChildren: (child: ReactNode) => void;
 }
 
 export default function ProfileGeneral(props: ProfileGeneralProps) {
-  const { toggle } = props;
+  const { toggle, modalChildren } = props;
 
   const {
     register,
@@ -39,7 +42,10 @@ export default function ProfileGeneral(props: ProfileGeneralProps) {
                 <button
                   type="button"
                   className="general__btn btn"
-                  onClick={toggle}
+                  onClick={() => {
+                    toggle();
+                    modalChildren(<AddProfilePhoto />);
+                  }}
                 >
                   Replace picture
                 </button>

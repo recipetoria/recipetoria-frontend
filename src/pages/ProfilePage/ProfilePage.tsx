@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { ReactNode, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAppSelector } from "../../app/hooks";
 import Footer from "../../components/Footer/Footer";
@@ -26,6 +26,8 @@ export default function ProfilePage() {
   function changeProfileState(state: ProfileStates) {
     SetProfileState(state);
   }
+
+  const [modalChildren, setModalChildren] = useState<ReactNode>(<div />);
 
   return (
     <div className="app__wrapper">
@@ -70,7 +72,12 @@ export default function ProfilePage() {
                 <section className="profile-data">
                   <h3 className="profile-data__h3">Profile</h3>
                   {profileState === "general" && (
-                    <ProfileGeneral toggle={toggle} />
+                    <ProfileGeneral
+                      toggle={toggle}
+                      modalChildren={(modalChild) =>
+                        setModalChildren(modalChild)
+                      }
+                    />
                   )}
                   {profileState === "changePassword" && (
                     <ProfileChangePassword />
@@ -78,7 +85,7 @@ export default function ProfilePage() {
                 </section>
               </div>
               <Modal isOpen={isOpen} toggle={toggle}>
-                <div>Ptk</div>
+                {modalChildren}
               </Modal>
             </article>
           </main>
