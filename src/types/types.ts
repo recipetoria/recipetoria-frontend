@@ -1,3 +1,5 @@
+import { ReactNode } from "react";
+
 export interface IShoppingListItems {
   id: number;
   name: string;
@@ -23,4 +25,10 @@ export interface SignResponse {
       token: string;
     };
   };
+}
+
+export interface ModalProps {
+  isOpen: boolean;
+  toggle: () => void;
+  children?: ReactNode;
 }

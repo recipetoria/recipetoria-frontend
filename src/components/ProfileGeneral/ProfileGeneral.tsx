@@ -4,7 +4,13 @@ import DefaultAvatar from "../../assets/png/default_ava.png";
 import Input from "../Input/Input";
 import { FormValues } from "../../types/types";
 
-export default function ProfileGeneral() {
+interface ProfileGeneralProps {
+  toggle: () => void;
+}
+
+export default function ProfileGeneral(props: ProfileGeneralProps) {
+  const { toggle } = props;
+
   const {
     register,
     handleSubmit,
@@ -30,7 +36,11 @@ export default function ProfileGeneral() {
                 <img src={DefaultAvatar} alt="" className="default-avatar" />
               </div>
               <div className="general__btn-n-caption">
-                <button type="button" className="general__btn btn">
+                <button
+                  type="button"
+                  className="general__btn btn"
+                  onClick={toggle}
+                >
                   Replace picture
                 </button>
                 <span className="general__caption">

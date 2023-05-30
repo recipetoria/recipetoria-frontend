@@ -6,6 +6,8 @@ import Header from "../../components/Header/Header";
 import "./ProfilePage.scss";
 import ProfileGeneral from "../../components/ProfileGeneral/ProfileGeneral";
 import ProfileChangePassword from "../../components/ProfileChangePassword/ProfileChangePassword";
+import Modal from "../../components/Modal/Modal";
+import useModal from "../../hooks/useModal";
 
 type ProfileStates = "general" | "changePassword";
 
@@ -13,6 +15,7 @@ export default function ProfilePage() {
   const isAuth = useAppSelector((state) => state.present.authData.value.isAuth);
   const navigate = useNavigate();
   const [profileState, SetProfileState] = useState<ProfileStates>("general");
+  const { isOpen, toggle } = useModal();
 
   useEffect(() => {
     if (isAuth !== true) {
@@ -66,12 +69,17 @@ export default function ProfilePage() {
                 </section>
                 <section className="profile-data">
                   <h3 className="profile-data__h3">Profile</h3>
-                  {profileState === "general" && <ProfileGeneral />}
+                  {profileState === "general" && (
+                    <ProfileGeneral toggle={toggle} />
+                  )}
                   {profileState === "changePassword" && (
                     <ProfileChangePassword />
                   )}
                 </section>
               </div>
+              <Modal isOpen={isOpen} toggle={toggle}>
+                <div>Ptk</div>
+              </Modal>
             </article>
           </main>
           <Footer />
