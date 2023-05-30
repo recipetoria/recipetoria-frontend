@@ -37,14 +37,7 @@
   }
 
   &__cancel {
-    font-size: .875rem;
-    font-weight: 500;
-    line-height: 1.43;
-    color: $black-color;
-    letter-spacing: 0.1px;
-
-    background: transparent;
-    border: none;
+    @include cancel-btn;
   }
 
   &__upload {

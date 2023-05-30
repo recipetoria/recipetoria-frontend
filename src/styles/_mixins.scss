@@ -121,3 +121,17 @@
     gap: 16px;
   }
 }
+
+@mixin cancel-btn {
+  padding: 12px 8px 14px;
+    
+  font-size: .875rem;
+  font-weight: 500;
+  line-height: 1.43;
+  color: $black-color;
+  letter-spacing: 0.1px;
+  cursor: pointer;
+
+  background: transparent;
+  border: none;
+}

@@ -8,6 +8,7 @@ import ProfileGeneral from "../../components/ProfileGeneral/ProfileGeneral";
 import ProfileChangePassword from "../../components/ProfileChangePassword/ProfileChangePassword";
 import Modal from "../../components/Modal/Modal";
 import useModal from "../../hooks/useModal";
+import DeleteAccount from "../../components/DeleteAccount/DeleteAccount";
 
 type ProfileStates = "general" | "changePassword";
 
@@ -64,7 +65,14 @@ export default function ProfilePage() {
                         Log Out
                       </button>
                     </div>
-                    <button type="button" className="profile-menu__btn">
+                    <button
+                      type="button"
+                      className="profile-menu__btn"
+                      onClick={() => {
+                        toggle();
+                        setModalChildren(<DeleteAccount />);
+                      }}
+                    >
                       Delete account
                     </button>
                   </div>
