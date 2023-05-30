@@ -1,0 +1,36 @@
+@import '../../styles/variables';
+@import '../../styles/mixins';
+
+.drop-photo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: $beige;
+  border: 2px dashed $baby-1;
+  border-radius: 8px;
+
+  &__wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 19px;
+    align-items: center;
+    padding: 24px 1.6666vw;
+  }
+
+  &__img-wrapper {
+    margin: 0 .5903vw;
+  }
+
+  &__img {
+    width: 100%;
+
+    object-fit: contain;
+  }
+
+  &__text {
+    font-style: normal;
+    color: $gray-1-color;
+    letter-spacing: 0.5px;
+  }
+}

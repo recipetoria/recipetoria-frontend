@@ -8,7 +8,13 @@ export default function Modal(props: ModalProps) {
   return (
     <>
       {isOpen && (
-        <button type="button" className="modal-overlay" onClick={toggle}>
+        <section
+          className="modal-overlay"
+          onClick={toggle}
+          onKeyDown={() => {}}
+          role="textbox"
+          tabIndex={-1}
+        >
           <section
             className="modal-box"
             onClick={(e) => e.stopPropagation()}
@@ -18,7 +24,7 @@ export default function Modal(props: ModalProps) {
           >
             {children}
           </section>
-        </button>
+        </section>
       )}
     </>
   );
