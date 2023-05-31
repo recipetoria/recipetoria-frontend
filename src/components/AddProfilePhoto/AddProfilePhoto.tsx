@@ -2,6 +2,7 @@ import { useState } from "react";
 import { FileUploader } from "react-drag-drop-files";
 import "./AddProfilePhoto.scss";
 import DropPhoto from "../DropPhoto/DropPhoto";
+import useModal from "../../hooks/useModal";
 
 export default function AddProfilePhoto() {
   const fileTypes = ["JPG", "PNG", "GIF"];
@@ -9,6 +10,7 @@ export default function AddProfilePhoto() {
   const handleChange = (fileChanged: File) => {
     setFile(fileChanged);
   };
+  const { toggle } = useModal();
 
   console.log(file);
 
@@ -27,7 +29,11 @@ export default function AddProfilePhoto() {
         </section>
         <span className="add-profile-photo__text">or</span>
         <section className="add-profile-photo__btns">
-          <button type="button" className="add-profile-photo__cancel">
+          <button
+            type="button"
+            className="add-profile-photo__cancel"
+            onClick={toggle}
+          >
             Cancel
           </button>
           <button type="button" className="add-profile-photo__upload">

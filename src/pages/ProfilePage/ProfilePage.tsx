@@ -14,9 +14,10 @@ type ProfileStates = "general" | "changePassword";
 
 export default function ProfilePage() {
   const isAuth = useAppSelector((state) => state.present.authData.value.isAuth);
+  const isOpen = useAppSelector((state) => state.present.IsOpenModal.value);
   const navigate = useNavigate();
   const [profileState, SetProfileState] = useState<ProfileStates>("general");
-  const { isOpen, toggle } = useModal();
+  const { toggle } = useModal();
 
   useEffect(() => {
     if (isAuth !== true) {

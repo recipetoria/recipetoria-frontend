@@ -1,11 +1,13 @@
-import { useState } from "react";
+import { useAppDispatch, useAppSelector } from "../app/hooks";
+import { isOpenModalValue } from "../features/IsOpenModalSlice";
 
 export default function useModal() {
-  const [isOpen, setIsOpen] = useState(false);
+  const isOpen = useAppSelector((state) => state.present.IsOpenModal.value);
+  const dispatch = useAppDispatch();
 
   function toggle() {
-    setIsOpen(!isOpen);
+    dispatch(isOpenModalValue(!isOpen));
   }
 
-  return { isOpen, toggle };
+  return { toggle };
 }
