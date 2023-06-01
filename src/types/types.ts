@@ -1,3 +1,5 @@
+import { ReactNode } from "react";
+
 export interface IShoppingListItems {
   id: number;
   name: string;
@@ -6,11 +8,12 @@ export interface IShoppingListItems {
 }
 
 export type FormValues = {
-  nickname: string;
-  email: string;
-  password: string;
-  checkbox: string;
-  repeatPassword: string;
+  nickname?: string;
+  email?: string;
+  password?: string;
+  checkbox?: string;
+  repeatPassword?: string;
+  oldPassword?: string;
 };
 
 export interface SignResponse {
@@ -22,4 +25,10 @@ export interface SignResponse {
       token: string;
     };
   };
+}
+
+export interface ModalProps {
+  isOpen: boolean;
+  toggle: () => void;
+  children?: ReactNode;
 }

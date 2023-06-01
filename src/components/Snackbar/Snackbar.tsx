@@ -27,7 +27,7 @@ export default function Snackbar() {
           className="snackbar__btn snackbar__btn_cross"
           onClick={() => dispatch(SnackbarTextValue(""))}
         >
-          <CrossIcon />
+          <CrossIcon color="#F4EFF4" />
         </button>
       </section>
     </aside>

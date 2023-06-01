@@ -1,0 +1,59 @@
+@import '../../styles/variables';
+@import '../../styles/mixins';
+
+.profile-general {
+  @include profile-data-container;
+
+  .general {
+    @include profile-data;
+
+    &__avatar-n-btn {
+      display: flex;
+      gap: 1.1111vw;
+      align-items: flex-start;
+    }
+
+    &__avatar-wrapper {
+      @include default-avatar-wrapper;
+  
+      width: 5.83vw;
+      max-width: 84px;
+      height: 5.83vw;
+      max-height: 84px;
+  
+      .default-avatar {
+        @include default-avatar;
+  
+        padding-top: .84vw;
+    
+        transform: scale(1.2);
+      }
+    }
+
+    &__btn-n-caption {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      align-items: flex-start;
+      justify-content: center;
+    }
+
+    &__btn {
+      display: flex;
+      align-items: center;
+
+      font-size: .875rem;
+      font-weight: 500;
+      line-height: 1.4286;
+      color: $black-color;
+      letter-spacing: 0.1px;
+    }
+
+    &__caption {
+      font-size: .75rem;
+      line-height: 1.3333;
+      color: $gray-1-color;
+      letter-spacing: 0.4px;
+    }
+  }
+}

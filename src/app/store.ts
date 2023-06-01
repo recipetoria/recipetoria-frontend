@@ -9,12 +9,14 @@ import ShopListSlice from "../features/ShopListSlice";
 import ShopListNewStringSlice from "../features/ShopListNewStringSlice";
 import SnackbarTextSlice from "../features/SnackbarTextSlice";
 import AuthSlice from "../features/AuthSlice";
+import IsOpenModalSlice from "../features/IsOpenModalSlice";
 
 const rootReducer = combineReducers({
   shopListNewStringSlice: ShopListNewStringSlice,
   snackbarTextSlice: SnackbarTextSlice,
   shopList: ShopListSlice,
   authData: AuthSlice,
+  IsOpenModal: IsOpenModalSlice,
 });
 
 const undoableRootReducer = undoable(rootReducer);
