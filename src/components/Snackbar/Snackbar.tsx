@@ -31,7 +31,11 @@ export default function Snackbar() {
         )}
         <button
           type="button"
-          className={`snackbar__btn ${isUndoBtn && "snackbar__btn_cross"}`}
+          className={`snackbar__btn ${
+            isUndoBtn
+              ? "snackbar__btn_cross"
+              : "snackbar__btn_cross-without-undo"
+          }`}
           onClick={() =>
             dispatch(SnackbarTextValue({ text: "", withUndo: false }))
           }
