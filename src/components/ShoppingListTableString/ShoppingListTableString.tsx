@@ -140,7 +140,12 @@ export default function ShoppingListTableString(
           type="button"
           className="td__button td__button_trash"
           onClick={() => {
-            dispatch(SnackbarTextValue("The row was moved to trash"));
+            dispatch(
+              SnackbarTextValue({
+                text: "The row was moved to trash",
+                withUndo: true,
+              })
+            );
             dispatch(removeIngredientByID({ id, token }));
           }}
           onMouseEnter={() => {

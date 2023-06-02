@@ -40,10 +40,10 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    width: 80px;
+    max-width: 80px;
   }
 
-  &__btn {
+  &__btn { 
     font-size: 14px;
     font-weight: 500;
     color: $snackbar-text-color;

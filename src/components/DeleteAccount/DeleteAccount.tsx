@@ -3,8 +3,9 @@ import CrossIcon from "../../assets/svg/CrossIcon";
 import DeleteAccountImg from "../../assets/png/delete_account.png";
 import "./DeleteAccount.scss";
 import useModal from "../../hooks/useModal";
-import { useAppSelector } from "../../app/hooks";
+import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import deleteAccount from "../../utils/deleteAccount";
+import { SnackbarTextValue } from "../../features/SnackbarTextSlice";
 
 export default function DeleteAccount() {
   const { toggle } = useModal();
@@ -12,6 +13,7 @@ export default function DeleteAccount() {
   const token = useAppSelector((state) => state.present.authData.value.token);
 
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
 
   return (
     <section className="delete-account">
@@ -49,6 +51,12 @@ export default function DeleteAccount() {
                 deleteAccount(token).then(() => {
                   toggle();
                   navigate("/");
+                  dispatch(
+                    SnackbarTextValue({
+                      text: "Your account was deleted",
+                      withUndo: false,
+                    })
+                  );
                 });
               }}
             >
