@@ -1,10 +1,17 @@
+import { useNavigate } from "react-router-dom";
 import CrossIcon from "../../assets/svg/CrossIcon";
 import DeleteAccountImg from "../../assets/png/delete_account.png";
 import "./DeleteAccount.scss";
 import useModal from "../../hooks/useModal";
+import { useAppSelector } from "../../app/hooks";
+import deleteAccount from "../../utils/deleteAccount";
 
 export default function DeleteAccount() {
   const { toggle } = useModal();
+
+  const token = useAppSelector((state) => state.present.authData.value.token);
+
+  const navigate = useNavigate();
 
   return (
     <section className="delete-account">
@@ -35,7 +42,16 @@ export default function DeleteAccount() {
             >
               Cancel
             </button>
-            <button type="button" className="delete-account__ok">
+            <button
+              type="button"
+              className="delete-account__ok"
+              onClick={() => {
+                deleteAccount(token).then(() => {
+                  toggle();
+                  navigate("/");
+                });
+              }}
+            >
               Ok
             </button>
           </section>
