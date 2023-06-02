@@ -27,7 +27,11 @@ export default async function signIn(
     resp = await axios
       .request(config)
       .then((response: AxiosResponse<SignResponse>) => {
-        setRegister(response, name);
+        setRegister(
+          response.data.data.authenticationResponse.token,
+          name,
+          true
+        );
         return response.status;
       });
   } catch (error) {

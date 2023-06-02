@@ -9,11 +9,13 @@ import ProfileChangePassword from "../../components/ProfileChangePassword/Profil
 import Modal from "../../components/Modal/Modal";
 import useModal from "../../hooks/useModal";
 import DeleteAccount from "../../components/DeleteAccount/DeleteAccount";
+import logOut from "../../utils/logOut";
 
 type ProfileStates = "general" | "changePassword";
 
 export default function ProfilePage() {
   const isAuth = useAppSelector((state) => state.present.authData.value.isAuth);
+  const name = useAppSelector((state) => state.present.authData.value.name);
   const isOpen = useAppSelector((state) => state.present.IsOpenModal.value);
   const navigate = useNavigate();
   const [profileState, SetProfileState] = useState<ProfileStates>("general");
@@ -62,7 +64,14 @@ export default function ProfilePage() {
                       >
                         Change password
                       </button>
-                      <button type="button" className="profile-menu__btn">
+                      <button
+                        type="button"
+                        className="profile-menu__btn"
+                        onClick={() => {
+                          navigate("/");
+                          logOut(name);
+                        }}
+                      >
                         Log Out
                       </button>
                     </div>
