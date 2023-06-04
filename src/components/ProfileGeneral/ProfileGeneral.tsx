@@ -7,6 +7,7 @@ import { FormValues, UserInfo } from "../../types/types";
 import AddProfilePhoto from "../AddProfilePhoto/AddProfilePhoto";
 import { useAppSelector } from "../../app/hooks";
 import getUserInfo from "../../utils/getUserInfo";
+import updateUserNameAndEmail from "../../utils/updateUserNameAndEmail";
 
 interface ProfileGeneralProps {
   toggle: () => void;
@@ -31,6 +32,9 @@ export default function ProfileGeneral(props: ProfileGeneralProps) {
 
   const onSubmit: SubmitHandler<FormValues> = (data) => {
     const { nickname, email } = data;
+    if (email && nickname) {
+      updateUserNameAndEmail(email, nickname, token);
+    }
   };
 
   const errorsArr = [errors.email?.message, errors.nickname?.message]
