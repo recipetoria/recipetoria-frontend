@@ -86,7 +86,7 @@ export default function ProfileGeneral(props: ProfileGeneralProps) {
                 errors={errors}
                 required
                 validationSchema={{
-                  required: "Nickname is required",
+                  required: "New nickname is required",
                   minLength: {
                     value: 3,
                     message: "Please enter a minimum of 3 characters",
@@ -108,7 +108,7 @@ export default function ProfileGeneral(props: ProfileGeneralProps) {
                 errors={errors}
                 required
                 validationSchema={{
-                  required: "E-mail is required",
+                  required: "New e-mail is required",
                   pattern: {
                     value: /^[\w-\\.]+@([\w-]+\.)+[\w-]{2,4}$/,
                     message: "Please enter a correct e-mail",
