@@ -1,11 +1,8 @@
 import axios, { AxiosResponse } from "axios";
 import { URL_USER_INFO } from "../utils/constants";
-import { UserInfo } from "../types/types";
+import { IResponse, UserInfo } from "../types/types";
 
-interface GetUserInfoResponse {
-  timeStamp: string;
-  statusCode: number;
-  message: string;
+interface GetUserInfoResponse extends IResponse {
   data: {
     applicationUserDTO: UserInfo;
   };

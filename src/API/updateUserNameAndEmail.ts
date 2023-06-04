@@ -1,12 +1,9 @@
 import axios, { AxiosResponse } from "axios";
 import { URL_UPDATE_NAME_AND_EMAIL } from "../utils/constants";
 import setRegister from "../utils/storage";
-import { UserInfo } from "../types/types";
+import { IResponse, UserInfo } from "../types/types";
 
-interface UpdateUserNameAndEmailResponse {
-  timeStamp: string;
-  statusCode: number;
-  message: string;
+interface UpdateUserNameAndEmailResponse extends IResponse {
   data: {
     updatedApplicationUserDTO: UserInfo;
   };

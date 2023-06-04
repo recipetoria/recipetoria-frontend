@@ -16,10 +16,13 @@ export type FormValues = {
   oldPassword?: string;
 };
 
-export interface SignResponse {
+export interface IResponse {
   timeStamp: string;
   statusCode: number;
   message: string;
+}
+
+export interface SignResponse extends IResponse {
   data: {
     authenticationResponse: {
       token: string;
