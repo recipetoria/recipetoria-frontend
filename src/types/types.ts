@@ -32,3 +32,10 @@ export interface ModalProps {
   toggle: () => void;
   children?: ReactNode;
 }
+
+export interface UserInfo {
+  email: string;
+  name: string;
+  photo: string;
+  password: null;
+}
