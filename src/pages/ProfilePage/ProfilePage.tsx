@@ -9,7 +9,7 @@ import ProfileChangePassword from "../../components/ProfileChangePassword/Profil
 import Modal from "../../components/Modal/Modal";
 import useModal from "../../hooks/useModal";
 import DeleteAccount from "../../components/DeleteAccount/DeleteAccount";
-import logOut from "../../utils/logOut";
+import logOut from "../../API/logOut";
 
 type ProfileStates = "general" | "changePassword";
 

@@ -1,7 +1,7 @@
 import axios, { AxiosResponse, AxiosError } from "axios";
-import { URL_AUTHENTICATE } from "./constants";
+import { URL_AUTHENTICATE } from "../utils/constants";
 import { SignResponse } from "../types/types";
-import setRegister from "./storage";
+import setRegister from "../utils/storage";
 
 export default async function signIn(
   email: string,

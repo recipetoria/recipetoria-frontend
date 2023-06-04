@@ -4,7 +4,7 @@ import DeleteAccountImg from "../../assets/png/delete_account.png";
 import "./DeleteAccount.scss";
 import useModal from "../../hooks/useModal";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import deleteAccount from "../../utils/deleteAccount";
+import deleteAccount from "../../API/deleteAccount";
 import { SnackbarTextValue } from "../../features/SnackbarTextSlice";
 
 export default function DeleteAccount() {

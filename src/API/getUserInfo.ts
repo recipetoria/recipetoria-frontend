@@ -1,5 +1,5 @@
 import axios, { AxiosResponse } from "axios";
-import { URL_USER_INFO } from "./constants";
+import { URL_USER_INFO } from "../utils/constants";
 import { UserInfo } from "../types/types";
 
 interface GetUserInfoResponse {

@@ -6,8 +6,8 @@ import Input from "../Input/Input";
 import { FormValues, UserInfo } from "../../types/types";
 import AddProfilePhoto from "../AddProfilePhoto/AddProfilePhoto";
 import { useAppSelector } from "../../app/hooks";
-import getUserInfo from "../../utils/getUserInfo";
-import updateUserNameAndEmail from "../../utils/updateUserNameAndEmail";
+import getUserInfo from "../../API/getUserInfo";
+import updateUserNameAndEmail from "../../API/updateUserNameAndEmail";
 
 interface ProfileGeneralProps {
   toggle: () => void;

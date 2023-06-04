@@ -1,6 +1,6 @@
 import axios, { AxiosResponse } from "axios";
-import { URL_UPDATE_NAME_AND_EMAIL } from "./constants";
-import setRegister from "./storage";
+import { URL_UPDATE_NAME_AND_EMAIL } from "../utils/constants";
+import setRegister from "../utils/storage";
 import { UserInfo } from "../types/types";
 
 interface UpdateUserNameAndEmailResponse {
