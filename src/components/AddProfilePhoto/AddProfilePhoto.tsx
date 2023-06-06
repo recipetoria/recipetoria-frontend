@@ -8,17 +8,18 @@ import { useAppSelector } from "../../app/hooks";
 export default function AddProfilePhoto() {
   const fileTypes = ["JPG", "PNG", "GIF"];
   const token = useAppSelector((state) => state.present.authData.value.token);
+  const { toggle } = useModal();
 
   const handleChange = (file: File) => {
     if (file) {
       const formData = new FormData();
       formData.append("file", file);
       updateUserProfilePhoto(formData, token);
+      toggle();
     } else {
       throw new Error("Something went wong with file...");
     }
   };
-  const { toggle } = useModal();
 
   return (
     <section className="add-profile-photo">
