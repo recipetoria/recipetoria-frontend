@@ -41,8 +41,17 @@ export default function ProfileGeneral(props: ProfileGeneralProps) {
     .filter((item) => item !== undefined)
     .filter((item) => item);
 
+  function usersEquals(oldUserInfo: UserInfo, newUserInfo: UserInfo) {
+    return (
+      oldUserInfo.email === newUserInfo.email &&
+      oldUserInfo.name === newUserInfo.name
+    );
+  }
+
   try {
-    getUserInfo(token).then((value) => setUserInfo(value));
+    getUserInfo(token).then((value) =>
+      usersEquals(userInfo, value) ? value : setUserInfo(value)
+    );
   } catch (err) {
     if (err instanceof Error) {
       throw new Error(err.message);
