@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { FileUploader } from "react-drag-drop-files";
 import "./AddProfilePhoto.scss";
 import DropPhoto from "../DropPhoto/DropPhoto";
@@ -9,13 +8,17 @@ import { useAppSelector } from "../../app/hooks";
 export default function AddProfilePhoto() {
   const fileTypes = ["JPG", "PNG", "GIF"];
   const token = useAppSelector((state) => state.present.authData.value.token);
-  const [file, setFile] = useState<File>();
-  const handleChange = (fileChanged: File) => {
-    setFile(fileChanged);
+
+  const handleChange = (file: File) => {
+    if (file) {
+      const formData = new FormData();
+      formData.append("file", file);
+      updateUserProfilePhoto(formData, token);
+    } else {
+      throw new Error("Something went wong with file...");
+    }
   };
   const { toggle } = useModal();
-
-  console.log(file);
 
   return (
     <section className="add-profile-photo">
@@ -46,10 +49,10 @@ export default function AddProfilePhoto() {
               id=""
               className="add-profile-photo__input-file"
               onChange={(e) => {
-                const formData = new FormData();
                 if (e.currentTarget.files !== null) {
-                  formData.append("file", e.currentTarget.files[0]);
-                  updateUserProfilePhoto(formData, token);
+                  handleChange(e.currentTarget.files[0]);
+                } else {
+                  throw new Error("Something went wong with file...");
                 }
               }}
             />
