@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { FileUploader } from "react-drag-drop-files";
 import "./AddProfilePhoto.scss";
 import DropPhoto from "../DropPhoto/DropPhoto";
@@ -10,9 +11,11 @@ export default function AddProfilePhoto() {
   const fileSize = "5";
   const token = useAppSelector((state) => state.present.authData.value.token);
   const { toggle } = useModal();
+  const [error, setError] = useState("");
 
   const handleChange = (file: File) => {
     if (file) {
+      setError("");
       const formData = new FormData();
       formData.append("file", file);
       updateUserProfilePhoto(formData, token);
@@ -25,6 +28,9 @@ export default function AddProfilePhoto() {
   return (
     <section className="add-profile-photo">
       <h3 className="add-profile-photo__header">Add profile photo</h3>
+      {error !== "" && (
+        <span className="add-profile-photo__error">{`${error}...`}</span>
+      )}
       <article className="add-profile-photo__content">
         <section className="add-photo">
           <FileUploader
@@ -32,6 +38,8 @@ export default function AddProfilePhoto() {
             name="file"
             types={fileTypes}
             maxSize={fileSize}
+            onTypeError={setError}
+            onSizeError={setError}
           >
             <DropPhoto />
           </FileUploader>
@@ -50,6 +58,8 @@ export default function AddProfilePhoto() {
             name="file"
             maxSize={fileSize}
             handleChange={handleChange}
+            onTypeError={setError}
+            onSizeError={setError}
           >
             <div className="add-profile-photo__upload">Upload picture</div>
           </FileUploader>
