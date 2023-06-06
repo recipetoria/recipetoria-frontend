@@ -3,9 +3,12 @@ import { FileUploader } from "react-drag-drop-files";
 import "./AddProfilePhoto.scss";
 import DropPhoto from "../DropPhoto/DropPhoto";
 import useModal from "../../hooks/useModal";
+import updateUserProfilePhoto from "../../API/updateUserProfilePhoto";
+import { useAppSelector } from "../../app/hooks";
 
 export default function AddProfilePhoto() {
   const fileTypes = ["JPG", "PNG", "GIF"];
+  const token = useAppSelector((state) => state.present.authData.value.token);
   const [file, setFile] = useState<File>();
   const handleChange = (fileChanged: File) => {
     setFile(fileChanged);
@@ -36,9 +39,22 @@ export default function AddProfilePhoto() {
           >
             Cancel
           </button>
-          <button type="button" className="add-profile-photo__upload">
-            Upload picture
-          </button>
+          {/* <button type="button" className="add-profile-photo__upload"> */}
+          <input
+            type="file"
+            name=""
+            id=""
+            className="add-profile-photo__upload"
+            onChange={(e) => {
+              const formData = new FormData();
+              if (e.currentTarget.files !== null) {
+                formData.append("file", e.currentTarget.files[0]);
+                updateUserProfilePhoto(formData, token);
+              }
+            }}
+          />
+          {/* Upload picture */}
+          {/* </button> */}
         </section>
       </article>
     </section>
