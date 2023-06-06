@@ -6,7 +6,7 @@ import updateUserProfilePhoto from "../../API/updateUserProfilePhoto";
 import { useAppSelector } from "../../app/hooks";
 
 export default function AddProfilePhoto() {
-  const fileTypes = ["JPG", "PNG", "GIF"];
+  const fileTypes = ["JPG", "jpeg", "PNG", "GIF"];
   const token = useAppSelector((state) => state.present.authData.value.token);
   const { toggle } = useModal();
 
@@ -30,6 +30,7 @@ export default function AddProfilePhoto() {
             handleChange={handleChange}
             name="file"
             types={fileTypes}
+            maxSize="5"
           >
             <DropPhoto />
           </FileUploader>
