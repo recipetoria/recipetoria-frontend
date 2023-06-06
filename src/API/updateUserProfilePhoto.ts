@@ -1,15 +1,12 @@
 import axios from "axios";
 import { URL_UPDATE_USER_PROFILE_PHOTO } from "../utils/constants";
 
-export default function updateUserProfilePhoto(file: FormData, token: string) {
-  const data = JSON.stringify(file);
-
+export default function updateUserProfilePhoto(data: FormData, token: string) {
   const config = {
     method: "patch",
     maxBodyLength: Infinity,
     url: URL_UPDATE_USER_PROFILE_PHOTO,
     headers: {
-      "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     },
     data,

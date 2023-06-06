@@ -39,22 +39,22 @@ export default function AddProfilePhoto() {
           >
             Cancel
           </button>
-          {/* <button type="button" className="add-profile-photo__upload"> */}
-          <input
-            type="file"
-            name=""
-            id=""
-            className="add-profile-photo__upload"
-            onChange={(e) => {
-              const formData = new FormData();
-              if (e.currentTarget.files !== null) {
-                formData.append("file", e.currentTarget.files[0]);
-                updateUserProfilePhoto(formData, token);
-              }
-            }}
-          />
-          {/* Upload picture */}
-          {/* </button> */}
+          <div className="add-profile-photo__upload">
+            <input
+              type="file"
+              name=""
+              id=""
+              className="add-profile-photo__input-file"
+              onChange={(e) => {
+                const formData = new FormData();
+                if (e.currentTarget.files !== null) {
+                  formData.append("file", e.currentTarget.files[0]);
+                  updateUserProfilePhoto(formData, token);
+                }
+              }}
+            />
+            Upload picture
+          </div>
         </section>
       </article>
     </section>
