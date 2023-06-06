@@ -7,6 +7,7 @@ import { useAppSelector } from "../../app/hooks";
 
 export default function AddProfilePhoto() {
   const fileTypes = ["JPG", "jpeg", "PNG", "GIF"];
+  const fileSize = "5";
   const token = useAppSelector((state) => state.present.authData.value.token);
   const { toggle } = useModal();
 
@@ -30,7 +31,7 @@ export default function AddProfilePhoto() {
             handleChange={handleChange}
             name="file"
             types={fileTypes}
-            maxSize="5"
+            maxSize={fileSize}
           >
             <DropPhoto />
           </FileUploader>
@@ -44,22 +45,14 @@ export default function AddProfilePhoto() {
           >
             Cancel
           </button>
-          <div className="add-profile-photo__upload">
-            <input
-              type="file"
-              name=""
-              id=""
-              className="add-profile-photo__input-file"
-              onChange={(e) => {
-                if (e.currentTarget.files !== null) {
-                  handleChange(e.currentTarget.files[0]);
-                } else {
-                  throw new Error("Something went wong with file...");
-                }
-              }}
-            />
-            Upload picture
-          </div>
+          <FileUploader
+            types={fileTypes}
+            name="file"
+            maxSize={fileSize}
+            handleChange={handleChange}
+          >
+            <div className="add-profile-photo__upload">Upload picture</div>
+          </FileUploader>
         </section>
       </article>
     </section>
