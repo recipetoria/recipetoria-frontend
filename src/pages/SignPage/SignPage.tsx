@@ -2,7 +2,7 @@
 
 import { useForm, SubmitHandler } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   FacebookIcon,
   GoogleIcon,
@@ -25,6 +25,15 @@ interface ISignPageProps {
 
 export default function SignPage(props: ISignPageProps) {
   const { signMode } = props;
+
+  const isAuth = useAppSelector((state) => state.present.authData.value.isAuth);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (isAuth === true) {
+      navigate("/*");
+    }
+  });
 
   const {
     register,
@@ -49,7 +58,6 @@ export default function SignPage(props: ISignPageProps) {
     return text;
   };
 
-  const navigate = useNavigate();
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
     const { nickname, email, password } = data;
 
