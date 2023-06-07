@@ -80,6 +80,11 @@ export default function SignPage(props: ISignPageProps) {
     .filter((item) => item !== undefined)
     .filter((item) => item);
 
+  function handleClickToLink() {
+    setError("");
+    reset();
+  }
+
   return (
     <main className="main">
       <article className="sign-page">
@@ -211,7 +216,11 @@ export default function SignPage(props: ISignPageProps) {
                   <span className="switch-block__text">
                     Already have an account?
                   </span>
-                  <Link to="/sign_in" className="switch-block__link">
+                  <Link
+                    to="/sign_in"
+                    className="switch-block__link"
+                    onClick={() => handleClickToLink()}
+                  >
                     Sign in
                   </Link>
                 </>
@@ -220,7 +229,11 @@ export default function SignPage(props: ISignPageProps) {
                   <span className="switch-block__text">
                     Create a new account?
                   </span>
-                  <Link to="/sign_up" className="switch-block__link">
+                  <Link
+                    to="/sign_up"
+                    className="switch-block__link"
+                    onClick={() => handleClickToLink()}
+                  >
                     Sign up
                   </Link>
                 </>
