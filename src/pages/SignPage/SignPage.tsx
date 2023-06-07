@@ -2,7 +2,7 @@
 
 import { useForm, SubmitHandler } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   FacebookIcon,
   GoogleIcon,
@@ -15,6 +15,7 @@ import Image from "../../assets/png/bg_img.png";
 import signUp from "../../API/sighUp";
 import SignIn from "../../API/signIn";
 import { useAppSelector } from "../../app/hooks";
+import ErrorInForm from "../../components/ErrorInForm/ErrorInForm";
 
 type SignMode = "signUp" | "signIn";
 
@@ -24,6 +25,15 @@ interface ISignPageProps {
 
 export default function SignPage(props: ISignPageProps) {
   const { signMode } = props;
+
+  const isAuth = useAppSelector((state) => state.present.authData.value.isAuth);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (isAuth === true) {
+      navigate("/*");
+    }
+  });
 
   const {
     register,
@@ -35,6 +45,7 @@ export default function SignPage(props: ISignPageProps) {
   const [passwordValue, setPasswordValue] = useState("");
   const [customError, setCustomError] = useState<boolean>();
   const name = useAppSelector((state) => state.present.authData.value.name);
+  const [error, setError] = useState("");
 
   const submitText = () => {
     let text = "";
@@ -47,14 +58,15 @@ export default function SignPage(props: ISignPageProps) {
     return text;
   };
 
-  const navigate = useNavigate();
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
     const { nickname, email, password } = data;
 
-    function navIfSuccess(signUpResult: number) {
+    function navIfSuccess(signUpResult: number | string) {
       if (signUpResult === 200 || signUpResult === 201) {
         navigate("/");
-      }
+        reset();
+        setError("");
+      } else if (typeof signUpResult === "string") setError(signUpResult);
     }
 
     if (signMode === "signUp") {
@@ -62,8 +74,6 @@ export default function SignPage(props: ISignPageProps) {
     } else if (signMode === "signIn") {
       navIfSuccess(await SignIn(email || "", password || "", name));
     }
-
-    reset();
   };
 
   const errorsArr = [
@@ -77,6 +87,11 @@ export default function SignPage(props: ISignPageProps) {
   ]
     .filter((item) => item !== undefined)
     .filter((item) => item);
+
+  function handleClickToLink() {
+    setError("");
+    reset();
+  }
 
   return (
     <main className="main">
@@ -94,6 +109,7 @@ export default function SignPage(props: ISignPageProps) {
                 {name ? <h3 className="sign-page__header">{name}</h3> : ""}
               </div>
             )}
+            {error !== "" && <ErrorInForm errorMessage={error} />}
             <form onSubmit={handleSubmit(onSubmit)} className="sign-page__form">
               {signMode === "signUp" && (
                 <Input
@@ -208,7 +224,11 @@ export default function SignPage(props: ISignPageProps) {
                   <span className="switch-block__text">
                     Already have an account?
                   </span>
-                  <Link to="/sign_in" className="switch-block__link">
+                  <Link
+                    to="/sign_in"
+                    className="switch-block__link"
+                    onClick={() => handleClickToLink()}
+                  >
                     Sign in
                   </Link>
                 </>
@@ -217,7 +237,11 @@ export default function SignPage(props: ISignPageProps) {
                   <span className="switch-block__text">
                     Create a new account?
                   </span>
-                  <Link to="/sign_up" className="switch-block__link">
+                  <Link
+                    to="/sign_up"
+                    className="switch-block__link"
+                    onClick={() => handleClickToLink()}
+                  >
                     Sign up
                   </Link>
                 </>

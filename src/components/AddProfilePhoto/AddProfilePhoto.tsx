@@ -5,6 +5,7 @@ import DropPhoto from "../DropPhoto/DropPhoto";
 import useModal from "../../hooks/useModal";
 import updateUserProfilePhoto from "../../API/updateUserProfilePhoto";
 import { useAppSelector } from "../../app/hooks";
+import ErrorInForm from "../ErrorInForm/ErrorInForm";
 
 export default function AddProfilePhoto() {
   const fileTypes = ["JPG", "jpeg", "PNG", "GIF"];
@@ -28,9 +29,7 @@ export default function AddProfilePhoto() {
   return (
     <section className="add-profile-photo">
       <h3 className="add-profile-photo__header">Add profile photo</h3>
-      {error !== "" && (
-        <span className="add-profile-photo__error">{`${error}...`}</span>
-      )}
+      {error !== "" && <ErrorInForm errorMessage={error} />}
       <article className="add-profile-photo__content">
         <section className="add-photo">
           <FileUploader

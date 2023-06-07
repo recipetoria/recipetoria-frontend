@@ -16,6 +16,7 @@
     display: flex;
     gap: 3.889VW;
     align-items: flex-start;
+    width: 44.5138vw;
   }
 
   .profile-menu {
@@ -73,6 +74,7 @@
     flex-direction: column;
     gap: 40px;
     justify-content: flex-start;
+    width: 55%;
 
     &__h3 {
       margin-block-start: 0;
