@@ -3,6 +3,8 @@ import { useAppDispatch } from "../../app/hooks";
 import Footer from "../../components/Footer/Footer";
 import Header from "../../components/Header/Header";
 import { isAuthValue } from "../../features/AuthSlice";
+import Snackbar from "../../components/Snackbar/Snackbar";
+import "./StartPage.scss";
 
 export default function StartPage() {
   const dispatch = useAppDispatch();
@@ -26,7 +28,12 @@ export default function StartPage() {
   return (
     <>
       <Header />
-      <h3>Start page</h3>
+      <main>
+        <article className="start-page">
+          <h3>Start page</h3>
+          <Snackbar />
+        </article>
+      </main>
       <Footer />
     </>
   );

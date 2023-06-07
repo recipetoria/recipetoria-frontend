@@ -16,10 +16,13 @@ export type FormValues = {
   oldPassword?: string;
 };
 
-export interface SignResponse {
+export interface IResponse {
   timeStamp: string;
   statusCode: number;
   message: string;
+}
+
+export interface SignResponse extends IResponse {
   data: {
     authenticationResponse: {
       token: string;
@@ -31,4 +34,11 @@ export interface ModalProps {
   isOpen: boolean;
   toggle: () => void;
   children?: ReactNode;
+}
+
+export interface UserInfo {
+  email: string;
+  name: string;
+  photo: string;
+  password: null;
 }

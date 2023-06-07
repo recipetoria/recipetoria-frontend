@@ -12,8 +12,8 @@ import Input from "../../components/Input/Input";
 import { FormValues } from "../../types/types";
 import "./SignPage.scss";
 import Image from "../../assets/png/bg_img.png";
-import signUp from "../../utils/sighUp";
-import SignIn from "../../utils/signIn";
+import signUp from "../../API/sighUp";
+import SignIn from "../../API/signIn";
 import { useAppSelector } from "../../app/hooks";
 
 type SignMode = "signUp" | "signIn";

@@ -1,10 +1,13 @@
 import { SubmitHandler, useForm } from "react-hook-form";
 import "./ProfileGeneral.scss";
-import { ReactNode } from "react";
+import { ReactNode, useState } from "react";
 import DefaultAvatar from "../../assets/png/default_ava.png";
 import Input from "../Input/Input";
-import { FormValues } from "../../types/types";
+import { FormValues, UserInfo } from "../../types/types";
 import AddProfilePhoto from "../AddProfilePhoto/AddProfilePhoto";
+import { useAppSelector } from "../../app/hooks";
+import getUserInfo from "../../API/getUserInfo";
+import updateUserNameAndEmail from "../../API/updateUserNameAndEmail";
 
 interface ProfileGeneralProps {
   toggle: () => void;
@@ -13,6 +16,13 @@ interface ProfileGeneralProps {
 
 export default function ProfileGeneral(props: ProfileGeneralProps) {
   const { toggle, modalChildren } = props;
+  const token = useAppSelector((state) => state.present.authData.value.token);
+  const [userInfo, setUserInfo] = useState<UserInfo>({
+    email: "",
+    name: "",
+    photo: "",
+    password: null,
+  });
 
   const {
     register,
@@ -22,11 +32,33 @@ export default function ProfileGeneral(props: ProfileGeneralProps) {
 
   const onSubmit: SubmitHandler<FormValues> = (data) => {
     const { nickname, email } = data;
+    if (email && nickname) {
+      updateUserNameAndEmail(email, nickname, token);
+    }
   };
 
   const errorsArr = [errors.email?.message, errors.nickname?.message]
     .filter((item) => item !== undefined)
     .filter((item) => item);
+
+  function usersEquals(oldUserInfo: UserInfo, newUserInfo: UserInfo) {
+    return (
+      oldUserInfo.email === newUserInfo.email &&
+      oldUserInfo.name === newUserInfo.name
+    );
+  }
+
+  try {
+    getUserInfo(token).then((value) =>
+      usersEquals(userInfo, value) ? value : setUserInfo(value)
+    );
+  } catch (err) {
+    if (err instanceof Error) {
+      throw new Error(err.message);
+    } else {
+      throw new Error(`Unexpected error: ${err}`);
+    }
+  }
 
   return (
     <article className="profile-general">
@@ -63,7 +95,7 @@ export default function ProfileGeneral(props: ProfileGeneralProps) {
                 errors={errors}
                 required
                 validationSchema={{
-                  required: "Nickname is required",
+                  required: "New nickname is required",
                   minLength: {
                     value: 3,
                     message: "Please enter a minimum of 3 characters",
@@ -75,6 +107,7 @@ export default function ProfileGeneral(props: ProfileGeneralProps) {
                 }}
                 placeholder="Enter your text here"
                 caption="Max 30 symbols"
+                defaultValue={userInfo.name}
               />
               <Input
                 name="email"
@@ -84,13 +117,14 @@ export default function ProfileGeneral(props: ProfileGeneralProps) {
                 errors={errors}
                 required
                 validationSchema={{
-                  required: "E-mail is required",
+                  required: "New e-mail is required",
                   pattern: {
                     value: /^[\w-\\.]+@([\w-]+\.)+[\w-]{2,4}$/,
                     message: "Please enter a correct e-mail",
                   },
                 }}
                 placeholder="example@gmail.com"
+                defaultValue={userInfo.email}
               />
             </div>
           </div>

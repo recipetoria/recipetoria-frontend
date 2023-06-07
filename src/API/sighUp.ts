@@ -1,7 +1,7 @@
 import axios, { AxiosError, AxiosResponse } from "axios";
 import { SignResponse } from "../types/types";
-import { URL_REGISTER } from "./constants";
-import setRegister from "./storage";
+import { URL_REGISTER } from "../utils/constants";
+import setRegister from "../utils/storage";
 
 export default async function signUp(
   name: string,
@@ -30,7 +30,11 @@ export default async function signUp(
     resp = await axios
       .request(config)
       .then((response: AxiosResponse<SignResponse>) => {
-        setRegister(response, name);
+        setRegister(
+          response.data.data.authenticationResponse.token,
+          name,
+          true
+        );
         return response.status;
       });
   } catch (error) {

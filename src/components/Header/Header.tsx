@@ -37,7 +37,7 @@ export default function Header() {
             )}
           </section>
           {isAuth && (
-            <Link to="profile">
+            <Link to="/profile">
               <div className="default-avatar__wrapper">
                 <img src={DefaultAvatar} alt="" className="default-avatar" />
               </div>

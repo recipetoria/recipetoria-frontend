@@ -43,7 +43,7 @@
     width: 80px;
   }
 
-  &__btn {
+  &__btn { 
     font-size: 14px;
     font-weight: 500;
     color: $snackbar-text-color;
@@ -62,6 +62,11 @@
     &_cross {
       position: absolute;
       top: 10%;
+      right: 0;
+    }
+
+    &_cross-without-undo {
+      position: absolute;
       right: 0;
     }
   }
