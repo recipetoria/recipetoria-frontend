@@ -3,7 +3,7 @@ import "./Header.scss";
 import { useEffect } from "react";
 import Logo from "../../assets/svg/Logo";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import { fetchUserPhoto } from "../../features/UserPhotoSlice";
+import { fetchUserPhoto, userPhotoValue } from "../../features/UserPhotoSlice";
 import UserPhoto from "../UserPhoto/UserPhoto";
 
 export default function Header() {
@@ -12,8 +12,12 @@ export default function Header() {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(fetchUserPhoto(token));
-  }, [dispatch, token]);
+    if (isAuth) {
+      dispatch(fetchUserPhoto(token));
+    } else {
+      dispatch(userPhotoValue(""));
+    }
+  }, [dispatch, isAuth, token]);
 
   return (
     <header className="header">
