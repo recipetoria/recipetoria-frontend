@@ -10,6 +10,7 @@ import ShopListNewStringSlice from "../features/ShopListNewStringSlice";
 import SnackbarTextSlice from "../features/SnackbarTextSlice";
 import AuthSlice from "../features/AuthSlice";
 import IsOpenModalSlice from "../features/IsOpenModalSlice";
+import UserPhotoSlice from "../features/UserPhotoSlice";
 
 const rootReducer = combineReducers({
   shopListNewStringSlice: ShopListNewStringSlice,
@@ -17,6 +18,7 @@ const rootReducer = combineReducers({
   shopList: ShopListSlice,
   authData: AuthSlice,
   IsOpenModal: IsOpenModalSlice,
+  userPhoto: UserPhotoSlice,
 });
 
 const undoableRootReducer = undoable(rootReducer);
