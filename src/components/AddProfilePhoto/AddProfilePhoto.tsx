@@ -3,6 +3,7 @@ import { FileUploader } from "react-drag-drop-files";
 import "./AddProfilePhoto.scss";
 import DropPhoto from "../DropPhoto/DropPhoto";
 import useModal from "../../hooks/useModal";
+import ErrorInForm from "../ErrorInForm/ErrorInForm";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { fetchUpdateUserPhoto } from "../../features/UserPhotoSlice";
 
@@ -29,9 +30,7 @@ export default function AddProfilePhoto() {
   return (
     <section className="add-profile-photo">
       <h3 className="add-profile-photo__header">Add profile photo</h3>
-      {error !== "" && (
-        <span className="add-profile-photo__error">{`${error}...`}</span>
-      )}
+      {error !== "" && <ErrorInForm errorMessage={error} />}
       <article className="add-profile-photo__content">
         <section className="add-photo">
           <FileUploader

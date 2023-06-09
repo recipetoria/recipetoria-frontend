@@ -39,7 +39,7 @@ export default async function signUp(
       });
   } catch (error) {
     const err = error as AxiosError;
-    throw new Error(err.message);
+    resp = (err.response as AxiosResponse<SignResponse>).data.message;
   }
 
   return resp;

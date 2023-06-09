@@ -31,7 +31,7 @@ export default function Header() {
           <section className={`links ${!isAuth ? "links_not-auth" : ""}`}>
             {isAuth ? (
               <>
-                <Link to="/all_categories">All Categories</Link>
+                <Link to="/all_categories">Categories</Link>
                 <Link to="/shopping_list">Shopping list</Link>
                 <Link to="/add_recipe" className="btn">
                   Add recipe

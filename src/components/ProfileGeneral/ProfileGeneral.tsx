@@ -93,7 +93,7 @@ export default function ProfileGeneral(props: ProfileGeneralProps) {
                 errors={errors}
                 required
                 validationSchema={{
-                  required: "New nickname is required",
+                  required: "New new nickname is required",
                   minLength: {
                     value: 3,
                     message: "Please enter a minimum of 3 characters",
