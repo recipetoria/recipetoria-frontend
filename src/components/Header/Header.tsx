@@ -46,9 +46,7 @@ export default function Header() {
           </section>
           {isAuth && (
             <Link to="/profile">
-              <div className="default-avatar__wrapper">
-                <UserPhoto />
-              </div>
+              <UserPhoto parent="Header" />
             </Link>
           )}
         </article>

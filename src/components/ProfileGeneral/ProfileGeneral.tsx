@@ -67,9 +67,7 @@ export default function ProfileGeneral(props: ProfileGeneralProps) {
           <div className="general__wrapper">
             <span className="general__header">General</span>
             <section className="general__avatar-n-btn">
-              <div className="general__avatar-wrapper">
-                <UserPhoto />
-              </div>
+              <UserPhoto parent="Profile" />
               <div className="general__btn-n-caption">
                 <button
                   type="button"
