@@ -1,14 +1,13 @@
 import { SubmitHandler, useForm } from "react-hook-form";
 import "./ProfileGeneral.scss";
 import { ReactNode, useState } from "react";
-import DefaultAvatar from "../../assets/png/default_ava.png";
 import Input from "../Input/Input";
 import { FormValues, UserInfo } from "../../types/types";
 import AddProfilePhoto from "../AddProfilePhoto/AddProfilePhoto";
 import { useAppSelector } from "../../app/hooks";
 import getUserInfo from "../../API/getUserInfo";
 import updateUserNameAndEmail from "../../API/updateUserNameAndEmail";
-import getPhotoFromBytes from "../../utils/getPhotoFromBytes";
+import UserPhoto from "../UserPhoto/UserPhoto";
 
 interface ProfileGeneralProps {
   toggle: () => void;
@@ -61,19 +60,6 @@ export default function ProfileGeneral(props: ProfileGeneralProps) {
     }
   }
 
-  const userPhoto = useAppSelector((state) => state.present.userPhoto.value);
-  const userPhotoError = useAppSelector(
-    (state) => state.present.userPhoto.error
-  );
-
-  let srcUserPhoto = DefaultAvatar;
-
-  if (userPhoto !== "") {
-    srcUserPhoto = getPhotoFromBytes(userPhoto);
-  } else if (userPhotoError) {
-    srcUserPhoto = DefaultAvatar;
-  }
-
   return (
     <article className="profile-general">
       <form onSubmit={handleSubmit(onSubmit)} className="profile-general__form">
@@ -82,11 +68,7 @@ export default function ProfileGeneral(props: ProfileGeneralProps) {
             <span className="general__header">General</span>
             <section className="general__avatar-n-btn">
               <div className="general__avatar-wrapper">
-                <img
-                  src={srcUserPhoto}
-                  alt="avatar"
-                  className="default-avatar"
-                />
+                <UserPhoto />
               </div>
               <div className="general__btn-n-caption">
                 <button

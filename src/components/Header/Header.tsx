@@ -2,10 +2,9 @@ import { Link } from "react-router-dom";
 import "./Header.scss";
 import { useEffect } from "react";
 import Logo from "../../assets/svg/Logo";
-import DefaultAvatar from "../../assets/png/default_ava.png";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { fetchUserPhoto } from "../../features/UserPhotoSlice";
-import getPhotoFromBytes from "../../utils/getPhotoFromBytes";
+import UserPhoto from "../UserPhoto/UserPhoto";
 
 export default function Header() {
   const isAuth = useAppSelector((state) => state.present.authData.value.isAuth);
@@ -15,19 +14,6 @@ export default function Header() {
   useEffect(() => {
     dispatch(fetchUserPhoto(token));
   }, [dispatch, token]);
-
-  const userPhoto = useAppSelector((state) => state.present.userPhoto.value);
-  const userPhotoError = useAppSelector(
-    (state) => state.present.userPhoto.error
-  );
-
-  let srcUserPhoto = DefaultAvatar;
-
-  if (userPhoto !== "") {
-    srcUserPhoto = getPhotoFromBytes(userPhoto);
-  } else if (userPhotoError) {
-    srcUserPhoto = DefaultAvatar;
-  }
 
   return (
     <header className="header">
@@ -61,11 +47,7 @@ export default function Header() {
           {isAuth && (
             <Link to="/profile">
               <div className="default-avatar__wrapper">
-                <img
-                  src={srcUserPhoto}
-                  alt="avatar"
-                  className="default-avatar"
-                />
+                <UserPhoto />
               </div>
             </Link>
           )}
