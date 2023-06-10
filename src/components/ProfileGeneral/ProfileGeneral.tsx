@@ -6,7 +6,7 @@ import { FormValues, UserInfo } from "../../types/types";
 import AddProfilePhoto from "../AddProfilePhoto/AddProfilePhoto";
 import { useAppSelector } from "../../app/hooks";
 import getUserInfo from "../../API/getUserInfo";
-import updateUserNameAndEmail from "../../API/updateUserNameAndEmail";
+import updateUserName from "../../API/updateUserName";
 import UserPhoto from "../UserPhoto/UserPhoto";
 
 interface ProfileGeneralProps {
@@ -31,9 +31,9 @@ export default function ProfileGeneral(props: ProfileGeneralProps) {
   } = useForm<FormValues>();
 
   const onSubmit: SubmitHandler<FormValues> = (data) => {
-    const { nickname, email } = data;
-    if (email && nickname) {
-      updateUserNameAndEmail(email, nickname, token);
+    const { nickname } = data;
+    if (nickname) {
+      updateUserName(nickname, token);
     }
   };
 
@@ -106,23 +106,6 @@ export default function ProfileGeneral(props: ProfileGeneralProps) {
                 placeholder="Enter your text here"
                 caption="Max 30 symbols"
                 defaultValue={userInfo.name}
-              />
-              <Input
-                name="email"
-                label="E-mail"
-                type="text"
-                register={register}
-                errors={errors}
-                required
-                validationSchema={{
-                  required: "New e-mail is required",
-                  pattern: {
-                    value: /^[\w-\\.]+@([\w-]+\.)+[\w-]{2,4}$/,
-                    message: "Please enter a correct e-mail",
-                  },
-                }}
-                placeholder="example@gmail.com"
-                defaultValue={userInfo.email}
               />
             </div>
           </div>
