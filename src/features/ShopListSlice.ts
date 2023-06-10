@@ -3,7 +3,7 @@
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import { IShoppingListItems } from "../types/types";
-import { URL_CLIENT } from "../utils/constants";
+import { URL_INGREDIENT } from "../utils/constants";
 
 interface IFetchedValue {
   data: {
@@ -17,7 +17,7 @@ const AUTHORIZATION = (token: string) => `Bearer ${token}`;
 export const fetchIngredients = createAsyncThunk(
   "ingredients/fetchIngredients",
   async (token: string) => {
-    const res = await axios.get(URL_CLIENT, {
+    const res = await axios.get(URL_INGREDIENT, {
       headers: {
         Authorization: AUTHORIZATION(token),
       },
@@ -47,7 +47,7 @@ export const addIngredient = createAsyncThunk(
     const config = {
       method: "post",
       maxBodyLength: Infinity,
-      url: URL_CLIENT,
+      url: URL_INGREDIENT,
       headers: {
         "Content-Type": "application/json",
         Authorization: AUTHORIZATION(token),
@@ -85,7 +85,7 @@ export const removeIngredientByID = createAsyncThunk(
     const config = {
       method: "delete",
       maxBodyLength: Infinity,
-      url: `${URL_CLIENT}/ingredients/${id}`,
+      url: `${URL_INGREDIENT}/ingredients/${id}`,
       headers: {
         Authorization: AUTHORIZATION(token),
       },
@@ -125,7 +125,7 @@ export const updateIngredient = createAsyncThunk(
     const config = {
       method: "patch",
       maxBodyLength: Infinity,
-      url: `${URL_CLIENT}/ingredients/${id}`,
+      url: `${URL_INGREDIENT}/ingredients/${id}`,
       headers: {
         "Content-Type": "application/json",
       },
@@ -149,7 +149,7 @@ export const cleanShopListServer = createAsyncThunk(
     const config = {
       method: "delete",
       maxBodyLength: Infinity,
-      url: `${URL_CLIENT}`,
+      url: `${URL_INGREDIENT}`,
       headers: {
         Authorization: AUTHORIZATION(token),
       },

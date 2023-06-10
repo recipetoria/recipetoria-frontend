@@ -1,5 +1,5 @@
 import axios from "axios";
-import { URL_UPDATE_NAME_AND_EMAIL } from "../utils/constants";
+import { URL_UPDATE_USER_NAME } from "../utils/constants";
 import { updateAuthRegister } from "../utils/storage";
 
 export default function updateUserName(name: string, token: string) {
@@ -8,7 +8,7 @@ export default function updateUserName(name: string, token: string) {
   const config = {
     method: "put",
     maxBodyLength: Infinity,
-    url: URL_UPDATE_NAME_AND_EMAIL,
+    url: URL_UPDATE_USER_NAME,
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
