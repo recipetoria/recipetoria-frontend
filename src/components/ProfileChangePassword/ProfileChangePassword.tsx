@@ -3,6 +3,8 @@ import "./ProfileChangePassword.scss";
 import { useState } from "react";
 import { FormValues } from "../../types/types";
 import Input from "../Input/Input";
+import checkUserPassword from "../../API/checkUserPassword";
+import { useAppSelector } from "../../app/hooks";
 
 export default function ProfileChangePassword() {
   const {
@@ -13,12 +15,17 @@ export default function ProfileChangePassword() {
 
   const [passwordValue, setPasswordValue] = useState("");
   const [customError, setCustomError] = useState<boolean>();
+  const token = useAppSelector((state) => state.present.authData.value.token);
 
   const onSubmit: SubmitHandler<FormValues> = (data) => {
-    const { nickname, email } = data;
+    const { oldPassword, password, repeatPassword } = data;
+    if (oldPassword) {
+      checkUserPassword(token, oldPassword);
+    }
   };
 
   const errorsArr = [
+    errors.oldPassword?.message,
     errors.password?.message,
     errors.repeatPassword?.message,
     customError,
