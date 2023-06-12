@@ -7,7 +7,7 @@ export const URL_USER_PASSWORD = `${USER_SETTINGS}/password`;
 export const URL_USER_INFO = `${USER_SETTINGS}`;
 export const URL_DELETE_ACCOUNT = `${USER_SETTINGS}/account`;
 
-const SHOPPING_LIST = `${BASE_URL}client/`;
+const SHOPPING_LIST = `${BASE_URL}client`;
 export const URL_INGREDIENT = `${SHOPPING_LIST}`;
 
 const TAGS = `${BASE_URL}/client/tags`;
