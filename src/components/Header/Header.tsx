@@ -57,6 +57,7 @@ export default function Header() {
                 onClick={() => {
                   dispatch(isOpenProfileValue());
                 }}
+                className="profile-btn-popup__btn"
               >
                 <UserPhoto parent="Header" />
               </button>
