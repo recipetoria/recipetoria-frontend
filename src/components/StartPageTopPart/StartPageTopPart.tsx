@@ -30,7 +30,7 @@ export default function StartPageTopPart() {
             </div>
           </section>
           <section className="left-container__bottom">
-            <div className="image-wrapper">
+            <div className="image-wrapper image-wrapper_tomatoes-n-phone">
               <img src={TomatosNPhoneImage} alt="folders" className="image" />
             </div>
             <div className="text-n-cursor">
