@@ -67,4 +67,24 @@
       @include orange-btn;
     }
   }
+
+  .log-out {
+    width: 100%;
+
+    &__btn {
+      width: 100%;
+      padding: 8px 0;
+
+      font-size: .875rem;
+      font-weight: 500;
+      line-height: 1.43;
+      color: $black-color;
+      letter-spacing: 0.1px;
+      cursor: pointer;
+
+      background: transparent;
+      border: none;
+      outline: none;
+    }
+  }
 }
