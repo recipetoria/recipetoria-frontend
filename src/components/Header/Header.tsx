@@ -5,6 +5,8 @@ import Logo from "../../assets/svg/Logo";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { fetchUserPhoto, userPhotoValue } from "../../features/UserPhotoSlice";
 import UserPhoto from "../UserPhoto/UserPhoto";
+import { isOpenProfileValue } from "../../features/isOpenProfileModalSlice";
+import ProfileModal from "../ProfileModal/ProfileModal";
 
 export default function Header() {
   const isAuth = useAppSelector((state) => state.present.authData.value.isAuth);
@@ -49,9 +51,17 @@ export default function Header() {
             )}
           </section>
           {isAuth && (
-            <Link to="/profile">
-              <UserPhoto parent="Header" />
-            </Link>
+            <div className="profile-btn-popup">
+              <button
+                type="button"
+                onClick={() => {
+                  dispatch(isOpenProfileValue());
+                }}
+              >
+                <UserPhoto parent="Header" />
+              </button>
+              <ProfileModal />
+            </div>
           )}
         </article>
       </div>
