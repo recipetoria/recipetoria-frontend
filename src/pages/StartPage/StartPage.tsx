@@ -33,6 +33,9 @@ export default function StartPage() {
         <article className="start-page">
           <div className="start-page__wrapper">
             <StartPageTopPart />
+            <section className="start-page__banner-wrapper">
+              <div className="start-page__banner" />
+            </section>
           </div>
           <Snackbar />
         </article>
