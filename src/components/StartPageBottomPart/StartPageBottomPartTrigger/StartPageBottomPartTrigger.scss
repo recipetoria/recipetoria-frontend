@@ -1,0 +1,48 @@
+@import "../../../styles/variables";
+@import "../../../styles/mixins";
+
+.trigger {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  align-items: center;
+  width: 19.79vw;
+  min-width: 150px;
+  max-width: 285px;
+
+  &__image-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__image {
+    width: 100%;
+
+    object-fit: contain;
+  }
+
+  &__text-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    align-items: flex-start;
+
+    color: $black-color;
+  }
+
+  &__h4 {
+    margin-block-start: 0;
+    margin-block-end: 0;
+
+    font-size: 1.375rem;
+    font-weight: 400;
+    line-height: 1.27;
+  }
+
+  &__descr {
+    font-size: 1rem;
+    line-height: 1.5;
+    letter-spacing: 0.5px;
+  }
+}
