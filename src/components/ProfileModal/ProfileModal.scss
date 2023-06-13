@@ -1,2 +1,70 @@
 @import "../../styles/variables";
 @import "../../styles/mixins";
+
+.profile-modal {
+  @include profile-data;
+
+  position: absolute;
+  z-index: 999;
+
+  width: 15.55vw;
+  max-width: 224px;
+
+  box-shadow: 4px 4px 0 $total-black;
+
+  translate: -25%;
+
+  &__wrapper {
+    align-items: center;
+    justify-content: center;
+    margin: 40px 2.77vw;
+  }
+
+  .data-btn-cross {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    align-items: flex-end;
+
+    &__cross-wrapper {
+      padding: 0;
+  
+      cursor: pointer;
+  
+      background: transparent;
+      border: none;
+    }
+
+    &__data-n-btn {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      align-items: center;
+    }
+
+    &__data {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      align-items: center;
+
+      .avatar {
+        width: 5.83vw;
+        max-width: 84px;
+        height: 5.83vw;
+        max-height: 84px;
+      }
+    }
+
+    &__nick {
+      font-size: 1.375rem;
+      font-weight: 400;
+      line-height: 1.27;
+      color: $black-color;
+    }
+
+    &__btn {
+      @include orange-btn;
+    }
+  }
+}
