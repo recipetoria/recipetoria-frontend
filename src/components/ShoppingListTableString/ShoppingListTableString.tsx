@@ -51,6 +51,7 @@ export default function ShoppingListTableString(
 
   const measuresList = measureValues
     .filter((el) => el !== valueMeasure)
+    .sort()
     .map((item) => (
       <button
         type="button"
