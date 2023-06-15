@@ -42,3 +42,28 @@ export interface UserInfo {
   photo: string;
   password: null;
 }
+
+export interface IShoppingListTableItem {
+  isLined: boolean;
+  defaultValue: number | string;
+  classMode: string;
+  editMode: string;
+  canItBeEmpty: boolean;
+  id: number;
+  field: string;
+  isDisable: (a: boolean) => void;
+  isHoverByTrash: boolean;
+  number?: number;
+}
+
+export interface IShoppingListTableString {
+  id: number;
+  name: string;
+  amount: number;
+  measureDefault: string;
+  isLined: boolean;
+  editMode: string;
+  setActiveSelect: (id: number) => void;
+  isActiveSelect: boolean;
+  number?: number;
+}
