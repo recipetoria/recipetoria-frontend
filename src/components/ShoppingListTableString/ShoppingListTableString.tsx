@@ -11,19 +11,9 @@ import {
   updateIngredient,
 } from "../../features/ShopListSlice";
 import { SnackbarTextValue } from "../../features/SnackbarTextSlice";
+import { IShoppingListTableString } from "../../types/types";
 
 /* eslint-disable jsx-a11y/control-has-associated-label */
-
-interface IShoppingListTableString {
-  id: number;
-  name: string;
-  amount: number;
-  measureDefault: string;
-  isLined: boolean;
-  editMode: string;
-  setActiveSelect: (id: number) => void;
-  isActiveSelect: boolean;
-}
 
 export default function ShoppingListTableString(
   props: IShoppingListTableString
@@ -37,6 +27,7 @@ export default function ShoppingListTableString(
     editMode,
     setActiveSelect,
     isActiveSelect,
+    number,
   } = props;
   const [valueMeasure, setValueMeasure] = useState<string>(measureDefault);
   const shoppingItems = useAppSelector((state) => state.present.shopList.value);
@@ -51,6 +42,7 @@ export default function ShoppingListTableString(
 
   const measuresList = measureValues
     .filter((el) => el !== valueMeasure)
+    .sort()
     .map((item) => (
       <button
         type="button"
@@ -82,6 +74,7 @@ export default function ShoppingListTableString(
         field="id"
         isDisable={updateDisable}
         isHoverByTrash={id === hoverTrashId}
+        number={number}
       />
       <ShoppingListTableItem
         isLined={isLined}
