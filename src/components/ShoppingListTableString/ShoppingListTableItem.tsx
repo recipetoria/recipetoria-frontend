@@ -8,18 +8,7 @@ import {
 import { shopListNewStringValue } from "../../features/ShopListNewStringSlice";
 import getObjectForUpdate from "../../utils/updateSelectedObj";
 import measureValues from "../../assets/data/measureArray";
-
-interface IShoppingListTableItem {
-  isLined: boolean;
-  defaultValue: number | string;
-  classMode: string;
-  editMode: string;
-  canItBeEmpty: boolean;
-  id: number;
-  field: string;
-  isDisable: (a: boolean) => void;
-  isHoverByTrash: boolean;
-}
+import { IShoppingListTableItem } from "../../types/types";
 
 export default function ShoppingListTableItem(props: IShoppingListTableItem) {
   const {
@@ -32,6 +21,7 @@ export default function ShoppingListTableItem(props: IShoppingListTableItem) {
     field,
     isDisable,
     isHoverByTrash,
+    number,
   } = props;
   const [value, setValue] = useState<string | number>(defaultValue);
   const [error, setError] = useState("");
@@ -136,7 +126,7 @@ export default function ShoppingListTableItem(props: IShoppingListTableItem) {
         tabIndex={0}
         ref={cellRef}
       >
-        {value}
+        {number || value}
       </div>
       {error ? <p className="error">{error}</p> : ""}
     </div>

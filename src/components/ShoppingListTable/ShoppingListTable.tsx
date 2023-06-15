@@ -34,6 +34,7 @@ export default function ShoppingListTable() {
         editMode="edit"
         setActiveSelect={(id: number) => setActiveSelect(id)}
         isActiveSelect={activeSelect === item.id}
+        number={index + 1}
       />
     ));
 
