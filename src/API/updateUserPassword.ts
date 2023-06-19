@@ -1,28 +1,23 @@
 import axios from "axios";
 import { URL_USER_PASSWORD } from "../utils/constants";
 
-export default async function checkUserPassword(
-  token: string,
-  password: number | string
-) {
-  const dataBody = JSON.stringify({
-    password,
-  });
+export default function updateUserPassword(password: string, token: string) {
+  const data = JSON.stringify({ password });
 
   const config = {
-    method: "post",
+    method: "put",
     maxBodyLength: Infinity,
     url: URL_USER_PASSWORD,
     headers: {
-      Authorization: `Bearer ${token}`,
       "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
     },
-    data: dataBody,
+    data,
   };
 
   return axios
     .request(config)
-    .then((resp) => resp.data.data.matches)
+    .then((response) => response.data.statusCode)
     .catch((error) => {
       throw new Error(error);
     });
