@@ -5,6 +5,8 @@ import Header from "../../components/Header/Header";
 import { isAuthValue } from "../../features/AuthSlice";
 import Snackbar from "../../components/Snackbar/Snackbar";
 import "./StartPage.scss";
+import StartPageTopPart from "../../components/StartPageTopPart/StartPageTopPart";
+import StartPageBottomPart from "../../components/StartPageBottomPart/StartPageBottomPart";
 
 export default function StartPage() {
   const dispatch = useAppDispatch();
@@ -30,7 +32,13 @@ export default function StartPage() {
       <Header />
       <main>
         <article className="start-page">
-          <h3>Start page</h3>
+          <div className="start-page__wrapper">
+            <StartPageTopPart />
+            <section className="start-page__banner-wrapper">
+              <div className="start-page__banner" />
+            </section>
+            <StartPageBottomPart />
+          </div>
           <Snackbar />
         </article>
       </main>
