@@ -3,22 +3,48 @@ import "./ProfileChangePassword.scss";
 import { useState } from "react";
 import { FormValues } from "../../types/types";
 import Input from "../Input/Input";
+import checkUserPassword from "../../API/checkUserPassword";
+import { useAppSelector } from "../../app/hooks";
+import updateUserPassword from "../../API/updateUserPassword";
 
 export default function ProfileChangePassword() {
   const {
     register,
     handleSubmit,
+    setError,
+    reset,
     formState: { errors },
   } = useForm<FormValues>();
 
   const [passwordValue, setPasswordValue] = useState("");
   const [customError, setCustomError] = useState<boolean>();
+  const token = useAppSelector((state) => state.present.authData.value.token);
 
-  const onSubmit: SubmitHandler<FormValues> = (data) => {
-    const { nickname, email } = data;
+  const onSubmit: SubmitHandler<FormValues> = async (data) => {
+    const { oldPassword, password, repeatPassword } = data;
+    if (oldPassword) {
+      const checkUserPasswordResponse = await checkUserPassword(
+        token,
+        oldPassword
+      );
+      if (!checkUserPasswordResponse) {
+        setError("oldPassword", { message: "Wrong password" });
+      } else if (password && repeatPassword) {
+        if (oldPassword === password) {
+          setError("password", {
+            message: "The old password must not match the new password",
+          });
+        } else {
+          updateUserPassword(password, token).then(() => {
+            reset();
+          });
+        }
+      }
+    }
   };
 
   const errorsArr = [
+    errors.oldPassword?.message,
     errors.password?.message,
     errors.repeatPassword?.message,
     customError,
@@ -51,7 +77,6 @@ export default function ProfileChangePassword() {
                     message: "Please enter a minimum of 6 characters",
                   },
                 }}
-                caption="Minimum 6 characters"
               />
               <Input
                 name="password"
@@ -84,7 +109,6 @@ export default function ProfileChangePassword() {
                 placeholder="Enter new password"
                 passwordValue={passwordValue}
                 updateCustomError={(value: boolean) => setCustomError(value)}
-                caption="Minimum 6 characters"
               />
             </div>
           </div>

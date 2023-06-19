@@ -42,17 +42,23 @@
     }
   }
 
-  .default-avatar {
-    @include default-avatar;
-
-    &__wrapper {
-      @include default-avatar-wrapper;
-    }
-  }
-
   .orange-btn {
     @include orange-btn;
 
     font-weight: 500;
+  }
+
+  .profile-btn-popup {
+    position: relative;
+
+    &__btn {
+      padding: 0;
+
+      cursor: pointer;
+
+      background: transparent;
+      border: none;
+      outline: none;
+    }
   }
 }

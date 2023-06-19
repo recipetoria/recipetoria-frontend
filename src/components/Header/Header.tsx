@@ -1,11 +1,25 @@
 import { Link } from "react-router-dom";
 import "./Header.scss";
+import { useEffect } from "react";
 import Logo from "../../assets/svg/Logo";
-import DefaultAvatar from "../../assets/png/default_ava.png";
-import { useAppSelector } from "../../app/hooks";
+import { useAppDispatch, useAppSelector } from "../../app/hooks";
+import { fetchUserPhoto, userPhotoValue } from "../../features/UserPhotoSlice";
+import UserPhoto from "../UserPhoto/UserPhoto";
+import { isOpenProfileValue } from "../../features/isOpenProfileModalSlice";
+import ProfileModal from "../ProfileModal/ProfileModal";
 
 export default function Header() {
   const isAuth = useAppSelector((state) => state.present.authData.value.isAuth);
+  const token = useAppSelector((state) => state.present.authData.value.token);
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    if (isAuth) {
+      dispatch(fetchUserPhoto(token));
+    } else {
+      dispatch(userPhotoValue(""));
+    }
+  }, [dispatch, isAuth, token]);
 
   return (
     <header className="header">
@@ -37,11 +51,18 @@ export default function Header() {
             )}
           </section>
           {isAuth && (
-            <Link to="/profile">
-              <div className="default-avatar__wrapper">
-                <img src={DefaultAvatar} alt="" className="default-avatar" />
-              </div>
-            </Link>
+            <div className="profile-btn-popup">
+              <button
+                type="button"
+                onClick={() => {
+                  dispatch(isOpenProfileValue());
+                }}
+                className="profile-btn-popup__btn"
+              >
+                <UserPhoto parent="Header" />
+              </button>
+              <ProfileModal />
+            </div>
           )}
         </article>
       </div>

@@ -3,9 +3,9 @@ import { FileUploader } from "react-drag-drop-files";
 import "./AddProfilePhoto.scss";
 import DropPhoto from "../DropPhoto/DropPhoto";
 import useModal from "../../hooks/useModal";
-import updateUserProfilePhoto from "../../API/updateUserProfilePhoto";
-import { useAppSelector } from "../../app/hooks";
 import ErrorInForm from "../ErrorInForm/ErrorInForm";
+import { useAppDispatch, useAppSelector } from "../../app/hooks";
+import { fetchUpdateUserPhoto } from "../../features/UserPhotoSlice";
 
 export default function AddProfilePhoto() {
   const fileTypes = ["JPG", "jpeg", "PNG", "GIF"];
@@ -13,13 +13,14 @@ export default function AddProfilePhoto() {
   const token = useAppSelector((state) => state.present.authData.value.token);
   const { toggle } = useModal();
   const [error, setError] = useState("");
+  const dispatch = useAppDispatch();
 
   const handleChange = (file: File) => {
     if (file) {
       setError("");
       const formData = new FormData();
       formData.append("file", file);
-      updateUserProfilePhoto(formData, token);
+      dispatch(fetchUpdateUserPhoto({ data: formData, token }));
       toggle();
     } else {
       throw new Error("Something went wong with file...");

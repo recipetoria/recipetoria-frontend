@@ -53,29 +53,6 @@
   }
 }
 
-@mixin default-avatar-wrapper {
-  position: relative;
-
-  flex-shrink: 0;
-  width: 52px;
-  height: 52px;
-
-  overflow: hidden;
-
-  border: 1.5px solid $black-color;
-  border-radius: 50%;
-  box-shadow: 3px 2px 0 0 $black-color;
-}
-
-@mixin default-avatar {
-  width: 100%;
-  padding-top: 8px;
-
-  background-color: $green-color;
-
-  transform: scale(-1, 1) scale(1.16);
-}
-
 @mixin profile-data-container {
   width: 100%;
 
