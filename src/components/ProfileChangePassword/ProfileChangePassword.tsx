@@ -10,6 +10,7 @@ export default function ProfileChangePassword() {
   const {
     register,
     handleSubmit,
+    setError,
     formState: { errors },
   } = useForm<FormValues>();
 
@@ -17,10 +18,16 @@ export default function ProfileChangePassword() {
   const [customError, setCustomError] = useState<boolean>();
   const token = useAppSelector((state) => state.present.authData.value.token);
 
-  const onSubmit: SubmitHandler<FormValues> = (data) => {
+  const onSubmit: SubmitHandler<FormValues> = async (data) => {
     const { oldPassword, password, repeatPassword } = data;
     if (oldPassword) {
-      checkUserPassword(token, oldPassword);
+      const checkUserPasswordResponse = await checkUserPassword(
+        token,
+        oldPassword
+      );
+      if (!checkUserPasswordResponse) {
+        setError("oldPassword", { message: "Wrong password" });
+      }
     }
   };
 
@@ -58,7 +65,6 @@ export default function ProfileChangePassword() {
                     message: "Please enter a minimum of 6 characters",
                   },
                 }}
-                caption="Minimum 6 characters"
               />
               <Input
                 name="password"
@@ -91,7 +97,6 @@ export default function ProfileChangePassword() {
                 placeholder="Enter new password"
                 passwordValue={passwordValue}
                 updateCustomError={(value: boolean) => setCustomError(value)}
-                caption="Minimum 6 characters"
               />
             </div>
           </div>

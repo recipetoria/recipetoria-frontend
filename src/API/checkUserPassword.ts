@@ -10,17 +10,20 @@ export default async function checkUserPassword(
   });
 
   const config = {
-    method: "get",
+    method: "post",
     maxBodyLength: Infinity,
     url: URL_USER_PASSWORD,
     headers: {
       Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
     },
     data: dataBody,
   };
 
-  axios
+  return axios
     .request(config)
-    .then((resp) => console.log(resp))
-    .catch((error) => console.log(error));
+    .then((resp) => resp.data.data.matches)
+    .catch((error) => {
+      throw new Error(error);
+    });
 }
