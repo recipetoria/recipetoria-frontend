@@ -5,12 +5,14 @@ import { FormValues } from "../../types/types";
 import Input from "../Input/Input";
 import checkUserPassword from "../../API/checkUserPassword";
 import { useAppSelector } from "../../app/hooks";
+import updateUserPassword from "../../API/updateUserPassword";
 
 export default function ProfileChangePassword() {
   const {
     register,
     handleSubmit,
     setError,
+    reset,
     formState: { errors },
   } = useForm<FormValues>();
 
@@ -27,6 +29,16 @@ export default function ProfileChangePassword() {
       );
       if (!checkUserPasswordResponse) {
         setError("oldPassword", { message: "Wrong password" });
+      } else if (password && repeatPassword) {
+        if (oldPassword === password) {
+          setError("password", {
+            message: "The old password must not match the new password",
+          });
+        } else {
+          updateUserPassword(password, token).then(() => {
+            reset();
+          });
+        }
       }
     }
   };
