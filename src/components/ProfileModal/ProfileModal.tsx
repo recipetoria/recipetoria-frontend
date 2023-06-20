@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-no-useless-fragment */
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import CrossIcon from "../../assets/svg/CrossIcon";
 import UserPhoto from "../UserPhoto/UserPhoto";
@@ -18,6 +18,7 @@ export default function ProfileModal() {
   const dispatch = useAppDispatch();
 
   const navigate = useNavigate();
+  const location = useLocation();
 
   function toggleModal() {
     dispatch(isOpenProfileValue());
@@ -78,8 +79,12 @@ export default function ProfileModal() {
                         className="delete-account__ok"
                         onClick={() => {
                           toggleModal();
-                          navigate("/");
                           logOut(nickname);
+                          if (location.pathname === "/") {
+                            navigate(0);
+                          } else {
+                            navigate("/");
+                          }
                         }}
                       >
                         Ok
