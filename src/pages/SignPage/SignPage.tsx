@@ -72,7 +72,7 @@ export default function SignPage(props: ISignPageProps) {
     if (signMode === "signUp") {
       navIfSuccess(await signUp(nickname || "", email || "", password || ""));
     } else if (signMode === "signIn") {
-      navIfSuccess(await SignIn(email || "", password || "", name));
+      navIfSuccess(await SignIn(email || "", password || ""));
     }
   };
 
