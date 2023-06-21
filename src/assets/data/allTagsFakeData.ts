@@ -28,7 +28,7 @@ names.map((item, id) =>
   allTagsFakeDataArr.push({
     id,
     name: item,
-    mainPhoto: id % 2 ? fakePhoto : null,
+    mainPhoto: !(id % 3) ? fakePhoto : null,
     applicationUserId: 1,
     recipeIds: [],
   })
