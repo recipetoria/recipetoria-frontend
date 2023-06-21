@@ -1,0 +1,77 @@
+@import "../../styles/variables";
+@import "../../styles/mixins";
+
+.cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.66vw;
+  justify-content: start;
+
+  .card {
+    @include border($color: $total-black, $rad: 8px);
+
+    display: flex;
+    justify-content: center;
+    width: 16.11vw;
+    max-width: 264px;
+    padding: 1.11vw;
+
+    cursor: pointer;
+
+    background: $btn-bg-color;
+
+    &__wrapper {
+      display: flex;
+      flex-direction: column;
+      gap: 2.22vw;
+      width: inherit;
+    }
+
+    &__image-wrapper {
+      width: 100%;
+    }
+
+    &__image {
+      @include border($color: $total-black, $rad: 8px);
+
+      width: inherit;
+      
+      object-fit: cover;
+
+      &_create {
+        border: none;
+      }
+    }
+
+    &__name {
+      width: inherit;
+      margin-block-start: 0;
+      margin-block-end: 0;
+
+      overflow: hidden;
+
+      font-size: 1.375rem;
+      font-weight: 400;
+      line-height: 1.27;
+      color: $total-black;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    &__create-block {
+      display: flex;
+      gap: 4px;
+      align-items: center;
+      justify-content: center;
+      width: inherit;
+    }
+
+    &__create-text {
+      font-size: .875rem;
+      font-weight: 500;
+      line-height: 1.43;
+      color: $black-color;
+      letter-spacing: 0.1px;
+    }
+  }
+}
