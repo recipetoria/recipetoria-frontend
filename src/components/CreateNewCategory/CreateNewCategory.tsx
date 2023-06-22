@@ -55,7 +55,7 @@ export default function CreateNewCategory() {
           />
         </section>
         <section className="btns">
-          <button type="button" className="btns__cancel">
+          <button type="button" className="btns__cancel" onClick={toggle}>
             Cancel
           </button>
           <button type="button" className="btns__ok">
