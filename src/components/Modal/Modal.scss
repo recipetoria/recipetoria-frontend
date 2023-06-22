@@ -7,7 +7,7 @@
   z-index: 9999;
 
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
   width: 100%;
   height: 100%;
@@ -20,6 +20,10 @@
 
 .modal-box {
   @include border($color: $total-black, $rad: 8px);
+
+  position: sticky;
+  top: 25vh;
+  z-index: 9999;
 
   padding: 40px 2.77vw;
 

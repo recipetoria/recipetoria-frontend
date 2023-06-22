@@ -3,6 +3,7 @@ import CrossIcon from "../../assets/svg/CrossIcon";
 import useModal from "../../hooks/useModal";
 import Input from "../Input/Input";
 import { FormValues } from "../../types/types";
+import "./CreateNewCategory.scss";
 
 export default function CreateNewCategory() {
   const { toggle } = useModal();

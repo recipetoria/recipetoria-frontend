@@ -2,19 +2,12 @@
 @import "../../styles/mixins";
 
 .delete-account {
+  @include cross-btn;
+
   display: flex;
   flex-direction: column;
   gap: 24px;
   align-items: flex-end;
-
-  &__cross-wrapper {
-    padding: 0;
-
-    cursor: pointer;
-
-    background: transparent;
-    border: none;
-  }
 
   &__content {
     display: flex;
