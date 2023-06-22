@@ -4,9 +4,12 @@ import useModal from "../../hooks/useModal";
 import Input from "../Input/Input";
 import { FormValues } from "../../types/types";
 import "./CreateNewCategory.scss";
+import { useAppDispatch } from "../../app/hooks";
+import { SnackbarTextValue } from "../../features/SnackbarTextSlice";
 
 export default function CreateNewCategory() {
   const { toggle } = useModal();
+  const dispatch = useAppDispatch();
 
   const {
     register,
@@ -17,7 +20,14 @@ export default function CreateNewCategory() {
 
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
     const { categoryName } = data;
+    dispatch(
+      SnackbarTextValue({
+        text: "New category was created",
+        withUndo: false,
+      })
+    );
     reset();
+    toggle();
   };
 
   return (
@@ -58,7 +68,7 @@ export default function CreateNewCategory() {
           <button type="button" className="btns__cancel" onClick={toggle}>
             Cancel
           </button>
-          <button type="button" className="btns__ok">
+          <button type="submit" className="btns__ok">
             Ok
           </button>
         </section>

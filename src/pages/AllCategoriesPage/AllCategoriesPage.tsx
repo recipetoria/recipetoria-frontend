@@ -7,6 +7,7 @@ import { useAppSelector } from "../../app/hooks";
 import CategoriesCards from "../../components/CategoriesCards/CategoriesCards";
 import Modal from "../../components/Modal/Modal";
 import useModal from "../../hooks/useModal";
+import Snackbar from "../../components/Snackbar/Snackbar";
 
 export default function AllCategoriesPage() {
   const isAuth = useAppSelector(
@@ -41,6 +42,7 @@ export default function AllCategoriesPage() {
               <Modal isOpen={isOpen} toggle={toggle}>
                 {modalChildren}
               </Modal>
+              <Snackbar />
             </article>
           </main>
           <Footer />
