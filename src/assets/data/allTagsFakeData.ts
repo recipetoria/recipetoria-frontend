@@ -8,7 +8,6 @@ const names = [
   "Mom`s recipes",
   "Oven",
   "Passover",
-  "Passover",
   "Quick recipes",
   "Romantic recipes",
   "Spaghetti",
