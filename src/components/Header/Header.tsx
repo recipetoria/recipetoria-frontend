@@ -12,6 +12,9 @@ export default function Header() {
   const isAuth = useAppSelector((state) => state.present.authData.value.isAuth);
   const token = useAppSelector((state) => state.present.authData.value.token);
   const dispatch = useAppDispatch();
+  const isOpenModal = useAppSelector(
+    (state) => state.present.IsOpenModal.value
+  );
 
   useEffect(() => {
     if (isAuth) {
@@ -55,7 +58,9 @@ export default function Header() {
               <button
                 type="button"
                 onClick={() => {
-                  dispatch(isOpenProfileValue());
+                  if (!isOpenModal) {
+                    dispatch(isOpenProfileValue());
+                  }
                 }}
                 className="profile-btn-popup__btn"
               >
