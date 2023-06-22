@@ -14,6 +14,7 @@ export type FormValues = {
   checkbox?: string;
   repeatPassword?: string;
   oldPassword?: string;
+  categoryName?: string;
 };
 
 export interface IResponse {

@@ -13,7 +13,8 @@ interface InputProps {
     | "password"
     | "checkbox"
     | "repeatPassword"
-    | "oldPassword";
+    | "oldPassword"
+    | "categoryName";
   label: string;
   register: UseFormRegister<FormValues>;
   errors: FieldErrors<FormValues>;

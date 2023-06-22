@@ -10,7 +10,10 @@
   .card {
     @include border($color: $total-black, $rad: 8px);
 
+    box-sizing: content-box;
+    
     display: flex;
+    align-items: normal;
     justify-content: center;
     width: 16.11vw;
     max-width: 264px;

@@ -1,10 +1,19 @@
+import { ReactNode } from "react";
 import allTagsFakeDataArr from "../../assets/data/allTagsFakeData";
 import DefaultCategoryPhoto from "../../assets/png/no_photo_categ.png";
 import CreateNewCategoryImage from "../../assets/png/create_new_category.png";
 import PlusIcon from "../../assets/svg/PlusIcon";
 import "./CategoriesCards.scss";
+import CreateNewCategory from "../CreateNewCategory/CreateNewCategory";
 
-export default function CategoriesCards() {
+interface CategoriesCardsProps {
+  toggle: () => void;
+  modalChildren: (child: ReactNode) => void;
+}
+
+export default function CategoriesCards(props: CategoriesCardsProps) {
+  const { toggle, modalChildren } = props;
+
   const categoriesCardsJsx = allTagsFakeDataArr.map((item) => (
     <section className="card" key={item.name} id={item.id.toString()}>
       <div className="card__wrapper">
@@ -22,7 +31,14 @@ export default function CategoriesCards() {
 
   return (
     <article className="cards">
-      <section className="card">
+      <button
+        className="card"
+        type="button"
+        onClick={() => {
+          toggle();
+          modalChildren(<CreateNewCategory />);
+        }}
+      >
         <div className="card__wrapper">
           <section className="card__image-wrapper">
             <img
@@ -36,7 +52,7 @@ export default function CategoriesCards() {
             <span className="card__create-text">Create new category</span>
           </section>
         </div>
-      </section>
+      </button>
       {categoriesCardsJsx}
     </article>
   );
