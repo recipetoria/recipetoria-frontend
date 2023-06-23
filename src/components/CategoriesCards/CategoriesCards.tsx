@@ -17,46 +17,62 @@ interface CategoriesCardsProps {
 export default function CategoriesCards(props: CategoriesCardsProps) {
   const { toggle, modalChildren } = props;
 
-  // const [isHoverCategory, SetIsHoverCategory] = useState<{
-  //   id: number;
-  //   isHover: boolean;
-  // }>();
+  const [isActiveMenu, setIsActiveMenu] = useState<{
+    id: number;
+    isActive: boolean;
+  }>();
 
-  const categoriesCardsJsx = allTagsFakeDataArr.map((item) => (
-    <Link
-      to="/"
-      className="card"
-      key={item.name}
-      id={item.id.toString()}
-      onMouseEnter={() => {
-        // SetIsHoverCategory({
-        //   id: item.id,
-        //   isHover: true,
-        // });
-      }}
-      onMouseLeave={() => {
-        // SetIsHoverCategory({
-        //   id: item.id,
-        //   isHover: false,
-        // });
-      }}
-    >
-      <div className="card__wrapper">
-        <section className="card__image-wrapper">
-          <img
-            src={item.mainPhoto || DefaultCategoryPhoto}
-            alt="category"
-            className="card__image"
-          />
-        </section>
-        <h4 className="card__name">{item.name}</h4>
-        <button type="button" className="menu-btn">
-          <PencilIcon />
-          <ArrowIcon />
-        </button>
-      </div>
-    </Link>
-  ));
+  const categoriesCardsJsx = allTagsFakeDataArr.map((item) => {
+    const closeMenu = () => setIsActiveMenu({ id: item.id, isActive: false });
+    const openMenu = () => setIsActiveMenu({ id: item.id, isActive: true });
+
+    return (
+      <Link
+        to="/"
+        className="card"
+        key={item.name}
+        id={item.id.toString()}
+        onMouseLeave={closeMenu}
+      >
+        <div className="card__wrapper">
+          <section className="card__image-wrapper">
+            <img
+              src={item.mainPhoto || DefaultCategoryPhoto}
+              alt="category"
+              className="card__image"
+            />
+          </section>
+          <h4 className="card__name">{item.name}</h4>
+          <div className="menu-block">
+            <button type="button" className="menu-btn" onMouseEnter={openMenu}>
+              <PencilIcon />
+              <ArrowIcon />
+            </button>
+            <section
+              className={`menu ${
+                isActiveMenu?.id === item.id && isActiveMenu.isActive
+                  ? "menu_active"
+                  : ""
+              }`}
+              onMouseLeave={closeMenu}
+            >
+              <div className="menu__wrapper">
+                <button type="button" className="menu__item">
+                  Rename category
+                </button>
+                <button type="button" className="menu__item">
+                  Delete category
+                </button>
+                <button type="button" className="menu__item">
+                  Change photo
+                </button>
+              </div>
+            </section>
+          </div>
+        </div>
+      </Link>
+    );
+  });
 
   return (
     <article className="cards">
