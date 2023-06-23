@@ -44,7 +44,19 @@ export default function CategoriesCards(props: CategoriesCardsProps) {
           </section>
           <h4 className="card__name">{item.name}</h4>
           <div className="menu-block">
-            <button type="button" className="menu-btn" onMouseEnter={openMenu}>
+            <button
+              type="button"
+              className="menu-btn"
+              onMouseEnter={openMenu}
+              onClick={(e) => {
+                e.preventDefault();
+                if (isActiveMenu?.isActive) {
+                  closeMenu();
+                } else {
+                  openMenu();
+                }
+              }}
+            >
               <PencilIcon />
               <ArrowIcon />
             </button>
