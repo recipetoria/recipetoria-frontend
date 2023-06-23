@@ -22,11 +22,15 @@
 
     background: $btn-bg-color;
 
+    transition: $transition;
+
     &__wrapper {
+      position: relative;
+
       display: flex;
       flex-direction: column;
       gap: 2.22vw;
-      width: inherit;
+      width: 100%;
     }
 
     &__image-wrapper {
@@ -39,9 +43,45 @@
       width: inherit;
       
       object-fit: cover;
+      transition: $transition;
 
       &_create {
         border: none;
+      }
+    }
+
+    .menu-btn {
+      position: absolute;
+      top: 8px;
+      left: 8px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 4.4444vw;
+      padding: 4px 8px;
+
+      cursor: pointer;
+
+      background: rgba($btn-bg-color, .7);
+      border: none;
+      border-radius: 20px;
+
+      opacity: 0;
+      transition: $transition;
+    }
+
+    &:hover {
+      background: rgba($total-black, .4);
+      
+      .card {
+        &__image {
+          filter: brightness(.5);
+        }
+      }
+
+      .menu-btn {
+        opacity: 1;
       }
     }
 
