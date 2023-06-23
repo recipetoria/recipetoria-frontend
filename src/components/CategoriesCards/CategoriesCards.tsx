@@ -15,7 +15,12 @@ export default function CategoriesCards(props: CategoriesCardsProps) {
   const { toggle, modalChildren } = props;
 
   const categoriesCardsJsx = allTagsFakeDataArr.map((item) => (
-    <section className="card" key={item.name} id={item.id.toString()}>
+    <button
+      type="button"
+      className="card"
+      key={item.name}
+      id={item.id.toString()}
+    >
       <div className="card__wrapper">
         <section className="card__image-wrapper">
           <img
@@ -26,7 +31,7 @@ export default function CategoriesCards(props: CategoriesCardsProps) {
         </section>
         <h4 className="card__name">{item.name}</h4>
       </div>
-    </section>
+    </button>
   ));
 
   return (
