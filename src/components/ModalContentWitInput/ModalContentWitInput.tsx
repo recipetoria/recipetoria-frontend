@@ -2,12 +2,20 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import CrossIcon from "../../assets/svg/CrossIcon";
 import useModal from "../../hooks/useModal";
 import Input from "../Input/Input";
-import { FormValues } from "../../types/types";
-import "./CreateNewCategory.scss";
+import { FormValues, InputNames } from "../../types/types";
+import "./ModalContentWitInput.scss";
 import { useAppDispatch } from "../../app/hooks";
 import { SnackbarTextValue } from "../../features/SnackbarTextSlice";
 
-export default function CreateNewCategory() {
+interface IModalContentWitInput {
+  label: string;
+  placeholder: string;
+  inputName: InputNames;
+}
+
+export default function ModalContentWitInput(props: IModalContentWitInput) {
+  const { label, placeholder, inputName } = props;
+
   const { toggle } = useModal();
   const dispatch = useAppDispatch();
 
@@ -19,13 +27,25 @@ export default function CreateNewCategory() {
   } = useForm<FormValues>();
 
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
-    const { categoryName } = data;
-    dispatch(
-      SnackbarTextValue({
+    const { categoryName, categoryRename } = data;
+    let objForSnackbar = {
+      text: "",
+      withUndo: false,
+    };
+
+    if (categoryName) {
+      objForSnackbar = {
         text: "New category was created",
         withUndo: false,
-      })
-    );
+      };
+    } else if (categoryRename) {
+      objForSnackbar = {
+        text: "The category was renamed",
+        withUndo: true,
+      };
+    }
+
+    dispatch(SnackbarTextValue(objForSnackbar));
     reset();
     toggle();
   };
@@ -41,15 +61,15 @@ export default function CreateNewCategory() {
       </button>
       <form className="create-block-n-btns" onSubmit={handleSubmit(onSubmit)}>
         <section className="create-block">
-          <h3 className="create-block__h3">Create new category</h3>
+          <h3 className="create-block__h3">{label}</h3>
           <Input
-            name="categoryName"
+            name={inputName}
             label=""
             register={register}
             errors={errors}
             required
             type="text"
-            placeholder="Enter the new category name"
+            placeholder={placeholder}
             caption="Max 30 symbols"
             validationSchema={{
               required: "Category name is required",

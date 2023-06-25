@@ -15,7 +15,18 @@ export type FormValues = {
   repeatPassword?: string;
   oldPassword?: string;
   categoryName?: string;
+  categoryRename?: string;
 };
+
+export type InputNames =
+  | "nickname"
+  | "email"
+  | "password"
+  | "checkbox"
+  | "repeatPassword"
+  | "oldPassword"
+  | "categoryName"
+  | "categoryRename";
 
 export interface IResponse {
   timeStamp: string;

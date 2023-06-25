@@ -2,19 +2,12 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import { UseFormRegister, FieldErrors } from "react-hook-form";
 import { useState } from "react";
-import { FormValues } from "../../types/types";
+import { FormValues, InputNames } from "../../types/types";
 import "./Input.scss";
 import EyeIcon from "../../assets/svg/EyeIcon";
 
 interface InputProps {
-  name:
-    | "nickname"
-    | "email"
-    | "password"
-    | "checkbox"
-    | "repeatPassword"
-    | "oldPassword"
-    | "categoryName";
+  name: InputNames;
   label: string;
   register: UseFormRegister<FormValues>;
   errors: FieldErrors<FormValues>;

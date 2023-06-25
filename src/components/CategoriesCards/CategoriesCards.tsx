@@ -5,7 +5,7 @@ import DefaultCategoryPhoto from "../../assets/png/no_photo_categ.png";
 import CreateNewCategoryImage from "../../assets/png/create_new_category.png";
 import PlusIcon from "../../assets/svg/PlusIcon";
 import "./CategoriesCards.scss";
-import CreateNewCategory from "../CreateNewCategory/CreateNewCategory";
+import ModalContentWitInput from "../ModalContentWitInput/ModalContentWitInput";
 import PencilIcon from "../../assets/svg/PencilIcon";
 import ArrowIcon from "../../assets/svg/ArrowIcon";
 
@@ -69,7 +69,21 @@ export default function CategoriesCards(props: CategoriesCardsProps) {
               onMouseLeave={closeMenu}
             >
               <div className="menu__wrapper">
-                <button type="button" className="menu__item">
+                <button
+                  type="button"
+                  className="menu__item"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    toggle();
+                    modalChildren(
+                      <ModalContentWitInput
+                        label="Rename the category"
+                        placeholder="Enter new name for the category"
+                        inputName="categoryRename"
+                      />
+                    );
+                  }}
+                >
                   Rename category
                 </button>
                 <button type="button" className="menu__item">
@@ -93,7 +107,13 @@ export default function CategoriesCards(props: CategoriesCardsProps) {
         type="button"
         onClick={() => {
           toggle();
-          modalChildren(<CreateNewCategory />);
+          modalChildren(
+            <ModalContentWitInput
+              label="Create new category"
+              placeholder="Enter the new category name"
+              inputName="categoryName"
+            />
+          );
         }}
       >
         <div className="card__wrapper">
