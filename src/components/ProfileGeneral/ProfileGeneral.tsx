@@ -8,6 +8,7 @@ import { useAppSelector } from "../../app/hooks";
 import getUserInfo from "../../API/getUserInfo";
 import updateUserName from "../../API/updateUserName";
 import UserPhoto from "../UserPhoto/UserPhoto";
+import UploadPhoto from "../../assets/png/upload_photo.png";
 
 interface ProfileGeneralProps {
   toggle: () => void;
@@ -74,7 +75,9 @@ export default function ProfileGeneral(props: ProfileGeneralProps) {
                   className="general__btn btn"
                   onClick={() => {
                     toggle();
-                    modalChildren(<AddProfilePhoto />);
+                    modalChildren(
+                      <AddProfilePhoto mode="profile" imageSrc={UploadPhoto} />
+                    );
                   }}
                 >
                   Replace picture

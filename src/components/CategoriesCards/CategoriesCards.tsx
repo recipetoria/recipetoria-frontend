@@ -13,6 +13,8 @@ import DeleteCategoryImage from "../../assets/png/delete_category.png";
 import { useAppDispatch } from "../../app/hooks";
 import { SnackbarTextValue } from "../../features/SnackbarTextSlice";
 import { isOpenModalValue } from "../../features/IsOpenModalSlice";
+import AddProfilePhoto from "../AddProfilePhoto/AddProfilePhoto";
+import AddCategoryImage from "../../assets/png/add_category_photo.png";
 
 interface CategoriesCardsProps {
   toggle: () => void;
@@ -120,7 +122,20 @@ export default function CategoriesCards(props: CategoriesCardsProps) {
                 >
                   Delete category
                 </button>
-                <button type="button" className="menu__item">
+                <button
+                  type="button"
+                  className="menu__item"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    toggle();
+                    modalChildren(
+                      <AddProfilePhoto
+                        mode="category"
+                        imageSrc={AddCategoryImage}
+                      />
+                    );
+                  }}
+                >
                   Change photo
                 </button>
               </div>
