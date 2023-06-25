@@ -1,4 +1,5 @@
-import { Route, Routes } from "react-router-dom";
+import { useEffect } from "react";
+import { Route, Routes, useLocation } from "react-router-dom";
 import ShoppingListPage from "./pages/ShoppingListPage/ShoppingListPage";
 import AllCategoriesPage from "./pages/AllCategoriesPage/AllCategoriesPage";
 import AddRecipePage from "./pages/AddRecipePage/AddRecipePage";
@@ -6,8 +7,30 @@ import SignPage from "./pages/SignPage/SignPage";
 import StartPage from "./pages/StartPage/StartPage";
 import NotFoundPage from "./pages/NotFoundPage/NotFoundPage";
 import ProfilePage from "./pages/ProfilePage/ProfilePage";
+import { useAppDispatch, useAppSelector } from "./app/hooks";
+import { isOpenModalValue } from "./features/IsOpenModalSlice";
+import { isOpenProfileValue } from "./features/isOpenProfileModalSlice";
 
 function App() {
+  const location = useLocation();
+  const dispatch = useAppDispatch();
+  const isOpenModal = useAppSelector(
+    (state) => state.present.IsOpenModal.value
+  );
+  const isOpenProfileModal = useAppSelector(
+    (state) => state.present.isOpenProfileModal.value
+  );
+
+  useEffect(() => {
+    if (isOpenModal === true) {
+      dispatch(isOpenModalValue(false));
+    }
+    if (isOpenProfileModal === true) {
+      dispatch(isOpenProfileValue());
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [location]);
+
   return (
     <div className="app">
       <Routes>

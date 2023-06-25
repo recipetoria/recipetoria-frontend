@@ -116,3 +116,14 @@
   background: transparent;
   border: none;
 }
+
+@mixin cross-btn {
+  &__cross-wrapper {
+    padding: 0;
+
+    cursor: pointer;
+
+    background: transparent;
+    border: none;
+  }
+}

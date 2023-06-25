@@ -1,7 +1,8 @@
 @import '../../styles/variables';
 
 .snackbar {
-  position: absolute;
+  position: fixed;
+  
   display: flex;
   align-items: center;
   justify-content: space-between;

@@ -7,7 +7,14 @@ import ErrorInForm from "../ErrorInForm/ErrorInForm";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { fetchUpdateUserPhoto } from "../../features/UserPhotoSlice";
 
-export default function AddProfilePhoto() {
+interface AddProfilePhotoProps {
+  mode: "profile" | "category";
+  imageSrc: string;
+}
+
+export default function AddProfilePhoto(props: AddProfilePhotoProps) {
+  const { mode, imageSrc } = props;
+
   const fileTypes = ["JPG", "jpeg", "PNG", "GIF"];
   const fileSize = "5";
   const token = useAppSelector((state) => state.present.authData.value.token);
@@ -17,11 +24,13 @@ export default function AddProfilePhoto() {
 
   const handleChange = (file: File) => {
     if (file) {
-      setError("");
-      const formData = new FormData();
-      formData.append("file", file);
-      dispatch(fetchUpdateUserPhoto({ data: formData, token }));
-      toggle();
+      if (mode === "profile") {
+        setError("");
+        const formData = new FormData();
+        formData.append("file", file);
+        dispatch(fetchUpdateUserPhoto({ data: formData, token }));
+        toggle();
+      }
     } else {
       throw new Error("Something went wong with file...");
     }
@@ -29,7 +38,7 @@ export default function AddProfilePhoto() {
 
   return (
     <section className="add-profile-photo">
-      <h3 className="add-profile-photo__header">Add profile photo</h3>
+      <h3 className="add-profile-photo__header">Add {mode} photo</h3>
       {error !== "" && <ErrorInForm errorMessage={error} />}
       <article className="add-profile-photo__content">
         <section className="add-photo">
@@ -41,7 +50,7 @@ export default function AddProfilePhoto() {
             onTypeError={setError}
             onSizeError={setError}
           >
-            <DropPhoto />
+            <DropPhoto imageSrc={imageSrc} />
           </FileUploader>
         </section>
         <span className="add-profile-photo__text">or</span>

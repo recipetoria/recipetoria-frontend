@@ -1,0 +1,185 @@
+@import "../../styles/variables";
+@import "../../styles/mixins";
+
+.cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.66vw;
+  justify-content: start;
+
+  .card {
+    @include border($color: $total-black, $rad: 8px);
+
+    box-sizing: content-box;
+    
+    display: flex;
+    align-items: normal;
+    width: 16.11vw;
+    max-width: 264px;
+    padding: 1.11vw;
+
+    cursor: pointer;
+
+    background: $btn-bg-color;
+
+    transition: $transition;
+
+    &__wrapper {
+      position: relative;
+
+      display: flex;
+      flex-direction: column;
+      gap: 2.22vw;
+      width: 100%;
+    }
+
+    &__image-wrapper {
+      width: 100%;
+    }
+
+    &__image {
+      @include border($color: $total-black, $rad: 8px);
+
+      width: inherit;
+      
+      object-fit: cover;
+      transition: $transition;
+
+      &_create {
+        border: none;
+      }
+    }
+
+    .menu-block {
+      position: absolute;
+      top: .5555vw;
+      left: .5555vw;
+
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+    }
+
+    .menu {
+      z-index: -1;
+
+      display: inline-flex;
+      flex-direction: column;
+      gap: 4px;
+      align-items: flex-start;
+      justify-content: center;
+      width: 12.9861vw;
+      padding: 4px 0;
+
+      background: $btn-bg-color;
+      border-radius: 4px;
+      box-shadow: 0 4px 4px 0 rgba($total-black, .25);
+
+      opacity: 0;
+      transition: $transition;
+
+      &_active {
+        z-index: 9999;
+        
+        opacity: 1;
+      }
+
+      &__wrapper {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+
+        width: 100%;
+      }
+
+      &__item {
+        width: 100%;
+        padding: 1.11vw 1.6667vw;
+
+        overflow: hidden;
+
+        font-size: 0.875rem;
+        font-weight: 500;
+        line-height: 1.4286;
+        color: $black-color;
+        text-align: left;
+        text-overflow: ellipsis;
+        letter-spacing: 0.1px;
+        white-space: nowrap;
+        cursor: pointer;
+
+        background: transparent;
+        border: none;
+
+        transition: $transition;
+
+        &:hover {
+          background-color: $bg-menu-active-color;
+        }
+      }
+    }
+
+    .menu-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 4.4444vw;
+      padding: 4px 8px;
+
+      cursor: pointer;
+
+      background: rgba($btn-bg-color, .7);
+      border: none;
+      border-radius: 20px;
+
+      opacity: 0;
+      transition: $transition;
+    }
+
+    &:hover {
+      background: rgba($total-black, .4);
+      
+      .card {
+        &__image {
+          filter: brightness(.5);
+        }
+      }
+
+      .menu-btn {
+        opacity: 1;
+      }
+    }
+
+    &__name {
+      width: inherit;
+      margin-block-start: 0;
+      margin-block-end: 0;
+
+      overflow: hidden;
+      
+      font-size: 1.375rem;
+      font-weight: 400;
+      line-height: 1.27;
+      color: $total-black;
+      text-align: left;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    &__create-block {
+      display: flex;
+      gap: 4px;
+      align-items: center;
+      justify-content: center;
+      width: inherit;
+    }
+
+    &__create-text {
+      font-size: .875rem;
+      font-weight: 500;
+      line-height: 1.43;
+      color: $black-color;
+      letter-spacing: 0.1px;
+    }
+  }
+}

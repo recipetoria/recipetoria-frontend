@@ -6,12 +6,15 @@ interface IModalContentInProfileProps {
   imageSrc: string;
   text: string;
   handleClickByOkBtn: () => void;
+  submitBtn: { text: "Ok" | "Delete"; style: "btn" | "orange_btn" };
+  cancelBtnStyle: "borderNone" | "borderBtn";
 }
 
 export default function ModalContentInProfile(
   props: IModalContentInProfileProps
 ) {
-  const { imageSrc, text, handleClickByOkBtn } = props;
+  const { imageSrc, text, handleClickByOkBtn, submitBtn, cancelBtnStyle } =
+    props;
 
   const { toggle } = useModal();
 
@@ -37,17 +40,21 @@ export default function ModalContentInProfile(
           <section className="delete-account__btns">
             <button
               type="button"
-              className="delete-account__cancel"
+              className={`delete-account__cancel ${
+                cancelBtnStyle === "borderBtn"
+                  ? "delete-account__cancel_btn"
+                  : ""
+              }`}
               onClick={toggle}
             >
               Cancel
             </button>
             <button
               type="button"
-              className="delete-account__ok"
+              className={`delete-account__ok delete-account__ok_${submitBtn.style}`}
               onClick={handleClickByOkBtn}
             >
-              Ok
+              {submitBtn.text}
             </button>
           </section>
         </section>
