@@ -61,6 +61,8 @@
     }
 
     .menu {
+      z-index: -1;
+
       display: inline-flex;
       flex-direction: column;
       gap: 4px;
@@ -77,6 +79,8 @@
       transition: $transition;
 
       &_active {
+        z-index: 9999;
+        
         opacity: 1;
       }
 

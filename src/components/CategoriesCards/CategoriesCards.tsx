@@ -8,6 +8,11 @@ import "./CategoriesCards.scss";
 import ModalContentWitInput from "../ModalContentWitInput/ModalContentWitInput";
 import PencilIcon from "../../assets/svg/PencilIcon";
 import ArrowIcon from "../../assets/svg/ArrowIcon";
+import ModalContentInProfile from "../ModalContentInProfile/ModalContentInProfile";
+import DeleteCategoryImage from "../../assets/png/delete_category.png";
+import { useAppDispatch } from "../../app/hooks";
+import { SnackbarTextValue } from "../../features/SnackbarTextSlice";
+import { isOpenModalValue } from "../../features/IsOpenModalSlice";
 
 interface CategoriesCardsProps {
   toggle: () => void;
@@ -16,6 +21,8 @@ interface CategoriesCardsProps {
 
 export default function CategoriesCards(props: CategoriesCardsProps) {
   const { toggle, modalChildren } = props;
+
+  const dispatch = useAppDispatch();
 
   const [isActiveMenu, setIsActiveMenu] = useState<{
     id: number;
@@ -86,7 +93,31 @@ export default function CategoriesCards(props: CategoriesCardsProps) {
                 >
                   Rename category
                 </button>
-                <button type="button" className="menu__item">
+                <button
+                  type="button"
+                  className="menu__item"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    toggle();
+                    modalChildren(
+                      <ModalContentInProfile
+                        imageSrc={DeleteCategoryImage}
+                        text="Are you sure you want to delete the category?"
+                        handleClickByOkBtn={() => {
+                          dispatch(isOpenModalValue(false));
+                          dispatch(
+                            SnackbarTextValue({
+                              text: "The category was deleted",
+                              withUndo: true,
+                            })
+                          );
+                        }}
+                        submitBtn={{ text: "Delete", style: "orange_btn" }}
+                        cancelBtnStyle="borderBtn"
+                      />
+                    );
+                  }}
+                >
                   Delete category
                 </button>
                 <button type="button" className="menu__item">

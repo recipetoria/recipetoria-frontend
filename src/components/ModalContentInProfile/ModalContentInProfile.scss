@@ -43,10 +43,18 @@
 
   &__cancel {
     @include cancel-btn;
+
+    &_btn {
+      @include btn;
+    }
   }
 
   &__ok {
     @include btn;
+
+    &_orange_btn {
+      @include orange-btn;
+    }
 
     font-size: .875;
     font-weight: 500;

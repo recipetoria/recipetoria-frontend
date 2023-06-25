@@ -83,6 +83,11 @@ export default function ProfilePage() {
                                 navigate("/");
                                 logOut(name);
                               }}
+                              submitBtn={{
+                                text: "Ok",
+                                style: "btn",
+                              }}
+                              cancelBtnStyle="borderNone"
                             />
                           );
                         }}
@@ -111,6 +116,11 @@ export default function ProfilePage() {
                                 );
                               });
                             }}
+                            submitBtn={{
+                              text: "Ok",
+                              style: "btn",
+                            }}
+                            cancelBtnStyle="borderNone"
                           />
                         );
                       }}
