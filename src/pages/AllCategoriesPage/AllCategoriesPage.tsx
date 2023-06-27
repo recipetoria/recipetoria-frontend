@@ -8,6 +8,7 @@ import CategoriesCards from "../../components/CategoriesCards/CategoriesCards";
 import Modal from "../../components/Modal/Modal";
 import useModal from "../../hooks/useModal";
 import Snackbar from "../../components/Snackbar/Snackbar";
+import { fetchTags } from "../../features/CategorySlice";
 
 export default function AllCategoriesPage() {
   const isAuth = useAppSelector(
@@ -16,6 +17,7 @@ export default function AllCategoriesPage() {
   const isOpen = useAppSelector((state) => state.present.IsOpenModal.value);
   const { toggle } = useModal();
   const [modalChildren, setModalChildren] = useState<ReactNode>(<div />);
+  const token = useAppSelector((state) => state.present.authData.value.token);
 
   const navigate = useNavigate();
 
@@ -23,6 +25,7 @@ export default function AllCategoriesPage() {
     if (isAuth !== true) {
       navigate("/*");
     }
+    fetchTags(token);
   });
 
   return (

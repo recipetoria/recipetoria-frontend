@@ -42,6 +42,20 @@ export interface SignResponse extends IResponse {
   };
 }
 
+export interface Tag {
+  id: number;
+  name: string;
+  mainPhoto: null | string;
+  applicationUserId: number;
+  recipeIds: [];
+}
+
+export interface TagsResponse extends IResponse {
+  data: {
+    allTagsDTOs: Tag[];
+  };
+}
+
 export interface ModalProps {
   isOpen: boolean;
   toggle: () => void;
