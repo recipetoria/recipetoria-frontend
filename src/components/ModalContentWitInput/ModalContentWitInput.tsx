@@ -21,11 +21,13 @@ export default function ModalContentWitInput(props: IModalContentWitInput) {
   const dispatch = useAppDispatch();
 
   const token = useAppSelector((state) => state.present.authData.value.token);
+  const tags = useAppSelector((state) => state.present.tags.value);
 
   const {
     register,
     handleSubmit,
     reset,
+    setError,
     formState: { errors },
   } = useForm<FormValues>();
 
@@ -36,33 +38,46 @@ export default function ModalContentWitInput(props: IModalContentWitInput) {
       withUndo: false,
     };
 
+    function successCreate() {
+      dispatch(SnackbarTextValue(objForSnackbar));
+      reset();
+      toggle();
+    }
+
     if (categoryName) {
-      dispatch(
-        fetchCreateNewTag({
-          token,
-          data: {
-            name: categoryName,
-            id: 0,
-            mainPhoto: null,
-            applicationUserId: 0,
-            recipeIds: [],
-          },
-        })
+      const isFoundInTagsArr = tags.find(
+        (tag) => tag.name.toLowerCase() === categoryName.toLowerCase()
       );
-      objForSnackbar = {
-        text: "New category was created",
-        withUndo: false,
-      };
+
+      if (!isFoundInTagsArr) {
+        dispatch(
+          fetchCreateNewTag({
+            token,
+            data: {
+              name: categoryName,
+              id: 0,
+              mainPhoto: null,
+              applicationUserId: 0,
+              recipeIds: [],
+            },
+          })
+        );
+        objForSnackbar = {
+          text: "New category was created",
+          withUndo: false,
+        };
+        successCreate();
+      } else {
+        setError("categoryName", {
+          message: "This category is already exist",
+        });
+      }
     } else if (categoryRename) {
       objForSnackbar = {
         text: "The category was renamed",
         withUndo: true,
       };
     }
-
-    dispatch(SnackbarTextValue(objForSnackbar));
-    reset();
-    toggle();
   };
 
   return (
