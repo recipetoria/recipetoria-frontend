@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import Footer from "../../components/Footer/Footer";
 import Header from "../../components/Header/Header";
 import "./AllCategoriesPage.scss";
-import { useAppSelector } from "../../app/hooks";
+import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import CategoriesCards from "../../components/CategoriesCards/CategoriesCards";
 import Modal from "../../components/Modal/Modal";
 import useModal from "../../hooks/useModal";
@@ -20,12 +20,13 @@ export default function AllCategoriesPage() {
   const token = useAppSelector((state) => state.present.authData.value.token);
 
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     if (isAuth !== true) {
       navigate("/*");
     }
-    fetchTags(token);
+    dispatch(fetchTags(token));
   });
 
   return (

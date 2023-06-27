@@ -4,8 +4,9 @@ import useModal from "../../hooks/useModal";
 import Input from "../Input/Input";
 import { FormValues, InputNames } from "../../types/types";
 import "./ModalContentWitInput.scss";
-import { useAppDispatch } from "../../app/hooks";
+import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { SnackbarTextValue } from "../../features/SnackbarTextSlice";
+import { fetchCreateNewTag } from "../../features/CategorySlice";
 
 interface IModalContentWitInput {
   label: string;
@@ -18,6 +19,8 @@ export default function ModalContentWitInput(props: IModalContentWitInput) {
 
   const { toggle } = useModal();
   const dispatch = useAppDispatch();
+
+  const token = useAppSelector((state) => state.present.authData.value.token);
 
   const {
     register,
@@ -34,6 +37,18 @@ export default function ModalContentWitInput(props: IModalContentWitInput) {
     };
 
     if (categoryName) {
+      dispatch(
+        fetchCreateNewTag({
+          token,
+          data: {
+            name: categoryName,
+            id: 0,
+            mainPhoto: null,
+            applicationUserId: 0,
+            recipeIds: [],
+          },
+        })
+      );
       objForSnackbar = {
         text: "New category was created",
         withUndo: false,
