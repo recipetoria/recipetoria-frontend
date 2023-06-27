@@ -1,6 +1,6 @@
 /* eslint-disable no-param-reassign */
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { createTag, getTags } from "../API/tags";
+import { createTag, deleteTag, getTags } from "../API/tags";
 import { Tag } from "../types/types";
 
 interface TagsSliceValues {
@@ -18,6 +18,12 @@ export const fetchCreateNewTag = createAsyncThunk(
   "tags/fetchCreateNewTag",
   async ({ token, data }: { token: string; data: Tag }, { dispatch }) =>
     createTag(token, data).then(() => dispatch(fetchTags(token)))
+);
+
+export const fetchDeleteTag = createAsyncThunk(
+  "tags/fetchDeleteTag",
+  async ({ token, tagId }: { token: string; tagId: number }, { dispatch }) =>
+    deleteTag(token, tagId).then(() => dispatch(fetchTags(token)))
 );
 
 const TagsSlice = createSlice({

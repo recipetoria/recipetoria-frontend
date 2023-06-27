@@ -1,5 +1,5 @@
 import axios, { AxiosResponse } from "axios";
-import { URL_TAGS } from "../utils/constants";
+import { URL_TAGS, URL_TAG_BY_ID } from "../utils/constants";
 import { Tag, TagsResponse } from "../types/types";
 
 export async function getTags(token: string) {
@@ -36,4 +36,17 @@ export async function createTag(token: string, data: Tag) {
     .request(config)
     .then((response) => response.data)
     .catch((error) => error.message);
+}
+
+export async function deleteTag(token: string, tagId: number) {
+  const config = {
+    method: "delete",
+    maxBodyLength: Infinity,
+    url: URL_TAG_BY_ID(tagId),
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+
+  axios.request(config).catch((error) => error.message);
 }

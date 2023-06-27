@@ -6,12 +6,13 @@ import ArrowIcon from "../../assets/svg/ArrowIcon";
 import ModalContentWitInput from "../ModalContentWitInput/ModalContentWitInput";
 import ModalContentInProfile from "../ModalContentInProfile/ModalContentInProfile";
 import DeleteCategoryImage from "../../assets/png/delete_category.png";
-import { useAppDispatch } from "../../app/hooks";
+import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { isOpenModalValue } from "../../features/IsOpenModalSlice";
 import { SnackbarTextValue } from "../../features/SnackbarTextSlice";
 import AddProfilePhoto from "../AddProfilePhoto/AddProfilePhoto";
 import AddCategoryImage from "../../assets/png/add_category_photo.png";
 import getPhotoFromBytes from "../../utils/getPhotoFromBytes";
+import { fetchDeleteTag } from "../../features/CategorySlice";
 
 interface CategoryCardProps {
   id: number;
@@ -30,6 +31,8 @@ export default function CategoryCard(props: CategoryCardProps) {
     id: number;
     isActive: boolean;
   }>();
+  const token = useAppSelector((state) => state.present.authData.value.token);
+
   const closeMenu = () => setIsActiveMenu({ id, isActive: false });
   const openMenu = () => setIsActiveMenu({ id, isActive: true });
 
@@ -100,13 +103,20 @@ export default function CategoryCard(props: CategoryCardProps) {
                       imageSrc={DeleteCategoryImage}
                       text="Are you sure you want to delete the category?"
                       handleClickByOkBtn={() => {
-                        dispatch(isOpenModalValue(false));
                         dispatch(
-                          SnackbarTextValue({
-                            text: "The category was deleted",
-                            withUndo: true,
+                          fetchDeleteTag({
+                            token,
+                            tagId: id,
                           })
-                        );
+                        ).then(() => {
+                          dispatch(isOpenModalValue(false));
+                          dispatch(
+                            SnackbarTextValue({
+                              text: "The category was deleted",
+                              withUndo: true,
+                            })
+                          );
+                        });
                       }}
                       submitBtn={{ text: "Delete", style: "orange_btn" }}
                       cancelBtnStyle="borderBtn"
