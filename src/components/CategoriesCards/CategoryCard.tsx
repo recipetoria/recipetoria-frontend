@@ -86,6 +86,7 @@ export default function CategoryCard(props: CategoryCardProps) {
                       label="Rename the category"
                       placeholder="Enter new name for the category"
                       inputName="categoryRename"
+                      tagId={id}
                     />
                   );
                 }}

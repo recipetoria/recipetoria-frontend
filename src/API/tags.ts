@@ -50,3 +50,21 @@ export async function deleteTag(token: string, tagId: number) {
 
   axios.request(config).catch((error) => error.message);
 }
+
+export async function updateTagName(token: string, data: Tag, tagId: number) {
+  const config = {
+    method: "put",
+    maxBodyLength: Infinity,
+    url: URL_TAG_BY_ID(tagId),
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    data,
+  };
+
+  axios
+    .request(config)
+    .then((response) => response.data.message)
+    .catch((error) => error.message);
+}

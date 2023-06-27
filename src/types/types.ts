@@ -93,3 +93,10 @@ export interface IShoppingListTableString {
   isActiveSelect: boolean;
   number?: number;
 }
+
+export interface IModalContentWitInput {
+  label: string;
+  placeholder: string;
+  inputName: InputNames;
+  tagId?: number;
+}

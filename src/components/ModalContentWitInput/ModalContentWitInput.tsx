@@ -2,20 +2,17 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import CrossIcon from "../../assets/svg/CrossIcon";
 import useModal from "../../hooks/useModal";
 import Input from "../Input/Input";
-import { FormValues, InputNames } from "../../types/types";
+import { FormValues, IModalContentWitInput } from "../../types/types";
 import "./ModalContentWitInput.scss";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { SnackbarTextValue } from "../../features/SnackbarTextSlice";
-import { fetchCreateNewTag } from "../../features/CategorySlice";
-
-interface IModalContentWitInput {
-  label: string;
-  placeholder: string;
-  inputName: InputNames;
-}
+import {
+  fetchCreateNewTag,
+  fetchUpdateTagName,
+} from "../../features/CategorySlice";
 
 export default function ModalContentWitInput(props: IModalContentWitInput) {
-  const { label, placeholder, inputName } = props;
+  const { label, placeholder, inputName, tagId } = props;
 
   const { toggle } = useModal();
   const dispatch = useAppDispatch();
@@ -44,12 +41,11 @@ export default function ModalContentWitInput(props: IModalContentWitInput) {
       toggle();
     }
 
-    if (categoryName) {
-      const isFoundInTagsArr = tags.find(
-        (tag) => tag.name.toLowerCase() === categoryName.toLowerCase()
-      );
+    const isFoundInTagsArr = (name: string) =>
+      tags.find((tag) => tag.name.toLowerCase() === name.toLowerCase());
 
-      if (!isFoundInTagsArr) {
+    if (categoryName) {
+      if (!isFoundInTagsArr(categoryName)) {
         dispatch(
           fetchCreateNewTag({
             token,
@@ -73,10 +69,34 @@ export default function ModalContentWitInput(props: IModalContentWitInput) {
         });
       }
     } else if (categoryRename) {
-      objForSnackbar = {
-        text: "The category was renamed",
-        withUndo: true,
-      };
+      if (tagId) {
+        if (!isFoundInTagsArr(categoryRename)) {
+          dispatch(
+            fetchUpdateTagName({
+              token,
+              data: {
+                id: 0,
+                name: categoryRename,
+                mainPhoto: null,
+                applicationUserId: 0,
+                recipeIds: [],
+              },
+              tagId,
+            })
+          );
+          objForSnackbar = {
+            text: "The category was renamed",
+            withUndo: true,
+          };
+          successCreate();
+        } else {
+          setError("categoryRename", {
+            message: "This category is already exist",
+          });
+        }
+      } else {
+        throw new Error("Not found category id");
+      }
     }
   };
 
