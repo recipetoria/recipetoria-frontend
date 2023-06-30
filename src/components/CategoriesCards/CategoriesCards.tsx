@@ -18,14 +18,14 @@ export default function CategoriesCards(props: CategoriesCardsProps) {
   const tagsIsLoading = useAppSelector((state) => state.present.tags.isLoading);
   const tagsError = useAppSelector((state) => state.present.tags.error);
 
-  let categoriesCardsJsx: ReactNode;
+  let categoriesCardsJsx: ReactNode = <div />;
 
   if (tagsIsLoading) {
     categoriesCardsJsx = <h3>is loading... (for loader in future)</h3>;
   } else if (tagsError) {
     categoriesCardsJsx = <h3>Something went wrong</h3>;
-  } else if (tagsValue) {
-    categoriesCardsJsx = (tagsValue || []).map((item) => (
+  } else if (tagsValue.length) {
+    categoriesCardsJsx = tagsValue.map((item) => (
       <CategoryCard
         id={item.id}
         name={item.name}
