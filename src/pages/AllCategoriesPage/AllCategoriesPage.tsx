@@ -3,11 +3,12 @@ import { useNavigate } from "react-router-dom";
 import Footer from "../../components/Footer/Footer";
 import Header from "../../components/Header/Header";
 import "./AllCategoriesPage.scss";
-import { useAppSelector } from "../../app/hooks";
+import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import CategoriesCards from "../../components/CategoriesCards/CategoriesCards";
 import Modal from "../../components/Modal/Modal";
 import useModal from "../../hooks/useModal";
 import Snackbar from "../../components/Snackbar/Snackbar";
+import { fetchTags } from "../../features/CategorySlice";
 
 export default function AllCategoriesPage() {
   const isAuth = useAppSelector(
@@ -16,13 +17,16 @@ export default function AllCategoriesPage() {
   const isOpen = useAppSelector((state) => state.present.IsOpenModal.value);
   const { toggle } = useModal();
   const [modalChildren, setModalChildren] = useState<ReactNode>(<div />);
+  const token = useAppSelector((state) => state.present.authData.value.token);
 
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     if (isAuth !== true) {
       navigate("/*");
     }
+    dispatch(fetchTags(token));
   });
 
   return (

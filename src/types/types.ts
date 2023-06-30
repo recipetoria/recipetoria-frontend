@@ -42,6 +42,20 @@ export interface SignResponse extends IResponse {
   };
 }
 
+export interface Tag {
+  id: number;
+  name: string;
+  mainPhoto: null | string;
+  applicationUserId: number;
+  recipeIds: [];
+}
+
+export interface TagsResponse extends IResponse {
+  data: {
+    allTagsDTOs: Tag[];
+  };
+}
+
 export interface ModalProps {
   isOpen: boolean;
   toggle: () => void;
@@ -78,4 +92,17 @@ export interface IShoppingListTableString {
   setActiveSelect: (id: number) => void;
   isActiveSelect: boolean;
   number?: number;
+}
+
+export interface IModalContentWitInput {
+  label: string;
+  placeholder: string;
+  inputName: InputNames;
+  tagId?: number;
+}
+
+export interface AddProfilePhotoProps {
+  mode: "profile" | "category";
+  imageSrc: string;
+  tagId?: number;
 }

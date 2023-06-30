@@ -10,9 +10,10 @@ export const URL_DELETE_ACCOUNT = `${USER_SETTINGS}/account`;
 const SHOPPING_LIST = `${BASE_URL}client`;
 export const URL_INGREDIENT = `${SHOPPING_LIST}`;
 
-const TAGS = `${BASE_URL}/client/tags`;
+const TAGS = `${BASE_URL}client/tags`;
 export const URL_TAGS = `${TAGS}`;
 export const URL_TAG_BY_ID = (tagId: number) => `${TAGS}/${tagId}`;
+export const URL_TAG_PHOTO_BY_ID = (tagId: number) => `${TAGS}/${tagId}/photo`;
 
 const RECIPES = `${BASE_URL}client/recipes`;
 export const URL_RECIPES = `${RECIPES}`;

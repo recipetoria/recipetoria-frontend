@@ -6,14 +6,11 @@ import useModal from "../../hooks/useModal";
 import ErrorInForm from "../ErrorInForm/ErrorInForm";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { fetchUpdateUserPhoto } from "../../features/UserPhotoSlice";
-
-interface AddProfilePhotoProps {
-  mode: "profile" | "category";
-  imageSrc: string;
-}
+import { fetchUpdateTagPhoto } from "../../features/CategorySlice";
+import { AddProfilePhotoProps } from "../../types/types";
 
 export default function AddProfilePhoto(props: AddProfilePhotoProps) {
-  const { mode, imageSrc } = props;
+  const { mode, imageSrc, tagId } = props;
 
   const fileTypes = ["JPG", "jpeg", "PNG", "GIF"];
   const fileSize = "5";
@@ -24,13 +21,21 @@ export default function AddProfilePhoto(props: AddProfilePhotoProps) {
 
   const handleChange = (file: File) => {
     if (file) {
+      setError("");
+      const formData = new FormData();
+      formData.append("file", file);
+
       if (mode === "profile") {
-        setError("");
-        const formData = new FormData();
-        formData.append("file", file);
         dispatch(fetchUpdateUserPhoto({ data: formData, token }));
-        toggle();
+      } else if (mode === "category") {
+        if (tagId) {
+          dispatch(fetchUpdateTagPhoto({ token, data: formData, tagId }));
+        } else {
+          throw new Error("Something went wrong with tag id");
+        }
       }
+
+      toggle();
     } else {
       throw new Error("Something went wong with file...");
     }

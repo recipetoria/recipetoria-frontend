@@ -2,27 +2,29 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import CrossIcon from "../../assets/svg/CrossIcon";
 import useModal from "../../hooks/useModal";
 import Input from "../Input/Input";
-import { FormValues, InputNames } from "../../types/types";
+import { FormValues, IModalContentWitInput } from "../../types/types";
 import "./ModalContentWitInput.scss";
-import { useAppDispatch } from "../../app/hooks";
+import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { SnackbarTextValue } from "../../features/SnackbarTextSlice";
-
-interface IModalContentWitInput {
-  label: string;
-  placeholder: string;
-  inputName: InputNames;
-}
+import {
+  fetchCreateNewTag,
+  fetchUpdateTagName,
+} from "../../features/CategorySlice";
 
 export default function ModalContentWitInput(props: IModalContentWitInput) {
-  const { label, placeholder, inputName } = props;
+  const { label, placeholder, inputName, tagId } = props;
 
   const { toggle } = useModal();
   const dispatch = useAppDispatch();
+
+  const token = useAppSelector((state) => state.present.authData.value.token);
+  const tags = useAppSelector((state) => state.present.tags.value);
 
   const {
     register,
     handleSubmit,
     reset,
+    setError,
     formState: { errors },
   } = useForm<FormValues>();
 
@@ -33,21 +35,69 @@ export default function ModalContentWitInput(props: IModalContentWitInput) {
       withUndo: false,
     };
 
-    if (categoryName) {
-      objForSnackbar = {
-        text: "New category was created",
-        withUndo: false,
-      };
-    } else if (categoryRename) {
-      objForSnackbar = {
-        text: "The category was renamed",
-        withUndo: true,
-      };
+    function successCreate() {
+      dispatch(SnackbarTextValue(objForSnackbar));
+      reset();
+      toggle();
     }
 
-    dispatch(SnackbarTextValue(objForSnackbar));
-    reset();
-    toggle();
+    const isFoundInTagsArr = (name: string) =>
+      tags.find((tag) => tag.name.toLowerCase() === name.toLowerCase());
+
+    if (categoryName) {
+      if (!isFoundInTagsArr(categoryName)) {
+        dispatch(
+          fetchCreateNewTag({
+            token,
+            data: {
+              name: categoryName,
+              id: 0,
+              mainPhoto: null,
+              applicationUserId: 0,
+              recipeIds: [],
+            },
+          })
+        );
+        objForSnackbar = {
+          text: "New category was created",
+          withUndo: false,
+        };
+        successCreate();
+      } else {
+        setError("categoryName", {
+          message: "This category is already exist",
+        });
+      }
+    } else if (categoryRename) {
+      if (tagId) {
+        if (!isFoundInTagsArr(categoryRename)) {
+          dispatch(
+            fetchUpdateTagName({
+              token,
+              data: {
+                id: 0,
+                name: categoryRename,
+                mainPhoto: null,
+                applicationUserId: 0,
+                recipeIds: [],
+              },
+              tagId,
+            })
+          );
+          objForSnackbar = {
+            text: "The category was renamed",
+            withUndo: true,
+          };
+          successCreate();
+        } else {
+          setError("categoryRename", {
+            message: "This category is already exist",
+          });
+        }
+      } else {
+        throw new Error("Not found category id");
+      }
+    }
   };
 
   return (
