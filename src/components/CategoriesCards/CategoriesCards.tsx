@@ -25,7 +25,7 @@ export default function CategoriesCards(props: CategoriesCardsProps) {
   } else if (tagsError) {
     categoriesCardsJsx = <h3>Something went wrong</h3>;
   } else if (tagsValue) {
-    categoriesCardsJsx = tagsValue.map((item) => (
+    categoriesCardsJsx = (tagsValue || []).map((item) => (
       <CategoryCard
         id={item.id}
         name={item.name}
