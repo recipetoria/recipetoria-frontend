@@ -13,6 +13,7 @@ export const URL_INGREDIENT = `${SHOPPING_LIST}`;
 const TAGS = `${BASE_URL}client/tags`;
 export const URL_TAGS = `${TAGS}`;
 export const URL_TAG_BY_ID = (tagId: number) => `${TAGS}/${tagId}`;
+export const URL_TAG_PHOTO_BY_ID = (tagId: number) => `${TAGS}/${tagId}/photo`;
 
 const RECIPES = `${BASE_URL}client/recipes`;
 export const URL_RECIPES = `${RECIPES}`;

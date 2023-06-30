@@ -100,3 +100,9 @@ export interface IModalContentWitInput {
   inputName: InputNames;
   tagId?: number;
 }
+
+export interface AddProfilePhotoProps {
+  mode: "profile" | "category";
+  imageSrc: string;
+  tagId?: number;
+}

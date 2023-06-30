@@ -1,5 +1,9 @@
 import axios, { AxiosResponse } from "axios";
-import { URL_TAGS, URL_TAG_BY_ID } from "../utils/constants";
+import {
+  URL_TAGS,
+  URL_TAG_BY_ID,
+  URL_TAG_PHOTO_BY_ID,
+} from "../utils/constants";
 import { Tag, TagsResponse } from "../types/types";
 
 export async function getTags(token: string) {
@@ -58,6 +62,27 @@ export async function updateTagName(token: string, data: Tag, tagId: number) {
     url: URL_TAG_BY_ID(tagId),
     headers: {
       "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    data,
+  };
+
+  axios
+    .request(config)
+    .then((response) => response.data.message)
+    .catch((error) => error.message);
+}
+
+export async function updateTagPhoto(
+  token: string,
+  data: FormData,
+  tagId: number
+) {
+  const config = {
+    method: "put",
+    maxBodyLength: Infinity,
+    url: URL_TAG_PHOTO_BY_ID(tagId),
+    headers: {
       Authorization: `Bearer ${token}`,
     },
     data,

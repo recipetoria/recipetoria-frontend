@@ -15,17 +15,27 @@ export default function CategoriesCards(props: CategoriesCardsProps) {
   const { toggle, modalChildren } = props;
 
   const tagsValue = useAppSelector((state) => state.present.tags.value);
+  const tagsIsLoading = useAppSelector((state) => state.present.tags.isLoading);
+  const tagsError = useAppSelector((state) => state.present.tags.error);
 
-  const categoriesCardsJsx = tagsValue.map((item) => (
-    <CategoryCard
-      id={item.id}
-      name={item.name}
-      mainPhoto={item.mainPhoto}
-      toggle={toggle}
-      modalChildren={modalChildren}
-      key={item.name}
-    />
-  ));
+  let categoriesCardsJsx: ReactNode;
+
+  if (tagsIsLoading) {
+    categoriesCardsJsx = <h3>is loading... (for loader in future)</h3>;
+  } else if (tagsError) {
+    categoriesCardsJsx = <h3>Something went wrong</h3>;
+  } else if (tagsValue) {
+    categoriesCardsJsx = tagsValue.map((item) => (
+      <CategoryCard
+        id={item.id}
+        name={item.name}
+        mainPhoto={item.mainPhoto}
+        toggle={toggle}
+        modalChildren={modalChildren}
+        key={item.name}
+      />
+    ));
+  }
 
   return (
     <article className="cards">

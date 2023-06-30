@@ -36,17 +36,17 @@ export default function CategoryCard(props: CategoryCardProps) {
   const closeMenu = () => setIsActiveMenu({ id, isActive: false });
   const openMenu = () => setIsActiveMenu({ id, isActive: true });
 
+  let srcTagPhoto = DefaultCategoryPhoto;
+
+  if (mainPhoto !== "" && mainPhoto !== null) {
+    srcTagPhoto = getPhotoFromBytes(mainPhoto);
+  }
+
   return (
     <Link to="/" className="card" id={id.toString()} onMouseLeave={closeMenu}>
       <div className="card__wrapper">
         <section className="card__image-wrapper">
-          <img
-            src={
-              mainPhoto ? getPhotoFromBytes(mainPhoto) : DefaultCategoryPhoto
-            }
-            alt="category"
-            className="card__image"
-          />
+          <img src={srcTagPhoto} alt="category" className="card__image" />
         </section>
         <h4 className="card__name">{name}</h4>
         <div className="menu-block">
@@ -137,6 +137,7 @@ export default function CategoryCard(props: CategoryCardProps) {
                     <AddProfilePhoto
                       mode="category"
                       imageSrc={AddCategoryImage}
+                      tagId={id}
                     />
                   );
                 }}
