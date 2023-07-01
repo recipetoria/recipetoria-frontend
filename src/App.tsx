@@ -17,12 +17,15 @@ function App() {
   const isOpenModal = useAppSelector(
     (state) => state.present.IsOpenModal.value
   );
+  const isOpenModalMode = useAppSelector(
+    (state) => state.present.IsOpenModal.mode
+  );
   const isOpenProfileModal = useAppSelector(
     (state) => state.present.isOpenProfileModal.value
   );
 
   useEffect(() => {
-    if (isOpenModal === true) {
+    if (isOpenModal === true && isOpenModalMode === "none") {
       dispatch(isOpenModalValue(false));
     }
     if (isOpenProfileModal === true) {
