@@ -74,9 +74,11 @@ export default function SignPage(props: ISignPageProps) {
         navigate("/");
         reset();
         setError("");
-        dispatch(isOpenModalValue(true));
-        dispatch(isOpenModalMode("afterRegister"));
-        setModalContent(<ModalContentTextWithImg />);
+        if (signMode === "signUp") {
+          dispatch(isOpenModalValue(true));
+          dispatch(isOpenModalMode("afterRegister"));
+          setModalContent(<ModalContentTextWithImg />);
+        }
       } else if (typeof signUpResult === "string") setError(signUpResult);
     }
 
