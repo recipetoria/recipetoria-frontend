@@ -2,7 +2,7 @@
 
 import { useForm, SubmitHandler } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import {
   FacebookIcon,
   GoogleIcon,
@@ -14,8 +14,14 @@ import "./SignPage.scss";
 import Image from "../../assets/png/bg_img.png";
 import signUp from "../../API/sighUp";
 import SignIn from "../../API/signIn";
-import { useAppSelector } from "../../app/hooks";
+import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import ErrorInForm from "../../components/ErrorInForm/ErrorInForm";
+import { ModalContentContext } from "../../contexts/ModalContentContext";
+import ModalContentTextWithImg from "../../components/ModalContentTextWithImg/ModalContentTextWithImg";
+import {
+  isOpenModalMode,
+  isOpenModalValue,
+} from "../../features/IsOpenModalSlice";
 
 type SignMode = "signUp" | "signIn";
 
@@ -28,6 +34,7 @@ export default function SignPage(props: ISignPageProps) {
 
   const isAuth = useAppSelector((state) => state.present.authData.value.isAuth);
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     if (isAuth === true) {
@@ -46,6 +53,7 @@ export default function SignPage(props: ISignPageProps) {
   const [customError, setCustomError] = useState<boolean>();
   const name = useAppSelector((state) => state.present.authData.value.name);
   const [error, setError] = useState("");
+  const { setModalContent } = useContext(ModalContentContext);
 
   const submitText = () => {
     let text = "";
@@ -66,6 +74,9 @@ export default function SignPage(props: ISignPageProps) {
         navigate("/");
         reset();
         setError("");
+        dispatch(isOpenModalValue(true));
+        dispatch(isOpenModalMode("afterRegister"));
+        setModalContent(<ModalContentTextWithImg />);
       } else if (typeof signUpResult === "string") setError(signUpResult);
     }
 

@@ -6,6 +6,7 @@ import { store } from "./app/store";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import "./index.scss";
+import { ModalContentContextProvider } from "./contexts/ModalContentContext";
 
 const container = document.getElementById("root") as HTMLElement;
 const root = createRoot(container);
@@ -13,7 +14,9 @@ const root = createRoot(container);
 root.render(
   <BrowserRouter>
     <Provider store={store}>
-      <App />
+      <ModalContentContextProvider>
+        <App />
+      </ModalContentContextProvider>
     </Provider>
   </BrowserRouter>
 );
