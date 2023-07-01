@@ -15,7 +15,6 @@ import Image from "../../assets/png/bg_img.png";
 import signUp from "../../API/sighUp";
 import SignIn from "../../API/signIn";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import ErrorInForm from "../../components/ErrorInForm/ErrorInForm";
 import { ModalContentContext } from "../../contexts/ModalContentContext";
 import ModalContentTextWithImg from "../../components/ModalContentTextWithImg/ModalContentTextWithImg";
 import {
@@ -46,13 +45,14 @@ export default function SignPage(props: ISignPageProps) {
     register,
     handleSubmit,
     reset,
+    setError,
+    clearErrors,
     formState: { errors },
   } = useForm<FormValues>();
 
   const [passwordValue, setPasswordValue] = useState("");
   const [customError, setCustomError] = useState<boolean>();
   const name = useAppSelector((state) => state.present.authData.value.name);
-  const [error, setError] = useState("");
   const { setModalContent } = useContext(ModalContentContext);
 
   const submitText = () => {
@@ -73,13 +73,32 @@ export default function SignPage(props: ISignPageProps) {
       if (signUpResult === 200 || signUpResult === 201) {
         navigate("/");
         reset();
-        setError("");
+        clearErrors();
         if (signMode === "signUp") {
           dispatch(isOpenModalValue(true));
           dispatch(isOpenModalMode("afterRegister"));
           setModalContent(<ModalContentTextWithImg />);
         }
-      } else if (typeof signUpResult === "string") setError(signUpResult);
+      } else if (typeof signUpResult === "string") {
+        switch (signUpResult) {
+          case "User with this email already exists":
+            setError("email", { message: signUpResult });
+            break;
+
+          case "User not authenticated. Please log in to continue":
+            setError("email", {
+              message: "A user with such an email address does not exist",
+            });
+            break;
+          case "Bad credentials":
+            setError("password", { message: "Invalid password" });
+            break;
+
+          default:
+            clearErrors();
+            break;
+        }
+      }
     }
 
     if (signMode === "signUp") {
@@ -102,7 +121,7 @@ export default function SignPage(props: ISignPageProps) {
     .filter((item) => item);
 
   function handleClickToLink() {
-    setError("");
+    clearErrors();
     reset();
   }
 
@@ -122,7 +141,6 @@ export default function SignPage(props: ISignPageProps) {
                 {name ? <h3 className="sign-page__header">{name}</h3> : ""}
               </div>
             )}
-            {error !== "" && <ErrorInForm errorMessage={error} />}
             <form onSubmit={handleSubmit(onSubmit)} className="sign-page__form">
               {signMode === "signUp" && (
                 <Input
