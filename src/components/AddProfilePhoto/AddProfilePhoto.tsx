@@ -3,11 +3,12 @@ import { FileUploader } from "react-drag-drop-files";
 import "./AddProfilePhoto.scss";
 import DropPhoto from "../DropPhoto/DropPhoto";
 import useModal from "../../hooks/useModal";
-import ErrorInForm from "../ErrorInForm/ErrorInForm";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { fetchUpdateUserPhoto } from "../../features/UserPhotoSlice";
 import { fetchUpdateTagPhoto } from "../../features/CategorySlice";
 import { AddProfilePhotoProps } from "../../types/types";
+import ScaleUpImage from "../../assets/png/scale_up.png";
+import FolderImage from "../../assets/png/folder.png";
 
 export default function AddProfilePhoto(props: AddProfilePhotoProps) {
   const { mode, imageSrc, tagId } = props;
@@ -16,12 +17,17 @@ export default function AddProfilePhoto(props: AddProfilePhotoProps) {
   const fileSize = "5";
   const token = useAppSelector((state) => state.present.authData.value.token);
   const { toggle } = useModal();
-  const [error, setError] = useState("");
+  const initialDropPhotoData = {
+    photo: imageSrc,
+    text: "or",
+  };
+
+  const [dropPhotoData, setDropPhotoData] = useState(initialDropPhotoData);
   const dispatch = useAppDispatch();
 
   const handleChange = (file: File) => {
     if (file) {
-      setError("");
+      setDropPhotoData(initialDropPhotoData);
       const formData = new FormData();
       formData.append("file", file);
 
@@ -41,10 +47,29 @@ export default function AddProfilePhoto(props: AddProfilePhotoProps) {
     }
   };
 
+  const handleError = (error: "type" | "size") => {
+    switch (error) {
+      case "size":
+        setDropPhotoData({
+          photo: ScaleUpImage,
+          text: "Your image is too big.\nChoose a smaller photo",
+        });
+        break;
+      case "type":
+        setDropPhotoData({
+          photo: FolderImage,
+          text: "Try a different file format.\nAllowed types: jpeg, jpg, png",
+        });
+        break;
+      default:
+        setDropPhotoData(initialDropPhotoData);
+        break;
+    }
+  };
+
   return (
     <section className="add-profile-photo">
       <h3 className="add-profile-photo__header">Add {mode} photo</h3>
-      {error !== "" && <ErrorInForm errorMessage={error} />}
       <article className="add-profile-photo__content">
         <section className="add-photo">
           <FileUploader
@@ -52,13 +77,13 @@ export default function AddProfilePhoto(props: AddProfilePhotoProps) {
             name="file"
             types={fileTypes}
             maxSize={fileSize}
-            onTypeError={setError}
-            onSizeError={setError}
+            onTypeError={() => handleError("type")}
+            onSizeError={() => handleError("size")}
           >
-            <DropPhoto imageSrc={imageSrc} />
+            <DropPhoto imageSrc={dropPhotoData.photo} />
           </FileUploader>
         </section>
-        <span className="add-profile-photo__text">or</span>
+        <span className="add-profile-photo__text">{dropPhotoData.text}</span>
         <section className="add-profile-photo__btns">
           <button
             type="button"
@@ -72,8 +97,8 @@ export default function AddProfilePhoto(props: AddProfilePhotoProps) {
             name="file"
             maxSize={fileSize}
             handleChange={handleChange}
-            onTypeError={setError}
-            onSizeError={setError}
+            onTypeError={() => handleError("type")}
+            onSizeError={() => handleError("size")}
           >
             <div className="add-profile-photo__upload">Upload picture</div>
           </FileUploader>

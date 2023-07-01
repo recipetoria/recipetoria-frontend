@@ -27,7 +27,9 @@
   &__text {
     font-size: 1rem;
     line-height: 1.5;
+    text-align: center;
     letter-spacing: 0.5px;
+    white-space: pre-line;
   }
 
   &__btns {
