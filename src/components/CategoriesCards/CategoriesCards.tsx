@@ -1,22 +1,24 @@
-import { ReactNode } from "react";
+import { ReactNode, useContext } from "react";
 import CreateNewCategoryImage from "../../assets/png/create_new_category.png";
 import PlusIcon from "../../assets/svg/PlusIcon";
 import "./CategoriesCards.scss";
 import ModalContentWitInput from "../ModalContentWitInput/ModalContentWitInput";
 import { useAppSelector } from "../../app/hooks";
 import CategoryCard from "./CategoryCard";
+import { ModalContentContext } from "../../contexts/ModalContentContext";
 
 interface CategoriesCardsProps {
   toggle: () => void;
-  modalChildren: (child: ReactNode) => void;
 }
 
 export default function CategoriesCards(props: CategoriesCardsProps) {
-  const { toggle, modalChildren } = props;
+  const { toggle } = props;
 
   const tagsValue = useAppSelector((state) => state.present.tags.value);
   const tagsIsLoading = useAppSelector((state) => state.present.tags.isLoading);
   const tagsError = useAppSelector((state) => state.present.tags.error);
+
+  const { setModalContent } = useContext(ModalContentContext);
 
   let categoriesCardsJsx: ReactNode = <div />;
 
@@ -31,7 +33,6 @@ export default function CategoriesCards(props: CategoriesCardsProps) {
         name={item.name}
         mainPhoto={item.mainPhoto}
         toggle={toggle}
-        modalChildren={modalChildren}
         key={item.name}
       />
     ));
@@ -44,7 +45,7 @@ export default function CategoriesCards(props: CategoriesCardsProps) {
         type="button"
         onClick={() => {
           toggle();
-          modalChildren(
+          setModalContent(
             <ModalContentWitInput
               label="Create new category"
               placeholder="Enter the new category name"

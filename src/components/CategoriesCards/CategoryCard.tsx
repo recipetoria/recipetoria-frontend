@@ -1,4 +1,4 @@
-import { ReactNode, useState } from "react";
+import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import DefaultCategoryPhoto from "../../assets/png/no_photo_categ.png";
 import PencilIcon from "../../assets/svg/PencilIcon";
@@ -13,17 +13,17 @@ import AddProfilePhoto from "../AddProfilePhoto/AddProfilePhoto";
 import AddCategoryImage from "../../assets/png/add_category_photo.png";
 import getPhotoFromBytes from "../../utils/getPhotoFromBytes";
 import { fetchDeleteTag } from "../../features/CategorySlice";
+import { ModalContentContext } from "../../contexts/ModalContentContext";
 
 interface CategoryCardProps {
   id: number;
   name: string;
   mainPhoto: string | null;
   toggle: () => void;
-  modalChildren: (child: ReactNode) => void;
 }
 
 export default function CategoryCard(props: CategoryCardProps) {
-  const { id, name, mainPhoto, toggle, modalChildren } = props;
+  const { id, name, mainPhoto, toggle } = props;
 
   const dispatch = useAppDispatch();
 
@@ -32,6 +32,7 @@ export default function CategoryCard(props: CategoryCardProps) {
     isActive: boolean;
   }>();
   const token = useAppSelector((state) => state.present.authData.value.token);
+  const { setModalContent } = useContext(ModalContentContext);
 
   const closeMenu = () => setIsActiveMenu({ id, isActive: false });
   const openMenu = () => setIsActiveMenu({ id, isActive: true });
@@ -43,7 +44,12 @@ export default function CategoryCard(props: CategoryCardProps) {
   }
 
   return (
-    <Link to="/" className="card" id={id.toString()} onMouseLeave={closeMenu}>
+    <Link
+      to={`/all_categories/${name}`}
+      className="card"
+      id={id.toString()}
+      onMouseLeave={closeMenu}
+    >
       <div className="card__wrapper">
         <section className="card__image-wrapper">
           <img src={srcTagPhoto} alt="category" className="card__image" />
@@ -81,7 +87,7 @@ export default function CategoryCard(props: CategoryCardProps) {
                 onClick={(e) => {
                   e.preventDefault();
                   toggle();
-                  modalChildren(
+                  setModalContent(
                     <ModalContentWitInput
                       label="Rename the category"
                       placeholder="Enter new name for the category"
@@ -99,7 +105,7 @@ export default function CategoryCard(props: CategoryCardProps) {
                 onClick={(e) => {
                   e.preventDefault();
                   toggle();
-                  modalChildren(
+                  setModalContent(
                     <ModalContentInProfile
                       imageSrc={DeleteCategoryImage}
                       text="Are you sure you want to delete the category?"
@@ -133,7 +139,7 @@ export default function CategoryCard(props: CategoryCardProps) {
                 onClick={(e) => {
                   e.preventDefault();
                   toggle();
-                  modalChildren(
+                  setModalContent(
                     <AddProfilePhoto
                       mode="category"
                       imageSrc={AddCategoryImage}
