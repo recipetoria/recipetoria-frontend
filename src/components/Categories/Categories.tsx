@@ -1,12 +1,13 @@
 import { useEffect, useRef } from "react";
 import useModal from "../../hooks/useModal";
 import CategoriesCards from "../CategoriesCards/CategoriesCards";
-import { useAppDispatch } from "../../app/hooks";
+import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { categoriesStyleValue } from "../../features/CategoriesStyleSlice";
 
 export default function Categories() {
   const { toggle } = useModal();
   const componentRef = useRef<HTMLDivElement>(null);
+  const tags = useAppSelector((state) => state.present.tags.value);
 
   const dispatch = useAppDispatch();
 
@@ -18,7 +19,8 @@ export default function Categories() {
         })
       );
     }
-  }, [componentRef, dispatch]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [tags]);
 
   return (
     <div ref={componentRef}>
