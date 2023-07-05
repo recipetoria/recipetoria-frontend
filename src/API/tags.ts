@@ -36,7 +36,7 @@ export async function createTag(token: string, data: Tag) {
     data,
   };
 
-  axios
+  return axios
     .request(config)
     .then((response) => response.data)
     .catch((error) => error.message);
@@ -52,7 +52,7 @@ export async function deleteTag(token: string, tagId: number) {
     },
   };
 
-  axios.request(config).catch((error) => error.message);
+  return axios.request(config).catch((error) => error.message);
 }
 
 export async function updateTagName(token: string, data: Tag, tagId: number) {
@@ -67,7 +67,7 @@ export async function updateTagName(token: string, data: Tag, tagId: number) {
     data,
   };
 
-  axios
+  return axios
     .request(config)
     .then((response) => response.data.message)
     .catch((error) => error.message);
@@ -88,7 +88,7 @@ export async function updateTagPhoto(
     data,
   };
 
-  axios
+  return axios
     .request(config)
     .then((response) => response.data.message)
     .catch((error) => error.message);

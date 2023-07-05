@@ -23,7 +23,7 @@ export const fetchTags = createAsyncThunk(
 export const fetchCreateNewTag = createAsyncThunk(
   "tags/fetchCreateNewTag",
   async ({ token, data }: { token: string; data: Tag }, { dispatch }) => {
-    createTag(token, data);
+    await createTag(token, data);
     dispatch(fetchTags(token));
   }
 );
@@ -31,7 +31,7 @@ export const fetchCreateNewTag = createAsyncThunk(
 export const fetchDeleteTag = createAsyncThunk(
   "tags/fetchDeleteTag",
   async ({ token, tagId }: { token: string; tagId: number }, { dispatch }) => {
-    deleteTag(token, tagId);
+    await deleteTag(token, tagId);
     dispatch(fetchTags(token));
   }
 );
@@ -42,7 +42,7 @@ export const fetchUpdateTagName = createAsyncThunk(
     { token, data, tagId }: { token: string; data: Tag; tagId: number },
     { dispatch }
   ) => {
-    updateTagName(token, data, tagId);
+    await updateTagName(token, data, tagId);
     dispatch(fetchTags(token));
   }
 );
@@ -53,7 +53,7 @@ export const fetchUpdateTagPhoto = createAsyncThunk(
     { token, data, tagId }: { token: string; data: FormData; tagId: number },
     { dispatch }
   ) => {
-    updateTagPhoto(token, data, tagId);
+    await updateTagPhoto(token, data, tagId);
     dispatch(fetchTags(token));
   }
 );
