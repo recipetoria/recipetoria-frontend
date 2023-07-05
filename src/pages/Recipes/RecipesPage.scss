@@ -1,2 +1,16 @@
 @import "../../styles/variables";
 @import "../../styles/mixins";
+
+.categories-page {
+  &__breadcrumbs{
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: $gray-1-color;
+    letter-spacing: 0.5px;
+    
+    a {
+      color: $gray-1-color;
+    }
+  }
+}

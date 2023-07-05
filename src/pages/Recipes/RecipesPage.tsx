@@ -43,7 +43,7 @@ export default function RecipesPage() {
       <h2 className="categories-page__h2">{id}</h2>
       <div className="categories-page__breadcrumbs">
         <Link to="/all_categories">Categories</Link>
-        <span>/</span>
+        <span>&nbsp;/&nbsp;</span>
         <span>{id}</span>
       </div>
       <RecipesCards toggle={toggle} />
