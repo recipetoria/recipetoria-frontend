@@ -1,15 +1,27 @@
 import { useEffect, useRef } from "react";
-import useModal from "../../hooks/useModal";
-import CategoriesCards from "../CategoriesCards/CategoriesCards";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
+import "./RecipesPage.scss";
 import { categoriesStyleValue } from "../../features/CategoriesStyleSlice";
 
-export default function Categories() {
-  const { toggle } = useModal();
+export default function RecipesPage() {
+  const { id } = useParams();
+
+  const navigate = useNavigate();
   const componentRef = useRef<HTMLDivElement>(null);
+  const dispatch = useAppDispatch();
+
   const tags = useAppSelector((state) => state.present.tags.value);
 
-  const dispatch = useAppDispatch();
+  const foundIdInTags = id
+    ? tags.map((tag) => tag.name === id).includes(true)
+    : false;
+
+  useEffect(() => {
+    if (!foundIdInTags) {
+      navigate("/*");
+    }
+  });
 
   useEffect(() => {
     if (componentRef.current) {
@@ -24,8 +36,12 @@ export default function Categories() {
 
   return (
     <div ref={componentRef} className="categories-page__wrapper-div">
-      <h2 className="categories-page__h2">Categories</h2>
-      <CategoriesCards toggle={toggle} />
+      <h2 className="categories-page__h2">{id}</h2>
+      <div className="categories-page__breadcrumbs">
+        <Link to="/all_categories">Categories</Link>
+        <span>/</span>
+        <span>{id}</span>
+      </div>
     </div>
   );
 }
