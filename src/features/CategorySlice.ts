@@ -22,14 +22,18 @@ export const fetchTags = createAsyncThunk(
 
 export const fetchCreateNewTag = createAsyncThunk(
   "tags/fetchCreateNewTag",
-  async ({ token, data }: { token: string; data: Tag }, { dispatch }) =>
-    createTag(token, data).then(() => dispatch(fetchTags(token)))
+  async ({ token, data }: { token: string; data: Tag }, { dispatch }) => {
+    createTag(token, data);
+    dispatch(fetchTags(token));
+  }
 );
 
 export const fetchDeleteTag = createAsyncThunk(
   "tags/fetchDeleteTag",
-  async ({ token, tagId }: { token: string; tagId: number }, { dispatch }) =>
-    deleteTag(token, tagId).then(() => dispatch(fetchTags(token)))
+  async ({ token, tagId }: { token: string; tagId: number }, { dispatch }) => {
+    deleteTag(token, tagId);
+    dispatch(fetchTags(token));
+  }
 );
 
 export const fetchUpdateTagName = createAsyncThunk(
@@ -37,7 +41,10 @@ export const fetchUpdateTagName = createAsyncThunk(
   async (
     { token, data, tagId }: { token: string; data: Tag; tagId: number },
     { dispatch }
-  ) => updateTagName(token, data, tagId).then(() => dispatch(fetchTags(token)))
+  ) => {
+    updateTagName(token, data, tagId);
+    dispatch(fetchTags(token));
+  }
 );
 
 export const fetchUpdateTagPhoto = createAsyncThunk(
@@ -45,7 +52,10 @@ export const fetchUpdateTagPhoto = createAsyncThunk(
   async (
     { token, data, tagId }: { token: string; data: FormData; tagId: number },
     { dispatch }
-  ) => updateTagPhoto(token, data, tagId).then(() => dispatch(fetchTags(token)))
+  ) => {
+    updateTagPhoto(token, data, tagId);
+    dispatch(fetchTags(token));
+  }
 );
 
 const TagsSlice = createSlice({
