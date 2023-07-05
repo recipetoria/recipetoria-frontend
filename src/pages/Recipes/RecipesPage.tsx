@@ -5,6 +5,8 @@ import "./RecipesPage.scss";
 import { categoriesStyleValue } from "../../features/CategoriesStyleSlice";
 import RecipesCards from "../../components/RecipesCards/RecipesCards";
 import useModal from "../../hooks/useModal";
+import { getTags } from "../../API/tags";
+import { Tag } from "../../types/types";
 
 export default function RecipesPage() {
   const { id } = useParams();
@@ -14,14 +16,15 @@ export default function RecipesPage() {
   const dispatch = useAppDispatch();
   const { toggle } = useModal();
 
+  const token = useAppSelector((state) => state.present.authData.value.token);
   const tags = useAppSelector((state) => state.present.tags.value);
 
-  // TODO: fix tag after reload
-  const foundIdInTags = id
-    ? tags.map((tag) => tag.name === id).includes(true)
-    : false;
+  // navigate to 404 if tag no exist
+  getTags(token).then((value) => {
+    const foundIdInTags = id
+      ? value.map((tag: Tag) => tag.name === id).includes(true)
+      : false;
 
-  useEffect(() => {
     if (!foundIdInTags) {
       navigate("/*");
     }
