@@ -3,6 +3,8 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import "./RecipesPage.scss";
 import { categoriesStyleValue } from "../../features/CategoriesStyleSlice";
+import RecipesCards from "../../components/RecipesCards/RecipesCards";
+import useModal from "../../hooks/useModal";
 
 export default function RecipesPage() {
   const { id } = useParams();
@@ -10,9 +12,11 @@ export default function RecipesPage() {
   const navigate = useNavigate();
   const componentRef = useRef<HTMLDivElement>(null);
   const dispatch = useAppDispatch();
+  const { toggle } = useModal();
 
   const tags = useAppSelector((state) => state.present.tags.value);
 
+  // TODO: fix tag after reload
   const foundIdInTags = id
     ? tags.map((tag) => tag.name === id).includes(true)
     : false;
@@ -42,6 +46,7 @@ export default function RecipesPage() {
         <span>/</span>
         <span>{id}</span>
       </div>
+      <RecipesCards toggle={toggle} />
     </div>
   );
 }

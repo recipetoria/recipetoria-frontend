@@ -1,0 +1,32 @@
+@import "../../styles/variables";
+@import "../../styles/mixins";
+
+.recipe-card {
+  @include card;
+
+  padding: 0;
+
+  &__wrapper {
+    gap: 1.111vw;
+  }
+
+  &__image-wrapper {
+    border-radius: 8px 8px 0 0;
+  }
+
+  &__image {
+    border-radius: inherit;
+  }
+
+  &__create-block {
+    padding-bottom: 1.111vw;
+  }
+
+  &:hover {
+    .recipe-card {
+      &__image {
+        filter: brightness(.5);
+      }
+    }
+  }
+}

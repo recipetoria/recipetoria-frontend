@@ -16,6 +16,7 @@ export type FormValues = {
   oldPassword?: string;
   categoryName?: string;
   categoryRename?: string;
+  recipeName?: string;
 };
 
 export type InputNames =
@@ -26,7 +27,8 @@ export type InputNames =
   | "repeatPassword"
   | "oldPassword"
   | "categoryName"
-  | "categoryRename";
+  | "categoryRename"
+  | "recipeName";
 
 export interface IResponse {
   timeStamp: string;
