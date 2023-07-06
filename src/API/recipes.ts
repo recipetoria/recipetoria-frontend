@@ -1,5 +1,5 @@
 import axios from "axios";
-import { URL_RECIPES_BY_TAG_ID } from "../utils/constants";
+import { URL_RECIPES, URL_RECIPES_BY_TAG_ID } from "../utils/constants";
 
 export async function getRecipesByTagId(tagId: number, token: string) {
   const config = {
@@ -18,6 +18,37 @@ export async function getRecipesByTagId(tagId: number, token: string) {
 }
 
 export async function createRecipe(name: string, tagId: number, token: string) {
+  const data = JSON.stringify({
+    name,
+    tagDTOs: [
+      {
+        id: tagId,
+      },
+    ],
+  });
+
+  const config = {
+    method: "post",
+    maxBodyLength: Infinity,
+    url: URL_RECIPES,
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    data,
+  };
+
+  return axios
+    .request(config)
+    .then((response) => response)
+    .catch((error) => error);
+}
+
+export async function updateRecipeName(
+  name: string,
+  tagId: number,
+  token: string
+) {
   const data = JSON.stringify({
     name,
     tagDTOs: [
