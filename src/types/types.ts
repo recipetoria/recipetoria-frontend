@@ -58,6 +58,18 @@ export interface TagsResponse extends IResponse {
   };
 }
 
+export interface Recipe {
+  id: number;
+  name: string;
+  mainPhoto: null | string;
+  applicationUserId: number;
+  tagDTOs: Tag[];
+  ingredientDTOs: null | [];
+  instructions: null;
+  instructionPhotos: null | string[];
+  links: null | string[];
+}
+
 export interface ModalProps {
   isOpen: boolean;
   toggle: () => void;
