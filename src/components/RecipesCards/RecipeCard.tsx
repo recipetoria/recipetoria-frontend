@@ -13,6 +13,7 @@ import { isOpenModalValue } from "../../features/IsOpenModalSlice";
 import { SnackbarTextValue } from "../../features/SnackbarTextSlice";
 import AddProfilePhoto from "../AddProfilePhoto/AddProfilePhoto";
 import AddCategoryImage from "../../assets/png/add_category_photo.png";
+import { fetchDeleteRecipe } from "../../features/RecipesSlice";
 
 interface RecipeCardProps {
   recipeId: number;
@@ -110,34 +111,35 @@ export default function RecipeCard(props: RecipeCardProps) {
               <button
                 type="button"
                 className="menu__item"
-                // onClick={(e) => {
-                //   e.preventDefault();
-                //   toggle();
-                // setModalContent(
-                //   <ModalContentInProfile
-                //     imageSrc={DeleteRecipeImage}
-                //     text="Are you sure you want to delete the category?"
-                //     handleClickByOkBtn={() => {
-                //       dispatch(
-                //         fetchDeleteTag({
-                //           token,
-                //           tagId: id,
-                //         })
-                //       ).then(() => {
-                //         dispatch(isOpenModalValue(false));
-                //         dispatch(
-                //           SnackbarTextValue({
-                //             text: "The recipe was deleted",
-                //             withUndo: true,
-                //           })
-                //         );
-                //       });
-                //     }}
-                //     submitBtn={{ text: "Delete", style: "orange_btn" }}
-                //     cancelBtnStyle="borderBtn"
-                //   />
-                // );
-                // }}
+                onClick={(e) => {
+                  e.preventDefault();
+                  toggle();
+                  setModalContent(
+                    <ModalContentInProfile
+                      imageSrc={DeleteRecipeImage}
+                      text="Are you sure you want to delete the recipe?"
+                      handleClickByOkBtn={() => {
+                        dispatch(
+                          fetchDeleteRecipe({
+                            tagId,
+                            recipeId,
+                            token,
+                          })
+                        ).then(() => {
+                          dispatch(isOpenModalValue(false));
+                          dispatch(
+                            SnackbarTextValue({
+                              text: "The recipe was deleted",
+                              withUndo: true,
+                            })
+                          );
+                        });
+                      }}
+                      submitBtn={{ text: "Delete", style: "orange_btn" }}
+                      cancelBtnStyle="borderBtn"
+                    />
+                  );
+                }}
               >
                 Delete category
               </button>

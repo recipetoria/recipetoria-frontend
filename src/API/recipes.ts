@@ -73,3 +73,16 @@ export async function updateRecipeName(
     .then((response) => response)
     .catch((error) => error);
 }
+
+export async function deleteRecipe(recipeId: number, token: string) {
+  const config = {
+    method: "delete",
+    maxBodyLength: Infinity,
+    url: URL_RECIPE_BY_ID(recipeId),
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+
+  return axios.request(config).catch((error) => error.message);
+}

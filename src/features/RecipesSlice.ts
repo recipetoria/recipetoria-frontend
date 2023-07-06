@@ -2,6 +2,7 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import {
   createRecipe,
+  deleteRecipe,
   getRecipesByTagId,
   updateRecipeName,
 } from "../API/recipes";
@@ -36,6 +37,21 @@ export const fetchUpdateRecipeName = createAsyncThunk(
     { dispatch }
   ) => {
     await updateRecipeName(name, recipeId, token);
+    dispatch(fetchRecipesByTagId({ tagId, token }));
+  }
+);
+
+export const fetchDeleteRecipe = createAsyncThunk(
+  "recipes/fetchDeleteRecipe",
+  async (
+    {
+      tagId,
+      recipeId,
+      token,
+    }: { tagId: number; recipeId: number; token: string },
+    { dispatch }
+  ) => {
+    await deleteRecipe(recipeId, token);
     dispatch(fetchRecipesByTagId({ tagId, token }));
   }
 );
