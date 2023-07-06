@@ -44,7 +44,7 @@ function App() {
         <Route path="sign_in" element={<SignPage signMode="signIn" />} />
         <Route path="all_categories" element={<AllCategoriesPage />}>
           <Route path="" element={<Categories />} />
-          <Route path=":id" element={<RecipesPage />} />
+          <Route path=":tagName/:tagId" element={<RecipesPage />} />
         </Route>
         <Route path="shopping_list" element={<ShoppingListPage />} />
         <Route path="add_recipe" element={<AddRecipePage />} />

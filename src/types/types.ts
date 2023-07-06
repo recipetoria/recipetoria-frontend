@@ -17,6 +17,7 @@ export type FormValues = {
   categoryName?: string;
   categoryRename?: string;
   recipeName?: string;
+  recipeRename?: string;
 };
 
 export type InputNames =
@@ -28,7 +29,8 @@ export type InputNames =
   | "oldPassword"
   | "categoryName"
   | "categoryRename"
-  | "recipeName";
+  | "recipeName"
+  | "recipeRename";
 
 export interface IResponse {
   timeStamp: string;
@@ -116,7 +118,7 @@ export interface IModalContentWitInput {
 }
 
 export interface AddProfilePhotoProps {
-  mode: "profile" | "category";
+  mode: "profile" | "category" | "recipe";
   imageSrc: string;
   tagId?: number;
 }

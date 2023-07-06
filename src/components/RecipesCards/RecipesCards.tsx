@@ -1,17 +1,43 @@
-import { useContext } from "react";
+import { ReactNode, useContext } from "react";
 import "./RecipesCards.scss";
 import { ModalContentContext } from "../../contexts/ModalContentContext";
 import ModalContentWitInput from "../ModalContentWitInput/ModalContentWitInput";
 import BellWithStarImage from "../../assets/png/bell_with-star.png";
+import { useAppSelector } from "../../app/hooks";
+import RecipeCard from "./RecipeCard";
 
 interface RecipesCardsProps {
   toggle: () => void;
+  tagId: number | undefined;
 }
 
 export default function RecipesCards(props: RecipesCardsProps) {
-  const { toggle } = props;
+  const { toggle, tagId } = props;
 
   const { setModalContent } = useContext(ModalContentContext);
+  const recipesIsLoading = useAppSelector(
+    (state) => state.present.recipes.isLoading
+  );
+  const recipesArr = useAppSelector((state) => state.present.recipes.value);
+  const recipesError = useAppSelector((state) => state.present.recipes.error);
+
+  let recipesCards: ReactNode = <div />;
+
+  if (recipesIsLoading) {
+    recipesCards = <h3>is loading... (for loader in future)</h3>;
+  } else if (recipesError) {
+    recipesCards = <h3>Something went wrong</h3>;
+  } else if (typeof recipesArr === "object" && recipesArr.length > 0) {
+    recipesCards = recipesArr.map((item) => (
+      <RecipeCard
+        id={item.id}
+        name={item.name}
+        mainPhoto={item.mainPhoto}
+        toggle={toggle}
+        key={item.name}
+      />
+    ));
+  }
 
   return (
     <article className="cards">
@@ -25,6 +51,7 @@ export default function RecipesCards(props: RecipesCardsProps) {
               label="Create new recipe"
               placeholder="Enter recipe name"
               inputName="recipeName"
+              tagId={tagId}
             />
           );
         }}
@@ -42,6 +69,7 @@ export default function RecipesCards(props: RecipesCardsProps) {
           </section>
         </div>
       </button>
+      {recipesCards}
     </article>
   );
 }

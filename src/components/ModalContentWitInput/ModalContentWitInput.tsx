@@ -10,6 +10,7 @@ import {
   fetchCreateNewTag,
   fetchUpdateTagName,
 } from "../../features/CategorySlice";
+import { fetchCreateNewRecipe } from "../../features/RecipesSlice";
 
 export default function ModalContentWitInput(props: IModalContentWitInput) {
   const { label, placeholder, inputName, tagId } = props;
@@ -19,6 +20,7 @@ export default function ModalContentWitInput(props: IModalContentWitInput) {
 
   const token = useAppSelector((state) => state.present.authData.value.token);
   const tags = useAppSelector((state) => state.present.tags.value);
+  const recipes = useAppSelector((state) => state.present.recipes.value);
 
   const {
     register,
@@ -29,7 +31,7 @@ export default function ModalContentWitInput(props: IModalContentWitInput) {
   } = useForm<FormValues>();
 
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
-    const { categoryName, categoryRename } = data;
+    const { categoryName, categoryRename, recipeName } = data;
     let objForSnackbar = {
       text: "",
       withUndo: false,
@@ -43,6 +45,15 @@ export default function ModalContentWitInput(props: IModalContentWitInput) {
 
     const isFoundInTagsArr = (name: string) =>
       tags.find((tag) => tag.name.toLowerCase() === name.toLowerCase());
+
+    const isFoundInRecipesArr = (name: string) =>
+      recipes.find(
+        (recipe) => recipe.name.toLowerCase() === name.toLowerCase()
+      );
+
+    const notFoundIdError = (id: number | undefined) => {
+      throw new Error(`Not found tag id: ${id}`);
+    };
 
     if (categoryName) {
       if (!isFoundInTagsArr(categoryName)) {
@@ -95,7 +106,30 @@ export default function ModalContentWitInput(props: IModalContentWitInput) {
           });
         }
       } else {
-        throw new Error("Not found category id");
+        notFoundIdError(tagId);
+      }
+    } else if (recipeName) {
+      if (tagId) {
+        if (!isFoundInRecipesArr(recipeName)) {
+          dispatch(
+            fetchCreateNewRecipe({
+              name: recipeName,
+              tagId,
+              token,
+            })
+          );
+          objForSnackbar = {
+            text: "New recipe was created",
+            withUndo: false,
+          };
+          successCreate();
+        } else {
+          setError("recipeName", {
+            message: "This recipe is already exist",
+          });
+        }
+      } else {
+        notFoundIdError(tagId);
       }
     }
   };

@@ -1,37 +1,37 @@
 import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import DefaultCategoryPhoto from "../../assets/png/no_photo_categ.png";
+import getPhotoFromBytes from "../../utils/getPhotoFromBytes";
 import PencilIcon from "../../assets/svg/PencilIcon";
 import ArrowIcon from "../../assets/svg/ArrowIcon";
+import { ModalContentContext } from "../../contexts/ModalContentContext";
 import ModalContentWitInput from "../ModalContentWitInput/ModalContentWitInput";
 import ModalContentInProfile from "../ModalContentInProfile/ModalContentInProfile";
-import DeleteCategoryImage from "../../assets/png/delete_category.png";
+import DeleteRecipeImage from "../../assets/png/delete_recipe.png";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { isOpenModalValue } from "../../features/IsOpenModalSlice";
 import { SnackbarTextValue } from "../../features/SnackbarTextSlice";
 import AddProfilePhoto from "../AddProfilePhoto/AddProfilePhoto";
 import AddCategoryImage from "../../assets/png/add_category_photo.png";
-import getPhotoFromBytes from "../../utils/getPhotoFromBytes";
-import { fetchDeleteTag } from "../../features/CategorySlice";
-import { ModalContentContext } from "../../contexts/ModalContentContext";
 
-interface CategoryCardProps {
+interface RecipeCardProps {
   id: number;
   name: string;
   mainPhoto: string | null;
   toggle: () => void;
 }
 
-export default function CategoryCard(props: CategoryCardProps) {
+export default function RecipeCard(props: RecipeCardProps) {
   const { id, name, mainPhoto, toggle } = props;
 
   const dispatch = useAppDispatch();
+  const token = useAppSelector((state) => state.present.authData.value.token);
 
   const [isActiveMenu, setIsActiveMenu] = useState<{
     id: number;
     isActive: boolean;
   }>();
-  const token = useAppSelector((state) => state.present.authData.value.token);
+
   const { setModalContent } = useContext(ModalContentContext);
 
   const closeMenu = () => setIsActiveMenu({ id, isActive: false });
@@ -44,12 +44,7 @@ export default function CategoryCard(props: CategoryCardProps) {
   }
 
   return (
-    <Link
-      to={`/all_categories/${name}/${id}`}
-      className="card"
-      id={id.toString()}
-      onMouseLeave={closeMenu}
-    >
+    <Link to="/" className="card" id={id.toString()} onMouseLeave={closeMenu}>
       <div className="card__wrapper">
         <section className="card__image-wrapper">
           <img src={srcTagPhoto} alt="category" className="card__image" />
@@ -84,69 +79,69 @@ export default function CategoryCard(props: CategoryCardProps) {
               <button
                 type="button"
                 className="menu__item"
-                onClick={(e) => {
-                  e.preventDefault();
-                  toggle();
-                  setModalContent(
-                    <ModalContentWitInput
-                      label="Rename the category"
-                      placeholder="Enter new name for the category"
-                      inputName="categoryRename"
-                      tagId={id}
-                    />
-                  );
-                }}
+                // onClick={(e) => {
+                //   e.preventDefault();
+                //   toggle();
+                //   setModalContent(
+                //     <ModalContentWitInput
+                //       label="Rename the recipe"
+                //       placeholder="Enter new recipe name"
+                //       inputName="recipeRename"
+                //       tagId={id}
+                //     />
+                //   );
+                // }}
               >
                 Rename category
               </button>
               <button
                 type="button"
                 className="menu__item"
-                onClick={(e) => {
-                  e.preventDefault();
-                  toggle();
-                  setModalContent(
-                    <ModalContentInProfile
-                      imageSrc={DeleteCategoryImage}
-                      text="Are you sure you want to delete the category?"
-                      handleClickByOkBtn={() => {
-                        dispatch(
-                          fetchDeleteTag({
-                            token,
-                            tagId: id,
-                          })
-                        ).then(() => {
-                          dispatch(isOpenModalValue(false));
-                          dispatch(
-                            SnackbarTextValue({
-                              text: "The category was deleted",
-                              withUndo: true,
-                            })
-                          );
-                        });
-                      }}
-                      submitBtn={{ text: "Delete", style: "orange_btn" }}
-                      cancelBtnStyle="borderBtn"
-                    />
-                  );
-                }}
+                // onClick={(e) => {
+                //   e.preventDefault();
+                //   toggle();
+                // setModalContent(
+                //   <ModalContentInProfile
+                //     imageSrc={DeleteRecipeImage}
+                //     text="Are you sure you want to delete the category?"
+                //     handleClickByOkBtn={() => {
+                //       dispatch(
+                //         fetchDeleteTag({
+                //           token,
+                //           tagId: id,
+                //         })
+                //       ).then(() => {
+                //         dispatch(isOpenModalValue(false));
+                //         dispatch(
+                //           SnackbarTextValue({
+                //             text: "The recipe was deleted",
+                //             withUndo: true,
+                //           })
+                //         );
+                //       });
+                //     }}
+                //     submitBtn={{ text: "Delete", style: "orange_btn" }}
+                //     cancelBtnStyle="borderBtn"
+                //   />
+                // );
+                // }}
               >
                 Delete category
               </button>
               <button
                 type="button"
                 className="menu__item"
-                onClick={(e) => {
-                  e.preventDefault();
-                  toggle();
-                  setModalContent(
-                    <AddProfilePhoto
-                      mode="category"
-                      imageSrc={AddCategoryImage}
-                      tagId={id}
-                    />
-                  );
-                }}
+                // onClick={(e) => {
+                //   e.preventDefault();
+                //   toggle();
+                //   setModalContent(
+                //     <AddProfilePhoto
+                //       mode="recipe"
+                //       imageSrc={AddCategoryImage}
+                //       tagId={id}
+                //     />
+                //   );
+                // }}
               >
                 Change photo
               </button>
