@@ -29,6 +29,7 @@ export default function RecipesCards(props: RecipesCardsProps) {
     recipesCards = <h3>Something went wrong</h3>;
   } else if (typeof recipesArr === "object" && recipesArr.length > 0) {
     if (tagId) {
+      // TODO: sort by name
       recipesCards = recipesArr.map((item) => (
         <RecipeCard
           recipeId={item.id}
