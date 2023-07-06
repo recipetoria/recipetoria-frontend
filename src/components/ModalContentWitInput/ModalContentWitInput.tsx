@@ -10,10 +10,13 @@ import {
   fetchCreateNewTag,
   fetchUpdateTagName,
 } from "../../features/CategorySlice";
-import { fetchCreateNewRecipe } from "../../features/RecipesSlice";
+import {
+  fetchCreateNewRecipe,
+  fetchUpdateRecipeName,
+} from "../../features/RecipesSlice";
 
 export default function ModalContentWitInput(props: IModalContentWitInput) {
-  const { label, placeholder, inputName, tagId } = props;
+  const { label, placeholder, inputName, tagId, recipeId } = props;
 
   const { toggle } = useModal();
   const dispatch = useAppDispatch();
@@ -31,7 +34,7 @@ export default function ModalContentWitInput(props: IModalContentWitInput) {
   } = useForm<FormValues>();
 
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
-    const { categoryName, categoryRename, recipeName } = data;
+    const { categoryName, categoryRename, recipeName, recipeRename } = data;
     let objForSnackbar = {
       text: "",
       withUndo: false,
@@ -127,6 +130,34 @@ export default function ModalContentWitInput(props: IModalContentWitInput) {
           setError("recipeName", {
             message: "This recipe is already exist",
           });
+        }
+      } else {
+        notFoundIdError(tagId);
+      }
+    } else if (recipeRename) {
+      if (tagId) {
+        if (recipeId) {
+          if (!isFoundInRecipesArr(recipeRename)) {
+            dispatch(
+              fetchUpdateRecipeName({
+                name: recipeRename,
+                tagId,
+                recipeId,
+                token,
+              })
+            );
+            objForSnackbar = {
+              text: "New recipe was renamed",
+              withUndo: true,
+            };
+            successCreate();
+          } else {
+            setError("recipeRename", {
+              message: "This recipe is already exist",
+            });
+          }
+        } else {
+          throw new Error(`Something went wrong with recipe id: ${recipeId}`);
         }
       } else {
         notFoundIdError(tagId);

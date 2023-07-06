@@ -15,27 +15,28 @@ import AddProfilePhoto from "../AddProfilePhoto/AddProfilePhoto";
 import AddCategoryImage from "../../assets/png/add_category_photo.png";
 
 interface RecipeCardProps {
-  id: number;
+  recipeId: number;
+  tagId: number;
   name: string;
   mainPhoto: string | null;
   toggle: () => void;
 }
 
 export default function RecipeCard(props: RecipeCardProps) {
-  const { id, name, mainPhoto, toggle } = props;
+  const { recipeId, tagId, name, mainPhoto, toggle } = props;
 
   const dispatch = useAppDispatch();
   const token = useAppSelector((state) => state.present.authData.value.token);
 
   const [isActiveMenu, setIsActiveMenu] = useState<{
-    id: number;
+    recipeId: number;
     isActive: boolean;
   }>();
 
   const { setModalContent } = useContext(ModalContentContext);
 
-  const closeMenu = () => setIsActiveMenu({ id, isActive: false });
-  const openMenu = () => setIsActiveMenu({ id, isActive: true });
+  const closeMenu = () => setIsActiveMenu({ recipeId, isActive: false });
+  const openMenu = () => setIsActiveMenu({ recipeId, isActive: true });
 
   let srcTagPhoto = DefaultCategoryPhoto;
 
@@ -47,7 +48,7 @@ export default function RecipeCard(props: RecipeCardProps) {
     <Link
       to="/"
       className="recipe-card"
-      id={id.toString()}
+      id={recipeId.toString()}
       onMouseLeave={closeMenu}
     >
       <div className="recipe-card__wrapper">
@@ -80,7 +81,7 @@ export default function RecipeCard(props: RecipeCardProps) {
           </button>
           <section
             className={`menu ${
-              isActiveMenu?.id === id && isActiveMenu.isActive
+              isActiveMenu?.recipeId === recipeId && isActiveMenu.isActive
                 ? "menu_active"
                 : ""
             }`}
@@ -90,18 +91,19 @@ export default function RecipeCard(props: RecipeCardProps) {
               <button
                 type="button"
                 className="menu__item"
-                // onClick={(e) => {
-                //   e.preventDefault();
-                //   toggle();
-                //   setModalContent(
-                //     <ModalContentWitInput
-                //       label="Rename the recipe"
-                //       placeholder="Enter new recipe name"
-                //       inputName="recipeRename"
-                //       tagId={id}
-                //     />
-                //   );
-                // }}
+                onClick={(e) => {
+                  e.preventDefault();
+                  toggle();
+                  setModalContent(
+                    <ModalContentWitInput
+                      label="Rename the recipe"
+                      placeholder="Enter new recipe name"
+                      inputName="recipeRename"
+                      tagId={tagId}
+                      recipeId={recipeId}
+                    />
+                  );
+                }}
               >
                 Rename category
               </button>

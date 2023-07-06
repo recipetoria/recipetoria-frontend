@@ -28,15 +28,20 @@ export default function RecipesCards(props: RecipesCardsProps) {
   } else if (recipesError) {
     recipesCards = <h3>Something went wrong</h3>;
   } else if (typeof recipesArr === "object" && recipesArr.length > 0) {
-    recipesCards = recipesArr.map((item) => (
-      <RecipeCard
-        id={item.id}
-        name={item.name}
-        mainPhoto={item.mainPhoto}
-        toggle={toggle}
-        key={item.name}
-      />
-    ));
+    if (tagId) {
+      recipesCards = recipesArr.map((item) => (
+        <RecipeCard
+          recipeId={item.id}
+          tagId={tagId}
+          name={item.name}
+          mainPhoto={item.mainPhoto}
+          toggle={toggle}
+          key={item.name}
+        />
+      ));
+    } else {
+      throw new Error(`Error: Something went wrong with tag id: ${tagId}`);
+    }
   }
 
   return (

@@ -115,6 +115,7 @@ export interface IModalContentWitInput {
   placeholder: string;
   inputName: InputNames;
   tagId?: number;
+  recipeId?: number;
 }
 
 export interface AddProfilePhotoProps {

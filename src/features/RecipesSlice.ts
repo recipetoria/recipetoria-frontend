@@ -1,6 +1,10 @@
 /* eslint-disable no-param-reassign */
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { createRecipe, getRecipesByTagId } from "../API/recipes";
+import {
+  createRecipe,
+  getRecipesByTagId,
+  updateRecipeName,
+} from "../API/recipes";
 import { Recipe } from "../types/types";
 
 export const fetchRecipesByTagId = createAsyncThunk(
@@ -16,6 +20,22 @@ export const fetchCreateNewRecipe = createAsyncThunk(
     { dispatch }
   ) => {
     await createRecipe(name, tagId, token);
+    dispatch(fetchRecipesByTagId({ tagId, token }));
+  }
+);
+
+export const fetchUpdateRecipeName = createAsyncThunk(
+  "recipes/fetchUpdateRecipeName",
+  async (
+    {
+      name,
+      tagId,
+      recipeId,
+      token,
+    }: { name: string; tagId: number; recipeId: number; token: string },
+    { dispatch }
+  ) => {
+    await updateRecipeName(name, recipeId, token);
     dispatch(fetchRecipesByTagId({ tagId, token }));
   }
 );
