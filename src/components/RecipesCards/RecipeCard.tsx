@@ -58,7 +58,9 @@ export default function RecipeCard(props: RecipeCardProps) {
             className="recipe-card__image"
           />
         </section>
-        <h4 className="recipe-card__name">{name}</h4>
+        <section className="recipe-card__name-wrapper">
+          <h4 className="recipe-card__name">{name}</h4>
+        </section>
         <div className="menu-block">
           <button
             type="button"
