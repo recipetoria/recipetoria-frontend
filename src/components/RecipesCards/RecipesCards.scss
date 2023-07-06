@@ -29,4 +29,13 @@
       }
     }
   }
+
+  &__name {
+    justify-content: center;
+
+    font-size: 0.875rem;
+    font-weight: 500;
+    line-height: 1.429;
+    letter-spacing: 0.1px;
+  }
 }

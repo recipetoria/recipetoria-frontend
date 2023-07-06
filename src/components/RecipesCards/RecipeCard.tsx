@@ -44,12 +44,21 @@ export default function RecipeCard(props: RecipeCardProps) {
   }
 
   return (
-    <Link to="/" className="card" id={id.toString()} onMouseLeave={closeMenu}>
-      <div className="card__wrapper">
-        <section className="card__image-wrapper">
-          <img src={srcTagPhoto} alt="category" className="card__image" />
+    <Link
+      to="/"
+      className="recipe-card"
+      id={id.toString()}
+      onMouseLeave={closeMenu}
+    >
+      <div className="recipe-card__wrapper">
+        <section className="recipe-card__image-wrapper">
+          <img
+            src={srcTagPhoto}
+            alt="category"
+            className="recipe-card__image"
+          />
         </section>
-        <h4 className="card__name">{name}</h4>
+        <h4 className="recipe-card__name">{name}</h4>
         <div className="menu-block">
           <button
             type="button"
