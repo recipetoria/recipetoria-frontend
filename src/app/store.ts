@@ -13,7 +13,6 @@ import IsOpenModalSlice from "../features/IsOpenModalSlice";
 import UserPhotoSlice from "../features/UserPhotoSlice";
 import IsOpenProfileModalSlice from "../features/isOpenProfileModalSlice";
 import TagsSlice from "../features/CategorySlice";
-import CategoriesStyleSlice from "../features/CategoriesStyleSlice";
 import RecipesSlice from "../features/RecipesSlice";
 
 const rootReducer = combineReducers({
@@ -25,7 +24,6 @@ const rootReducer = combineReducers({
   userPhoto: UserPhotoSlice,
   isOpenProfileModal: IsOpenProfileModalSlice,
   tags: TagsSlice,
-  categoriesStyle: CategoriesStyleSlice,
   recipes: RecipesSlice,
 });
 

@@ -2,7 +2,6 @@ import { useEffect, useRef } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import "./RecipesPage.scss";
-import { categoriesStyleValue } from "../../features/CategoriesStyleSlice";
 import RecipesCards from "../../components/RecipesCards/RecipesCards";
 import useModal from "../../hooks/useModal";
 import { getTags } from "../../API/tags";
@@ -44,17 +43,6 @@ export default function RecipesPage() {
       navigate("/*");
     }
   });
-
-  useEffect(() => {
-    if (componentRef.current) {
-      dispatch(
-        categoriesStyleValue({
-          style: { height: componentRef.current.offsetHeight },
-        })
-      );
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [tags]);
 
   return (
     <div ref={componentRef} className="categories-page__wrapper-div">

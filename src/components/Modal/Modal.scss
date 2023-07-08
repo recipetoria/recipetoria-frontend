@@ -12,21 +12,31 @@
   width: 100%;
   height: 100%;
   padding: 0;
+  visibility: hidden;
 
-  background: rgba($total-black, .7);
   border: none;
   outline: none;
+  opacity: 0;
+  
+  &_open {
+    visibility: visible;
+    
+    background: rgba($total-black, .7);
+    opacity: 1;
+  }
 }
 
 .modal-box {
   @include border($color: $total-black, $rad: 8px);
-
+  
   position: sticky;
   top: 25vh;
   z-index: 9999;
-
+  
   padding: 40px 2.77vw;
-
+  visibility: inherit;
+  
   background: $white-color;
   box-shadow: 4px 4px 0 $total-black;
+  opacity: inherit;
 }

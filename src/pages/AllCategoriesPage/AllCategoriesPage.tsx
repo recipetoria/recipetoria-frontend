@@ -18,9 +18,6 @@ export default function AllCategoriesPage() {
   const { toggle } = useModal();
   const token = useAppSelector((state) => state.present.authData.value.token);
   const { modalContent } = useContext(ModalContentContext);
-  const categoriesHeight = useAppSelector(
-    (state) => state.present.categoriesStyle.style.height
-  );
 
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
@@ -39,10 +36,7 @@ export default function AllCategoriesPage() {
           <Header />
           <main>
             <article className="categories-page">
-              <div
-                className="categories-page__wrapper"
-                style={{ height: `${categoriesHeight}px` }}
-              >
+              <div className="categories-page__wrapper">
                 <Outlet />
               </div>
               <Modal isOpen={isOpen} toggle={toggle}>
