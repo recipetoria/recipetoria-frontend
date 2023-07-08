@@ -146,17 +146,18 @@ export default function RecipeCard(props: RecipeCardProps) {
               <button
                 type="button"
                 className="menu__item"
-                // onClick={(e) => {
-                //   e.preventDefault();
-                //   toggle();
-                //   setModalContent(
-                //     <AddProfilePhoto
-                //       mode="recipe"
-                //       imageSrc={AddCategoryImage}
-                //       tagId={id}
-                //     />
-                //   );
-                // }}
+                onClick={(e) => {
+                  e.preventDefault();
+                  toggle();
+                  setModalContent(
+                    <AddProfilePhoto
+                      mode="recipeMainPhoto"
+                      imageSrc={AddCategoryImage}
+                      recipeId={recipeId}
+                      tagId={tagId}
+                    />
+                  );
+                }}
               >
                 Change photo
               </button>

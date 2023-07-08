@@ -4,6 +4,7 @@ import {
   createRecipe,
   deleteRecipe,
   getRecipesByTagId,
+  updateRecipeMainPhoto,
   updateRecipeName,
 } from "../API/recipes";
 import { Recipe } from "../types/types";
@@ -52,6 +53,22 @@ export const fetchDeleteRecipe = createAsyncThunk(
     { dispatch }
   ) => {
     await deleteRecipe(recipeId, token);
+    dispatch(fetchRecipesByTagId({ tagId, token }));
+  }
+);
+
+export const fetchUpdateRecipeMainPhoto = createAsyncThunk(
+  "recipes/fetchUpdateRecipeMainPhoto",
+  async (
+    {
+      data,
+      tagId,
+      recipeId,
+      token,
+    }: { data: FormData; tagId: number; recipeId: number; token: string },
+    { dispatch }
+  ) => {
+    await updateRecipeMainPhoto(token, data, recipeId);
     dispatch(fetchRecipesByTagId({ tagId, token }));
   }
 );

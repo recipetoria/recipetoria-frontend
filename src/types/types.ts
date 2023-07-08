@@ -119,7 +119,8 @@ export interface IModalContentWitInput {
 }
 
 export interface AddProfilePhotoProps {
-  mode: "profile" | "category" | "recipe";
+  mode: "profile" | "category" | "recipeMainPhoto";
   imageSrc: string;
   tagId?: number;
+  recipeId?: number;
 }

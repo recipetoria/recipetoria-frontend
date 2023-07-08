@@ -9,9 +9,10 @@ import { fetchUpdateTagPhoto } from "../../features/CategorySlice";
 import { AddProfilePhotoProps } from "../../types/types";
 import ScaleUpImage from "../../assets/png/scale_up.png";
 import FolderImage from "../../assets/png/folder.png";
+import { fetchUpdateRecipeMainPhoto } from "../../features/RecipesSlice";
 
 export default function AddProfilePhoto(props: AddProfilePhotoProps) {
-  const { mode, imageSrc, tagId } = props;
+  const { mode, imageSrc, tagId, recipeId } = props;
 
   const fileTypes = ["JPG", "jpeg", "PNG", "GIF"];
   const fileSize = "5";
@@ -37,7 +38,22 @@ export default function AddProfilePhoto(props: AddProfilePhotoProps) {
         if (tagId) {
           dispatch(fetchUpdateTagPhoto({ token, data: formData, tagId }));
         } else {
-          throw new Error("Something went wrong with tag id");
+          throw new Error(`Something went wrong with tag id: ${tagId}`);
+        }
+      } else if (mode === "recipeMainPhoto") {
+        if (recipeId && tagId) {
+          dispatch(
+            fetchUpdateRecipeMainPhoto({
+              data: formData,
+              tagId,
+              recipeId,
+              token,
+            })
+          );
+        } else {
+          throw new Error(
+            `Something went wrong with recipe id: ${recipeId} or with tag id: ${tagId}`
+          );
         }
       }
 
