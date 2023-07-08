@@ -27,16 +27,17 @@ export default function CategoriesCards(props: CategoriesCardsProps) {
   } else if (tagsError) {
     categoriesCardsJsx = <h3>Something went wrong</h3>;
   } else if (tagsValue.length) {
-    // TODO: add sort by tag name
-    categoriesCardsJsx = tagsValue.map((item) => (
-      <CategoryCard
-        id={item.id}
-        name={item.name}
-        mainPhoto={item.mainPhoto}
-        toggle={toggle}
-        key={item.name}
-      />
-    ));
+    categoriesCardsJsx = [...tagsValue]
+      .sort((a, b) => (a.name > b.name ? 1 : -1))
+      .map((item) => (
+        <CategoryCard
+          id={item.id}
+          name={item.name}
+          mainPhoto={item.mainPhoto}
+          toggle={toggle}
+          key={item.name}
+        />
+      ));
   }
 
   return (

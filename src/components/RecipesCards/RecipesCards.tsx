@@ -29,17 +29,18 @@ export default function RecipesCards(props: RecipesCardsProps) {
     recipesCards = <h3>Something went wrong</h3>;
   } else if (typeof recipesArr === "object" && recipesArr.length > 0) {
     if (tagId) {
-      // TODO: sort by name
-      recipesCards = recipesArr.map((item) => (
-        <RecipeCard
-          recipeId={item.id}
-          tagId={tagId}
-          name={item.name}
-          mainPhoto={item.mainPhoto}
-          toggle={toggle}
-          key={item.name}
-        />
-      ));
+      recipesCards = [...recipesArr]
+        .sort((a, b) => (a.name > b.name ? 1 : -1))
+        .map((item) => (
+          <RecipeCard
+            recipeId={item.id}
+            tagId={tagId}
+            name={item.name}
+            mainPhoto={item.mainPhoto}
+            toggle={toggle}
+            key={item.name}
+          />
+        ));
     } else {
       throw new Error(`Error: Something went wrong with tag id: ${tagId}`);
     }
