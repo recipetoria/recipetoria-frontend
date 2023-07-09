@@ -1,41 +1,43 @@
 import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import DefaultCategoryPhoto from "../../assets/png/no_photo_categ.png";
+import getPhotoFromBytes from "../../utils/getPhotoFromBytes";
 import PencilIcon from "../../assets/svg/PencilIcon";
 import ArrowIcon from "../../assets/svg/ArrowIcon";
+import { ModalContentContext } from "../../contexts/ModalContentContext";
 import ModalContentWitInput from "../ModalContentWitInput/ModalContentWitInput";
 import ModalContentInProfile from "../ModalContentInProfile/ModalContentInProfile";
-import DeleteCategoryImage from "../../assets/png/delete_category.png";
+import DeleteRecipeImage from "../../assets/png/delete_recipe.png";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { isOpenModalValue } from "../../features/IsOpenModalSlice";
 import { SnackbarTextValue } from "../../features/SnackbarTextSlice";
 import AddProfilePhoto from "../AddProfilePhoto/AddProfilePhoto";
 import AddCategoryImage from "../../assets/png/add_category_photo.png";
-import getPhotoFromBytes from "../../utils/getPhotoFromBytes";
-import { fetchDeleteTag } from "../../features/CategorySlice";
-import { ModalContentContext } from "../../contexts/ModalContentContext";
+import { fetchDeleteRecipe } from "../../features/RecipesSlice";
 
-interface CategoryCardProps {
-  id: number;
+interface RecipeCardProps {
+  recipeId: number;
+  tagId: number;
   name: string;
   mainPhoto: string | null;
   toggle: () => void;
 }
 
-export default function CategoryCard(props: CategoryCardProps) {
-  const { id, name, mainPhoto, toggle } = props;
+export default function RecipeCard(props: RecipeCardProps) {
+  const { recipeId, tagId, name, mainPhoto, toggle } = props;
 
   const dispatch = useAppDispatch();
+  const token = useAppSelector((state) => state.present.authData.value.token);
 
   const [isActiveMenu, setIsActiveMenu] = useState<{
-    id: number;
+    recipeId: number;
     isActive: boolean;
   }>();
-  const token = useAppSelector((state) => state.present.authData.value.token);
+
   const { setModalContent } = useContext(ModalContentContext);
 
-  const closeMenu = () => setIsActiveMenu({ id, isActive: false });
-  const openMenu = () => setIsActiveMenu({ id, isActive: true });
+  const closeMenu = () => setIsActiveMenu({ recipeId, isActive: false });
+  const openMenu = () => setIsActiveMenu({ recipeId, isActive: true });
 
   let srcTagPhoto = DefaultCategoryPhoto;
 
@@ -45,16 +47,22 @@ export default function CategoryCard(props: CategoryCardProps) {
 
   return (
     <Link
-      to={`/all_categories/${name}/${id}`}
-      className="card"
-      id={id.toString()}
+      to="/"
+      className="recipe-card"
+      id={recipeId.toString()}
       onMouseLeave={closeMenu}
     >
-      <div className="card__wrapper">
-        <section className="card__image-wrapper">
-          <img src={srcTagPhoto} alt="category" className="card__image" />
+      <div className="recipe-card__wrapper">
+        <section className="recipe-card__image-wrapper">
+          <img
+            src={srcTagPhoto}
+            alt="category"
+            className="recipe-card__image"
+          />
         </section>
-        <h4 className="card__name">{name}</h4>
+        <section className="recipe-card__name-wrapper">
+          <h4 className="recipe-card__name">{name}</h4>
+        </section>
         <div className="menu-block">
           <button
             type="button"
@@ -74,7 +82,7 @@ export default function CategoryCard(props: CategoryCardProps) {
           </button>
           <section
             className={`menu ${
-              isActiveMenu?.id === id && isActiveMenu.isActive
+              isActiveMenu?.recipeId === recipeId && isActiveMenu.isActive
                 ? "menu_active"
                 : ""
             }`}
@@ -89,10 +97,11 @@ export default function CategoryCard(props: CategoryCardProps) {
                   toggle();
                   setModalContent(
                     <ModalContentWitInput
-                      label="Rename the category"
-                      placeholder="Enter new name for the category"
-                      inputName="categoryRename"
-                      tagId={id}
+                      label="Rename the recipe"
+                      placeholder="Enter new recipe name"
+                      inputName="recipeRename"
+                      tagId={tagId}
+                      recipeId={recipeId}
                     />
                   );
                 }}
@@ -107,19 +116,20 @@ export default function CategoryCard(props: CategoryCardProps) {
                   toggle();
                   setModalContent(
                     <ModalContentInProfile
-                      imageSrc={DeleteCategoryImage}
-                      text="Are you sure you want to delete the category?"
+                      imageSrc={DeleteRecipeImage}
+                      text="Are you sure you want to delete the recipe?"
                       handleClickByOkBtn={() => {
                         dispatch(
-                          fetchDeleteTag({
+                          fetchDeleteRecipe({
+                            tagId,
+                            recipeId,
                             token,
-                            tagId: id,
                           })
                         ).then(() => {
                           dispatch(isOpenModalValue(false));
                           dispatch(
                             SnackbarTextValue({
-                              text: "The category was deleted",
+                              text: "The recipe was deleted",
                               withUndo: true,
                             })
                           );
@@ -141,9 +151,10 @@ export default function CategoryCard(props: CategoryCardProps) {
                   toggle();
                   setModalContent(
                     <AddProfilePhoto
-                      mode="category"
+                      mode="recipeMainPhoto"
                       imageSrc={AddCategoryImage}
-                      tagId={id}
+                      recipeId={recipeId}
+                      tagId={tagId}
                     />
                   );
                 }}

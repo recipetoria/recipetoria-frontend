@@ -1,0 +1,51 @@
+@import "../../styles/variables";
+@import "../../styles/mixins";
+
+.recipe-card {
+  @include card;
+
+  padding: 0;
+
+  &__wrapper {
+    gap: 1.111vw;
+  }
+
+  &__image-wrapper {
+    height: 17.188vh;
+
+    border-bottom: 1px solid $total-black;
+    border-radius: 8px 8px 0 0;
+  }
+
+  &__image {
+    border: none;
+    border-radius: inherit;
+  }
+
+  &__create-block {
+    padding-bottom: 1.111vw;
+  }
+
+  &:hover {
+    .recipe-card {
+      &__image {
+        filter: brightness(.5);
+      }
+    }
+  }
+
+  &__name-wrapper {
+    box-sizing: border-box;
+    display: flex;
+    width: 100%;
+    padding: 0 1.111vw 1.111vw;
+  }
+
+  &__name {
+    font-size: 0.875rem;
+    font-weight: 500;
+    line-height: 1.429;
+    text-align: center;
+    letter-spacing: 0.1px;
+  }
+}

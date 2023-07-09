@@ -16,6 +16,8 @@ export type FormValues = {
   oldPassword?: string;
   categoryName?: string;
   categoryRename?: string;
+  recipeName?: string;
+  recipeRename?: string;
 };
 
 export type InputNames =
@@ -26,7 +28,9 @@ export type InputNames =
   | "repeatPassword"
   | "oldPassword"
   | "categoryName"
-  | "categoryRename";
+  | "categoryRename"
+  | "recipeName"
+  | "recipeRename";
 
 export interface IResponse {
   timeStamp: string;
@@ -54,6 +58,18 @@ export interface TagsResponse extends IResponse {
   data: {
     allTagsDTOs: Tag[];
   };
+}
+
+export interface Recipe {
+  id: number;
+  name: string;
+  mainPhoto: null | string;
+  applicationUserId: number;
+  tagDTOs: Tag[];
+  ingredientDTOs: null | [];
+  instructions: null;
+  instructionPhotos: null | string[];
+  links: null | string[];
 }
 
 export interface ModalProps {
@@ -99,10 +115,12 @@ export interface IModalContentWitInput {
   placeholder: string;
   inputName: InputNames;
   tagId?: number;
+  recipeId?: number;
 }
 
 export interface AddProfilePhotoProps {
-  mode: "profile" | "category";
+  mode: "profile" | "category" | "recipeMainPhoto";
   imageSrc: string;
   tagId?: number;
+  recipeId?: number;
 }

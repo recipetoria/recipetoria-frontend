@@ -10,6 +10,8 @@ import ProfilePage from "./pages/ProfilePage/ProfilePage";
 import { useAppDispatch, useAppSelector } from "./app/hooks";
 import { isOpenModalValue } from "./features/IsOpenModalSlice";
 import { isOpenProfileValue } from "./features/isOpenProfileModalSlice";
+import RecipesPage from "./pages/Recipes/RecipesPage";
+import Categories from "./components/Categories/Categories";
 
 function App() {
   const location = useLocation();
@@ -40,7 +42,10 @@ function App() {
         <Route path="" element={<StartPage />} />
         <Route path="sign_up" element={<SignPage signMode="signUp" />} />
         <Route path="sign_in" element={<SignPage signMode="signIn" />} />
-        <Route path="all_categories" element={<AllCategoriesPage />} />
+        <Route path="all_categories" element={<AllCategoriesPage />}>
+          <Route path="" element={<Categories />} />
+          <Route path=":tagName/:tagId" element={<RecipesPage />} />
+        </Route>
         <Route path="shopping_list" element={<ShoppingListPage />} />
         <Route path="add_recipe" element={<AddRecipePage />} />
         <Route path="profile" element={<ProfilePage />} />
