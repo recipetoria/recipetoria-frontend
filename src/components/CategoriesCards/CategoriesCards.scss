@@ -5,7 +5,7 @@
   display: flex;
   flex-wrap: wrap;
   gap: 1.66vw;
-  justify-content: start;
+  justify-content: flex-start;
   
   .card {
     @include card;

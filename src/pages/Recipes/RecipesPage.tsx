@@ -17,7 +17,6 @@ export default function RecipesPage() {
   const { toggle } = useModal();
 
   const token = useAppSelector((state) => state.present.authData.value.token);
-  const tags = useAppSelector((state) => state.present.tags.value);
   const isAuth = useAppSelector(
     (authState) => authState.present.authData.value.isAuth
   );
