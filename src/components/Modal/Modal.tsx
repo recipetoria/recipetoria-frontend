@@ -7,23 +7,25 @@ export default function Modal(props: ModalProps) {
 
   return (
     <>
-      <section
-        className={`modal-overlay ${isOpen ? "modal-overlay_open" : ""}`}
-        onClick={toggle}
-        onKeyDown={() => {}}
-        role="textbox"
-        tabIndex={-1}
-      >
+      {isOpen && (
         <section
-          className="modal-box"
-          onClick={(e) => e.stopPropagation()}
+          className="modal-overlay"
+          onClick={toggle}
+          onKeyDown={() => {}}
           role="textbox"
           tabIndex={-1}
-          onKeyUp={() => {}}
         >
-          {children}
+          <section
+            className="modal-box"
+            onClick={(e) => e.stopPropagation()}
+            role="textbox"
+            tabIndex={-1}
+            onKeyUp={() => {}}
+          >
+            {children}
+          </section>
         </section>
-      </section>
+      )}
     </>
   );
 }
