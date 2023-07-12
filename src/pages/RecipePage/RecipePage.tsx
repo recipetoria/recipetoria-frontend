@@ -38,7 +38,7 @@ export default function RecipePage() {
               <div className="recipe-page__wrapper">
                 <div className="recipe-page-header">
                   <h2 className="recipe-page-header__text">{recipeName}</h2>
-                  <button className="recipe-page-header__btn" type="button">
+                  <button className="recipe-page__btn" type="button">
                     <PencilIcon color="#707077" />
                     <span>Edit</span>
                   </button>
