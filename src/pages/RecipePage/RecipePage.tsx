@@ -9,6 +9,7 @@ import Snackbar from "../../components/Snackbar/Snackbar";
 import Footer from "../../components/Footer/Footer";
 import "./RecipePage.scss";
 import PencilIcon from "../../assets/svg/PencilIcon";
+import ButtonEdit from "../../components/ButtonEdit/ButtonEdit";
 
 export default function RecipePage() {
   const { recipeName, recipeId } = useParams();
@@ -38,10 +39,7 @@ export default function RecipePage() {
               <div className="recipe-page__wrapper">
                 <div className="recipe-page-header">
                   <h2 className="recipe-page-header__text">{recipeName}</h2>
-                  <button className="recipe-page__btn" type="button">
-                    <PencilIcon color="#707077" />
-                    <span>Edit</span>
-                  </button>
+                  <ButtonEdit tipText="name" editMode="recipeEditName" />
                 </div>
               </div>
               <Modal isOpen={isOpen} toggle={toggle}>
