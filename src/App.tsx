@@ -12,6 +12,7 @@ import { isOpenModalValue } from "./features/IsOpenModalSlice";
 import { isOpenProfileValue } from "./features/isOpenProfileModalSlice";
 import RecipesPage from "./pages/Recipes/RecipesPage";
 import Categories from "./components/Categories/Categories";
+import RecipePage from "./pages/RecipePage/RecipePage";
 
 function App() {
   const location = useLocation();
@@ -46,6 +47,7 @@ function App() {
           <Route path="" element={<Categories />} />
           <Route path=":tagName/:tagId" element={<RecipesPage />} />
         </Route>
+        <Route path="recipe/:recipeName/:recipeId" element={<RecipePage />} />
         <Route path="shopping_list" element={<ShoppingListPage />} />
         <Route path="add_recipe" element={<AddRecipePage />} />
         <Route path="profile" element={<ProfilePage />} />

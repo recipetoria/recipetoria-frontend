@@ -47,7 +47,7 @@ export default function RecipeCard(props: RecipeCardProps) {
 
   return (
     <Link
-      to="/"
+      to={`/recipe/${name}/${recipeId}`}
       className="recipe-card"
       id={recipeId.toString()}
       onMouseLeave={closeMenu}
