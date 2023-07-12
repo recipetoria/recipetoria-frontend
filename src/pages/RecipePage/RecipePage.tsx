@@ -7,6 +7,8 @@ import useModal from "../../hooks/useModal";
 import { ModalContentContext } from "../../contexts/ModalContentContext";
 import Snackbar from "../../components/Snackbar/Snackbar";
 import Footer from "../../components/Footer/Footer";
+import "./RecipePage.scss";
+import PencilIcon from "../../assets/svg/PencilIcon";
 
 export default function RecipePage() {
   const { recipeName, recipeId } = useParams();
@@ -34,8 +36,13 @@ export default function RecipePage() {
           <main>
             <article className="recipe-page">
               <div className="recipe-page__wrapper">
-                <h2>{recipeName}</h2>
-                <h2>{recipeId}</h2>
+                <div className="recipe-page-header">
+                  <h2 className="recipe-page-header__text">{recipeName}</h2>
+                  <button className="recipe-page-header__btn" type="button">
+                    <PencilIcon color="#707077" />
+                    <span>Edit</span>
+                  </button>
+                </div>
               </div>
               <Modal isOpen={isOpen} toggle={toggle}>
                 {modalContent}
