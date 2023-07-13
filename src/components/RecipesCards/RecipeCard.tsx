@@ -106,7 +106,7 @@ export default function RecipeCard(props: RecipeCardProps) {
                   );
                 }}
               >
-                Rename category
+                Rename recipe
               </button>
               <button
                 type="button"
@@ -141,7 +141,7 @@ export default function RecipeCard(props: RecipeCardProps) {
                   );
                 }}
               >
-                Delete category
+                Delete recipe
               </button>
               <button
                 type="button"
