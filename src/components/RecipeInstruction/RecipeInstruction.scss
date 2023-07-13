@@ -1,2 +1,49 @@
 @import "../../styles/variables";
 @import "../../styles/mixins";
+
+.recipe-instruction {
+  @include border($color: $black-color, $rad: 8px);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: $btn-bg-color;
+
+  &__wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    align-items: flex-start;
+    margin: 40px 0 40px 40px;
+  }
+
+  .photo-n-instruction {
+    display: flex;
+    gap: 32px;
+    align-items: flex-start;
+
+    &__photo-wrapper {
+
+    }
+
+    &__photo {
+      
+    }
+  }
+
+  .instruction {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    align-items: flex-start;
+    margin-right: 7.222vw;
+
+    &__header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+    }
+  }
+}

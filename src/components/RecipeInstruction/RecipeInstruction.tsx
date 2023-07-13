@@ -41,29 +41,29 @@ export default function RecipeInstruction() {
               cooked.
             </div>
           </section>
-          <section className="photos-block">
-            <h4 className="photos-block__h4">Photos you’ve already added</h4>
-            <CarouselProvider
-              naturalSlideWidth={1}
-              naturalSlideHeight={1}
-              totalSlides={photosData.length}
-              infinite
-              isIntrinsicHeight
-              visibleSlides={5}
-              step={3}
-            >
-              <Slider>
-                {[...photosData].map((item, indx) => (
-                  <Slide index={indx} key={`${item}`}>
-                    <Image src={item} alt={item} hasMasterSpinner />
-                  </Slide>
-                ))}
-              </Slider>
-              <ButtonBack>Back</ButtonBack>
-              <DotGroup />
-              <ButtonNext>Next</ButtonNext>
-            </CarouselProvider>
-          </section>
+        </section>
+        <section className="photos-block">
+          <h4 className="photos-block__h4">Photos you’ve already added</h4>
+          <CarouselProvider
+            naturalSlideWidth={1}
+            naturalSlideHeight={1}
+            totalSlides={photosData.length}
+            infinite
+            isIntrinsicHeight
+            visibleSlides={5}
+            step={3}
+          >
+            <Slider>
+              {[...photosData].map((item, indx) => (
+                <Slide index={indx} key={`${item}`}>
+                  <Image src={item} alt={item} hasMasterSpinner />
+                </Slide>
+              ))}
+            </Slider>
+            <ButtonBack>Back</ButtonBack>
+            <DotGroup />
+            <ButtonNext>Next</ButtonNext>
+          </CarouselProvider>
         </section>
       </div>
     </article>
