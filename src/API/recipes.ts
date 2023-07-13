@@ -1,10 +1,11 @@
-import axios from "axios";
+import axios, { AxiosResponse } from "axios";
 import {
   URL_RECIPES,
   URL_RECIPES_BY_TAG_ID,
   URL_RECIPE_BY_ID,
   URL_RECIPE_MAIN_PHOTO,
 } from "../utils/constants";
+import { RecipeResponse } from "../types/types";
 
 export async function getRecipesByTagId(tagId: number, token: string) {
   const config = {
@@ -106,5 +107,23 @@ export async function updateRecipeMainPhoto(
   return axios
     .request(config)
     .then((response) => response.data.message)
+    .catch((error) => error.message);
+}
+
+export async function getRecipeByRecipeId(token: string, recipeId: number) {
+  const config = {
+    method: "get",
+    maxBodyLength: Infinity,
+    url: URL_RECIPE_BY_ID(recipeId),
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+
+  return axios
+    .request(config)
+    .then(
+      (response: AxiosResponse<RecipeResponse>) => response.data.data.recipeDTO
+    )
     .catch((error) => error.message);
 }

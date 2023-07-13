@@ -1,32 +1,30 @@
-import { useContext, useEffect } from "react";
+import { useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { useAppSelector } from "../../app/hooks";
+import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import Header from "../../components/Header/Header";
-import Modal from "../../components/Modal/Modal";
-import useModal from "../../hooks/useModal";
-import { ModalContentContext } from "../../contexts/ModalContentContext";
-import Snackbar from "../../components/Snackbar/Snackbar";
+import { fetchRecipeByRecipeId } from "../../features/OneRecipeSlice";
 import Footer from "../../components/Footer/Footer";
-import "./RecipePage.scss";
-import PencilIcon from "../../assets/svg/PencilIcon";
-import ButtonEdit from "../../components/ButtonEdit/ButtonEdit";
-import RecipeInstruction from "../../components/RecipeInstruction/RecipeInstruction";
+import RecipePageContent from "../../components/RecipePageContent/RecipePageContent";
 
 export default function RecipePage() {
   const { recipeName, recipeId } = useParams();
 
   const navigate = useNavigate();
-  const { toggle } = useModal();
+  const dispatch = useAppDispatch();
 
   const isAuth = useAppSelector(
     (authState) => authState.present.authData.value.isAuth
   );
-  const isOpen = useAppSelector((state) => state.present.IsOpenModal.value);
-  const { modalContent } = useContext(ModalContentContext);
+  const token = useAppSelector((state) => state.present.authData.value.token);
 
   useEffect(() => {
     if (isAuth !== true) {
       navigate("/*");
+    }
+    if (recipeId) {
+      dispatch(fetchRecipeByRecipeId({ token, recipeId: +recipeId }));
+    } else {
+      throw new Error(`Something went wrong with recipe id: ${recipeId}`);
     }
   });
 
@@ -37,17 +35,7 @@ export default function RecipePage() {
           <Header />
           <main>
             <article className="recipe-page">
-              <div className="recipe-page__wrapper">
-                <div className="recipe-page-header">
-                  <h2 className="recipe-page-header__text">{recipeName}</h2>
-                  <ButtonEdit tipText="name" editMode="recipeEditName" />
-                </div>
-                <RecipeInstruction />
-              </div>
-              <Modal isOpen={isOpen} toggle={toggle}>
-                {modalContent}
-              </Modal>
-              <Snackbar />
+              <RecipePageContent recipeName={recipeName || ""} />
             </article>
           </main>
           <Footer />

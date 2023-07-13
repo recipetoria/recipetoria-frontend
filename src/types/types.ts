@@ -72,6 +72,12 @@ export interface Recipe {
   links: null | string[];
 }
 
+export interface RecipeResponse extends IResponse {
+  data: {
+    recipeDTO: Recipe;
+  };
+}
+
 export interface ModalProps {
   isOpen: boolean;
   toggle: () => void;
