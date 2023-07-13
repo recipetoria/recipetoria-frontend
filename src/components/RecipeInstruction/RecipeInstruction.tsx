@@ -10,11 +10,6 @@ import {
 import "pure-react-carousel/dist/react-carousel.es.css";
 import ButtonEdit from "../ButtonEdit/ButtonEdit";
 import "./RecipeInstruction.scss";
-import Chick1 from "../../assets/data/fakeImages/chick1.png";
-import Chick2 from "../../assets/data/fakeImages/chick2.png";
-import Chick3 from "../../assets/data/fakeImages/chick3.png";
-import Chick4 from "../../assets/data/fakeImages/chick4.png";
-import Chick5 from "../../assets/data/fakeImages/chick5.png";
 import { Recipe } from "../../types/types";
 import getPhotoFromBytes from "../../utils/getPhotoFromBytes";
 import ArrowSliderIcon from "../../assets/svg/ArrowSliderIcon";
@@ -25,23 +20,19 @@ import PlusIcon from "../../assets/svg/PlusIcon";
 
 export default function RecipeInstruction(props: { recipeData: Recipe }) {
   const { recipeData } = props;
-  const photosData: string[] = [
-    Chick1,
-    Chick2,
-    Chick3,
-    Chick4,
-    Chick5,
-    Chick1,
-    Chick2,
-    Chick3,
-    Chick4,
-    Chick5,
-    Chick1,
-    Chick2,
-    Chick3,
-  ];
 
-  const visibleSlides = 5;
+  let photosData: string[] = [];
+  let visibleSlides = 5;
+  if (recipeData.instructionPhotos) {
+    if (recipeData.instructionPhotos.length > 0) {
+      photosData = [...recipeData.instructionPhotos];
+    }
+    if (recipeData.instructionPhotos.length < 5) {
+      visibleSlides = recipeData.instructionPhotos.length;
+    } else if (recipeData.instructionPhotos.length === 0) {
+      visibleSlides = 1;
+    }
+  }
 
   return (
     <article className="recipe-instruction">
@@ -114,30 +105,34 @@ export default function RecipeInstruction(props: { recipeData: Recipe }) {
                 </Slide>
               ))}
             </Slider>
-            <div className="carousel__controllers">
-              <ButtonBack className="carousel__btn">
-                <ArrowSliderIcon />
-              </ButtonBack>
-              <div className="carousel__dots">
-                {[...photosData].map((item, indx) => {
-                  const dotsArr = [];
-                  if (
-                    indx % visibleSlides === 0 ||
-                    indx + 1 > photosData.length - 1
-                  ) {
-                    dotsArr.push(
-                      <Dot key={`${item + indx}`} slide={indx}>
-                        <CircleIcon />
-                      </Dot>
-                    );
-                  }
-                  return dotsArr;
-                })}
+            {photosData.length > visibleSlides ? (
+              <div className="carousel__controllers">
+                <ButtonBack className="carousel__btn">
+                  <ArrowSliderIcon />
+                </ButtonBack>
+                <div className="carousel__dots">
+                  {[...photosData].map((item, indx) => {
+                    const dotsArr = [];
+                    if (
+                      indx % visibleSlides === 0 ||
+                      indx + 1 > photosData.length - 1
+                    ) {
+                      dotsArr.push(
+                        <Dot key={`${item + indx}`} slide={indx}>
+                          <CircleIcon />
+                        </Dot>
+                      );
+                    }
+                    return dotsArr;
+                  })}
+                </div>
+                <ButtonNext className="carousel__btn carousel__btn_next">
+                  <ArrowSliderIcon />
+                </ButtonNext>
               </div>
-              <ButtonNext className="carousel__btn carousel__btn_next">
-                <ArrowSliderIcon />
-              </ButtonNext>
-            </div>
+            ) : (
+              ""
+            )}
           </CarouselProvider>
         </section>
       </div>
