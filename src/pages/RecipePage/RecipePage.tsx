@@ -10,6 +10,7 @@ import Footer from "../../components/Footer/Footer";
 import "./RecipePage.scss";
 import PencilIcon from "../../assets/svg/PencilIcon";
 import ButtonEdit from "../../components/ButtonEdit/ButtonEdit";
+import RecipeInstruction from "../../components/RecipeInstruction/RecipeInstruction";
 
 export default function RecipePage() {
   const { recipeName, recipeId } = useParams();
@@ -41,6 +42,7 @@ export default function RecipePage() {
                   <h2 className="recipe-page-header__text">{recipeName}</h2>
                   <ButtonEdit tipText="name" editMode="recipeEditName" />
                 </div>
+                <RecipeInstruction />
               </div>
               <Modal isOpen={isOpen} toggle={toggle}>
                 {modalContent}
