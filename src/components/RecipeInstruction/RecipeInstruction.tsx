@@ -1,4 +1,3 @@
-import { useRef } from "react";
 import {
   CarouselProvider,
   Slider,
@@ -20,6 +19,9 @@ import { Recipe } from "../../types/types";
 import getPhotoFromBytes from "../../utils/getPhotoFromBytes";
 import ArrowSliderIcon from "../../assets/svg/ArrowSliderIcon";
 import CircleIcon from "../../assets/svg/CircleIcon";
+import NoPhotoImage from "../../assets/png/no_recipe_photo.png";
+import NoPhotoImageBig from "../../assets/png/no_recipe_photo_big.png";
+import PlusIcon from "../../assets/svg/PlusIcon";
 
 export default function RecipeInstruction(props: { recipeData: Recipe }) {
   const { recipeData } = props;
@@ -39,8 +41,6 @@ export default function RecipeInstruction(props: { recipeData: Recipe }) {
     Chick3,
   ];
 
-  const dotRef = useRef<HTMLButtonElement>();
-
   const visibleSlides = 5;
 
   return (
@@ -49,7 +49,11 @@ export default function RecipeInstruction(props: { recipeData: Recipe }) {
         <section className="photo-n-instruction">
           <div className="photo-n-instruction__photo-wrapper">
             <img
-              src={getPhotoFromBytes(recipeData.mainPhoto || "")}
+              src={
+                recipeData.mainPhoto
+                  ? getPhotoFromBytes(recipeData.mainPhoto)
+                  : NoPhotoImageBig
+              }
               alt="instruction"
               className="photo-n-instruction__photo"
             />
@@ -74,7 +78,11 @@ export default function RecipeInstruction(props: { recipeData: Recipe }) {
           </section>
         </section>
         <section className="photos-block">
-          <h4 className="photos-block__h4">Photos you’ve already added</h4>
+          <h4 className="photos-block__h4">
+            {photosData.length > 0
+              ? "Photos you’ve already added"
+              : "You haven't uploaded any photos yet"}
+          </h4>
           <CarouselProvider
             naturalSlideWidth={215}
             naturalSlideHeight={165}
@@ -86,6 +94,24 @@ export default function RecipeInstruction(props: { recipeData: Recipe }) {
             className="carousel"
           >
             <Slider>
+              <Slide
+                index={photosData.length}
+                key={`new-photo-${photosData.length}`}
+              >
+                <button className="add-photo" type="button">
+                  <div className="add-photo__image-wrapper">
+                    <img
+                      src={NoPhotoImage}
+                      alt="add"
+                      className="add-photo__image"
+                    />
+                  </div>
+                  <div className="add-photo__text">
+                    <PlusIcon />
+                    <span>Add photo</span>
+                  </div>
+                </button>
+              </Slide>
               {[...photosData].map((item, indx) => (
                 <Slide
                   index={indx}
