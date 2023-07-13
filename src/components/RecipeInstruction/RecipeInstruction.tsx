@@ -76,8 +76,8 @@ export default function RecipeInstruction(props: { recipeData: Recipe }) {
         <section className="photos-block">
           <h4 className="photos-block__h4">Photos you’ve already added</h4>
           <CarouselProvider
-            naturalSlideWidth={1}
-            naturalSlideHeight={1}
+            naturalSlideWidth={215}
+            naturalSlideHeight={165}
             totalSlides={photosData.length}
             infinite
             isIntrinsicHeight
@@ -87,7 +87,11 @@ export default function RecipeInstruction(props: { recipeData: Recipe }) {
           >
             <Slider>
               {[...photosData].map((item, indx) => (
-                <Slide index={indx} key={`${item + indx}`}>
+                <Slide
+                  index={indx}
+                  key={`${item + indx}`}
+                  className="carousel__slide"
+                >
                   <Image src={item} alt={item} hasMasterSpinner />
                 </Slide>
               ))}

@@ -16,7 +16,6 @@
     gap: 32px;
     align-items: flex-start;
     margin: 40px 0 40px 40px;
-    overflow: hidden;
 
     color: $black-color;
   }
@@ -140,6 +139,21 @@
           box-shadow: 1px 1px 0 0 $black-color;
         }
       }
+    }
+
+    /* stylelint-disable-next-line selector-class-pattern */
+    .sliderTray {
+      &___-vHFQ {
+        gap: 16px;
+        height: 165px;
+      }
+    }
+
+    &__slide {
+      @include border($color: $black-color);
+
+      margin: 5px;
+      box-shadow: 5px 5px 0 0 $black-color;
     }
   }
 }
