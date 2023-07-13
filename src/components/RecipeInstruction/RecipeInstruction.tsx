@@ -64,16 +64,8 @@ export default function RecipeInstruction(props: { recipeData: Recipe }) {
               <ButtonEdit tipText="text" editMode="recipeEditText" />
             </div>
             <div className="instruction__text">
-              Preheat the oven to 200°C. Place the chicken in a roasting pan or
-              baking dish. Arrange the quartered potatoes around the chicken.
-              Drizzle everything with olive oil, ensuring all ingredients are
-              coated. Season with salt, pepper, and your preferred herbs. Place
-              the lemon slices on top of the chicken and potatoes. Transfer the
-              dish to the preheated oven. Roast for approximately 1 to 1.5
-              hours, or until the chicken is cooked through and the potatoes are
-              golden and tender. Check the internal temperature of the chicken
-              using a meat thermometer; it should read 75°C (165°F) when fully
-              cooked.
+              {recipeData.instructions ||
+                "There are no instructions here yet! It's time to add them"}
             </div>
           </section>
         </section>
