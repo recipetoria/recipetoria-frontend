@@ -60,13 +60,21 @@ export interface TagsResponse extends IResponse {
   };
 }
 
+export interface Ingredient {
+  name: string;
+  amount: null | number;
+  measurementUnit: null | string;
+  id?: number;
+  recipeId?: number;
+}
+
 export interface Recipe {
   id: number;
   name: string;
   mainPhoto: null | string;
   applicationUserId: number;
   tagDTOs: Tag[];
-  ingredientDTOs: null | [];
+  ingredientDTOs: null | Ingredient[];
   instructions: null;
   instructionPhotos: null | string[];
   links: null | string[];
