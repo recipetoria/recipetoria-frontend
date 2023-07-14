@@ -9,6 +9,7 @@ import { ModalContentContext } from "../../contexts/ModalContentContext";
 import "../../pages/RecipePage/RecipePage.scss";
 import RecipeIngredients from "../RecipeIngredients/RecipeIngredients";
 import RecipeCategories from "../RecipeCategories/RecipeCategories";
+import RecipeLinks from "../RecipesLinks/RecipeLinks";
 
 export default function RecipePageContent(props: { recipeName: string }) {
   const { recipeName } = props;
@@ -40,6 +41,7 @@ export default function RecipePageContent(props: { recipeName: string }) {
           <RecipeInstruction recipeData={recipeData} />
           <RecipeIngredients />
           <RecipeCategories recipeId={recipeData.id} />
+          <RecipeLinks />
         </div>
         <Modal isOpen={isOpen} toggle={toggle}>
           {modalContent}
