@@ -7,6 +7,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  width: inherit;
 
   background: $btn-bg-color;
 
@@ -15,6 +16,7 @@
     flex-direction: column;
     gap: 32px;
     align-items: flex-start;
+    width: inherit;
     margin: 40px 0 40px 40px;
 
     color: $black-color;
@@ -24,6 +26,7 @@
     display: flex;
     gap: 32px;
     align-items: flex-start;
+    width: 100%;
 
     &__photo-wrapper {
       @include border($color: $black-color, $rad: 8px);

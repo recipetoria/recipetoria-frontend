@@ -7,6 +7,7 @@ import RecipeInstruction from "../RecipeInstruction/RecipeInstruction";
 import Snackbar from "../Snackbar/Snackbar";
 import { ModalContentContext } from "../../contexts/ModalContentContext";
 import "../../pages/RecipePage/RecipePage.scss";
+import RecipeIngredients from "../RecipeIngredients/RecipeIngredients";
 
 export default function RecipePageContent(props: { recipeName: string }) {
   const { recipeName } = props;
@@ -36,6 +37,7 @@ export default function RecipePageContent(props: { recipeName: string }) {
             <ButtonEdit tipText="name" editMode="recipeEditName" />
           </div>
           <RecipeInstruction recipeData={recipeData} />
+          <RecipeIngredients />
         </div>
         <Modal isOpen={isOpen} toggle={toggle}>
           {modalContent}
