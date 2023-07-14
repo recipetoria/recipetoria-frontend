@@ -5,6 +5,7 @@ import Header from "../../components/Header/Header";
 import { fetchRecipeByRecipeId } from "../../features/OneRecipeSlice";
 import Footer from "../../components/Footer/Footer";
 import RecipePageContent from "../../components/RecipePageContent/RecipePageContent";
+import { fetchTags } from "../../features/CategorySlice";
 
 export default function RecipePage() {
   const { recipeName, recipeId } = useParams();
@@ -26,6 +27,7 @@ export default function RecipePage() {
     } else {
       throw new Error(`Something went wrong with recipe id: ${recipeId}`);
     }
+    dispatch(fetchTags(token));
   });
 
   return (
