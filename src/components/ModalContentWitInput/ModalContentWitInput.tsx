@@ -2,7 +2,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import CrossIcon from "../../assets/svg/CrossIcon";
 import useModal from "../../hooks/useModal";
 import Input from "../Input/Input";
-import { FormValues, IModalContentWitInput } from "../../types/types";
+import { FormValues, IModalContentWitInput, Tag } from "../../types/types";
 import "./ModalContentWitInput.scss";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { SnackbarTextValue } from "../../features/SnackbarTextSlice";
@@ -54,7 +54,7 @@ export default function ModalContentWitInput(props: IModalContentWitInput) {
         (recipe) => recipe.name.toLowerCase() === name.toLowerCase()
       );
 
-    const notFoundIdError = (id: number | undefined) => {
+    const notFoundIdError = (id: number | undefined | Tag[]) => {
       throw new Error(`Not found tag id: ${id}`);
     };
 
@@ -83,7 +83,7 @@ export default function ModalContentWitInput(props: IModalContentWitInput) {
         });
       }
     } else if (categoryRename) {
-      if (tagId) {
+      if (typeof tagId === "number") {
         if (!isFoundInTagsArr(categoryRename)) {
           dispatch(
             fetchUpdateTagName({
@@ -112,7 +112,7 @@ export default function ModalContentWitInput(props: IModalContentWitInput) {
         notFoundIdError(tagId);
       }
     } else if (recipeName) {
-      if (tagId) {
+      if (typeof tagId === "number") {
         if (!isFoundInRecipesArr(recipeName)) {
           dispatch(
             fetchCreateNewRecipe({

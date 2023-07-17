@@ -7,7 +7,7 @@ import {
   updateRecipeMainPhoto,
   updateRecipeName,
 } from "../API/recipes";
-import { Recipe } from "../types/types";
+import { Recipe, Tag } from "../types/types";
 
 export const fetchRecipesByTagId = createAsyncThunk(
   "recipes/fetchRecipesByTagId",
@@ -34,11 +34,20 @@ export const fetchUpdateRecipeName = createAsyncThunk(
       tagId,
       recipeId,
       token,
-    }: { name: string; tagId: number; recipeId: number; token: string },
+    }: { name: string; tagId: number | Tag[]; recipeId: number; token: string },
     { dispatch }
   ) => {
     await updateRecipeName(name, recipeId, token);
-    dispatch(fetchRecipesByTagId({ tagId, token }));
+    if (typeof tagId === "number") {
+      dispatch(fetchRecipesByTagId({ tagId, token }));
+    } else {
+      tagId.map((item) => {
+        console.log(name, tagId, item.id, recipeId, token);
+
+        dispatch(fetchRecipesByTagId({ tagId: item.id, token }));
+        return true;
+      });
+    }
   }
 );
 

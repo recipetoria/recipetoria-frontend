@@ -128,7 +128,7 @@ export interface IModalContentWitInput {
   label: string;
   placeholder: string;
   inputName: InputNames;
-  tagId?: number;
+  tagId?: number | Tag[];
   recipeId?: number;
 }
 

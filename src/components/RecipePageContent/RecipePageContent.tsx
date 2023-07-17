@@ -36,7 +36,11 @@ export default function RecipePageContent(props: { recipeName: string }) {
         <div className="recipe-page__wrapper">
           <div className="recipe-page-header">
             <h2 className="recipe-page-header__text">{recipeName}</h2>
-            <ButtonEdit tipText="name" editMode="recipeEditName" />
+            <ButtonEdit
+              tipText="name"
+              editMode="recipeEditName"
+              recipeData={recipeData}
+            />
           </div>
           <RecipeInstruction recipeData={recipeData} />
           <RecipeIngredients />

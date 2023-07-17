@@ -52,7 +52,11 @@ export default function RecipeInstruction(props: { recipeData: Recipe }) {
           <section className="instruction">
             <div className="instruction__header">
               <h3 className="instruction__h3">Cooking instruction</h3>
-              <ButtonEdit tipText="text" editMode="recipeEditText" />
+              <ButtonEdit
+                tipText="text"
+                editMode="recipeEditText"
+                recipeData={recipeData}
+              />
             </div>
             <div className="instruction__text">
               {recipeData.instructions ||
