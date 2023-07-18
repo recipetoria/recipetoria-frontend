@@ -171,8 +171,14 @@
       width: inherit;
       height: inherit;
 
+      cursor: pointer;
+
       background: $beige;
       border: none;
+
+      &:hover {
+        background: $secondary-purple-color;
+      }
 
       &__image-wrapper {
         width: 100%;
