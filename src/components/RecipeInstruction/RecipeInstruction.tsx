@@ -100,7 +100,11 @@ export default function RecipeInstruction(props: { recipeData: Recipe }) {
                     e.preventDefault();
                     toggle();
                     setModalContent(
-                      <AddProfilePhoto mode="recipe" imageSrc={CameraImage} />
+                      <AddProfilePhoto
+                        mode="recipe"
+                        imageSrc={CameraImage}
+                        recipeId={recipeData.id}
+                      />
                     );
                   }}
                 >
@@ -123,7 +127,11 @@ export default function RecipeInstruction(props: { recipeData: Recipe }) {
                   key={`${item + indx}`}
                   className="carousel__slide"
                 >
-                  <Image src={item} alt={item} hasMasterSpinner />
+                  <Image
+                    src={getPhotoFromBytes(item)}
+                    alt={item}
+                    hasMasterSpinner
+                  />
                 </Slide>
               ))}
             </Slider>

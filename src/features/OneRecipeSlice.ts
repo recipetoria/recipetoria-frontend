@@ -1,12 +1,30 @@
 /* eslint-disable no-param-reassign */
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Recipe } from "../types/types";
-import { getRecipeByRecipeId } from "../API/recipes";
+import { getRecipeByRecipeId, updateRecipePhoto } from "../API/recipes";
+
+interface ArgsFetchRecipeValues {
+  recipeId: number;
+  token: string;
+  data?: FormData;
+}
 
 export const fetchRecipeByRecipeId = createAsyncThunk(
   "recipe/fetchRecipeByRecipeId",
-  async ({ recipeId, token }: { recipeId: number; token: string }) =>
+  async ({ recipeId, token }: ArgsFetchRecipeValues) =>
     getRecipeByRecipeId(token, recipeId)
+);
+
+export const fetchAddRecipePhoto = createAsyncThunk(
+  "recipe/fetchAddRecipePhoto",
+  async ({ recipeId, token, data }: ArgsFetchRecipeValues, { dispatch }) => {
+    if (data) {
+      await updateRecipePhoto(data, recipeId, token);
+      dispatch(fetchRecipeByRecipeId({ recipeId, token }));
+    } else {
+      throw new Error(`Custom error: data is not defined. Data: ${data}`);
+    }
+  }
 );
 
 interface RecipeSliceValues {

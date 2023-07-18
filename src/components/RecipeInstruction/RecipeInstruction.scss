@@ -160,6 +160,10 @@
       overflow: hidden;
 
       box-shadow: 5px 5px 0 0 $black-color;
+
+      img {
+        object-fit: cover;
+      }
     }
 
     .add-photo {

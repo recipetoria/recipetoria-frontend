@@ -3,6 +3,7 @@ import {
   URL_RECIPES,
   URL_RECIPES_BY_TAG_ID,
   URL_RECIPE_BY_ID,
+  URL_RECIPE_INSTRUCTION_PHOTO,
   URL_RECIPE_MAIN_PHOTO,
 } from "../utils/constants";
 import { RecipeResponse } from "../types/types";
@@ -125,5 +126,26 @@ export async function getRecipeByRecipeId(token: string, recipeId: number) {
     .then(
       (response: AxiosResponse<RecipeResponse>) => response.data.data.recipeDTO
     )
+    .catch((error) => error.message);
+}
+
+export async function updateRecipePhoto(
+  data: FormData,
+  recipeId: number,
+  token: string
+) {
+  const config = {
+    method: "put",
+    maxBodyLength: Infinity,
+    url: URL_RECIPE_INSTRUCTION_PHOTO(recipeId),
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+    data,
+  };
+
+  return axios
+    .request(config)
+    .then((response) => response.data.message)
     .catch((error) => error.message);
 }
