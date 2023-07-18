@@ -5,6 +5,7 @@ import "./ButtonEdit.scss";
 import { ModalContentContext } from "../../contexts/ModalContentContext";
 import ModalContentWitInput from "../ModalContentWitInput/ModalContentWitInput";
 import { Recipe } from "../../types/types";
+import ModalContentTextEdit from "../ModalContentTextEdit/ModalContentTextEdit";
 
 type EditMode = "recipeEditName" | "recipeEditText";
 
@@ -25,8 +26,8 @@ export default function ButtonEdit(props: {
         type="button"
         onClick={(e) => {
           e.preventDefault();
+          toggle();
           if (editMode === "recipeEditName") {
-            toggle();
             setModalContent(
               <ModalContentWitInput
                 label="Rename the recipe"
@@ -34,6 +35,13 @@ export default function ButtonEdit(props: {
                 inputName="recipeRename"
                 tagId={recipeData.tagDTOs}
                 recipeId={recipeData.id}
+              />
+            );
+          } else if (editMode === "recipeEditText") {
+            setModalContent(
+              <ModalContentTextEdit
+                recipeId={recipeData.id}
+                name={recipeData.name}
               />
             );
           }

@@ -75,7 +75,7 @@ export interface Recipe {
   applicationUserId: number;
   tagDTOs: Tag[];
   ingredientDTOs: null | Ingredient[];
-  instructions: null;
+  instructions: null | string;
   instructionPhotos: null | string[];
   links: null | string[];
 }

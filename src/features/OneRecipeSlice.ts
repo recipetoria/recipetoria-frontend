@@ -1,12 +1,18 @@
 /* eslint-disable no-param-reassign */
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Recipe } from "../types/types";
-import { getRecipeByRecipeId, updateRecipePhoto } from "../API/recipes";
+import {
+  getRecipeByRecipeId,
+  updateRecipeInfo,
+  UpdateRecipeInfoArgs,
+  updateRecipePhoto,
+} from "../API/recipes";
 
 interface ArgsFetchRecipeValues {
   recipeId: number;
   token: string;
   data?: FormData;
+  infoRecipeData?: UpdateRecipeInfoArgs;
 }
 
 export const fetchRecipeByRecipeId = createAsyncThunk(
@@ -23,6 +29,23 @@ export const fetchAddRecipePhoto = createAsyncThunk(
       dispatch(fetchRecipeByRecipeId({ recipeId, token }));
     } else {
       throw new Error(`Custom error: data is not defined. Data: ${data}`);
+    }
+  }
+);
+
+export const fetchUpdateRecipeInfo = createAsyncThunk(
+  "recipe/fetchUpdateRecipeInfo",
+  async (
+    { infoRecipeData, recipeId, token }: ArgsFetchRecipeValues,
+    { dispatch }
+  ) => {
+    if (infoRecipeData?.name) {
+      await updateRecipeInfo(infoRecipeData, recipeId, token);
+      dispatch(fetchRecipeByRecipeId({ recipeId, token }));
+    } else {
+      throw new Error(
+        `Custom error: infoRecipeData.name is not defined. infoRecipeData: ${infoRecipeData}`
+      );
     }
   }
 );

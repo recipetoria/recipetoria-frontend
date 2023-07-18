@@ -6,7 +6,7 @@ import {
   URL_RECIPE_INSTRUCTION_PHOTO,
   URL_RECIPE_MAIN_PHOTO,
 } from "../utils/constants";
-import { RecipeResponse } from "../types/types";
+import { Ingredient, RecipeResponse, Tag } from "../types/types";
 
 export async function getRecipesByTagId(tagId: number, token: string) {
   const config = {
@@ -138,6 +138,35 @@ export async function updateRecipePhoto(
     method: "put",
     maxBodyLength: Infinity,
     url: URL_RECIPE_INSTRUCTION_PHOTO(recipeId),
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+    data,
+  };
+
+  return axios
+    .request(config)
+    .then((response) => response.data.message)
+    .catch((error) => error.message);
+}
+
+export interface UpdateRecipeInfoArgs {
+  name: string;
+  tagDTOs?: Tag[];
+  ingredientDTOs?: Ingredient[];
+  instructions?: string;
+  links?: string[];
+}
+
+export async function updateRecipeInfo(
+  data: UpdateRecipeInfoArgs,
+  recipeId: number,
+  token: string
+) {
+  const config = {
+    method: "put",
+    maxBodyLength: Infinity,
+    url: URL_RECIPE_BY_ID(recipeId),
     headers: {
       Authorization: `Bearer ${token}`,
     },
