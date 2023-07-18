@@ -40,7 +40,7 @@ export default function AddProfilePhoto(props: AddProfilePhotoProps) {
         } else {
           throw new Error(`Something went wrong with tag id: ${tagId}`);
         }
-      } else if (mode === "recipeMainPhoto") {
+      } else if (mode === "recipe main") {
         if (recipeId && tagId) {
           dispatch(
             fetchUpdateRecipeMainPhoto({

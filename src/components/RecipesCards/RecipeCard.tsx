@@ -151,7 +151,7 @@ export default function RecipeCard(props: RecipeCardProps) {
                   toggle();
                   setModalContent(
                     <AddProfilePhoto
-                      mode="recipeMainPhoto"
+                      mode="recipe main"
                       imageSrc={AddCategoryImage}
                       recipeId={recipeId}
                       tagId={tagId}

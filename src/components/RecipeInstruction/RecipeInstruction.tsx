@@ -8,6 +8,7 @@ import {
   Image,
 } from "pure-react-carousel";
 import "pure-react-carousel/dist/react-carousel.es.css";
+import { useContext } from "react";
 import ButtonEdit from "../ButtonEdit/ButtonEdit";
 import "./RecipeInstruction.scss";
 import { Recipe } from "../../types/types";
@@ -17,9 +18,16 @@ import CircleIcon from "../../assets/svg/CircleIcon";
 import NoPhotoImage from "../../assets/png/no_recipe_photo.png";
 import NoPhotoImageBig from "../../assets/png/no_recipe_photo_big.png";
 import PlusIcon from "../../assets/svg/PlusIcon";
+import useModal from "../../hooks/useModal";
+import { ModalContentContext } from "../../contexts/ModalContentContext";
+import AddProfilePhoto from "../AddProfilePhoto/AddProfilePhoto";
+import CameraImage from "../../assets/png/add_category_photo.png";
 
 export default function RecipeInstruction(props: { recipeData: Recipe }) {
   const { recipeData } = props;
+
+  const { toggle } = useModal();
+  const { setModalContent } = useContext(ModalContentContext);
 
   let photosData: string[] = [];
   let visibleSlides = 5;
@@ -85,7 +93,17 @@ export default function RecipeInstruction(props: { recipeData: Recipe }) {
                 index={photosData.length}
                 key={`new-photo-${photosData.length}`}
               >
-                <button className="add-photo" type="button">
+                <button
+                  className="add-photo"
+                  type="button"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    toggle();
+                    setModalContent(
+                      <AddProfilePhoto mode="recipe" imageSrc={CameraImage} />
+                    );
+                  }}
+                >
                   <div className="add-photo__image-wrapper">
                     <img
                       src={NoPhotoImage}
