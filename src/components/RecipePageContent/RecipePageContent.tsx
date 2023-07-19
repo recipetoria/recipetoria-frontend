@@ -11,9 +11,7 @@ import RecipeIngredients from "../RecipeIngredients/RecipeIngredients";
 import RecipeCategories from "../RecipeCategories/RecipeCategories";
 import RecipeLinks from "../RecipesLinks/RecipeLinks";
 
-export default function RecipePageContent(props: { recipeName: string }) {
-  const { recipeName } = props;
-
+export default function RecipePageContent() {
   const isOpen = useAppSelector((state) => state.present.IsOpenModal.value);
   const { modalContent } = useContext(ModalContentContext);
   const { toggle } = useModal();
@@ -35,7 +33,7 @@ export default function RecipePageContent(props: { recipeName: string }) {
       <>
         <div className="recipe-page__wrapper">
           <div className="recipe-page-header">
-            <h2 className="recipe-page-header__text">{recipeName}</h2>
+            <h2 className="recipe-page-header__text">{recipeData.name}</h2>
             <ButtonEdit
               tipText="name"
               editMode="recipeEditName"

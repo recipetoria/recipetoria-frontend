@@ -8,7 +8,7 @@ import RecipePageContent from "../../components/RecipePageContent/RecipePageCont
 import { fetchTags } from "../../features/CategorySlice";
 
 export default function RecipePage() {
-  const { recipeName, recipeId } = useParams();
+  const { recipeId } = useParams();
 
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
@@ -37,7 +37,7 @@ export default function RecipePage() {
           <Header />
           <main>
             <article className="recipe-page">
-              <RecipePageContent recipeName={recipeName || ""} />
+              <RecipePageContent />
             </article>
           </main>
           <Footer />

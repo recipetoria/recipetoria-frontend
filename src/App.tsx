@@ -47,7 +47,7 @@ function App() {
           <Route path="" element={<Categories />} />
           <Route path=":tagName/:tagId" element={<RecipesPage />} />
         </Route>
-        <Route path="recipe/:recipeName/:recipeId" element={<RecipePage />} />
+        <Route path="recipe/:recipeId" element={<RecipePage />} />
         <Route path="shopping_list" element={<ShoppingListPage />} />
         <Route path="add_recipe" element={<AddRecipePage />} />
         <Route path="profile" element={<ProfilePage />} />
