@@ -5,7 +5,6 @@ import {
   ButtonBack,
   ButtonNext,
   Dot,
-  Image,
 } from "pure-react-carousel";
 import "pure-react-carousel/dist/react-carousel.es.css";
 import { useContext } from "react";
@@ -22,6 +21,7 @@ import useModal from "../../hooks/useModal";
 import { ModalContentContext } from "../../contexts/ModalContentContext";
 import AddProfilePhoto from "../AddProfilePhoto/AddProfilePhoto";
 import CameraImage from "../../assets/png/add_category_photo.png";
+import RecipeInstructionSlide from "./RecipeInstructionSlide";
 
 export default function RecipeInstruction(props: { recipeData: Recipe }) {
   const { recipeData } = props;
@@ -122,17 +122,12 @@ export default function RecipeInstruction(props: { recipeData: Recipe }) {
                 </button>
               </Slide>
               {[...photosData].map((item, indx) => (
-                <Slide
-                  index={indx}
+                <RecipeInstructionSlide
                   key={`${item + indx}`}
-                  className="carousel__slide"
-                >
-                  <Image
-                    src={getPhotoFromBytes(item)}
-                    alt={item}
-                    hasMasterSpinner
-                  />
-                </Slide>
+                  indx={indx}
+                  photo={item}
+                  recipeId={recipeData.id}
+                />
               ))}
             </Slider>
             {photosData.length > visibleSlides ? (
