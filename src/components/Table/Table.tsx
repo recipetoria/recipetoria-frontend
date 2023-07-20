@@ -13,6 +13,7 @@ interface TableProps {
 
 interface TableValues {
   name: string;
+  amount: number;
 }
 
 export default function Table(props: TableProps) {
@@ -65,7 +66,18 @@ export default function Table(props: TableProps) {
                   }}
                 />
               </form>
-              <div className="grid-table__amount cell">{objItem.amount}</div>
+              <form className="grid-table__from">
+                <TextField
+                  multiline
+                  defaultValue={objItem.amount}
+                  required
+                  type="number"
+                  size="small"
+                  inputProps={{
+                    style: { ...cellStyle, textAlign: "right" },
+                  }}
+                />
+              </form>
               <div className="grid-table__measure cell">
                 {objItem.measurementUnit}
               </div>

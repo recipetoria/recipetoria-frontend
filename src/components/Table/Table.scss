@@ -35,7 +35,6 @@
   &__data-wrapper {
     display: grid;
     grid-template-columns: 27.296fr 9.832fr 18.499fr;
-    row-gap: 1.667vw;
   }
 
   &__from {
@@ -43,6 +42,8 @@
   }
 
   .MuiTextField-root {
+    margin-right: 1.667vw;
+   
     cursor: pointer;
     
     transition: $transition;
