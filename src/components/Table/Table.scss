@@ -79,9 +79,16 @@
     margin: 0;
 
     text-align: right;
+    cursor: text;
+
+    border: none;
 
     &_header {
       padding: 0 0.833vw;
+    }
+
+    &:hover {
+      border: none;
     }
   }
 
