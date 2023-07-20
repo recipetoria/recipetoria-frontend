@@ -1,12 +1,9 @@
 import "./RecipeIngredients.scss";
 import CartImage from "../../assets/png/cart.png";
 import fakeIngredientsArr from "../../assets/data/fakeIngedientsData";
-import PlusIcon from "../../assets/svg/PlusIcon";
-import Trash from "../../assets/svg/Trash";
+import Table from "../Table/Table";
 
 export default function RecipeIngredients() {
-  const tableHeadArr = ["#", "Name", "Amount", "Measure", "Action", "Delete"];
-
   return (
     <article className="recipe-ingredients">
       <div className="recipe-ingredients__wrapper">
@@ -18,32 +15,7 @@ export default function RecipeIngredients() {
             className="recipe-ingredients__image"
           />
         </div>
-        <table className="recipe-ingredients__table">
-          <tr>
-            {tableHeadArr.map((item) => (
-              <th key={item}>{item}</th>
-            ))}
-          </tr>
-          {fakeIngredientsArr.map((item, indx) => (
-            <tr key={`${item.name + indx}`}>
-              <td>{indx + 1}</td>
-              <td>{item.name}</td>
-              <td>{item.amount}</td>
-              <td>{item.measurementUnit}</td>
-              <td>
-                <button type="button">
-                  <PlusIcon />
-                  <span>Add to shop list</span>
-                </button>
-              </td>
-              <td>
-                <button type="button">
-                  <Trash />
-                </button>
-              </td>
-            </tr>
-          ))}
-        </table>
+        <Table mode="withAction" ingredientsObj={fakeIngredientsArr} />
       </div>
     </article>
   );
