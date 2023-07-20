@@ -1,3 +1,4 @@
+/* stylelint-disable selector-class-pattern */
 @import "../../styles/variables";
 @import "../../styles/mixins";
 
@@ -34,6 +35,39 @@
   &__data-wrapper {
     display: grid;
     grid-template-columns: 27.296fr 9.832fr 18.499fr;
+    row-gap: 1.667vw;
+  }
+
+  &__from {
+    width: 100%;
+  }
+
+  .MuiTextField-root {
+    cursor: pointer;
+    
+    transition: $transition;
+  }
+
+  .css-1qxw4jt-MuiInputBase-root-MuiOutlinedInput-root {
+    padding: 0;
+  }
+
+  .MuiOutlinedInput-notchedOutline {
+    @include border($color: transparent);
+
+    transition: $transition;
+  }
+
+  .css-1qxw4jt-MuiInputBase-root-MuiOutlinedInput-root:hover
+  .MuiOutlinedInput-notchedOutline {
+    @include border($color: $gray-light-1-color);
+
+    transition: $transition;
+  }
+
+  .css-1qxw4jt-MuiInputBase-root-MuiOutlinedInput-root.Mui-focused
+  .MuiOutlinedInput-notchedOutline {
+    @include border($color: $purple-color, $width: 2px);
   }
 
   .cell {

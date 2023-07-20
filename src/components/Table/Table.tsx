@@ -1,3 +1,6 @@
+import { CSSProperties } from "styled-components";
+import { TextField } from "@mui/material";
+import { useForm } from "react-hook-form";
 import PlusIcon from "../../assets/svg/PlusIcon";
 import Trash from "../../assets/svg/Trash";
 import { Ingredient } from "../../types/types";
@@ -8,8 +11,19 @@ interface TableProps {
   ingredientsObj: Ingredient[];
 }
 
+interface TableValues {
+  name: string;
+}
+
 export default function Table(props: TableProps) {
   const { mode, ingredientsObj } = props;
+
+  const { register, handleSubmit, reset } = useForm<TableValues>();
+
+  const cellStyle: CSSProperties = {
+    padding: "8px 0.833vw",
+    cursor: "pointer",
+  };
 
   return (
     <section className="grid-table">
@@ -39,7 +53,18 @@ export default function Table(props: TableProps) {
           >
             <div className="grid-table__number cell">{indx + 1}</div>
             <div className="grid-table__data-wrapper">
-              <div className="grid-table__name cell">{objItem.name}</div>
+              <form className="grid-table__from">
+                <TextField
+                  multiline
+                  defaultValue={objItem.name}
+                  required
+                  placeholder="Type ingredient name..."
+                  size="small"
+                  inputProps={{
+                    style: cellStyle,
+                  }}
+                />
+              </form>
               <div className="grid-table__amount cell">{objItem.amount}</div>
               <div className="grid-table__measure cell">
                 {objItem.measurementUnit}
