@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { CSSProperties } from "styled-components";
 import { MenuItem, TextField } from "@mui/material";
 import { useForm } from "react-hook-form";
@@ -21,6 +22,10 @@ export default function Table(props: TableProps) {
   const { mode, ingredientsObj } = props;
 
   const { register, handleSubmit, reset } = useForm<TableValues>();
+
+  const [isHoveredByTrashId, setIsHoveredByTrashId] = useState<number | null>(
+    null
+  );
 
   const cellStyle: CSSProperties = {
     padding: "8px 0.833vw",
@@ -50,7 +55,11 @@ export default function Table(props: TableProps) {
       {ingredientsObj.map((objItem, indx) => {
         return (
           <div
-            className="grid-table__row"
+            className={`grid-table__row ${
+              isHoveredByTrashId === indx
+                ? "grid-table__row_hover-by-trash"
+                : ""
+            }`}
             key={`row-${objItem.name}-${objItem.id}`}
           >
             <div className="grid-table__number cell">{indx + 1}</div>
@@ -147,9 +156,21 @@ export default function Table(props: TableProps) {
             ) : (
               ""
             )}
-            <button type="button" className="grid-table__delete cell cell_btn">
-              <Trash />
-            </button>
+            <form className="grid-table__from grid-table__from_delete">
+              <button
+                type="button"
+                className="grid-table__delete cell cell_btn"
+                onMouseEnter={() => {
+                  setIsHoveredByTrashId(indx);
+                }}
+                onMouseLeave={() => {
+                  setIsHoveredByTrashId(null);
+                }}
+              >
+                <Trash />
+              </button>
+              <span className="caption">Delete</span>
+            </form>
           </div>
         );
       })}
