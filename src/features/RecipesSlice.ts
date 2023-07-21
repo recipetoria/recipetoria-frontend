@@ -8,6 +8,7 @@ import {
   updateRecipeName,
 } from "../API/recipes";
 import { Recipe, Tag } from "../types/types";
+import { fetchRecipeByRecipeId } from "./OneRecipeSlice";
 
 export const fetchRecipesByTagId = createAsyncThunk(
   "recipes/fetchRecipesByTagId",
@@ -74,11 +75,15 @@ export const fetchUpdateRecipeMainPhoto = createAsyncThunk(
       tagId,
       recipeId,
       token,
-    }: { data: FormData; tagId: number; recipeId: number; token: string },
+    }: { data: FormData; tagId?: number; recipeId: number; token: string },
     { dispatch }
   ) => {
     await updateRecipeMainPhoto(token, data, recipeId);
-    dispatch(fetchRecipesByTagId({ tagId, token }));
+    if (tagId) {
+      dispatch(fetchRecipesByTagId({ tagId, token }));
+    } else {
+      dispatch(fetchRecipeByRecipeId({ recipeId, token }));
+    }
   }
 );
 

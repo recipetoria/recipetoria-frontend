@@ -1,10 +1,11 @@
 import { CSSProperties } from "styled-components";
-import { TextField } from "@mui/material";
+import { MenuItem, TextField } from "@mui/material";
 import { useForm } from "react-hook-form";
 import PlusIcon from "../../assets/svg/PlusIcon";
 import Trash from "../../assets/svg/Trash";
 import { Ingredient } from "../../types/types";
 import "./Table.scss";
+import measureValues from "../../assets/data/measureArray";
 
 interface TableProps {
   mode: "withAction" | "noAction";
@@ -78,9 +79,39 @@ export default function Table(props: TableProps) {
                   }}
                 />
               </form>
-              <div className="grid-table__measure cell">
-                {objItem.measurementUnit}
-              </div>
+              <form className="grid-table__from">
+                <TextField
+                  select
+                  defaultValue={
+                    objItem.measurementUnit?.toLowerCase() || "select"
+                  }
+                  required
+                  type="number"
+                  size="small"
+                  onChange={(e) => console.log(e.target.value)}
+                  sx={{
+                    width: "8.264vw",
+                    maxWidth: "143px",
+                  }}
+                  SelectProps={{
+                    MenuProps: {
+                      style: {
+                        height: "224px",
+                        padding: "8px 0",
+                        borderRadius: "4px",
+                        border: "3px solid red",
+                        bottom: 0,
+                      },
+                    },
+                  }}
+                >
+                  {measureValues.sort().map((item) => (
+                    <MenuItem key={item} value={item}>
+                      {item.toLowerCase()}
+                    </MenuItem>
+                  ))}
+                </TextField>
+              </form>
             </div>
             {mode === "withAction" ? (
               <button
