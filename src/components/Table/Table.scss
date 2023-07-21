@@ -62,7 +62,8 @@
   .css-1qxw4jt-MuiInputBase-root-MuiOutlinedInput-root:hover
   .MuiOutlinedInput-notchedOutline,
   .css-9ddj71-MuiInputBase-root-MuiOutlinedInput-root:hover 
-  .MuiOutlinedInput-notchedOutline {
+  .MuiOutlinedInput-notchedOutline,
+  .css-md26zr-MuiInputBase-root-MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline {
     @include border($color: $gray-light-1-color);
 
     transition: $transition;
@@ -71,9 +72,18 @@
   .css-1qxw4jt-MuiInputBase-root-MuiOutlinedInput-root.Mui-focused 
   .MuiOutlinedInput-notchedOutline,
   .css-9ddj71-MuiInputBase-root-MuiOutlinedInput-root.Mui-focused
-  .MuiOutlinedInput-notchedOutline {
+  .MuiOutlinedInput-notchedOutline,
+  .css-md26zr-MuiInputBase-root-MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
     @include border($color: $purple-color, $width: 2px);
   }
+
+  // .css-kk1bwy-MuiButtonBase-root-MuiMenuItem-root{
+  //   &:hover {
+  //     cursor: pointer;
+      
+  //     background-color: $bg-menu-active-color;
+  //   }
+  // }
 
   .cell {
     @include border($color: transparent);

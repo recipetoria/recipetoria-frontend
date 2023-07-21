@@ -89,6 +89,7 @@ export default function Table(props: TableProps) {
                   type="number"
                   size="small"
                   onChange={(e) => console.log(e.target.value)}
+                  fullWidth
                   sx={{
                     width: "8.264vw",
                     maxWidth: "143px",
@@ -98,9 +99,31 @@ export default function Table(props: TableProps) {
                       style: {
                         height: "224px",
                         padding: "8px 0",
-                        borderRadius: "4px",
-                        border: "3px solid red",
                         bottom: 0,
+                      },
+                      PaperProps: {
+                        sx: {
+                          bg: "transparent",
+                          boxShadow: "2px 2px 0px 0px #000",
+                          border: "1px solid #2D2B2B",
+                          borderRadius: "4px",
+                          scrollbarWidth: "thin",
+                          "&::-webkit-scrollbar": {
+                            width: "4px",
+                          },
+                          "&::-webkit-scrollbar-track": {
+                            width: "4px",
+                            margin: "8px",
+                            bgcolor: "transparent",
+                          },
+                          "&::-webkit-scrollbar-thumb": {
+                            bgcolor: "#94959A",
+                            borderRadius: "100px",
+                          },
+                          "&::-webkit-scrollbar-thumb:hover": {
+                            background: "#555",
+                          },
+                        },
                       },
                     },
                   }}

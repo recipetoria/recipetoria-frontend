@@ -2,6 +2,7 @@ import React from "react";
 import { BrowserRouter } from "react-router-dom";
 import { createRoot } from "react-dom/client";
 import { Provider } from "react-redux";
+import { ThemeProvider, createTheme } from "@mui/material";
 import { store } from "./app/store";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
@@ -14,9 +15,30 @@ const root = createRoot(container);
 root.render(
   <BrowserRouter>
     <Provider store={store}>
-      <ModalContentContextProvider>
-        <App />
-      </ModalContentContextProvider>
+      <ThemeProvider
+        theme={createTheme({
+          components: {
+            MuiMenuItem: {
+              styleOverrides: {
+                root: {
+                  backgroundColor: "transparent",
+                  "&.Mui-selected": {
+                    bgcolor: "#F3EFEC",
+                    "&.Mui-focusVisible": { background: "#F3EFEC" },
+                  },
+                  "&:hover": {
+                    background: "#F3EFEC",
+                  },
+                },
+              },
+            },
+          },
+        })}
+      >
+        <ModalContentContextProvider>
+          <App />
+        </ModalContentContextProvider>
+      </ThemeProvider>
     </Provider>
   </BrowserRouter>
 );
