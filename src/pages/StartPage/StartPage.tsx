@@ -50,6 +50,7 @@ export default function StartPage() {
       <main>
         <article className="start-page">
           <div className="start-page__wrapper">
+            Для теста
             <StartPageTopPart />
             <section className="start-page__banner-wrapper">
               <div className="start-page__banner" />
