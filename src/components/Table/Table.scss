@@ -77,14 +77,6 @@
     @include border($color: $purple-color, $width: 2px);
   }
 
-  // .css-kk1bwy-MuiButtonBase-root-MuiMenuItem-root{
-  //   &:hover {
-  //     cursor: pointer;
-      
-  //     background-color: $bg-menu-active-color;
-  //   }
-  // }
-
   .cell {
     @include border($color: transparent);
 
@@ -166,6 +158,10 @@
 
       font-size: 1rem;
       letter-spacing: 0.15px;
+    }
+    
+    &:focus {
+      @include border($color: $purple-color, $width: 2px);
     }
   }
 
