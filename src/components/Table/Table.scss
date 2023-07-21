@@ -212,6 +212,34 @@
       }
     }
   }
+
+  &__new-item-btn {
+    display: flex;
+    flex: 1 0 auto;
+    gap: 4px;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 12px;
+
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: $gray-light-color;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+
+    background: transparent;
+    border: none;
+    border-radius: 4px;
+
+    transition: $transition;
+
+    &:hover {
+      color: $black-color;
+
+      background: $bg-menu-active-color;
+    }
+  }
 }
 
 .grid-table__from_delete:hover .caption {

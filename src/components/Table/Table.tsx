@@ -27,6 +27,8 @@ export default function Table(props: TableProps) {
     null
   );
 
+  const [isActiveAddNewItem, setIsActiveAddNewItem] = useState(false);
+
   const cellStyle: CSSProperties = {
     padding: "8px 0.833vw",
     cursor: "pointer",
@@ -174,6 +176,14 @@ export default function Table(props: TableProps) {
           </div>
         );
       })}
+      {isActiveAddNewItem ? (
+        ""
+      ) : (
+        <button type="button" className="grid-table__new-item-btn">
+          <span className="grid-table__add-btn-plus">+</span>
+          <span>Add new item</span>
+        </button>
+      )}
     </section>
   );
 }
