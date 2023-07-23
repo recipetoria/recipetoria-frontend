@@ -35,6 +35,8 @@
     flex-direction: column;
     gap: 16px;
     align-items: flex-start;
+    width: 49.722vw;
+    max-width: 716px;
 
     &__h3 {
       margin-block-start: 0;
@@ -57,4 +59,100 @@
       letter-spacing: 0.5px;
     }
   }
+
+  .table-links {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    width: 100%;
+    
+    &__row {
+      display: flex;
+      gap: 8px;    
+      align-items: center;
+      width: 100%;
+
+      &_hover-by-trash {
+        background: $bg-menu-active-color;
+      }
+    }
+
+    &__number-n-link {
+      display: flex;
+      gap: 4px;
+      align-items: center;
+      width: 100%;
+
+      font-size: 1rem;
+      font-weight: 400;
+      line-height: 1.5;
+      color: $black-color;
+      letter-spacing: 0.5px;
+    }
+
+    &__cell {
+      &_number {
+        width: 20px;
+
+        text-align: right;
+      }
+
+      &_link {
+        width: 42.5vw;
+        max-width: 612px;
+        padding: 16px 0.556vw;
+      
+        overflow: hidden;
+
+        color: $blue-color;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+    }
+    
+    &__form {
+      .caption {
+        @include caption;
+      }
+
+      &_delete {
+        position: relative;
+      }
+    }
+
+    &__delete {
+      @include border($color: transparent);
+
+      box-sizing: content-box;
+
+      display: flex;
+      gap: 0.556vw;
+      align-items: center;
+      justify-content: center;
+      padding: 8px 12px;
+      margin: 0;
+
+      cursor: pointer;
+
+      background: transparent;
+
+      transition: $transition;
+
+      .trash {
+        fill: $gray-light-color;
+      }
+  
+      &:hover {
+        border: 1px solid transparent;
+  
+        .trash {
+          fill: $black-color;
+        }
+      }
+    }
+  }
+}
+
+.table-links__form_delete:hover .caption {
+  opacity: 1;
 }

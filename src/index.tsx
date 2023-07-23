@@ -32,6 +32,31 @@ root.render(
                 },
               },
             },
+            MuiTextField: {
+              styleOverrides: {
+                root: {
+                  "& .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline":
+                    {
+                      border: "1px solid #D9D9D9",
+                      borderRadius: "4px",
+                      transition: ".5s all",
+                    },
+                  "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline":
+                    {
+                      border: "2px solid #BA9CF8",
+                      borderRadius: "4px",
+                    },
+                  "& .MuiOutlinedInput-notchedOutline": {
+                    border: "1px solid transparent",
+                    borderRadius: "4px",
+                    transition: ".5s all",
+                  },
+                  marginRight: "1.667vw",
+                  cursor: "pointer",
+                  transition: ".5s all",
+                },
+              },
+            },
           },
         })}
       >
