@@ -30,22 +30,27 @@ export default function RecipeLinks(props: { recipeData: Recipe }) {
   );
   const token = useAppSelector((state) => state.present.authData.value.token);
 
+  function dispatchLinks(newArr: string[]) {
+    dispatch(
+      fetchUpdateRecipeInfo({
+        recipeId: recipeData.id,
+        token,
+        infoRecipeData: {
+          name: recipeData.name,
+          links: newArr,
+        },
+      })
+    );
+  }
+
   const handleSubmitNewLink = () => {
     const isValid =
       linkValue.includes("http://") || linkValue.includes("https://");
     if (isValid) {
-      dispatch(
-        fetchUpdateRecipeInfo({
-          recipeId: recipeData.id,
-          token,
-          infoRecipeData: {
-            name: recipeData.name,
-            links:
-              recipeData.links !== null
-                ? [...recipeData.links, linkValue]
-                : [linkValue],
-          },
-        })
+      dispatchLinks(
+        recipeData.links !== null
+          ? [...recipeData.links, linkValue]
+          : [linkValue]
       );
     } else {
       setError("addLink", {
@@ -94,6 +99,17 @@ export default function RecipeLinks(props: { recipeData: Recipe }) {
                             }}
                             onMouseLeave={() => {
                               setIsHoveredByTrashId(null);
+                            }}
+                            onClick={() => {
+                              if (recipeData.links) {
+                                const copyArr = [...recipeData.links];
+                                copyArr.splice(indx, 1);
+                                dispatchLinks(copyArr);
+                              } else {
+                                throw new Error(
+                                  "Custom Error: Somehing went wrong with recipeData.links"
+                                );
+                              }
                             }}
                           >
                             <Trash />
