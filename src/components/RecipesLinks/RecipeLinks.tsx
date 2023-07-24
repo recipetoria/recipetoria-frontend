@@ -7,7 +7,7 @@ import LinksImage from "../../assets/png/links_image.png";
 import { Recipe } from "../../types/types";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { fetchUpdateRecipeInfo } from "../../features/OneRecipeSlice";
-import Trash from "../../assets/svg/Trash";
+import RecipeLinksTable from "./RecipeLinksTable";
 
 interface RecipeLinksFormValues {
   addLink: string;
@@ -25,32 +25,25 @@ export default function RecipeLinks(props: { recipeData: Recipe }) {
   const dispatch = useAppDispatch();
 
   const [linkValue, setLinkValue] = useState("");
-  const [isHoveredByTrashId, setIsHoveredByTrashId] = useState<number | null>(
-    null
-  );
   const token = useAppSelector((state) => state.present.authData.value.token);
 
-  function dispatchLinks(newArr: string[]) {
-    dispatch(
-      fetchUpdateRecipeInfo({
-        recipeId: recipeData.id,
-        token,
-        infoRecipeData: {
-          name: recipeData.name,
-          links: newArr,
-        },
-      })
-    );
-  }
-
+  // TODO: Add check if link exist
   const handleSubmitNewLink = () => {
     const isValid =
       linkValue.includes("http://") || linkValue.includes("https://");
     if (isValid) {
-      dispatchLinks(
-        recipeData.links !== null
-          ? [...recipeData.links, linkValue]
-          : [linkValue]
+      dispatch(
+        fetchUpdateRecipeInfo({
+          recipeId: recipeData.id,
+          token,
+          infoRecipeData: {
+            name: recipeData.name,
+            links:
+              recipeData.links !== null
+                ? [...recipeData.links, linkValue]
+                : [linkValue],
+          },
+        })
       );
     } else {
       setError("addLink", {
@@ -65,62 +58,18 @@ export default function RecipeLinks(props: { recipeData: Recipe }) {
         <section className="links-block">
           <h3 className="links-block__h3">Links to external sources</h3>
           <div className="links-block__links">
-            <section className="table-links">
-              {(recipeData.links || []).length > 0 && recipeData.links !== null
-                ? recipeData.links.map((link, indx) => {
-                    return (
-                      <div
-                        className={`table-links__row ${
-                          isHoveredByTrashId === indx
-                            ? "table-links__row_hover-by-trash"
-                            : ""
-                        }`}
-                        key={`row-${link}-${recipeData.id}`}
-                      >
-                        <section className="table-links__number-n-link">
-                          <div className="table-links__cell table-links__cell_number">
-                            {indx + 1}
-                          </div>
-                          <a
-                            href={link}
-                            className="table-links__cell table-links__cell_link"
-                            target="_blank"
-                            rel="noreferrer"
-                          >
-                            {link}
-                          </a>
-                        </section>
-                        <form className="table-links__form table-links__form_delete">
-                          <button
-                            type="button"
-                            className="table-links__delete cell cell_btn"
-                            onMouseEnter={() => {
-                              setIsHoveredByTrashId(indx);
-                            }}
-                            onMouseLeave={() => {
-                              setIsHoveredByTrashId(null);
-                            }}
-                            onClick={() => {
-                              if (recipeData.links) {
-                                const copyArr = [...recipeData.links];
-                                copyArr.splice(indx, 1);
-                                dispatchLinks(copyArr);
-                              } else {
-                                throw new Error(
-                                  "Custom Error: Somehing went wrong with recipeData.links"
-                                );
-                              }
-                            }}
-                          >
-                            <Trash />
-                          </button>
-                          <span className="caption">Delete</span>
-                        </form>
-                      </div>
-                    );
-                  })
-                : ""}
-            </section>
+            {(recipeData.links || []).length && recipeData.links ? (
+              <RecipeLinksTable
+                links={recipeData.links}
+                recipeId={recipeData.id}
+                recipeName={recipeData.name}
+              />
+            ) : (
+              <span className="links-block__text">
+                There are no links here yet. You can add your favorite links
+                here!
+              </span>
+            )}
           </div>
           <div className="links-block__add-link">
             <h4 className="links-block__h4">Add link</h4>
