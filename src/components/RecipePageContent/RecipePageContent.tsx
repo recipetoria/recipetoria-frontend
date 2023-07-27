@@ -41,7 +41,7 @@ export default function RecipePageContent() {
             />
           </div>
           <RecipeInstruction recipeData={recipeData} />
-          <RecipeIngredients />
+          <RecipeIngredients recipeData={recipeData} />
           <RecipeCategories recipeData={recipeData} />
           <RecipeLinks recipeData={recipeData} />
         </div>

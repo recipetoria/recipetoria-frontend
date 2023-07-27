@@ -1,9 +1,11 @@
 import "./RecipeIngredients.scss";
 import CartImage from "../../assets/png/cart.png";
-import fakeIngredientsArr from "../../assets/data/fakeIngedientsData";
 import Table from "../Table/Table";
+import { Recipe } from "../../types/types";
 
-export default function RecipeIngredients() {
+export default function RecipeIngredients(props: { recipeData: Recipe }) {
+  const { recipeData } = props;
+
   return (
     <article className="recipe-ingredients">
       <div className="recipe-ingredients__wrapper">
@@ -15,7 +17,10 @@ export default function RecipeIngredients() {
             className="recipe-ingredients__image"
           />
         </div>
-        <Table mode="withAction" ingredientsObj={fakeIngredientsArr} />
+        <Table
+          mode="withAction"
+          ingredientsObj={recipeData.ingredientDTOs || []}
+        />
       </div>
     </article>
   );
