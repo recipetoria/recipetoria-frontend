@@ -1,10 +1,16 @@
-import { useAppSelector } from "../../app/hooks";
+import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import CheckIcon from "../../assets/svg/CheckIcon";
+import { fetchUpdateRecipeInfo } from "../../features/OneRecipeSlice";
+import { Recipe } from "../../types/types";
 import "./RecipeCategories.scss";
 
-export default function RecipeCategories(props: { recipeId: number }) {
-  const { recipeId } = props;
+export default function RecipeCategories(props: { recipeData: Recipe }) {
+  const { recipeData } = props;
+
+  const dispatch = useAppDispatch();
+
   const tags = useAppSelector((state) => state.present.tags.value);
+  const token = useAppSelector((state) => state.present.authData.value.token);
 
   return (
     <article className="recipe-categories">
@@ -18,7 +24,9 @@ export default function RecipeCategories(props: { recipeId: number }) {
           </section>
           <section className="categories-n-header__categories">
             {[...tags].map((item) => {
-              const isExistOnTags = item.recipeIds.includes(recipeId as never);
+              const isExistOnTags = item.recipeIds.includes(
+                recipeData.id as never
+              );
               return (
                 <button
                   type="button"
@@ -28,6 +36,27 @@ export default function RecipeCategories(props: { recipeId: number }) {
                       : "category-btn_not-selected"
                   }`}
                   key={item.name + item.id}
+                  onClick={() => {
+                    dispatch(
+                      fetchUpdateRecipeInfo({
+                        recipeId: recipeData.id,
+                        token,
+                        infoRecipeData: {
+                          name: recipeData.name,
+                          tagDTOs: [
+                            ...recipeData.tagDTOs,
+                            {
+                              id: item.id,
+                              name: item.name,
+                              mainPhoto: item.mainPhoto,
+                              applicationUserId: item.applicationUserId,
+                              recipeIds: item.recipeIds,
+                            },
+                          ],
+                        },
+                      })
+                    );
+                  }}
                 >
                   {isExistOnTags ? <CheckIcon /> : ""}
                   <span>{item.name}</span>

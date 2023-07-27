@@ -42,7 +42,7 @@ export default function RecipePageContent() {
           </div>
           <RecipeInstruction recipeData={recipeData} />
           <RecipeIngredients />
-          <RecipeCategories recipeId={recipeData.id} />
+          <RecipeCategories recipeData={recipeData} />
           <RecipeLinks recipeData={recipeData} />
         </div>
         <Modal isOpen={isOpen} toggle={toggle}>
