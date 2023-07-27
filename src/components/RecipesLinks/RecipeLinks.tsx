@@ -59,11 +59,14 @@ export default function RecipeLinks(props: { recipeData: Recipe }) {
           <h3 className="links-block__h3">Links to external sources</h3>
           <div className="links-block__links">
             {(recipeData.links || []).length && recipeData.links ? (
-              <RecipeLinksTable
-                links={recipeData.links}
-                recipeId={recipeData.id}
-                recipeName={recipeData.name}
-              />
+              <div className="links-block__table-block">
+                <span className="links-block__table-header">Delete</span>
+                <RecipeLinksTable
+                  links={recipeData.links}
+                  recipeId={recipeData.id}
+                  recipeName={recipeData.name}
+                />
+              </div>
             ) : (
               <span className="links-block__text">
                 There are no links here yet. You can add your favorite links

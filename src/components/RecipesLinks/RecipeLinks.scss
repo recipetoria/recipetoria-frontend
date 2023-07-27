@@ -62,6 +62,24 @@
     &__text {
       letter-spacing: 0.5px;
     }
+
+    &__table-header {
+      display: flex;
+      flex-grow: 1;
+      justify-content: flex-end;
+
+      font-size: 1rem;
+      font-weight: 500;
+      line-height: 1.5;
+      color: $m-3-sys-light-on-secondary-container;
+      letter-spacing: 0.15px;
+    }
+
+    &__table-block {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
   }
 
   .table-links {
@@ -157,6 +175,7 @@
   }
 }
 
+/* stylelint-disable-next-line selector-class-pattern */
 .table-links__form_delete:hover .caption {
   opacity: 1;
 }
