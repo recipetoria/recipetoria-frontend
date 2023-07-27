@@ -4,7 +4,7 @@ import getPhotoFromBytes from "../../utils/getPhotoFromBytes";
 import PencilIcon from "../../assets/svg/PencilIcon";
 import ArrowIcon from "../../assets/svg/ArrowIcon";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import { fetchUpdateRecipeMainPhoto } from "../../features/RecipesSlice";
+import { fetchUpdateRecipeMainPhotoFromInstruction } from "../../features/OneRecipeSlice";
 
 interface RecipeInstructionSlideProps {
   indx: number;
@@ -61,30 +61,16 @@ export default function RecipeInstructionSlide(
               className="menu__item"
               onClick={(e) => {
                 e.preventDefault();
-                // const formData = new FormData();
-                // formData.append("file", photo);
-
-                // console.log(formData);
-
-                // dispatch(
-                //   fetchUpdateRecipeMainPhoto({
-                //     data: formData,
-                //     recipeId,
-                //     token,
-                //   })
-                // );
+                dispatch(
+                  fetchUpdateRecipeMainPhotoFromInstruction({
+                    instructionPhotoSeqNo: indx,
+                    recipeId,
+                    token,
+                  })
+                );
               }}
             >
               Set as cover photo
-            </button>
-            <button
-              type="button"
-              className="menu__item"
-              onClick={(e) => {
-                e.preventDefault();
-              }}
-            >
-              Set as category photo
             </button>
             <button
               type="button"

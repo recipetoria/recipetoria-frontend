@@ -5,6 +5,7 @@ import {
   URL_RECIPE_BY_ID,
   URL_RECIPE_INSTRUCTION_PHOTO,
   URL_RECIPE_MAIN_PHOTO,
+  URL_RECIPE_MAIN_PHOTO_FROM_INSTRUCTION,
 } from "../utils/constants";
 import { Ingredient, RecipeResponse, Tag } from "../types/types";
 
@@ -171,6 +172,29 @@ export async function updateRecipeInfo(
       Authorization: `Bearer ${token}`,
     },
     data,
+  };
+
+  return axios
+    .request(config)
+    .then((response) => response.data.message)
+    .catch((error) => error.message);
+}
+
+export async function updateRecipeMainPhotoFromInstruction(
+  recipeId: number,
+  instructionPhotoSeqNo: number,
+  token: string
+) {
+  const config = {
+    method: "get",
+    maxBodyLength: Infinity,
+    url: URL_RECIPE_MAIN_PHOTO_FROM_INSTRUCTION(
+      recipeId,
+      instructionPhotoSeqNo
+    ),
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
   };
 
   return axios

@@ -5,6 +5,7 @@ import {
   getRecipeByRecipeId,
   updateRecipeInfo,
   UpdateRecipeInfoArgs,
+  updateRecipeMainPhotoFromInstruction,
   updateRecipePhoto,
 } from "../API/recipes";
 
@@ -47,6 +48,25 @@ export const fetchUpdateRecipeInfo = createAsyncThunk(
         `Custom error: infoRecipeData.name is not defined. infoRecipeData: ${infoRecipeData}`
       );
     }
+  }
+);
+
+export const fetchUpdateRecipeMainPhotoFromInstruction = createAsyncThunk(
+  "recipes/fetchUpdateRecipeMainPhotoFromInstruction",
+  async (
+    {
+      instructionPhotoSeqNo,
+      recipeId,
+      token,
+    }: { instructionPhotoSeqNo: number; recipeId: number; token: string },
+    { dispatch }
+  ) => {
+    await updateRecipeMainPhotoFromInstruction(
+      recipeId,
+      instructionPhotoSeqNo,
+      token
+    );
+    dispatch(fetchRecipeByRecipeId({ recipeId, token }));
   }
 );
 
