@@ -33,6 +33,10 @@ export const URL_RECIPE_MAIN_PHOTO_FROM_INSTRUCTION = (
   `${RECIPES}/${recipeId}/instruction-photos/${instructionPhotoSeqNo}/set-main-photo`;
 export const URL_RECIPES_BY_TAG_ID = (tagId: number) =>
   `${RECIPES}/tagged/${tagId}`;
+export const URL_RECIPE_DELETE_INSTRUCTION_PHOTO = (
+  recipeId: number,
+  instructionPhotoSeqNo: number
+) => `${RECIPES}/${recipeId}/instruction-photos/${instructionPhotoSeqNo}`;
 
 const AUTHENTICATION_CONTROLLER = `${BASE_URL}auth`;
 export const URL_REGISTER = `${AUTHENTICATION_CONTROLLER}/register`;

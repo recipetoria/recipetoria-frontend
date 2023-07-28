@@ -4,7 +4,10 @@ import getPhotoFromBytes from "../../utils/getPhotoFromBytes";
 import PencilIcon from "../../assets/svg/PencilIcon";
 import ArrowIcon from "../../assets/svg/ArrowIcon";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import { fetchUpdateRecipeMainPhotoFromInstruction } from "../../features/OneRecipeSlice";
+import {
+  fetchDeleteInstructionPhoto,
+  fetchUpdateRecipeMainPhotoFromInstruction,
+} from "../../features/OneRecipeSlice";
 
 interface RecipeInstructionSlideProps {
   indx: number;
@@ -77,6 +80,14 @@ export default function RecipeInstructionSlide(
               className="menu__item"
               onClick={(e) => {
                 e.preventDefault();
+
+                dispatch(
+                  fetchDeleteInstructionPhoto({
+                    recipeId,
+                    instructionPhotoSeqNo: indx,
+                    token,
+                  })
+                );
               }}
             >
               Delete photo

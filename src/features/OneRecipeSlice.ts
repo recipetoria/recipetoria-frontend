@@ -4,6 +4,7 @@ import { Ingredient, Recipe } from "../types/types";
 import {
   addIngredientFromRecipeToShopList,
   deleteIngredient,
+  deleteInstructionPhoto,
   getRecipeByRecipeId,
   updateIngredient,
   updateRecipeInfo,
@@ -19,6 +20,7 @@ interface ArgsFetchRecipeValues {
   infoRecipeData?: UpdateRecipeInfoArgs;
   ingredientId?: number;
   updatedIngredientInfo?: Ingredient;
+  instructionPhotoSeqNo?: number;
 }
 
 export const fetchRecipeByRecipeId = createAsyncThunk(
@@ -59,19 +61,21 @@ export const fetchUpdateRecipeInfo = createAsyncThunk(
 export const fetchUpdateRecipeMainPhotoFromInstruction = createAsyncThunk(
   "recipe/fetchUpdateRecipeMainPhotoFromInstruction",
   async (
-    {
-      instructionPhotoSeqNo,
-      recipeId,
-      token,
-    }: { instructionPhotoSeqNo: number; recipeId: number; token: string },
+    { instructionPhotoSeqNo, recipeId, token }: ArgsFetchRecipeValues,
     { dispatch }
   ) => {
-    await updateRecipeMainPhotoFromInstruction(
-      recipeId,
-      instructionPhotoSeqNo,
-      token
-    );
-    dispatch(fetchRecipeByRecipeId({ recipeId, token }));
+    if (instructionPhotoSeqNo !== undefined) {
+      await updateRecipeMainPhotoFromInstruction(
+        recipeId,
+        instructionPhotoSeqNo,
+        token
+      );
+      dispatch(fetchRecipeByRecipeId({ recipeId, token }));
+    } else {
+      throw new Error(
+        `Custom Error: Something went wrong width instructionPhotoSeqNo: ${instructionPhotoSeqNo}`
+      );
+    }
   }
 );
 
@@ -126,6 +130,23 @@ export const fetchDeleteIngredient = createAsyncThunk(
     } else {
       throw new Error(
         `Custom Error: Something went wrong width ingredientId: ${ingredientId}`
+      );
+    }
+  }
+);
+
+export const fetchDeleteInstructionPhoto = createAsyncThunk(
+  "recipe/fetchDeleteInstructionPhoto",
+  async (
+    { recipeId, instructionPhotoSeqNo, token }: ArgsFetchRecipeValues,
+    { dispatch }
+  ) => {
+    if (instructionPhotoSeqNo !== undefined) {
+      await deleteInstructionPhoto(recipeId, instructionPhotoSeqNo, token);
+      dispatch(fetchRecipeByRecipeId({ recipeId, token }));
+    } else {
+      throw new Error(
+        `Custom Error: Something went wrong width instructionPhotoSeqNo: ${instructionPhotoSeqNo}`
       );
     }
   }

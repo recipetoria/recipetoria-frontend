@@ -5,6 +5,7 @@ import {
   URL_RECIPES,
   URL_RECIPES_BY_TAG_ID,
   URL_RECIPE_BY_ID,
+  URL_RECIPE_DELETE_INSTRUCTION_PHOTO,
   URL_RECIPE_INSTRUCTION_PHOTO,
   URL_RECIPE_MAIN_PHOTO,
   URL_RECIPE_MAIN_PHOTO_FROM_INSTRUCTION,
@@ -251,6 +252,26 @@ export async function deleteIngredient(ingredientId: number, token: string) {
     method: "delete",
     maxBodyLength: Infinity,
     url: URL_INGREDIENT_BY_ID(ingredientId),
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+
+  return axios
+    .request(config)
+    .then((response) => response.data.message)
+    .catch((error) => error.message);
+}
+
+export async function deleteInstructionPhoto(
+  recipeId: number,
+  instructionPhotoSeqNo: number,
+  token: string
+) {
+  const config = {
+    method: "delete",
+    maxBodyLength: Infinity,
+    url: URL_RECIPE_DELETE_INSTRUCTION_PHOTO(recipeId, instructionPhotoSeqNo),
     headers: {
       Authorization: `Bearer ${token}`,
     },
