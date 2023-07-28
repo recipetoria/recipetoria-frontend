@@ -4,7 +4,6 @@ import { CSSProperties } from "styled-components";
 import { MenuItem, TextField } from "@mui/material";
 import { Controller, useForm } from "react-hook-form";
 import PlusIcon from "../../assets/svg/PlusIcon";
-import Trash from "../../assets/svg/Trash";
 import { Ingredient, Recipe } from "../../types/types";
 import "./Table.scss";
 import measureValues from "../../assets/data/measureArray";
@@ -15,6 +14,7 @@ import {
   fetchUpdateIngredient,
   fetchUpdateRecipeInfo,
 } from "../../features/OneRecipeSlice";
+import CellTrash from "./Cells/CellTrash";
 
 interface TableProps {
   mode: "withAction" | "noAction";
@@ -309,30 +309,19 @@ export default function Table(props: TableProps) {
             ) : (
               ""
             )}
-            <form className="grid-table__from grid-table__from_delete">
-              <button
-                type="button"
-                className="grid-table__delete cell cell_btn"
-                onMouseEnter={() => {
-                  setIsHoveredByTrashId(indx);
-                }}
-                onMouseLeave={() => {
-                  setIsHoveredByTrashId(null);
-                }}
-                onClick={() =>
-                  dispatch(
-                    fetchDeleteIngredient({
-                      recipeId: parentObj.id,
-                      token,
-                      ingredientId: objItem.id,
-                    })
-                  )
-                }
-              >
-                <Trash />
-              </button>
-              <span className="caption">Delete</span>
-            </form>
+            <CellTrash
+              setIsHoveredByTrashId={(value) => setIsHoveredByTrashId(value)}
+              ingredientIndex={indx}
+              handleClick={() => {
+                dispatch(
+                  fetchDeleteIngredient({
+                    recipeId: parentObj.id,
+                    token,
+                    ingredientId: objItem.id,
+                  })
+                );
+              }}
+            />
           </div>
         );
       })}
@@ -476,26 +465,15 @@ export default function Table(props: TableProps) {
               </div>
             </div>
             {mode === "withAction" ? <div /> : ""}
-            <div className="grid-table__from grid-table__from_delete">
-              <button
-                type="button"
-                className="grid-table__delete cell cell_btn"
-                onMouseEnter={() => {
-                  setIsHoveredByTrashId(ingredientsObj.length);
-                }}
-                onMouseLeave={() => {
-                  setIsHoveredByTrashId(null);
-                }}
-                onClick={() => {
-                  reset();
-                  setIsActiveAddNewItem(false);
-                  setIsHoveredByTrashId(null);
-                }}
-              >
-                <Trash />
-              </button>
-              <span className="caption">Delete</span>
-            </div>
+            <CellTrash
+              setIsHoveredByTrashId={(value) => setIsHoveredByTrashId(value)}
+              ingredientIndex={ingredientsObj.length}
+              handleClick={() => {
+                reset();
+                setIsActiveAddNewItem(false);
+                setIsHoveredByTrashId(null);
+              }}
+            />
           </form>
         </>
       ) : (
