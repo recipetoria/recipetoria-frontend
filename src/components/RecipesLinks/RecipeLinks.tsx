@@ -45,6 +45,7 @@ export default function RecipeLinks(props: { recipeData: Recipe }) {
           },
         })
       );
+      setLinkValue("");
     } else {
       setError("addLink", {
         message: "The link should start with 'http://' or 'https://'",

@@ -15,42 +15,30 @@ export default function RecipePageContent() {
   const isOpen = useAppSelector((state) => state.present.IsOpenModal.value);
   const { modalContent } = useContext(ModalContentContext);
   const { toggle } = useModal();
-
   const recipeData = useAppSelector((state) => state.present.recipe.value);
-  const recipeDataIsLoading = useAppSelector(
-    (state) => state.present.recipe.isLoading
-  );
-  const recipeDataError = useAppSelector((state) => state.present.recipe.error);
 
-  let recipePageContent;
-
-  if (recipeDataIsLoading) {
-    recipePageContent = <h2>Loading...(for loader)</h2>;
-  } else if (recipeDataError) {
-    recipePageContent = <h2>Oops... Something went wrong</h2>;
-  } else {
-    recipePageContent = (
-      <>
-        <div className="recipe-page__wrapper">
-          <div className="recipe-page-header">
-            <h2 className="recipe-page-header__text">{recipeData.name}</h2>
-            <ButtonEdit
-              tipText="name"
-              editMode="recipeEditName"
-              recipeData={recipeData}
-            />
-          </div>
-          <RecipeInstruction recipeData={recipeData} />
-          <RecipeIngredients recipeData={recipeData} />
-          <RecipeCategories recipeData={recipeData} />
-          <RecipeLinks recipeData={recipeData} />
+  return (
+    <>
+      <div className="recipe-page__wrapper">
+        <div className="recipe-page-header">
+          <h2 className="recipe-page-header__text">{recipeData.name}</h2>
+          <ButtonEdit
+            tipText="name"
+            editMode="recipeEditName"
+            recipeData={recipeData}
+          />
         </div>
-        <Modal isOpen={isOpen} toggle={toggle}>
-          {modalContent}
-        </Modal>
-        <Snackbar />
-      </>
-    );
-  }
-  return recipePageContent;
+        <RecipeInstruction recipeData={recipeData} />
+        <RecipeIngredients recipeData={recipeData} />
+        {/* TODO: поправить обновление стейта, когда добавляем категорию */}
+        {/* TODO: если ещё раз нажать на категорию, то категория должна убираться */}
+        <RecipeCategories recipeData={recipeData} />
+        <RecipeLinks recipeData={recipeData} />
+      </div>
+      <Modal isOpen={isOpen} toggle={toggle}>
+        {modalContent}
+      </Modal>
+      <Snackbar />
+    </>
+  );
 }

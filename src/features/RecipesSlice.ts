@@ -43,8 +43,6 @@ export const fetchUpdateRecipeName = createAsyncThunk(
       dispatch(fetchRecipesByTagId({ tagId, token }));
     } else {
       tagId.map((item) => {
-        console.log(name, tagId, item.id, recipeId, token);
-
         dispatch(fetchRecipesByTagId({ tagId: item.id, token }));
         return true;
       });

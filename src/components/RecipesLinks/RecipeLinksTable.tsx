@@ -27,7 +27,7 @@ export default function RecipeLinksTable(props: {
                 ? "table-links__row_hover-by-trash"
                 : ""
             }`}
-            key={`row-${link}-${recipeId}`}
+            key={`row-${link}-${recipeId + indx}`}
           >
             <section className="table-links__number-n-link">
               <div className="table-links__cell table-links__cell_number">

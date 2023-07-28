@@ -129,6 +129,8 @@ export default function Table(props: TableProps) {
             token,
           })
         );
+        reset();
+        setIsActiveAddNewItem(false);
       } else {
         setError("ingredientName", { message: "Ingredient name is required" });
       }
