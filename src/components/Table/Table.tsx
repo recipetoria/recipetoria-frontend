@@ -11,6 +11,7 @@ import measureValues from "../../assets/data/measureArray";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import {
   fetchAddIngredientFromRecipeToShopList,
+  fetchDeleteIngredient,
   fetchUpdateIngredient,
   fetchUpdateRecipeInfo,
 } from "../../features/OneRecipeSlice";
@@ -36,6 +37,8 @@ export default function Table(props: TableProps) {
     }
     return 1;
   });
+
+  // TODO: вынести ячейки в отдельные компоненты
 
   const {
     handleSubmit,
@@ -314,6 +317,15 @@ export default function Table(props: TableProps) {
                 onMouseLeave={() => {
                   setIsHoveredByTrashId(null);
                 }}
+                onClick={() =>
+                  dispatch(
+                    fetchDeleteIngredient({
+                      recipeId: parentObj.id,
+                      token,
+                      ingredientId: objItem.id,
+                    })
+                  )
+                }
               >
                 <Trash />
               </button>

@@ -245,3 +245,19 @@ export async function addIngredientFromRecipeToShopList(
     .then((response) => response.data.message)
     .catch((error) => error.message);
 }
+
+export async function deleteIngredient(ingredientId: number, token: string) {
+  const config = {
+    method: "delete",
+    maxBodyLength: Infinity,
+    url: URL_INGREDIENT_BY_ID(ingredientId),
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+
+  return axios
+    .request(config)
+    .then((response) => response.data.message)
+    .catch((error) => error.message);
+}
