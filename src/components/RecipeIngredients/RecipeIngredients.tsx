@@ -20,6 +20,7 @@ export default function RecipeIngredients(props: { recipeData: Recipe }) {
         <Table
           mode="withAction"
           ingredientsObj={recipeData.ingredientDTOs || []}
+          parentObj={recipeData}
         />
       </div>
     </article>

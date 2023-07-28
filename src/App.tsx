@@ -2,7 +2,6 @@ import { useEffect } from "react";
 import { Route, Routes, useLocation } from "react-router-dom";
 import ShoppingListPage from "./pages/ShoppingListPage/ShoppingListPage";
 import AllCategoriesPage from "./pages/AllCategoriesPage/AllCategoriesPage";
-import AddRecipePage from "./pages/AddRecipePage/AddRecipePage";
 import SignPage from "./pages/SignPage/SignPage";
 import StartPage from "./pages/StartPage/StartPage";
 import NotFoundPage from "./pages/NotFoundPage/NotFoundPage";
@@ -49,7 +48,6 @@ function App() {
         </Route>
         <Route path="recipe/:recipeId" element={<RecipePage />} />
         <Route path="shopping_list" element={<ShoppingListPage />} />
-        <Route path="add_recipe" element={<AddRecipePage />} />
         <Route path="profile" element={<ProfilePage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>

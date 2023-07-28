@@ -5,23 +5,26 @@ import { MenuItem, TextField } from "@mui/material";
 import { Controller, useForm } from "react-hook-form";
 import PlusIcon from "../../assets/svg/PlusIcon";
 import Trash from "../../assets/svg/Trash";
-import { Ingredient } from "../../types/types";
+import { Ingredient, Recipe } from "../../types/types";
 import "./Table.scss";
 import measureValues from "../../assets/data/measureArray";
+import { useAppDispatch, useAppSelector } from "../../app/hooks";
+import { fetchUpdateRecipeInfo } from "../../features/OneRecipeSlice";
 
 interface TableProps {
   mode: "withAction" | "noAction";
   ingredientsObj: Ingredient[];
+  parentObj: Recipe;
 }
 
 interface TableValues {
-  name: string;
+  ingredientName: string;
   amount: number;
   measure: string;
 }
 
 export default function Table(props: TableProps) {
-  const { mode, ingredientsObj } = props;
+  const { mode, ingredientsObj, parentObj } = props;
 
   const {
     handleSubmit,
@@ -30,6 +33,10 @@ export default function Table(props: TableProps) {
     setError,
     formState: { errors },
   } = useForm<TableValues>();
+
+  const dispatch = useAppDispatch();
+
+  const token = useAppSelector((state) => state.present.authData.value.token);
 
   const [isHoveredByTrashId, setIsHoveredByTrashId] = useState<number | null>(
     null
@@ -45,13 +52,34 @@ export default function Table(props: TableProps) {
   const [selectValueNewItem, setSelectValueNewItem] = useState("select");
 
   const handleSubmitNewItem = (data: TableValues) => {
-    const { name, amount } = data;
+    const { ingredientName, amount } = data;
 
-    if (name || amount || selectValueNewItem !== "select") {
-      if (name) {
-        console.log(name, amount, selectValueNewItem);
+    if (ingredientName || amount || selectValueNewItem !== "select") {
+      if (ingredientName) {
+        const newIngredientData = {
+          name: ingredientName,
+          amount,
+          measurementUnit:
+            selectValueNewItem === "select"
+              ? null
+              : selectValueNewItem.toUpperCase(),
+        };
+        dispatch(
+          fetchUpdateRecipeInfo({
+            infoRecipeData: {
+              name: parentObj.name,
+              ingredientDTOs:
+                parentObj.ingredientDTOs !== null &&
+                parentObj.ingredientDTOs.length > 0
+                  ? [...parentObj.ingredientDTOs, newIngredientData]
+                  : [newIngredientData],
+            },
+            recipeId: parentObj.id,
+            token,
+          })
+        );
       } else {
-        setError("name", { message: "Name is required" });
+        setError("ingredientName", { message: "Ingredient name is required" });
       }
     } else {
       reset();
@@ -124,7 +152,6 @@ export default function Table(props: TableProps) {
                   required
                   type="number"
                   size="small"
-                  onChange={(e) => console.log(e.target.value)}
                   fullWidth
                   sx={{
                     width: "8.264vw",
@@ -169,6 +196,9 @@ export default function Table(props: TableProps) {
                       {item.toLowerCase()}
                     </MenuItem>
                   ))}
+                  <MenuItem value="select" style={{ display: "none" }}>
+                    select
+                  </MenuItem>
                 </TextField>
               </form>
             </div>
@@ -225,7 +255,7 @@ export default function Table(props: TableProps) {
             <div className="grid-table__data-wrapper">
               <div className="grid-table__from">
                 <Controller
-                  name="name"
+                  name="ingredientName"
                   control={control}
                   render={({ field }) => (
                     <TextField
@@ -242,9 +272,11 @@ export default function Table(props: TableProps) {
                       }}
                       {...field}
                       autoFocus
-                      error={errors.name?.message !== ""}
+                      error={errors.ingredientName?.message !== ""}
                       helperText={
-                        errors.name?.message === "" ? "" : errors.name?.message
+                        errors.ingredientName?.message === ""
+                          ? ""
+                          : errors.ingredientName?.message
                       }
                     />
                   )}
