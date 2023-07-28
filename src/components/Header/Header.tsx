@@ -38,6 +38,7 @@ export default function Header() {
               <>
                 <Link to="/all_categories">Categories</Link>
                 <Link to="/shopping_list">Shopping list</Link>
+                {/* TODO: переименовать в New recipe. После клика на кнопку появляется модалка с просьбой ввести имя рецепта. После того как имя рецепта введено происходит перенаправление на новый рецепт */}
                 <Link to="/add_recipe" className="btn">
                   Add recipe
                 </Link>

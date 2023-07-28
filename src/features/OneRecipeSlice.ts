@@ -2,6 +2,7 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Ingredient, Recipe } from "../types/types";
 import {
+  addIngredientFromRecipeToShopList,
   getRecipeByRecipeId,
   updateIngredient,
   updateRecipeInfo,
@@ -90,6 +91,23 @@ export const fetchUpdateIngredient = createAsyncThunk(
     } else {
       throw new Error(
         `Custom Error: Something went wrong width ingredientId: ${ingredientId} or updatedIngredientInfo: ${updatedIngredientInfo}`
+      );
+    }
+  }
+);
+
+export const fetchAddIngredientFromRecipeToShopList = createAsyncThunk(
+  "recipe/fetchAddIngredientFromRecipeToShopList",
+  async (
+    { recipeId, token, ingredientId }: ArgsFetchRecipeValues,
+    { dispatch }
+  ) => {
+    if (ingredientId) {
+      await addIngredientFromRecipeToShopList(ingredientId, recipeId, token);
+      dispatch(fetchRecipeByRecipeId({ recipeId, token }));
+    } else {
+      throw new Error(
+        `Custom Error: Something went wrong width ingredientId: ${ingredientId}`
       );
     }
   }

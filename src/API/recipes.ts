@@ -1,5 +1,6 @@
 import axios, { AxiosResponse } from "axios";
 import {
+  URL_FROM_RECIPE_TO_SHOP_LIST,
   URL_INGREDIENT_BY_ID,
   URL_RECIPES,
   URL_RECIPES_BY_TAG_ID,
@@ -217,6 +218,26 @@ export async function updateIngredient(
       Authorization: `Bearer ${token}`,
     },
     data: updatedIngredientInfo,
+  };
+
+  return axios
+    .request(config)
+    .then((response) => response.data.message)
+    .catch((error) => error.message);
+}
+
+export async function addIngredientFromRecipeToShopList(
+  ingredientId: number,
+  recipeId: number,
+  token: string
+) {
+  const config = {
+    method: "post",
+    maxBodyLength: Infinity,
+    url: URL_FROM_RECIPE_TO_SHOP_LIST(recipeId, ingredientId),
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
   };
 
   return axios

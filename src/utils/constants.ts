@@ -17,6 +17,10 @@ export const URL_TAG_PHOTO_BY_ID = (tagId: number) => `${TAGS}/${tagId}/photo`;
 
 const RECIPES = `${BASE_URL}client/recipes`;
 export const URL_RECIPES = `${RECIPES}`;
+export const URL_FROM_RECIPE_TO_SHOP_LIST = (
+  recipeId: number,
+  ingredientId: number
+) => `${RECIPES}/${recipeId}/ingredient/${ingredientId}`;
 export const URL_RECIPE_BY_ID = (recipeId: number) => `${RECIPES}/${recipeId}`;
 export const URL_RECIPE_MAIN_PHOTO = (recipeId: number) =>
   `${RECIPES}/${recipeId}/main-photo`;

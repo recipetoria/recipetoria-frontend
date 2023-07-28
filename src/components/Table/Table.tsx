@@ -10,6 +10,7 @@ import "./Table.scss";
 import measureValues from "../../assets/data/measureArray";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import {
+  fetchAddIngredientFromRecipeToShopList,
   fetchUpdateIngredient,
   fetchUpdateRecipeInfo,
 } from "../../features/OneRecipeSlice";
@@ -286,6 +287,16 @@ export default function Table(props: TableProps) {
               <button
                 type="button"
                 className="grid-table__action cell cell_btn"
+                onClick={(e) => {
+                  e.preventDefault();
+                  dispatch(
+                    fetchAddIngredientFromRecipeToShopList({
+                      recipeId: parentObj.id,
+                      token,
+                      ingredientId: objItem.id,
+                    })
+                  );
+                }}
               >
                 <PlusIcon />
                 <span>Add to shop list</span>
