@@ -1,5 +1,6 @@
 import axios, { AxiosResponse } from "axios";
 import {
+  URL_INGREDIENT_BY_ID,
   URL_RECIPES,
   URL_RECIPES_BY_TAG_ID,
   URL_RECIPE_BY_ID,
@@ -195,6 +196,27 @@ export async function updateRecipeMainPhotoFromInstruction(
     headers: {
       Authorization: `Bearer ${token}`,
     },
+  };
+
+  return axios
+    .request(config)
+    .then((response) => response.data.message)
+    .catch((error) => error.message);
+}
+
+export async function updateIngredient(
+  ingredientId: number,
+  updatedIngredientInfo: Ingredient,
+  token: string
+) {
+  const config = {
+    method: "put",
+    maxBodyLength: Infinity,
+    url: URL_INGREDIENT_BY_ID(ingredientId),
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+    data: updatedIngredientInfo,
   };
 
   return axios

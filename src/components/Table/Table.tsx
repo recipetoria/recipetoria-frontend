@@ -9,7 +9,10 @@ import { Ingredient, Recipe } from "../../types/types";
 import "./Table.scss";
 import measureValues from "../../assets/data/measureArray";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import { fetchUpdateRecipeInfo } from "../../features/OneRecipeSlice";
+import {
+  fetchUpdateIngredient,
+  fetchUpdateRecipeInfo,
+} from "../../features/OneRecipeSlice";
 
 interface TableProps {
   mode: "withAction" | "noAction";
@@ -25,6 +28,13 @@ interface TableValues {
 
 export default function Table(props: TableProps) {
   const { mode, ingredientsObj, parentObj } = props;
+
+  const sortedIngredientsObj = [...ingredientsObj].sort((a, b) => {
+    if (a.id && b.id) {
+      return a.id - b.id;
+    }
+    return 1;
+  });
 
   const {
     handleSubmit,
@@ -47,6 +57,43 @@ export default function Table(props: TableProps) {
   const cellStyle: CSSProperties = {
     padding: "8px 0.833vw",
     cursor: "pointer",
+  };
+
+  // states for cells thats changed
+  const [changedIngredientData, setChangedIngredientData] = useState<{
+    name: string | null;
+    amount: number | null;
+    measure: string | null;
+  }>({
+    name: null,
+    amount: null,
+    measure: null,
+  });
+
+  const handleSubmitChangeItem = (ingredientObj: Ingredient) => {
+    const { id, name, amount, measurementUnit } = ingredientObj;
+
+    if (
+      changedIngredientData.name ||
+      changedIngredientData.amount ||
+      changedIngredientData.measure
+    ) {
+      dispatch(
+        fetchUpdateIngredient({
+          recipeId: parentObj.id,
+          token,
+          ingredientId: id,
+          updatedIngredientInfo: {
+            name: changedIngredientData.name || name,
+            amount: changedIngredientData.amount || amount,
+            measurementUnit:
+              changedIngredientData.measure?.toUpperCase() ||
+              measurementUnit?.toUpperCase() ||
+              null,
+          },
+        })
+      );
+    }
   };
 
   const [selectValueNewItem, setSelectValueNewItem] = useState("select");
@@ -107,7 +154,7 @@ export default function Table(props: TableProps) {
         )}
         <div className="grid-table__delete cell cell_header">Delete</div>
       </div>
-      {ingredientsObj.map((objItem, indx) => {
+      {sortedIngredientsObj.map((objItem, indx) => {
         return (
           <div
             className={`grid-table__row ${
@@ -119,7 +166,11 @@ export default function Table(props: TableProps) {
           >
             <div className="grid-table__number cell">{indx + 1}</div>
             <div className="grid-table__data-wrapper">
-              <form className="grid-table__from">
+              <form
+                className="grid-table__from"
+                onSubmit={() => handleSubmitChangeItem(objItem)}
+                onBlur={() => handleSubmitChangeItem(objItem)}
+              >
                 <TextField
                   multiline
                   defaultValue={objItem.name}
@@ -129,9 +180,20 @@ export default function Table(props: TableProps) {
                   inputProps={{
                     style: cellStyle,
                   }}
+                  onChange={(e) =>
+                    setChangedIngredientData({
+                      name: e.currentTarget.value,
+                      amount: null,
+                      measure: null,
+                    })
+                  }
                 />
               </form>
-              <form className="grid-table__from">
+              <form
+                className="grid-table__from"
+                onSubmit={() => handleSubmitChangeItem(objItem)}
+                onBlur={() => handleSubmitChangeItem(objItem)}
+              >
                 <TextField
                   multiline
                   defaultValue={objItem.amount}
@@ -141,9 +203,20 @@ export default function Table(props: TableProps) {
                   inputProps={{
                     style: { ...cellStyle, textAlign: "right" },
                   }}
+                  onChange={(e) =>
+                    setChangedIngredientData({
+                      name: null,
+                      amount: +e.currentTarget.value,
+                      measure: null,
+                    })
+                  }
                 />
               </form>
-              <form className="grid-table__from">
+              <form
+                className="grid-table__from"
+                onSubmit={() => handleSubmitChangeItem(objItem)}
+                onBlur={() => handleSubmitChangeItem(objItem)}
+              >
                 <TextField
                   select
                   defaultValue={
@@ -157,6 +230,13 @@ export default function Table(props: TableProps) {
                     width: "8.264vw",
                     maxWidth: "143px",
                   }}
+                  onChange={(e) =>
+                    setChangedIngredientData({
+                      name: null,
+                      amount: null,
+                      measure: e.target.value,
+                    })
+                  }
                   SelectProps={{
                     MenuProps: {
                       style: {

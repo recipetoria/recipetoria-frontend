@@ -1,8 +1,9 @@
 /* eslint-disable no-param-reassign */
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Recipe } from "../types/types";
+import { Ingredient, Recipe } from "../types/types";
 import {
   getRecipeByRecipeId,
+  updateIngredient,
   updateRecipeInfo,
   UpdateRecipeInfoArgs,
   updateRecipeMainPhotoFromInstruction,
@@ -14,6 +15,8 @@ interface ArgsFetchRecipeValues {
   token: string;
   data?: FormData;
   infoRecipeData?: UpdateRecipeInfoArgs;
+  ingredientId?: number;
+  updatedIngredientInfo?: Ingredient;
 }
 
 export const fetchRecipeByRecipeId = createAsyncThunk(
@@ -52,7 +55,7 @@ export const fetchUpdateRecipeInfo = createAsyncThunk(
 );
 
 export const fetchUpdateRecipeMainPhotoFromInstruction = createAsyncThunk(
-  "recipes/fetchUpdateRecipeMainPhotoFromInstruction",
+  "recipe/fetchUpdateRecipeMainPhotoFromInstruction",
   async (
     {
       instructionPhotoSeqNo,
@@ -67,6 +70,28 @@ export const fetchUpdateRecipeMainPhotoFromInstruction = createAsyncThunk(
       token
     );
     dispatch(fetchRecipeByRecipeId({ recipeId, token }));
+  }
+);
+
+export const fetchUpdateIngredient = createAsyncThunk(
+  "recipe/fetchUpdateIngredient",
+  async (
+    {
+      recipeId,
+      token,
+      ingredientId,
+      updatedIngredientInfo,
+    }: ArgsFetchRecipeValues,
+    { dispatch }
+  ) => {
+    if (ingredientId && updatedIngredientInfo) {
+      await updateIngredient(ingredientId, updatedIngredientInfo, token);
+      dispatch(fetchRecipeByRecipeId({ recipeId, token }));
+    } else {
+      throw new Error(
+        `Custom Error: Something went wrong width ingredientId: ${ingredientId} or updatedIngredientInfo: ${updatedIngredientInfo}`
+      );
+    }
   }
 );
 
