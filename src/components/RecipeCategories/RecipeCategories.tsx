@@ -1,7 +1,7 @@
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import CheckIcon from "../../assets/svg/CheckIcon";
 import { fetchUpdateRecipeInfo } from "../../features/OneRecipeSlice";
-import { Recipe } from "../../types/types";
+import { Recipe, Tag } from "../../types/types";
 import "./RecipeCategories.scss";
 
 export default function RecipeCategories(props: { recipeData: Recipe }) {
@@ -11,6 +11,44 @@ export default function RecipeCategories(props: { recipeData: Recipe }) {
 
   const tags = useAppSelector((state) => state.present.tags.value);
   const token = useAppSelector((state) => state.present.authData.value.token);
+
+  function handleChangeCategory(tagsArr: Tag[]) {
+    dispatch(
+      fetchUpdateRecipeInfo({
+        recipeId: recipeData.id,
+        token,
+        infoRecipeData: {
+          name: recipeData.name,
+          tagDTOs: [...tagsArr],
+        },
+      })
+    );
+  }
+
+  function addCategory(item: Tag) {
+    const newTagArr = [
+      ...recipeData.tagDTOs,
+      {
+        id: item.id,
+        name: item.name,
+        mainPhoto: item.mainPhoto,
+        applicationUserId: item.applicationUserId,
+        recipeIds: item.recipeIds,
+      },
+    ];
+
+    handleChangeCategory(newTagArr);
+  }
+
+  function removeCategory(selectTagName: string) {
+    const copyTags = [...recipeData.tagDTOs];
+    const findIndexRecipeTagsArr = copyTags.findIndex(
+      (tag) => tag.name === selectTagName
+    );
+    copyTags.splice(findIndexRecipeTagsArr, 1);
+
+    handleChangeCategory(copyTags);
+  }
 
   return (
     <article className="recipe-categories">
@@ -37,25 +75,11 @@ export default function RecipeCategories(props: { recipeData: Recipe }) {
                   }`}
                   key={item.name + item.id}
                   onClick={() => {
-                    dispatch(
-                      fetchUpdateRecipeInfo({
-                        recipeId: recipeData.id,
-                        token,
-                        infoRecipeData: {
-                          name: recipeData.name,
-                          tagDTOs: [
-                            ...recipeData.tagDTOs,
-                            {
-                              id: item.id,
-                              name: item.name,
-                              mainPhoto: item.mainPhoto,
-                              applicationUserId: item.applicationUserId,
-                              recipeIds: item.recipeIds,
-                            },
-                          ],
-                        },
-                      })
-                    );
+                    if (!isExistOnTags) {
+                      addCategory(item);
+                    } else {
+                      removeCategory(item.name);
+                    }
                   }}
                 >
                   {isExistOnTags ? <CheckIcon /> : ""}

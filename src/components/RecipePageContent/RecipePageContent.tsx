@@ -30,8 +30,6 @@ export default function RecipePageContent() {
         </div>
         <RecipeInstruction recipeData={recipeData} />
         <RecipeIngredients recipeData={recipeData} />
-        {/* TODO: поправить обновление стейта, когда добавляем категорию */}
-        {/* TODO: если ещё раз нажать на категорию, то категория должна убираться */}
         <RecipeCategories recipeData={recipeData} />
         <RecipeLinks recipeData={recipeData} />
       </div>

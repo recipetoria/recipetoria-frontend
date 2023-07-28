@@ -12,6 +12,7 @@ import {
   updateRecipeMainPhotoFromInstruction,
   updateRecipePhoto,
 } from "../API/recipes";
+import { fetchTags } from "./CategorySlice";
 
 interface ArgsFetchRecipeValues {
   recipeId: number;
@@ -50,6 +51,10 @@ export const fetchUpdateRecipeInfo = createAsyncThunk(
     if (infoRecipeData?.name) {
       await updateRecipeInfo(infoRecipeData, recipeId, token);
       dispatch(fetchRecipeByRecipeId({ recipeId, token }));
+
+      if (infoRecipeData.tagDTOs !== undefined) {
+        dispatch(fetchTags(token));
+      }
     } else {
       throw new Error(
         `Custom error: infoRecipeData.name is not defined. infoRecipeData: ${infoRecipeData}`
