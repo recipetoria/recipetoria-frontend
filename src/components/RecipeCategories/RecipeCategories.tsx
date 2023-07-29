@@ -88,6 +88,19 @@ export default function RecipeCategories(props: { recipeData: Recipe }) {
                 </button>
               );
             })}
+            {tags
+              .map((tag) => tag.recipeIds.includes(recipeData.id as never))
+              .every((item) => item === false) ? (
+              <button
+                type="button"
+                className="category-btn category-btn_selected"
+              >
+                <CheckIcon />
+                <span>Uncategorized</span>
+              </button>
+            ) : (
+              ""
+            )}
           </section>
         </section>
       </div>
