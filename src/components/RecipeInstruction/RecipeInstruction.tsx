@@ -89,7 +89,6 @@ export default function RecipeInstruction(props: { recipeData: Recipe }) {
             className="carousel"
           >
             <Slider>
-              {/* TODO: поправить стили для слайда добавления фото. Кейс: когда нет ни одной фотки */}
               <Slide
                 index={photosData.length}
                 key={`new-photo-${photosData.length}`}

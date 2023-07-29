@@ -85,6 +85,7 @@
     display: flex;
     flex-direction: column;
     gap: 16px;
+    width: 100%;
 
     &__h4 {
       margin-block-start: 0;
@@ -101,6 +102,7 @@
     display: flex;
     flex-direction: column;
     gap: 16px;
+    width: 100%;
 
     &__controllers {
       display: flex;
@@ -158,6 +160,7 @@
       
       position: relative;
 
+      max-width: 215px;
       margin: 5px;
 
       box-shadow: 5px 5px 0 0 $black-color;
