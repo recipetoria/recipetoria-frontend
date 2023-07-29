@@ -1,10 +1,10 @@
+import { useRef, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import CheckIcon from "../../assets/svg/CheckIcon";
 import { fetchUpdateRecipeInfo } from "../../features/OneRecipeSlice";
 import { Recipe, Tag } from "../../types/types";
 import "./RecipeCategories.scss";
 
-// TODO: add view all categories
 export default function RecipeCategories(props: { recipeData: Recipe }) {
   const { recipeData } = props;
 
@@ -12,6 +12,9 @@ export default function RecipeCategories(props: { recipeData: Recipe }) {
 
   const tags = useAppSelector((state) => state.present.tags.value);
   const token = useAppSelector((state) => state.present.authData.value.token);
+
+  const buttonTagRef = useRef<HTMLButtonElement>(null);
+  const [categoriesView, setCategoriesView] = useState(false);
 
   function handleChangeCategory(tagsArr: Tag[]) {
     dispatch(
@@ -51,6 +54,18 @@ export default function RecipeCategories(props: { recipeData: Recipe }) {
     handleChangeCategory(copyTags);
   }
 
+  function categoriesHeight() {
+    let height = "";
+    if (!categoriesView) {
+      if (buttonTagRef.current) {
+        height = `${buttonTagRef.current.clientHeight * 2 + 6.5 * 2}px`;
+      } else {
+        height = `${39 * 2}px`;
+      }
+    }
+    return height;
+  }
+
   return (
     <article className="recipe-categories">
       <div className="recipe-categories__wrapper">
@@ -61,7 +76,12 @@ export default function RecipeCategories(props: { recipeData: Recipe }) {
               Assign a category to the recipe
             </span>
           </section>
-          <section className="categories-n-header__categories">
+          <section
+            className="categories-n-header__categories"
+            style={{
+              height: categoriesHeight(),
+            }}
+          >
             {[...tags].map((item) => {
               const isExistOnTags = item.recipeIds.includes(
                 recipeData.id as never
@@ -82,6 +102,7 @@ export default function RecipeCategories(props: { recipeData: Recipe }) {
                       removeCategory(item.name);
                     }
                   }}
+                  ref={buttonTagRef}
                 >
                   {isExistOnTags ? <CheckIcon /> : ""}
                   <span>{item.name}</span>
@@ -103,6 +124,16 @@ export default function RecipeCategories(props: { recipeData: Recipe }) {
             )}
           </section>
         </section>
+        <button
+          type="button"
+          onClick={(e) => {
+            e.preventDefault();
+            setCategoriesView(!categoriesView);
+          }}
+          className="recipe-categories__view-btn"
+        >
+          {!categoriesView ? "View" : "Hide"} all categories
+        </button>
       </div>
     </article>
   );
