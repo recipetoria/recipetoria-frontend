@@ -28,6 +28,8 @@ interface ISignPageProps {
   signMode: SignMode;
 }
 
+// TODO: something wrong with repeated password. Case: put password -> wrongly repeat password -> put email correct -> submit
+
 export default function SignPage(props: ISignPageProps) {
   const { signMode } = props;
 
