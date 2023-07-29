@@ -18,6 +18,7 @@ export type FormValues = {
   categoryRename?: string;
   recipeName?: string;
   recipeRename?: string;
+  recipeNameWithoutTag?: string;
 };
 
 export type InputNames =
@@ -30,7 +31,8 @@ export type InputNames =
   | "categoryName"
   | "categoryRename"
   | "recipeName"
-  | "recipeRename";
+  | "recipeRename"
+  | "recipeNameWithoutTag";
 
 export interface IResponse {
   timeStamp: string;

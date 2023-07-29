@@ -22,7 +22,7 @@ export const fetchCreateNewRecipe = createAsyncThunk(
     { name, tagId, token }: { name: string; tagId: number; token: string },
     { dispatch }
   ) => {
-    await createRecipe(name, tagId, token);
+    await createRecipe(name, token, tagId);
     dispatch(fetchRecipesByTagId({ tagId, token }));
   }
 );

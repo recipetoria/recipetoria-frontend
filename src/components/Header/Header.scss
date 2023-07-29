@@ -16,6 +16,16 @@
     margin: 1rem 11.04vw 1rem 10.83vw;
   }
 
+  &__btn {
+    @include btn;
+
+    box-sizing: content-box;
+
+    font-size: .875rem;
+    font-weight: 500;
+    line-height: 1.43;
+  }
+
   .logo {
     object-fit: contain;
 

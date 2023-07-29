@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import { SubmitHandler, useForm } from "react-hook-form";
 import CrossIcon from "../../assets/svg/CrossIcon";
 import useModal from "../../hooks/useModal";
@@ -14,12 +15,14 @@ import {
   fetchCreateNewRecipe,
   fetchUpdateRecipeName,
 } from "../../features/RecipesSlice";
+import { createRecipe } from "../../API/recipes";
 
 export default function ModalContentWitInput(props: IModalContentWitInput) {
   const { label, placeholder, inputName, tagId, recipeId } = props;
 
   const { toggle } = useModal();
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   const token = useAppSelector((state) => state.present.authData.value.token);
   const tags = useAppSelector((state) => state.present.tags.value);
@@ -34,7 +37,13 @@ export default function ModalContentWitInput(props: IModalContentWitInput) {
   } = useForm<FormValues>();
 
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
-    const { categoryName, categoryRename, recipeName, recipeRename } = data;
+    const {
+      categoryName,
+      categoryRename,
+      recipeName,
+      recipeRename,
+      recipeNameWithoutTag,
+    } = data;
     let objForSnackbar = {
       text: "",
       withUndo: false,
@@ -161,6 +170,18 @@ export default function ModalContentWitInput(props: IModalContentWitInput) {
         }
       } else {
         notFoundIdError(tagId);
+      }
+    } else if (recipeNameWithoutTag) {
+      if (!isFoundInRecipesArr(recipeNameWithoutTag)) {
+        createRecipe(recipeNameWithoutTag, token).then((value) => {
+          if (value.status === 201) {
+            navigate(`/recipe/${value.data.data.createdRecipeDTO.id}`);
+          }
+        });
+      } else {
+        setError("recipeNameWithoutTag", {
+          message: "This recipe is already exist",
+        });
       }
     }
   };

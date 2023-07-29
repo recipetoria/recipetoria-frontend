@@ -28,15 +28,24 @@ export async function getRecipesByTagId(tagId: number, token: string) {
     .catch((error) => error);
 }
 
-export async function createRecipe(name: string, tagId: number, token: string) {
-  const data = JSON.stringify({
-    name,
-    tagDTOs: [
-      {
-        id: tagId,
-      },
-    ],
-  });
+export async function createRecipe(
+  name: string,
+  token: string,
+  tagId?: number
+) {
+  const data =
+    tagId === undefined
+      ? JSON.stringify({
+          name,
+        })
+      : JSON.stringify({
+          name,
+          tagDTOs: [
+            {
+              id: tagId,
+            },
+          ],
+        });
 
   const config = {
     method: "post",
