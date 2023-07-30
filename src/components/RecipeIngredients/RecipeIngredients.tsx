@@ -1,10 +1,40 @@
+import { useEffect } from "react";
 import "./RecipeIngredients.scss";
 import CartImage from "../../assets/png/cart.png";
 import Table from "../Table/Table";
 import { Recipe } from "../../types/types";
+import { useAppDispatch, useAppSelector } from "../../app/hooks";
+import { fetchUpdateRecipeInfo } from "../../features/OneRecipeSlice";
 
 export default function RecipeIngredients(props: { recipeData: Recipe }) {
   const { recipeData } = props;
+
+  const dispatch = useAppDispatch();
+
+  const token = useAppSelector((state) => state.present.authData.value.token);
+
+  useEffect(() => {
+    if (recipeData.ingredientDTOs) {
+      if (recipeData.ingredientDTOs?.length === 0) {
+        dispatch(
+          fetchUpdateRecipeInfo({
+            recipeId: recipeData.id,
+            token,
+            infoRecipeData: {
+              name: recipeData.name,
+              ingredientDTOs: [
+                {
+                  name: "Type ingredient name here",
+                  amount: 1,
+                  measurementUnit: "PACK",
+                },
+              ],
+            },
+          })
+        );
+      }
+    }
+  });
 
   return (
     <article className="recipe-ingredients">
