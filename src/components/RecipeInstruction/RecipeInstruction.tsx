@@ -81,7 +81,7 @@ export default function RecipeInstruction(props: { recipeData: Recipe }) {
           <CarouselProvider
             naturalSlideWidth={215}
             naturalSlideHeight={165}
-            totalSlides={photosData.length}
+            totalSlides={photosData.length || 1}
             infinite
             isIntrinsicHeight
             visibleSlides={visibleSlides}
