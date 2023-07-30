@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useContext, useEffect, useRef } from "react";
 import { useReactToPrint } from "react-to-print";
 import { useNavigate } from "react-router-dom";
 import Print from "../../assets/svg/Print";
@@ -12,13 +12,21 @@ import "./ShoppingListPage.scss";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { cleanShopListServer } from "../../features/ShopListSlice";
 import Snackbar from "../../components/Snackbar/Snackbar";
+import Modal from "../../components/Modal/Modal";
+import useModal from "../../hooks/useModal";
+import { ModalContentContext } from "../../contexts/ModalContentContext";
 
 export default function ShoppingListPage() {
   const componentRef = useRef(null);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const { toggle } = useModal();
+
   const isAuth = useAppSelector((state) => state.present.authData.value.isAuth);
   const token = useAppSelector((state) => state.present.authData.value.token);
+  const isOpen = useAppSelector((state) => state.present.IsOpenModal.value);
+
+  const { modalContent } = useContext(ModalContentContext);
 
   useEffect(() => {
     if (isAuth !== true) {
@@ -63,6 +71,9 @@ export default function ShoppingListPage() {
                   </article>
                 </div>
               </section>
+              <Modal isOpen={isOpen} toggle={toggle}>
+                {modalContent}
+              </Modal>
               <Snackbar />
             </article>
           </main>
