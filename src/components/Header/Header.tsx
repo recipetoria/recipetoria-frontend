@@ -1,12 +1,15 @@
 import { Link } from "react-router-dom";
 import "./Header.scss";
-import { useEffect } from "react";
+import { useContext, useEffect } from "react";
 import Logo from "../../assets/svg/Logo";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { fetchUserPhoto, userPhotoValue } from "../../features/UserPhotoSlice";
 import UserPhoto from "../UserPhoto/UserPhoto";
 import { isOpenProfileValue } from "../../features/isOpenProfileModalSlice";
 import ProfileModal from "../ProfileModal/ProfileModal";
+import { ModalContentContext } from "../../contexts/ModalContentContext";
+import ModalContentWitInput from "../ModalContentWitInput/ModalContentWitInput";
+import useModal from "../../hooks/useModal";
 
 export default function Header() {
   const isAuth = useAppSelector((state) => state.present.authData.value.isAuth);
@@ -15,6 +18,8 @@ export default function Header() {
   const isOpenModal = useAppSelector(
     (state) => state.present.IsOpenModal.value
   );
+  const { setModalContent } = useContext(ModalContentContext);
+  const { toggle } = useModal();
 
   useEffect(() => {
     if (isAuth) {
@@ -38,9 +43,23 @@ export default function Header() {
               <>
                 <Link to="/all_categories">Categories</Link>
                 <Link to="/shopping_list">Shopping list</Link>
-                <Link to="/add_recipe" className="btn">
-                  Add recipe
-                </Link>
+                <button
+                  type="button"
+                  className="header__btn"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    toggle();
+                    setModalContent(
+                      <ModalContentWitInput
+                        label="Create new recipe"
+                        placeholder="Enter recipe name"
+                        inputName="recipeNameWithoutTag"
+                      />
+                    );
+                  }}
+                >
+                  New recipe
+                </button>
               </>
             ) : (
               <>

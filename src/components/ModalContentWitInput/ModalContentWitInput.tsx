@@ -1,8 +1,9 @@
+import { useNavigate } from "react-router-dom";
 import { SubmitHandler, useForm } from "react-hook-form";
 import CrossIcon from "../../assets/svg/CrossIcon";
 import useModal from "../../hooks/useModal";
 import Input from "../Input/Input";
-import { FormValues, IModalContentWitInput } from "../../types/types";
+import { FormValues, IModalContentWitInput, Tag } from "../../types/types";
 import "./ModalContentWitInput.scss";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { SnackbarTextValue } from "../../features/SnackbarTextSlice";
@@ -14,12 +15,14 @@ import {
   fetchCreateNewRecipe,
   fetchUpdateRecipeName,
 } from "../../features/RecipesSlice";
+import { createRecipe } from "../../API/recipes";
 
 export default function ModalContentWitInput(props: IModalContentWitInput) {
   const { label, placeholder, inputName, tagId, recipeId } = props;
 
   const { toggle } = useModal();
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   const token = useAppSelector((state) => state.present.authData.value.token);
   const tags = useAppSelector((state) => state.present.tags.value);
@@ -34,7 +37,13 @@ export default function ModalContentWitInput(props: IModalContentWitInput) {
   } = useForm<FormValues>();
 
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
-    const { categoryName, categoryRename, recipeName, recipeRename } = data;
+    const {
+      categoryName,
+      categoryRename,
+      recipeName,
+      recipeRename,
+      recipeNameWithoutTag,
+    } = data;
     let objForSnackbar = {
       text: "",
       withUndo: false,
@@ -54,7 +63,9 @@ export default function ModalContentWitInput(props: IModalContentWitInput) {
         (recipe) => recipe.name.toLowerCase() === name.toLowerCase()
       );
 
-    const notFoundIdError = (id: number | undefined) => {
+    const notFoundIdError = (
+      id: number | undefined | Tag[] | "uncategorized"
+    ) => {
       throw new Error(`Not found tag id: ${id}`);
     };
 
@@ -83,7 +94,7 @@ export default function ModalContentWitInput(props: IModalContentWitInput) {
         });
       }
     } else if (categoryRename) {
-      if (tagId) {
+      if (typeof tagId === "number") {
         if (!isFoundInTagsArr(categoryRename)) {
           dispatch(
             fetchUpdateTagName({
@@ -112,8 +123,20 @@ export default function ModalContentWitInput(props: IModalContentWitInput) {
         notFoundIdError(tagId);
       }
     } else if (recipeName) {
-      if (tagId) {
-        if (!isFoundInRecipesArr(recipeName)) {
+      if (!isFoundInRecipesArr(recipeName)) {
+        if (tagId === "uncategorized") {
+          dispatch(
+            fetchCreateNewRecipe({
+              name: recipeName,
+              token,
+            })
+          );
+          objForSnackbar = {
+            text: "New recipe was created",
+            withUndo: false,
+          };
+          successCreate();
+        } else if (typeof tagId === "number") {
           dispatch(
             fetchCreateNewRecipe({
               name: recipeName,
@@ -127,12 +150,12 @@ export default function ModalContentWitInput(props: IModalContentWitInput) {
           };
           successCreate();
         } else {
-          setError("recipeName", {
-            message: "This recipe is already exist",
-          });
+          notFoundIdError(tagId);
         }
       } else {
-        notFoundIdError(tagId);
+        setError("recipeName", {
+          message: "This recipe is already exist",
+        });
       }
     } else if (recipeRename) {
       if (tagId) {
@@ -141,7 +164,6 @@ export default function ModalContentWitInput(props: IModalContentWitInput) {
             dispatch(
               fetchUpdateRecipeName({
                 name: recipeRename,
-                tagId,
                 recipeId,
                 token,
               })
@@ -161,6 +183,18 @@ export default function ModalContentWitInput(props: IModalContentWitInput) {
         }
       } else {
         notFoundIdError(tagId);
+      }
+    } else if (recipeNameWithoutTag) {
+      if (!isFoundInRecipesArr(recipeNameWithoutTag)) {
+        createRecipe(recipeNameWithoutTag, token).then((value) => {
+          if (value.status === 201) {
+            navigate(`/recipe/${value.data.data.createdRecipeDTO.id}`);
+          }
+        });
+      } else {
+        setError("recipeNameWithoutTag", {
+          message: "This recipe is already exist",
+        });
       }
     }
   };

@@ -109,7 +109,7 @@ export default function ShoppingListTableString(
           onClick={() => setActiveSelect(isActiveSelect ? 0 : id)}
           disabled={isDisabled}
         >
-          {valueMeasure.toLowerCase() || "select"}
+          {valueMeasure ? valueMeasure.toLowerCase() : "select"}
           <img
             src={customArrow}
             alt="arrow"

@@ -5,10 +5,11 @@ import ModalContentWitInput from "../ModalContentWitInput/ModalContentWitInput";
 import BellWithStarImage from "../../assets/png/bell_with-star.png";
 import { useAppSelector } from "../../app/hooks";
 import RecipeCard from "./RecipeCard";
+import { Recipe } from "../../types/types";
 
 interface RecipesCardsProps {
   toggle: () => void;
-  tagId: number | undefined;
+  tagId: number | undefined | "uncategorized";
 }
 
 export default function RecipesCards(props: RecipesCardsProps) {
@@ -21,6 +22,26 @@ export default function RecipesCards(props: RecipesCardsProps) {
   const recipesArr = useAppSelector((state) => state.present.recipes.value);
   const recipesError = useAppSelector((state) => state.present.recipes.error);
 
+  let filteredRecipesArr: Recipe[] = [];
+
+  if (tagId) {
+    if (tagId === "uncategorized") {
+      filteredRecipesArr = recipesArr.filter(
+        (recipe) => recipe.tagDTOs.length === 0
+      );
+    } else if (typeof +tagId === "number") {
+      for (let i = 0; i <= recipesArr.length - 1; i += 1) {
+        if (recipesArr[i].tagDTOs.length > 0) {
+          if (
+            recipesArr[i].tagDTOs.filter((tag) => tag.id === tagId).length > 0
+          ) {
+            filteredRecipesArr.push(recipesArr[i]);
+          }
+        }
+      }
+    }
+  }
+
   let recipesCards: ReactNode = <div />;
 
   if (recipesIsLoading) {
@@ -29,7 +50,7 @@ export default function RecipesCards(props: RecipesCardsProps) {
     recipesCards = <h3>Something went wrong</h3>;
   } else if (typeof recipesArr === "object" && recipesArr.length > 0) {
     if (tagId) {
-      recipesCards = [...recipesArr]
+      recipesCards = [...filteredRecipesArr]
         .sort((a, b) => (a.name > b.name ? 1 : -1))
         .map((item) => (
           <RecipeCard

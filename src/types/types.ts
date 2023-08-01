@@ -18,6 +18,7 @@ export type FormValues = {
   categoryRename?: string;
   recipeName?: string;
   recipeRename?: string;
+  recipeNameWithoutTag?: string;
 };
 
 export type InputNames =
@@ -30,7 +31,8 @@ export type InputNames =
   | "categoryName"
   | "categoryRename"
   | "recipeName"
-  | "recipeRename";
+  | "recipeRename"
+  | "recipeNameWithoutTag";
 
 export interface IResponse {
   timeStamp: string;
@@ -60,16 +62,30 @@ export interface TagsResponse extends IResponse {
   };
 }
 
+export interface Ingredient {
+  name: string;
+  amount: null | number;
+  measurementUnit: null | string;
+  id?: number;
+  recipeId?: number;
+}
+
 export interface Recipe {
   id: number;
   name: string;
   mainPhoto: null | string;
   applicationUserId: number;
   tagDTOs: Tag[];
-  ingredientDTOs: null | [];
-  instructions: null;
+  ingredientDTOs: null | Ingredient[];
+  instructions: null | string;
   instructionPhotos: null | string[];
   links: null | string[];
+}
+
+export interface RecipeResponse extends IResponse {
+  data: {
+    recipeDTO: Recipe;
+  };
 }
 
 export interface ModalProps {
@@ -114,13 +130,21 @@ export interface IModalContentWitInput {
   label: string;
   placeholder: string;
   inputName: InputNames;
-  tagId?: number;
+  tagId?: number | Tag[] | "uncategorized";
   recipeId?: number;
 }
 
 export interface AddProfilePhotoProps {
-  mode: "profile" | "category" | "recipeMainPhoto";
+  mode: "profile" | "category" | "recipe main" | "recipe";
   imageSrc: string;
-  tagId?: number;
+  tagId?: number | "uncategorized";
   recipeId?: number;
+}
+
+export interface CategoryCardProps {
+  mode: "default" | "uncategorized";
+  name: string;
+  id: number | "uncategorized";
+  mainPhoto: string | null;
+  toggle: () => void;
 }

@@ -1,0 +1,242 @@
+/* stylelint-disable selector-class-pattern */
+@import "../../styles/variables";
+@import "../../styles/mixins";
+
+.grid-table {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+
+  &__row {
+    display: grid;
+    grid-template-columns: 6.598fr 55.627fr 19.146fr 6.210fr;
+    width: 100%;
+    padding: 4px 0;
+
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: $black-color;
+    letter-spacing: 0.5px;
+
+    border-top: 1px solid $gray-light-1-color;
+
+    &_header {
+      padding-top: 0;
+      padding-bottom: 8px;
+
+      font-weight: 500;
+      letter-spacing: 0.15px;
+
+      border-top: none;
+    }
+
+    &_hover-by-trash {
+      background: $bg-menu-active-color;
+    }
+
+    &_form-new-item {
+      z-index: 3;
+    }
+  }
+
+  &__data-wrapper {
+    display: grid;
+    grid-template-columns: 27.296fr 9.832fr 18.499fr;
+  }
+
+  &__from {
+    width: 100%;
+
+    .caption {
+      @include caption;
+    }
+
+    &_delete {
+      position: relative;
+    }
+  }
+
+  .MuiTextField-root {
+    margin-right: 1.667vw;
+   
+    cursor: pointer;
+    
+    transition: $transition;
+  }
+
+  .css-1qxw4jt-MuiInputBase-root-MuiOutlinedInput-root {
+    padding: 0;
+  }
+
+  .MuiOutlinedInput-notchedOutline {
+    @include border($color: transparent);
+
+    transition: $transition;
+  }
+
+  .css-1qxw4jt-MuiInputBase-root-MuiOutlinedInput-root:hover
+  .MuiOutlinedInput-notchedOutline,
+  .css-9ddj71-MuiInputBase-root-MuiOutlinedInput-root:hover 
+  .MuiOutlinedInput-notchedOutline,
+  .css-md26zr-MuiInputBase-root-MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline {
+    @include border($color: $gray-light-1-color);
+
+    transition: $transition;
+  }
+
+  .css-1qxw4jt-MuiInputBase-root-MuiOutlinedInput-root.Mui-focused 
+  .MuiOutlinedInput-notchedOutline,
+  .css-9ddj71-MuiInputBase-root-MuiOutlinedInput-root.Mui-focused
+  .MuiOutlinedInput-notchedOutline,
+  .css-md26zr-MuiInputBase-root-MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
+    @include border($color: $purple-color, $width: 2px);
+  }
+
+  .cell {
+    @include border($color: transparent);
+
+    padding: 8px 0.833vw;
+    margin-right: 1.667vw;
+
+    cursor: pointer;
+
+    transition: $transition;
+
+    &:hover {
+      @include border($color: $gray-light-1-color)
+    }
+
+    &_header {
+      padding: 0 0.833vw;
+
+      text-transform: none;
+      cursor: text;
+
+      border: none;
+
+      &:hover {
+        border: none;
+      }
+    }
+
+    &_btn {
+      box-sizing: content-box;
+      display: flex;
+      gap: 0.556vw;
+      align-items: center;
+      justify-content: center;
+
+      background: transparent;
+    }
+  }
+  
+  .grid-table &__number {
+    padding: 8px 0.833vw 8px 0.278vw;
+    margin: 0;
+
+    text-align: right;
+    cursor: text;
+
+    border: none;
+
+    &_header {
+      padding: 0 0.833vw;
+    }
+
+    &:hover {
+      border: none;
+    }
+  }
+
+  &__amount {
+    text-align: right;
+  }
+
+  &__measure {
+    text-transform: lowercase;
+  }
+
+  .grid-table &__action {
+    align-items: flex-start;
+    padding: 8px 0.556vw;
+
+    font-size: 0.875rem;
+    font-weight: 500;
+    line-height: 1.429;
+    color: $black-light;
+    letter-spacing: 0.1px;
+
+    &_header {
+      display: flex;
+      justify-content: center;
+      padding: 0 0.556vw;
+
+      font-size: 1rem;
+      letter-spacing: 0.15px;
+    }
+    
+    &:focus {
+      @include border($color: $purple-color, $width: 2px);
+    }
+  }
+
+  .grid-table &__delete {
+    margin: 0;
+
+    .trash {
+      fill: $gray-light-color;
+    }
+
+    &:hover {
+      border: 1px solid transparent;
+
+      .trash {
+        fill: $black-color;
+      }
+    }
+  }
+
+  &__new-item-btn {
+    display: flex;
+    gap: 4px;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 12px;
+
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: $gray-light-color;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+
+    background: transparent;
+    border: none;
+    border-radius: 4px;
+
+    transition: $transition;
+
+    &:hover {
+      color: $black-color;
+
+      background: $bg-menu-active-color;
+    }
+  }
+}
+
+.grid-table__from_delete:hover .caption {
+  opacity: 1;
+}
+
+.form-mask {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+
+  width: 100%;
+  height: 100%;
+
+  background: transparent;
+}

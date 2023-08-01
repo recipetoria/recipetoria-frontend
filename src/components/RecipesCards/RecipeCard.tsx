@@ -17,7 +17,7 @@ import { fetchDeleteRecipe } from "../../features/RecipesSlice";
 
 interface RecipeCardProps {
   recipeId: number;
-  tagId: number;
+  tagId: number | "uncategorized";
   name: string;
   mainPhoto: string | null;
   toggle: () => void;
@@ -47,7 +47,7 @@ export default function RecipeCard(props: RecipeCardProps) {
 
   return (
     <Link
-      to="/"
+      to={`/recipe/${recipeId}`}
       className="recipe-card"
       id={recipeId.toString()}
       onMouseLeave={closeMenu}
@@ -106,7 +106,7 @@ export default function RecipeCard(props: RecipeCardProps) {
                   );
                 }}
               >
-                Rename category
+                Rename recipe
               </button>
               <button
                 type="button"
@@ -121,7 +121,6 @@ export default function RecipeCard(props: RecipeCardProps) {
                       handleClickByOkBtn={() => {
                         dispatch(
                           fetchDeleteRecipe({
-                            tagId,
                             recipeId,
                             token,
                           })
@@ -141,7 +140,7 @@ export default function RecipeCard(props: RecipeCardProps) {
                   );
                 }}
               >
-                Delete category
+                Delete recipe
               </button>
               <button
                 type="button"
@@ -151,7 +150,7 @@ export default function RecipeCard(props: RecipeCardProps) {
                   toggle();
                   setModalContent(
                     <AddProfilePhoto
-                      mode="recipeMainPhoto"
+                      mode="recipe main"
                       imageSrc={AddCategoryImage}
                       recipeId={recipeId}
                       tagId={tagId}

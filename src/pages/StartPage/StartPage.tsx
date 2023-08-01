@@ -18,15 +18,18 @@ import {
 export default function StartPage() {
   const dispatch = useAppDispatch();
   const isOpen = useAppSelector((state) => state.present.IsOpenModal.value);
+  const isOpenMode = useAppSelector((state) => state.present.IsOpenModal.mode);
   const { toggle } = useModal();
 
   const { modalContent, setModalContent } = useContext(ModalContentContext);
 
-  setTimeout(() => {
-    setModalContent(null);
-    dispatch(isOpenModalValue(false));
-    dispatch(isOpenModalMode("none"));
-  }, 2000);
+  if (isOpenMode === "afterRegister") {
+    setTimeout(() => {
+      setModalContent(null);
+      dispatch(isOpenModalValue(false));
+      dispatch(isOpenModalMode("none"));
+    }, 2000);
+  }
 
   useEffect(() => {
     dispatch(
