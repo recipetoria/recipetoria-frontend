@@ -3,27 +3,26 @@ import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import {
   createRecipe,
   deleteRecipe,
-  getRecipesByTagId,
+  getAllRecipes,
   updateRecipeMainPhoto,
   updateRecipeName,
 } from "../API/recipes";
-import { Recipe, Tag } from "../types/types";
+import { Recipe } from "../types/types";
 import { fetchRecipeByRecipeId } from "./OneRecipeSlice";
 
-export const fetchRecipesByTagId = createAsyncThunk(
-  "recipes/fetchRecipesByTagId",
-  async ({ tagId, token }: { tagId: number; token: string }) =>
-    getRecipesByTagId(tagId, token)
+export const fetchRecipes = createAsyncThunk(
+  "recipes/fetchRecipes",
+  async (token: string) => getAllRecipes(token)
 );
 
 export const fetchCreateNewRecipe = createAsyncThunk(
   "recipes/fetchCreateNewRecipe",
   async (
-    { name, tagId, token }: { name: string; tagId: number; token: string },
+    { name, tagId, token }: { name: string; tagId?: number; token: string },
     { dispatch }
   ) => {
     await createRecipe(name, token, tagId);
-    dispatch(fetchRecipesByTagId({ tagId, token }));
+    dispatch(fetchRecipes(token));
   }
 );
 
@@ -32,36 +31,24 @@ export const fetchUpdateRecipeName = createAsyncThunk(
   async (
     {
       name,
-      tagId,
       recipeId,
       token,
-    }: { name: string; tagId: number | Tag[]; recipeId: number; token: string },
+    }: { name: string; recipeId: number; token: string },
     { dispatch }
   ) => {
     await updateRecipeName(name, recipeId, token);
-    if (typeof tagId === "number") {
-      dispatch(fetchRecipesByTagId({ tagId, token }));
-    } else {
-      tagId.map((item) => {
-        dispatch(fetchRecipesByTagId({ tagId: item.id, token }));
-        return true;
-      });
-    }
+    dispatch(fetchRecipes(token));
   }
 );
 
 export const fetchDeleteRecipe = createAsyncThunk(
   "recipes/fetchDeleteRecipe",
   async (
-    {
-      tagId,
-      recipeId,
-      token,
-    }: { tagId: number; recipeId: number; token: string },
+    { recipeId, token }: { recipeId: number; token: string },
     { dispatch }
   ) => {
     await deleteRecipe(recipeId, token);
-    dispatch(fetchRecipesByTagId({ tagId, token }));
+    dispatch(fetchRecipes(token));
   }
 );
 
@@ -70,18 +57,14 @@ export const fetchUpdateRecipeMainPhoto = createAsyncThunk(
   async (
     {
       data,
-      tagId,
       recipeId,
       token,
-    }: { data: FormData; tagId?: number; recipeId: number; token: string },
+    }: { data: FormData; recipeId: number; token: string },
     { dispatch }
   ) => {
     await updateRecipeMainPhoto(token, data, recipeId);
-    if (tagId) {
-      dispatch(fetchRecipesByTagId({ tagId, token }));
-    } else {
-      dispatch(fetchRecipeByRecipeId({ recipeId, token }));
-    }
+    dispatch(fetchRecipes(token));
+    dispatch(fetchRecipeByRecipeId({ recipeId, token }));
   }
 );
 
@@ -104,17 +87,17 @@ const RecipesSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(fetchRecipesByTagId.pending, (state) => {
+    builder.addCase(fetchRecipes.pending, (state) => {
       state.isLoading = true;
     });
     builder.addCase(
-      fetchRecipesByTagId.fulfilled,
+      fetchRecipes.fulfilled,
       (state, action: PayloadAction<Recipe[]>) => {
         state.isLoading = false;
         state.value = action.payload;
       }
     );
-    builder.addCase(fetchRecipesByTagId.rejected, (state, action) => {
+    builder.addCase(fetchRecipes.rejected, (state, action) => {
       state.isLoading = false;
       state.error = action.error.message;
     });

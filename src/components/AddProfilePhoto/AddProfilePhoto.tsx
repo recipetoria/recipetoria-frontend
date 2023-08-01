@@ -36,25 +36,22 @@ export default function AddProfilePhoto(props: AddProfilePhotoProps) {
       if (mode === "profile") {
         dispatch(fetchUpdateUserPhoto({ data: formData, token }));
       } else if (mode === "category") {
-        if (tagId) {
+        if (tagId && tagId !== "uncategorized") {
           dispatch(fetchUpdateTagPhoto({ token, data: formData, tagId }));
         } else {
           throw new Error(`Something went wrong with tag id: ${tagId}`);
         }
       } else if (mode === "recipe main") {
-        if (recipeId && tagId) {
+        if (recipeId) {
           dispatch(
             fetchUpdateRecipeMainPhoto({
               data: formData,
-              tagId,
               recipeId,
               token,
             })
           );
         } else {
-          throw new Error(
-            `Something went wrong with recipe id: ${recipeId} or with tag id: ${tagId}`
-          );
+          throw new Error(`Something went wrong with recipe id: ${recipeId}`);
         }
       } else if (mode === "recipe") {
         if (recipeId) {

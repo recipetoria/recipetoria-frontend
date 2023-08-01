@@ -17,7 +17,7 @@ import { fetchDeleteRecipe } from "../../features/RecipesSlice";
 
 interface RecipeCardProps {
   recipeId: number;
-  tagId: number;
+  tagId: number | "uncategorized";
   name: string;
   mainPhoto: string | null;
   toggle: () => void;
@@ -121,7 +121,6 @@ export default function RecipeCard(props: RecipeCardProps) {
                       handleClickByOkBtn={() => {
                         dispatch(
                           fetchDeleteRecipe({
-                            tagId,
                             recipeId,
                             token,
                           })

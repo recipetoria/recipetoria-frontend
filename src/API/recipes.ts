@@ -291,3 +291,19 @@ export async function deleteInstructionPhoto(
     .then((response) => response.data.message)
     .catch((error) => error.message);
 }
+
+export async function getAllRecipes(token: string) {
+  const config = {
+    method: "get",
+    maxBodyLength: Infinity,
+    url: URL_RECIPES,
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+
+  return axios
+    .request(config)
+    .then((response) => response.data.data.allRecipesDTOs)
+    .catch((error) => error.message);
+}

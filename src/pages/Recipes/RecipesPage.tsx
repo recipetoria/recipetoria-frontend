@@ -6,7 +6,7 @@ import RecipesCards from "../../components/RecipesCards/RecipesCards";
 import useModal from "../../hooks/useModal";
 import { getTags } from "../../API/tags";
 import { Tag } from "../../types/types";
-import { fetchRecipesByTagId } from "../../features/RecipesSlice";
+import { fetchRecipes } from "../../features/RecipesSlice";
 
 export default function RecipesPage() {
   const { tagName, tagId } = useParams();
@@ -26,7 +26,7 @@ export default function RecipesPage() {
       navigate("/*");
     }
     if (tagId) {
-      dispatch(fetchRecipesByTagId({ tagId: +tagId, token }));
+      dispatch(fetchRecipes(token));
     } else {
       throw new Error(`Error: Something went wrong with tag id: ${tagId}`);
     }
@@ -38,10 +38,20 @@ export default function RecipesPage() {
       ? value.map((tag: Tag) => tag.name === tagName).includes(true)
       : false;
 
-    if (!foundIdInTags) {
+    if (!foundIdInTags && tagId !== "uncategorized") {
       navigate("/*");
     }
   });
+
+  let tagIdToPass: number | undefined | "uncategorized";
+
+  if (tagId) {
+    if (typeof +tagId === "number" && tagId !== "uncategorized") {
+      tagIdToPass = +tagId;
+    } else if (tagId === "uncategorized") {
+      tagIdToPass = tagId;
+    }
+  }
 
   return (
     <div ref={componentRef} className="categories-page__wrapper-div">
@@ -51,7 +61,7 @@ export default function RecipesPage() {
         <span>&nbsp;/&nbsp;</span>
         <span>{tagName}</span>
       </div>
-      <RecipesCards toggle={toggle} tagId={tagId ? +tagId : undefined} />
+      <RecipesCards toggle={toggle} tagId={tagIdToPass} />
     </div>
   );
 }

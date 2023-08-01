@@ -14,21 +14,15 @@ import AddCategoryImage from "../../assets/png/add_category_photo.png";
 import getPhotoFromBytes from "../../utils/getPhotoFromBytes";
 import { fetchDeleteTag } from "../../features/CategorySlice";
 import { ModalContentContext } from "../../contexts/ModalContentContext";
-
-interface CategoryCardProps {
-  id: number;
-  name: string;
-  mainPhoto: string | null;
-  toggle: () => void;
-}
+import { CategoryCardProps } from "../../types/types";
 
 export default function CategoryCard(props: CategoryCardProps) {
-  const { id, name, mainPhoto, toggle } = props;
+  const { id, name, mainPhoto, toggle, mode } = props;
 
   const dispatch = useAppDispatch();
 
   const [isActiveMenu, setIsActiveMenu] = useState<{
-    id: number;
+    id: number | "uncategorized";
     isActive: boolean;
   }>();
   const token = useAppSelector((state) => state.present.authData.value.token);
@@ -40,7 +34,7 @@ export default function CategoryCard(props: CategoryCardProps) {
   let srcTagPhoto = DefaultCategoryPhoto;
 
   if (mainPhoto !== "" && mainPhoto !== null) {
-    srcTagPhoto = getPhotoFromBytes(mainPhoto);
+    srcTagPhoto = getPhotoFromBytes(mainPhoto || "");
   }
 
   return (
@@ -55,104 +49,112 @@ export default function CategoryCard(props: CategoryCardProps) {
           <img src={srcTagPhoto} alt="category" className="card__image" />
         </section>
         <h4 className="card__name">{name}</h4>
-        <div className="menu-block">
-          <button
-            type="button"
-            className="menu-btn"
-            onMouseEnter={openMenu}
-            onClick={(e) => {
-              e.preventDefault();
-              if (isActiveMenu?.isActive) {
-                closeMenu();
-              } else {
-                openMenu();
-              }
-            }}
-          >
-            <PencilIcon />
-            <ArrowIcon />
-          </button>
-          <section
-            className={`menu ${
-              isActiveMenu?.id === id && isActiveMenu.isActive
-                ? "menu_active"
-                : ""
-            }`}
-            onMouseLeave={closeMenu}
-          >
-            <div className="menu__wrapper">
-              <button
-                type="button"
-                className="menu__item"
-                onClick={(e) => {
-                  e.preventDefault();
-                  toggle();
-                  setModalContent(
-                    <ModalContentWitInput
-                      label="Rename the category"
-                      placeholder="Enter new name for the category"
-                      inputName="categoryRename"
-                      tagId={id}
-                    />
-                  );
-                }}
-              >
-                Rename category
-              </button>
-              <button
-                type="button"
-                className="menu__item"
-                onClick={(e) => {
-                  e.preventDefault();
-                  toggle();
-                  setModalContent(
-                    <ModalContentInProfile
-                      imageSrc={DeleteCategoryImage}
-                      text="Are you sure you want to delete the category?"
-                      handleClickByOkBtn={() => {
-                        dispatch(
-                          fetchDeleteTag({
-                            token,
-                            tagId: id,
-                          })
-                        ).then(() => {
-                          dispatch(isOpenModalValue(false));
-                          dispatch(
-                            SnackbarTextValue({
-                              text: "The category was deleted",
-                              withUndo: true,
-                            })
-                          );
-                        });
-                      }}
-                      submitBtn={{ text: "Delete", style: "orange_btn" }}
-                      cancelBtnStyle="borderBtn"
-                    />
-                  );
-                }}
-              >
-                Delete category
-              </button>
-              <button
-                type="button"
-                className="menu__item"
-                onClick={(e) => {
-                  e.preventDefault();
-                  toggle();
-                  setModalContent(
-                    <AddProfilePhoto
-                      mode="category"
-                      imageSrc={AddCategoryImage}
-                      tagId={id}
-                    />
-                  );
-                }}
-              >
-                Change photo
-              </button>
-            </div>
-          </section>
-        </div>
+        {mode === "default" && (
+          <div className="menu-block">
+            <button
+              type="button"
+              className="menu-btn"
+              onMouseEnter={openMenu}
+              onClick={(e) => {
+                e.preventDefault();
+                if (isActiveMenu?.isActive) {
+                  closeMenu();
+                } else {
+                  openMenu();
+                }
+              }}
+            >
+              <PencilIcon />
+              <ArrowIcon />
+            </button>
+            <section
+              className={`menu ${
+                isActiveMenu?.id === id && isActiveMenu?.isActive
+                  ? "menu_active"
+                  : ""
+              }`}
+              onMouseLeave={closeMenu}
+            >
+              <div className="menu__wrapper">
+                <button
+                  type="button"
+                  className="menu__item"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    if (toggle) {
+                      toggle();
+                      setModalContent(
+                        <ModalContentWitInput
+                          label="Rename the category"
+                          placeholder="Enter new name for the category"
+                          inputName="categoryRename"
+                          tagId={typeof id === "number" ? id : 0}
+                        />
+                      );
+                    }
+                  }}
+                >
+                  Rename category
+                </button>
+                <button
+                  type="button"
+                  className="menu__item"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    if (toggle) {
+                      toggle();
+                      setModalContent(
+                        <ModalContentInProfile
+                          imageSrc={DeleteCategoryImage}
+                          text="Are you sure you want to delete the category?"
+                          handleClickByOkBtn={() => {
+                            dispatch(
+                              fetchDeleteTag({
+                                token,
+                                tagId: typeof id === "number" ? id : 0,
+                              })
+                            ).then(() => {
+                              dispatch(isOpenModalValue(false));
+                              dispatch(
+                                SnackbarTextValue({
+                                  text: "The category was deleted",
+                                  withUndo: true,
+                                })
+                              );
+                            });
+                          }}
+                          submitBtn={{ text: "Delete", style: "orange_btn" }}
+                          cancelBtnStyle="borderBtn"
+                        />
+                      );
+                    }
+                  }}
+                >
+                  Delete category
+                </button>
+                <button
+                  type="button"
+                  className="menu__item"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    if (toggle) {
+                      toggle();
+                      setModalContent(
+                        <AddProfilePhoto
+                          mode="category"
+                          imageSrc={AddCategoryImage}
+                          tagId={typeof id === "number" ? id : 0}
+                        />
+                      );
+                    }
+                  }}
+                >
+                  Change photo
+                </button>
+              </div>
+            </section>
+          </div>
+        )}
       </div>
     </Link>
   );

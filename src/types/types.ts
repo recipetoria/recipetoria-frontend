@@ -130,13 +130,21 @@ export interface IModalContentWitInput {
   label: string;
   placeholder: string;
   inputName: InputNames;
-  tagId?: number | Tag[];
+  tagId?: number | Tag[] | "uncategorized";
   recipeId?: number;
 }
 
 export interface AddProfilePhotoProps {
   mode: "profile" | "category" | "recipe main" | "recipe";
   imageSrc: string;
-  tagId?: number;
+  tagId?: number | "uncategorized";
   recipeId?: number;
+}
+
+export interface CategoryCardProps {
+  mode: "default" | "uncategorized";
+  name: string;
+  id: number | "uncategorized";
+  mainPhoto: string | null;
+  toggle: () => void;
 }

@@ -63,7 +63,9 @@ export default function ModalContentWitInput(props: IModalContentWitInput) {
         (recipe) => recipe.name.toLowerCase() === name.toLowerCase()
       );
 
-    const notFoundIdError = (id: number | undefined | Tag[]) => {
+    const notFoundIdError = (
+      id: number | undefined | Tag[] | "uncategorized"
+    ) => {
       throw new Error(`Not found tag id: ${id}`);
     };
 
@@ -121,8 +123,20 @@ export default function ModalContentWitInput(props: IModalContentWitInput) {
         notFoundIdError(tagId);
       }
     } else if (recipeName) {
-      if (typeof tagId === "number") {
-        if (!isFoundInRecipesArr(recipeName)) {
+      if (!isFoundInRecipesArr(recipeName)) {
+        if (tagId === "uncategorized") {
+          dispatch(
+            fetchCreateNewRecipe({
+              name: recipeName,
+              token,
+            })
+          );
+          objForSnackbar = {
+            text: "New recipe was created",
+            withUndo: false,
+          };
+          successCreate();
+        } else if (typeof tagId === "number") {
           dispatch(
             fetchCreateNewRecipe({
               name: recipeName,
@@ -136,12 +150,12 @@ export default function ModalContentWitInput(props: IModalContentWitInput) {
           };
           successCreate();
         } else {
-          setError("recipeName", {
-            message: "This recipe is already exist",
-          });
+          notFoundIdError(tagId);
         }
       } else {
-        notFoundIdError(tagId);
+        setError("recipeName", {
+          message: "This recipe is already exist",
+        });
       }
     } else if (recipeRename) {
       if (tagId) {
@@ -150,7 +164,6 @@ export default function ModalContentWitInput(props: IModalContentWitInput) {
             dispatch(
               fetchUpdateRecipeName({
                 name: recipeRename,
-                tagId,
                 recipeId,
                 token,
               })
