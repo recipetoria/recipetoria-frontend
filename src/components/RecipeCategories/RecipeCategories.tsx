@@ -5,7 +5,6 @@ import { fetchUpdateRecipeInfo } from "../../features/OneRecipeSlice";
 import { Recipe, Tag } from "../../types/types";
 import "./RecipeCategories.scss";
 
-// TODO: add uncategorized
 export default function RecipeCategories(props: { recipeData: Recipe }) {
   const { recipeData } = props;
 
