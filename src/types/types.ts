@@ -148,3 +148,9 @@ export interface CategoryCardProps {
   mainPhoto: string | null;
   toggle: () => void;
 }
+
+export interface TableProps {
+  mode: "recipe" | "shopList";
+  ingredientsObj: Ingredient[];
+  parentObj?: Recipe;
+}

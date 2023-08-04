@@ -4,7 +4,7 @@ import { CSSProperties } from "styled-components";
 import { MenuItem, TextField } from "@mui/material";
 import { Controller, useForm } from "react-hook-form";
 import PlusIcon from "../../assets/svg/PlusIcon";
-import { Ingredient, Recipe } from "../../types/types";
+import { Ingredient, TableProps } from "../../types/types";
 import "./Table.scss";
 import measureValues from "../../assets/data/measureArray";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
@@ -15,12 +15,11 @@ import {
   fetchUpdateRecipeInfo,
 } from "../../features/OneRecipeSlice";
 import CellTrash from "./Cells/CellTrash";
-
-interface TableProps {
-  mode: "withAction" | "noAction";
-  ingredientsObj: Ingredient[];
-  parentObj: Recipe;
-}
+import {
+  fetchUpdateIngredientFromShopList,
+  fetchCreateNewIngredient,
+  fetchDeleteIngredientFromShopList,
+} from "../../features/ShoppingListSlice";
 
 interface TableValues {
   ingredientName: string;
@@ -83,21 +82,38 @@ export default function Table(props: TableProps) {
       changedIngredientData.amount ||
       changedIngredientData.measure
     ) {
-      dispatch(
-        fetchUpdateIngredient({
-          recipeId: parentObj.id,
-          token,
-          ingredientId: id,
-          updatedIngredientInfo: {
-            name: changedIngredientData.name || name,
-            amount: changedIngredientData.amount || amount,
-            measurementUnit:
-              changedIngredientData.measure?.toUpperCase() ||
-              measurementUnit?.toUpperCase() ||
-              null,
-          },
-        })
-      );
+      if (mode === "recipe" && parentObj) {
+        dispatch(
+          fetchUpdateIngredient({
+            recipeId: parentObj.id,
+            token,
+            ingredientId: id,
+            updatedIngredientInfo: {
+              name: changedIngredientData.name || name,
+              amount: changedIngredientData.amount || amount,
+              measurementUnit:
+                changedIngredientData.measure?.toUpperCase() ||
+                measurementUnit?.toUpperCase() ||
+                null,
+            },
+          })
+        );
+      } else if (mode === "shopList") {
+        dispatch(
+          fetchUpdateIngredientFromShopList({
+            token,
+            ingredientId: id,
+            updatedIngredientInfo: {
+              name: changedIngredientData.name || name,
+              amount: changedIngredientData.amount || amount,
+              measurementUnit:
+                changedIngredientData.measure?.toUpperCase() ||
+                measurementUnit?.toUpperCase() ||
+                null,
+            },
+          })
+        );
+      }
     }
   };
 
@@ -116,20 +132,30 @@ export default function Table(props: TableProps) {
               ? null
               : selectValueNewItem.toUpperCase(),
         };
-        dispatch(
-          fetchUpdateRecipeInfo({
-            infoRecipeData: {
-              name: parentObj.name,
-              ingredientDTOs:
-                parentObj.ingredientDTOs !== null &&
-                parentObj.ingredientDTOs.length > 0
-                  ? [...parentObj.ingredientDTOs, newIngredientData]
-                  : [newIngredientData],
-            },
-            recipeId: parentObj.id,
-            token,
-          })
-        );
+
+        if (mode === "recipe" && parentObj) {
+          dispatch(
+            fetchUpdateRecipeInfo({
+              infoRecipeData: {
+                name: parentObj.name,
+                ingredientDTOs:
+                  parentObj.ingredientDTOs !== null &&
+                  parentObj.ingredientDTOs.length > 0
+                    ? [...parentObj.ingredientDTOs, newIngredientData]
+                    : [newIngredientData],
+              },
+              recipeId: parentObj.id,
+              token,
+            })
+          );
+        } else if (mode === "shopList") {
+          dispatch(
+            fetchCreateNewIngredient({
+              token,
+              data: newIngredientData,
+            })
+          );
+        }
         reset();
         setIsActiveAddNewItem(false);
       } else {
@@ -143,16 +169,24 @@ export default function Table(props: TableProps) {
 
   return (
     <section className="grid-table">
-      <div className="grid-table__row grid-table__row_header">
+      <div
+        className={`grid-table__row grid-table__row_header ${
+          mode === "shopList" ? "grid-table__row_new-grid" : ""
+        }`}
+      >
         <div className="grid-table__number grid-table__number_header cell cell_header">
           #
         </div>
-        <div className="grid-table__data-wrapper">
+        <div
+          className={`grid-table__data-wrapper ${
+            mode === "shopList" ? "grid-table__data-wrapper_new-grid" : ""
+          }`}
+        >
           <div className="grid-table__name cell cell_header">Name</div>
           <div className="grid-table__amount cell cell_header">Amount</div>
           <div className="grid-table__measure cell cell_header">Measure</div>
         </div>
-        {mode === "withAction" ? (
+        {mode === "recipe" ? (
           <div className="grid-table__action grid-table__action_header cell cell_header">
             Action
           </div>
@@ -168,11 +202,15 @@ export default function Table(props: TableProps) {
               isHoveredByTrashId === indx
                 ? "grid-table__row_hover-by-trash"
                 : ""
-            }`}
+            } ${mode === "shopList" ? "grid-table__row_new-grid" : ""}`}
             key={`row-${objItem.name}-${objItem.id}`}
           >
             <div className="grid-table__number cell">{indx + 1}</div>
-            <div className="grid-table__data-wrapper">
+            <div
+              className={`grid-table__data-wrapper ${
+                mode === "shopList" ? "grid-table__data-wrapper_new-grid" : ""
+              }`}
+            >
               <form
                 className="grid-table__from"
                 onSubmit={() => handleSubmitChangeItem(objItem)}
@@ -289,19 +327,21 @@ export default function Table(props: TableProps) {
                 </TextField>
               </form>
             </div>
-            {mode === "withAction" ? (
+            {mode === "recipe" ? (
               <button
                 type="button"
                 className="grid-table__action cell cell_btn"
                 onClick={(e) => {
                   e.preventDefault();
-                  dispatch(
-                    fetchAddIngredientFromRecipeToShopList({
-                      recipeId: parentObj.id,
-                      token,
-                      ingredientId: objItem.id,
-                    })
-                  );
+                  if (parentObj) {
+                    dispatch(
+                      fetchAddIngredientFromRecipeToShopList({
+                        recipeId: parentObj.id,
+                        token,
+                        ingredientId: objItem.id,
+                      })
+                    );
+                  }
                 }}
               >
                 <PlusIcon />
@@ -314,13 +354,22 @@ export default function Table(props: TableProps) {
               setIsHoveredByTrashId={(value) => setIsHoveredByTrashId(value)}
               ingredientIndex={indx}
               handleClick={() => {
-                dispatch(
-                  fetchDeleteIngredient({
-                    recipeId: parentObj.id,
-                    token,
-                    ingredientId: objItem.id,
-                  })
-                );
+                if (mode === "recipe" && parentObj) {
+                  dispatch(
+                    fetchDeleteIngredient({
+                      recipeId: parentObj.id,
+                      token,
+                      ingredientId: objItem.id,
+                    })
+                  );
+                } else if (mode === "shopList") {
+                  dispatch(
+                    fetchDeleteIngredientFromShopList({
+                      token,
+                      ingredientId: objItem.id,
+                    })
+                  );
+                }
               }}
             />
           </div>
@@ -341,13 +390,17 @@ export default function Table(props: TableProps) {
               isHoveredByTrashId === ingredientsObj.length
                 ? "grid-table__row_hover-by-trash"
                 : ""
-            }`}
+            } ${mode === "shopList" ? "grid-table__row_new-grid" : ""}`}
             style={{ borderTop: "none" }}
           >
             <div className="grid-table__number cell">
               {ingredientsObj.length + 1}
             </div>
-            <div className="grid-table__data-wrapper">
+            <div
+              className={`grid-table__data-wrapper ${
+                mode === "shopList" ? "grid-table__data-wrapper_new-grid" : ""
+              }`}
+            >
               <div className="grid-table__from">
                 <Controller
                   name="ingredientName"
@@ -465,7 +518,7 @@ export default function Table(props: TableProps) {
                 />
               </div>
             </div>
-            {mode === "withAction" ? <div /> : ""}
+            {mode === "recipe" ? <div /> : ""}
             <CellTrash
               setIsHoveredByTrashId={(value) => setIsHoveredByTrashId(value)}
               ingredientIndex={ingredientsObj.length}
