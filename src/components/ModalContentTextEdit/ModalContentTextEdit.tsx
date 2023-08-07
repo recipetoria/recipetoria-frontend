@@ -18,12 +18,16 @@ export default function ModalContentTextEdit(props: ModalContentTextEditProps) {
   const { recipeId, name } = props;
 
   const { toggle } = useModal();
-  const { register, handleSubmit, reset } = useForm<{ text: string }>();
-
-  const dispatch = useAppDispatch();
   const initialInstructionText = useAppSelector(
     (state) => state.present.recipe.value.instructions
   );
+  const { register, handleSubmit, setValue } = useForm<{ text: string }>({
+    defaultValues: {
+      text: initialInstructionText || "",
+    },
+  });
+
+  const dispatch = useAppDispatch();
   const token = useAppSelector((state) => state.present.authData.value.token);
 
   const onSubmit = (data: { text: string }) => {
@@ -93,13 +97,12 @@ export default function ModalContentTextEdit(props: ModalContentTextEditProps) {
               }}
               fullWidth
               size="small"
-              defaultValue={initialInstructionText}
             />
             <button
               type="button"
               className="textarea-n-trash-btn__btn"
               onClick={() => {
-                reset();
+                setValue("text", "");
                 setLengthCount(0);
               }}
             >
