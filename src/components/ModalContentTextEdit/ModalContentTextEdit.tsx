@@ -18,23 +18,28 @@ export default function ModalContentTextEdit(props: ModalContentTextEditProps) {
   const { recipeId, name } = props;
 
   const { toggle } = useModal();
-  const { register, handleSubmit, reset } = useForm<{ text: string }>();
-
-  const dispatch = useAppDispatch();
   const initialInstructionText = useAppSelector(
     (state) => state.present.recipe.value.instructions
   );
+  const { register, handleSubmit, setValue } = useForm<{ text: string }>({
+    defaultValues: {
+      text: initialInstructionText || "",
+    },
+  });
+
+  const dispatch = useAppDispatch();
   const token = useAppSelector((state) => state.present.authData.value.token);
 
   const onSubmit = (data: { text: string }) => {
     const { text } = data;
+
     dispatch(
       fetchUpdateRecipeInfo({
         recipeId,
         token,
         infoRecipeData: {
           name,
-          instructions: text,
+          instructions: text || "",
         },
       })
     );
@@ -48,7 +53,6 @@ export default function ModalContentTextEdit(props: ModalContentTextEditProps) {
   };
 
   const maxLength = 2000;
-  const maxHeight = 368;
 
   const { ref, ...inputProps } = register("text");
 
@@ -65,7 +69,6 @@ export default function ModalContentTextEdit(props: ModalContentTextEditProps) {
             <TextField
               multiline
               placeholder="Type your instruction..."
-              required
               minRows={2}
               maxRows={16}
               inputProps={{
@@ -74,8 +77,18 @@ export default function ModalContentTextEdit(props: ModalContentTextEditProps) {
                   color: "#2D2B2B",
                   lineHeight: "1.5",
                   letterSpacing: "0.5px",
-                  maxHeight: `${maxHeight}px`,
+                  maxHeight: `40vh`,
                 },
+              }}
+              sx={{
+                "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline":
+                  {
+                    border: "none",
+                  },
+                "& .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline":
+                  {
+                    border: "none",
+                  },
               }}
               {...inputProps}
               inputRef={ref}
@@ -84,13 +97,12 @@ export default function ModalContentTextEdit(props: ModalContentTextEditProps) {
               }}
               fullWidth
               size="small"
-              defaultValue={initialInstructionText}
             />
             <button
               type="button"
               className="textarea-n-trash-btn__btn"
               onClick={() => {
-                reset();
+                setValue("text", "");
                 setLengthCount(0);
               }}
             >

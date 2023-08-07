@@ -5,8 +5,6 @@ import {
   combineReducers,
 } from "@reduxjs/toolkit";
 import undoable from "redux-undo";
-import ShopListSlice from "../features/ShopListSlice";
-import ShopListNewStringSlice from "../features/ShopListNewStringSlice";
 import SnackbarTextSlice from "../features/SnackbarTextSlice";
 import AuthSlice from "../features/AuthSlice";
 import IsOpenModalSlice from "../features/IsOpenModalSlice";
@@ -15,11 +13,11 @@ import IsOpenProfileModalSlice from "../features/isOpenProfileModalSlice";
 import TagsSlice from "../features/CategorySlice";
 import RecipesSlice from "../features/RecipesSlice";
 import OneRecipeSlice from "../features/OneRecipeSlice";
+import ShoppingListSlice from "../features/ShoppingListSlice";
 
 const rootReducer = combineReducers({
-  shopListNewStringSlice: ShopListNewStringSlice,
   snackbarTextSlice: SnackbarTextSlice,
-  shopList: ShopListSlice,
+  shoppingList: ShoppingListSlice,
   authData: AuthSlice,
   IsOpenModal: IsOpenModalSlice,
   userPhoto: UserPhotoSlice,

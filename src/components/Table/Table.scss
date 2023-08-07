@@ -38,11 +38,19 @@
     &_form-new-item {
       z-index: 3;
     }
+
+    &_new-grid {
+      grid-template-columns: 8.916fr 75fr 8.392fr;
+    }
   }
 
   &__data-wrapper {
     display: grid;
     grid-template-columns: 27.296fr 9.832fr 18.499fr;
+
+    &_new-grid {
+      grid-template-columns: 36.713fr 13.287fr 25.000fr;
+    }
   }
 
   &__from {

@@ -48,7 +48,7 @@ export default function RecipeIngredients(props: { recipeData: Recipe }) {
           />
         </div>
         <Table
-          mode="withAction"
+          mode="recipe"
           ingredientsObj={recipeData.ingredientDTOs || []}
           parentObj={recipeData}
         />
