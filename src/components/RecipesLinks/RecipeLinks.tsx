@@ -29,27 +29,29 @@ export default function RecipeLinks(props: { recipeData: Recipe }) {
 
   // TODO: Add check if link exist
   const handleSubmitNewLink = () => {
-    const isValid =
-      linkValue.includes("http://") || linkValue.includes("https://");
-    if (isValid) {
-      dispatch(
-        fetchUpdateRecipeInfo({
-          recipeId: recipeData.id,
-          token,
-          infoRecipeData: {
-            name: recipeData.name,
-            links:
-              recipeData.links !== null
-                ? [...recipeData.links, linkValue]
-                : [linkValue],
-          },
-        })
-      );
-      setLinkValue("");
-    } else {
-      setError("addLink", {
-        message: "The link should start with 'http://' or 'https://'",
-      });
+    if (linkValue) {
+      const isValid =
+        linkValue.includes("http://") || linkValue.includes("https://");
+      if (isValid) {
+        dispatch(
+          fetchUpdateRecipeInfo({
+            recipeId: recipeData.id,
+            token,
+            infoRecipeData: {
+              name: recipeData.name,
+              links:
+                recipeData.links !== null
+                  ? [...recipeData.links, linkValue]
+                  : [linkValue],
+            },
+          })
+        );
+        setLinkValue("");
+      } else {
+        setError("addLink", {
+          message: "The link should start with 'http://' or 'https://'",
+        });
+      }
     }
   };
 
