@@ -135,7 +135,7 @@ export default function Table(props: TableProps) {
                 ingredientDTOs:
                   parentObj.ingredientDTOs !== null &&
                   parentObj.ingredientDTOs.length > 0
-                    ? [...parentObj.ingredientDTOs, newIngredientData]
+                    ? [...sortedIngredientsObj, newIngredientData]
                     : [newIngredientData],
               },
               recipeId: parentObj.id,
