@@ -28,13 +28,14 @@ export default function ModalContentTextEdit(props: ModalContentTextEditProps) {
 
   const onSubmit = (data: { text: string }) => {
     const { text } = data;
+
     dispatch(
       fetchUpdateRecipeInfo({
         recipeId,
         token,
         infoRecipeData: {
           name,
-          instructions: text,
+          instructions: text || "",
         },
       })
     );
@@ -48,7 +49,6 @@ export default function ModalContentTextEdit(props: ModalContentTextEditProps) {
   };
 
   const maxLength = 2000;
-  const maxHeight = 368;
 
   const { ref, ...inputProps } = register("text");
 
@@ -65,7 +65,6 @@ export default function ModalContentTextEdit(props: ModalContentTextEditProps) {
             <TextField
               multiline
               placeholder="Type your instruction..."
-              required
               minRows={2}
               maxRows={16}
               inputProps={{
@@ -74,8 +73,18 @@ export default function ModalContentTextEdit(props: ModalContentTextEditProps) {
                   color: "#2D2B2B",
                   lineHeight: "1.5",
                   letterSpacing: "0.5px",
-                  maxHeight: `${maxHeight}px`,
+                  maxHeight: `40vh`,
                 },
+              }}
+              sx={{
+                "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline":
+                  {
+                    border: "none",
+                  },
+                "& .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline":
+                  {
+                    border: "none",
+                  },
               }}
               {...inputProps}
               inputRef={ref}
