@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import { useState } from "react";
+import { KeyboardEvent, useState } from "react";
 import { CSSProperties } from "styled-components";
 import { TextField } from "@mui/material";
 import { Controller, useForm } from "react-hook-form";
@@ -161,6 +161,24 @@ export default function Table(props: TableProps) {
     }
   };
 
+  const validateAmountField = (keyEvent: KeyboardEvent<HTMLDivElement>) => {
+    const regex = /[\d.,\\/-]+/;
+
+    if (
+      !regex.test(keyEvent.key) &&
+      keyEvent.key !== "Backspace" &&
+      keyEvent.key !== "ArrowRight" &&
+      keyEvent.key !== "ArrowLeft"
+    ) {
+      keyEvent.preventDefault();
+    }
+
+    // TODO: add submit by enter for all fields
+    // if (keyEvent.key === "Enter") {
+    //   handleSubmitChangeItem(objItem);
+    // }
+  };
+
   return (
     <section className="grid-table">
       <div
@@ -249,6 +267,7 @@ export default function Table(props: TableProps) {
                       measure: null,
                     })
                   }
+                  onKeyDown={(keyEvent) => validateAmountField(keyEvent)}
                 />
               </form>
               <form
@@ -391,6 +410,7 @@ export default function Table(props: TableProps) {
                         },
                       }}
                       {...field}
+                      onKeyDown={(keyEvent) => validateAmountField(keyEvent)}
                     />
                   )}
                 />
