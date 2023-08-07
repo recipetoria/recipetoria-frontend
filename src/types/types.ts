@@ -1,4 +1,5 @@
 import { ReactNode } from "react";
+import { Control } from "react-hook-form";
 
 export interface IShoppingListItems {
   id: number;
@@ -153,4 +154,25 @@ export interface TableProps {
   mode: "recipe" | "shopList";
   ingredientsObj: Ingredient[];
   parentObj?: Recipe;
+}
+
+export interface TableValues {
+  ingredientName: string;
+  amount: number;
+  measure: string;
+}
+
+type SelectNameType = "measure";
+
+export interface SelectMeasureProps {
+  control: Control<TableValues>;
+  name: SelectNameType;
+  setSelectValueNewItem: (value: string) => void;
+  defaultValue: string | undefined;
+  withBorder: boolean;
+  setChangedIngredientData?: (value: {
+    name: string | null;
+    amount: number | null;
+    measure: string | null;
+  }) => void;
 }

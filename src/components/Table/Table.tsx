@@ -1,12 +1,11 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import { useState } from "react";
 import { CSSProperties } from "styled-components";
-import { MenuItem, TextField } from "@mui/material";
+import { TextField } from "@mui/material";
 import { Controller, useForm } from "react-hook-form";
 import PlusIcon from "../../assets/svg/PlusIcon";
-import { Ingredient, TableProps } from "../../types/types";
+import { Ingredient, TableProps, TableValues } from "../../types/types";
 import "./Table.scss";
-import measureValues from "../../assets/data/measureArray";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import {
   fetchAddIngredientFromRecipeToShopList,
@@ -20,12 +19,7 @@ import {
   fetchCreateNewIngredient,
   fetchDeleteIngredientFromShopList,
 } from "../../features/ShoppingListSlice";
-
-interface TableValues {
-  ingredientName: string;
-  amount: number;
-  measure: string;
-}
+import SelectMeasure from "./Cells/SelectMeasure";
 
 export default function Table(props: TableProps) {
   const { mode, ingredientsObj, parentObj } = props;
@@ -262,69 +256,18 @@ export default function Table(props: TableProps) {
                 onSubmit={() => handleSubmitChangeItem(objItem)}
                 onBlur={() => handleSubmitChangeItem(objItem)}
               >
-                <TextField
-                  select
-                  defaultValue={
-                    objItem.measurementUnit?.toLowerCase() || "select"
+                <SelectMeasure
+                  control={control}
+                  name="measure"
+                  setSelectValueNewItem={(value) =>
+                    setSelectValueNewItem(value)
                   }
-                  required
-                  type="number"
-                  size="small"
-                  fullWidth
-                  sx={{
-                    width: "8.264vw",
-                    maxWidth: "143px",
-                  }}
-                  onChange={(e) =>
-                    setChangedIngredientData({
-                      name: null,
-                      amount: null,
-                      measure: e.target.value,
-                    })
+                  defaultValue={objItem.measurementUnit?.toLowerCase()}
+                  setChangedIngredientData={(value) =>
+                    setChangedIngredientData(value)
                   }
-                  SelectProps={{
-                    MenuProps: {
-                      style: {
-                        height: "224px",
-                        padding: "8px 0",
-                        bottom: 0,
-                      },
-                      PaperProps: {
-                        sx: {
-                          bg: "transparent",
-                          boxShadow: "2px 2px 0px 0px #000",
-                          border: "1px solid #2D2B2B",
-                          borderRadius: "4px",
-                          scrollbarWidth: "thin",
-                          "&::-webkit-scrollbar": {
-                            width: "4px",
-                          },
-                          "&::-webkit-scrollbar-track": {
-                            width: "4px",
-                            margin: "8px",
-                            bgcolor: "transparent",
-                          },
-                          "&::-webkit-scrollbar-thumb": {
-                            bgcolor: "#94959A",
-                            borderRadius: "100px",
-                          },
-                          "&::-webkit-scrollbar-thumb:hover": {
-                            background: "#555",
-                          },
-                        },
-                      },
-                    },
-                  }}
-                >
-                  {measureValues.sort().map((item) => (
-                    <MenuItem key={item} value={item}>
-                      {item.toLowerCase()}
-                    </MenuItem>
-                  ))}
-                  <MenuItem value="select" style={{ display: "none" }}>
-                    select
-                  </MenuItem>
-                </TextField>
+                  withBorder={false}
+                />
               </form>
             </div>
             {mode === "recipe" ? (
@@ -453,68 +396,14 @@ export default function Table(props: TableProps) {
                 />
               </div>
               <div className="grid-table__from">
-                <Controller
-                  name="measure"
+                <SelectMeasure
                   control={control}
-                  render={({ field }) => (
-                    <TextField
-                      select
-                      type="number"
-                      size="small"
-                      fullWidth
-                      {...field}
-                      onChange={(e) => setSelectValueNewItem(e.target.value)}
-                      value={selectValueNewItem}
-                      sx={{
-                        width: "8.264vw",
-                        maxWidth: "143px",
-                        border: "1px solid #D9D9D9",
-                        borderRadius: "4px",
-                      }}
-                      SelectProps={{
-                        MenuProps: {
-                          style: {
-                            height: "224px",
-                            padding: "8px 0",
-                            bottom: 0,
-                          },
-                          PaperProps: {
-                            sx: {
-                              bg: "transparent",
-                              boxShadow: "2px 2px 0px 0px #000",
-                              border: "1px solid #2D2B2B",
-                              borderRadius: "4px",
-                              scrollbarWidth: "thin",
-                              "&::-webkit-scrollbar": {
-                                width: "4px",
-                              },
-                              "&::-webkit-scrollbar-track": {
-                                width: "4px",
-                                margin: "8px",
-                                bgcolor: "transparent",
-                              },
-                              "&::-webkit-scrollbar-thumb": {
-                                bgcolor: "#94959A",
-                                borderRadius: "100px",
-                              },
-                              "&::-webkit-scrollbar-thumb:hover": {
-                                background: "#555",
-                              },
-                            },
-                          },
-                        },
-                      }}
-                    >
-                      {measureValues.sort().map((item) => (
-                        <MenuItem key={item} value={item}>
-                          {item.toLowerCase()}
-                        </MenuItem>
-                      ))}
-                      <MenuItem value="select" style={{ display: "none" }}>
-                        select
-                      </MenuItem>
-                    </TextField>
-                  )}
+                  name="measure"
+                  setSelectValueNewItem={(value) =>
+                    setSelectValueNewItem(value)
+                  }
+                  defaultValue=""
+                  withBorder
                 />
               </div>
             </div>
