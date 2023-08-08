@@ -160,6 +160,7 @@ export interface TableValues {
   ingredientName: string;
   amount: number;
   measure: string;
+  ingredientNameNew: string;
 }
 
 type SelectNameType = "measure";

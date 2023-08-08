@@ -113,12 +113,12 @@ export default function Table(props: TableProps) {
   const [selectValueNewItem, setSelectValueNewItem] = useState("select");
 
   const handleSubmitNewItem = (data: TableValues) => {
-    const { ingredientName, amount } = data;
+    const { ingredientNameNew, amount } = data;
 
-    if (ingredientName || amount || selectValueNewItem !== "select") {
-      if (ingredientName) {
+    if (ingredientNameNew || amount || selectValueNewItem !== "select") {
+      if (ingredientNameNew) {
         const newIngredientData = {
-          name: ingredientName,
+          name: ingredientNameNew,
           amount,
           measurementUnit:
             selectValueNewItem === "select"
@@ -152,7 +152,9 @@ export default function Table(props: TableProps) {
         reset();
         setIsActiveAddNewItem(false);
       } else {
-        setError("ingredientName", { message: "Ingredient name is required" });
+        setError("ingredientNameNew", {
+          message: "Ingredient name is required",
+        });
       }
     } else {
       reset();
@@ -366,7 +368,7 @@ export default function Table(props: TableProps) {
             >
               <div className="grid-table__from">
                 <Controller
-                  name="ingredientName"
+                  name="ingredientNameNew"
                   control={control}
                   render={({ field }) => (
                     <TextField
@@ -384,11 +386,11 @@ export default function Table(props: TableProps) {
                       }}
                       {...field}
                       autoFocus
-                      error={!!errors.ingredientName?.message}
+                      error={!!errors.ingredientNameNew?.message}
                       helperText={
-                        errors.ingredientName?.message === ""
+                        errors.ingredientNameNew?.message === ""
                           ? ""
-                          : errors.ingredientName?.message
+                          : errors.ingredientNameNew?.message
                       }
                     />
                   )}
