@@ -32,7 +32,6 @@ export default function Table(props: TableProps) {
   });
 
   // TODO: вынести ячейки в отдельные компоненты
-  // TODO: max value for name 30 symbols
 
   const {
     handleSubmit,
