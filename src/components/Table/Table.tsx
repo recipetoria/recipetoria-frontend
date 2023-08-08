@@ -237,6 +237,7 @@ export default function Table(props: TableProps) {
                   size="small"
                   inputProps={{
                     style: cellStyle,
+                    maxLength: 30,
                   }}
                   onChange={(e) =>
                     setChangedIngredientData({
@@ -380,6 +381,7 @@ export default function Table(props: TableProps) {
                           border: "1px solid #D9D9D9",
                           borderRadius: "4px",
                         },
+                        maxLength: 30,
                       }}
                       {...field}
                       autoFocus
