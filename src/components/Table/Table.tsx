@@ -384,7 +384,7 @@ export default function Table(props: TableProps) {
                       }}
                       {...field}
                       autoFocus
-                      error={errors.ingredientName?.message !== ""}
+                      error={!!errors.ingredientName?.message}
                       helperText={
                         errors.ingredientName?.message === ""
                           ? ""
