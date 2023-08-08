@@ -161,6 +161,7 @@ export default function Table(props: TableProps) {
     }
   };
 
+  // TODO: кейс когда с помощью мыши нажали копирование букв и вставили с помощью мыши в поле amount
   const validateAmountField = (keyEvent: KeyboardEvent<HTMLDivElement>) => {
     const regex = /[\d.,\\/-]+/;
 
