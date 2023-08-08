@@ -1,8 +1,6 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import { KeyboardEvent, useState, useEffect } from "react";
-import { CSSProperties } from "styled-components";
-import { TextField } from "@mui/material";
-import { Controller, useFieldArray, useForm } from "react-hook-form";
+import { useState, useEffect } from "react";
+import { useFieldArray, useForm } from "react-hook-form";
 import PlusIcon from "../../assets/svg/PlusIcon";
 import { Ingredient, TableProps, TableValues } from "../../types/types";
 import "./Table.scss";
@@ -21,6 +19,7 @@ import {
 } from "../../features/ShoppingListSlice";
 import SelectMeasure from "./Cells/SelectMeasure";
 import CellName from "./Cells/CellName";
+import CellAmount from "./Cells/CellAmount";
 
 export default function Table(props: TableProps) {
   const { mode, ingredientsObj, parentObj } = props;
@@ -31,8 +30,6 @@ export default function Table(props: TableProps) {
     }
     return 1;
   });
-
-  // TODO: вынести ячейки в отдельные компоненты
 
   const { handleSubmit, reset, control, setValue } = useForm<TableValues>({
     mode: "all",
@@ -58,11 +55,6 @@ export default function Table(props: TableProps) {
   );
 
   const [isActiveAddNewItem, setIsActiveAddNewItem] = useState(false);
-
-  const cellStyle: CSSProperties = {
-    padding: "8px 0.833vw",
-    cursor: "pointer",
-  };
 
   // states for cells thats changed
   const [changedIngredientData, setChangedIngredientData] = useState<{
@@ -166,25 +158,6 @@ export default function Table(props: TableProps) {
     }
   };
 
-  // TODO: кейс когда с помощью мыши нажали копирование букв и вставили с помощью мыши в поле amount
-  const validateAmountField = (keyEvent: KeyboardEvent<HTMLDivElement>) => {
-    const regex = /[\d.,\\/-]+/;
-
-    if (
-      !regex.test(keyEvent.key) &&
-      keyEvent.key !== "Backspace" &&
-      keyEvent.key !== "ArrowRight" &&
-      keyEvent.key !== "ArrowLeft"
-    ) {
-      keyEvent.preventDefault();
-    }
-
-    // TODO: add submit by enter for all fields
-    // if (keyEvent.key === "Enter") {
-    //   handleSubmitChangeItem(objItem);
-    // }
-  };
-
   return (
     <section className="grid-table">
       <div
@@ -249,23 +222,13 @@ export default function Table(props: TableProps) {
                 onSubmit={() => handleSubmitChangeItem(objItem)}
                 onBlur={() => handleSubmitChangeItem(objItem)}
               >
-                <TextField
-                  multiline
-                  defaultValue={objItem.amount}
-                  required
-                  type="number"
-                  size="small"
-                  inputProps={{
-                    style: { ...cellStyle, textAlign: "right" },
-                  }}
-                  onChange={(e) =>
-                    setChangedIngredientData({
-                      name: null,
-                      amount: +e.currentTarget.value,
-                      measure: null,
-                    })
+                <CellAmount
+                  name={`ingredient.${indx}.amount`}
+                  control={control}
+                  withBorder={false}
+                  setChangedIngredientData={(value) =>
+                    setChangedIngredientData(value)
                   }
-                  onKeyDown={(keyEvent) => validateAmountField(keyEvent)}
                 />
               </form>
               <form
@@ -370,26 +333,10 @@ export default function Table(props: TableProps) {
                 />
               </div>
               <div className="grid-table__from">
-                <Controller
+                <CellAmount
                   name="newIngredient.amount"
                   control={control}
-                  render={({ field }) => (
-                    <TextField
-                      multiline
-                      type="number"
-                      size="small"
-                      inputProps={{
-                        style: {
-                          ...cellStyle,
-                          textAlign: "right",
-                          border: "1px solid #D9D9D9",
-                          borderRadius: "4px",
-                        },
-                      }}
-                      {...field}
-                      onKeyDown={(keyEvent) => validateAmountField(keyEvent)}
-                    />
-                  )}
+                  withBorder
                 />
               </div>
               <div className="grid-table__from">
