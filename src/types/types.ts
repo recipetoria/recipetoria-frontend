@@ -157,22 +157,38 @@ export interface TableProps {
 }
 
 export interface TableValues {
-  ingredientName: string;
-  amount: number;
-  measure: string;
+  ingredient: Ingredient[];
+  newIngredient: Ingredient;
 }
 
-type SelectNameType = "measure";
+type SetChangedIngredientDataType = (value: {
+  name: string | null;
+  amount: number | null;
+  measure: string | null;
+}) => void;
 
 export interface SelectMeasureProps {
   control: Control<TableValues>;
-  name: SelectNameType;
+  name:
+    | `ingredient.${number}.measurementUnit`
+    | "newIngredient.measurementUnit";
   setSelectValueNewItem: (value: string) => void;
   defaultValue: string | undefined;
   withBorder: boolean;
-  setChangedIngredientData?: (value: {
-    name: string | null;
-    amount: number | null;
-    measure: string | null;
-  }) => void;
+  setChangedIngredientData?: SetChangedIngredientDataType;
+}
+
+export interface CellNameProps {
+  name: `ingredient.${number}.name` | "newIngredient.name";
+  control: Control<TableValues>;
+  withBorder: boolean;
+  autoFocus: boolean;
+  setChangedIngredientData?: SetChangedIngredientDataType;
+}
+
+export interface CellAmountProps {
+  name: "newIngredient.amount" | `ingredient.${number}.amount`;
+  control: Control<TableValues>;
+  withBorder: boolean;
+  setChangedIngredientData?: SetChangedIngredientDataType;
 }

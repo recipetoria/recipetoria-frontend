@@ -34,6 +34,7 @@ interface InputProps {
   passwordValue?: string;
   updateCustomError?: (value: boolean) => void;
   defaultValue?: string;
+  restriction?: RegExp;
 }
 
 interface ICustomError {
@@ -55,6 +56,7 @@ export default function Input(props: InputProps) {
     passwordValue,
     updateCustomError,
     defaultValue,
+    restriction,
   } = props;
 
   const [isShowedPassword, setShowPassword] = useState(false);
@@ -99,6 +101,12 @@ export default function Input(props: InputProps) {
           {...register(name, validationSchema)}
           className={`input ${type === "checkbox" ? "input_checkbox" : ""}`}
           onInput={(e) => {
+            if (restriction) {
+              e.currentTarget.value = e.currentTarget.value.replaceAll(
+                restriction,
+                ""
+              );
+            }
             if (updateData) {
               updateData(e.currentTarget.value);
             }
