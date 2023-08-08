@@ -20,6 +20,7 @@ import {
   fetchDeleteIngredientFromShopList,
 } from "../../features/ShoppingListSlice";
 import SelectMeasure from "./Cells/SelectMeasure";
+import CellName from "./Cells/CellName";
 
 export default function Table(props: TableProps) {
   const { mode, ingredientsObj, parentObj } = props;
@@ -33,14 +34,9 @@ export default function Table(props: TableProps) {
 
   // TODO: вынести ячейки в отдельные компоненты
 
-  const {
-    handleSubmit,
-    reset,
-    control,
-    setError,
-    formState: { errors },
-    setValue,
-  } = useForm<TableValues>({ mode: "all" });
+  const { handleSubmit, reset, control, setValue } = useForm<TableValues>({
+    mode: "all",
+  });
 
   const { fields } = useFieldArray({
     control,
@@ -163,10 +159,6 @@ export default function Table(props: TableProps) {
         }
         reset();
         setIsActiveAddNewItem(false);
-      } else {
-        setError("newIngredient.name", {
-          message: "Ingredient name is required",
-        });
       }
     } else {
       reset();
@@ -242,35 +234,14 @@ export default function Table(props: TableProps) {
                 onSubmit={() => handleSubmitChangeItem(objItem)}
                 onBlur={() => handleSubmitChangeItem(objItem)}
               >
-                <Controller
+                <CellName
                   name={`ingredient.${indx}.name`}
                   control={control}
-                  rules={{
-                    required: "Ingredient name is required",
-                  }}
-                  render={({ field, fieldState: { error } }) => (
-                    <TextField
-                      {...field}
-                      multiline
-                      placeholder="Type ingredient name..."
-                      size="small"
-                      inputProps={{
-                        style: cellStyle,
-                        maxLength: 30,
-                      }}
-                      onChange={(e) => {
-                        setChangedIngredientData({
-                          name: e.currentTarget.value,
-                          amount: null,
-                          measure: null,
-                        });
-                        field.onChange(e);
-                      }}
-                      error={!!error?.message}
-                      helperText={error?.message}
-                      value={field.value}
-                    />
-                  )}
+                  withBorder={false}
+                  autoFocus={false}
+                  setChangedIngredientData={(value) =>
+                    setChangedIngredientData(value)
+                  }
                 />
               </form>
               <form
@@ -391,33 +362,11 @@ export default function Table(props: TableProps) {
               }`}
             >
               <div className="grid-table__from">
-                <Controller
+                <CellName
                   name="newIngredient.name"
                   control={control}
-                  render={({ field }) => (
-                    <TextField
-                      multiline
-                      required
-                      placeholder="Type ingredient name..."
-                      size="small"
-                      inputProps={{
-                        style: {
-                          ...cellStyle,
-                          border: "1px solid #D9D9D9",
-                          borderRadius: "4px",
-                        },
-                        maxLength: 30,
-                      }}
-                      {...field}
-                      autoFocus
-                      error={!!errors.newIngredient?.name?.message}
-                      helperText={
-                        errors.newIngredient?.name?.message === ""
-                          ? ""
-                          : errors.newIngredient?.name?.message
-                      }
-                    />
-                  )}
+                  withBorder
+                  autoFocus
                 />
               </div>
               <div className="grid-table__from">

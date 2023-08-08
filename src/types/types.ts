@@ -161,6 +161,12 @@ export interface TableValues {
   newIngredient: Ingredient;
 }
 
+type SetChangedIngredientDataType = (value: {
+  name: string | null;
+  amount: number | null;
+  measure: string | null;
+}) => void;
+
 type SelectNameType =
   // eslint-disable-next-line no-template-curly-in-string
   `ingredient.${number}.measurementUnit` | "newIngredient.measurementUnit";
@@ -171,9 +177,13 @@ export interface SelectMeasureProps {
   setSelectValueNewItem: (value: string) => void;
   defaultValue: string | undefined;
   withBorder: boolean;
-  setChangedIngredientData?: (value: {
-    name: string | null;
-    amount: number | null;
-    measure: string | null;
-  }) => void;
+  setChangedIngredientData?: SetChangedIngredientDataType;
+}
+
+export interface CellNameProps {
+  name: `ingredient.${number}.name` | "newIngredient.name";
+  control: Control<TableValues>;
+  withBorder: boolean;
+  autoFocus: boolean;
+  setChangedIngredientData?: SetChangedIngredientDataType;
 }
