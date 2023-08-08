@@ -1,8 +1,8 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import { KeyboardEvent, useState } from "react";
+import { KeyboardEvent, useState, useEffect } from "react";
 import { CSSProperties } from "styled-components";
 import { TextField } from "@mui/material";
-import { Controller, useForm } from "react-hook-form";
+import { Controller, useFieldArray, useForm } from "react-hook-form";
 import PlusIcon from "../../assets/svg/PlusIcon";
 import { Ingredient, TableProps, TableValues } from "../../types/types";
 import "./Table.scss";
@@ -39,7 +39,19 @@ export default function Table(props: TableProps) {
     control,
     setError,
     formState: { errors },
-  } = useForm<TableValues>();
+    setValue,
+  } = useForm<TableValues>({ mode: "all" });
+
+  const { fields } = useFieldArray({
+    control,
+    name: "ingredient",
+    keyName: "_id",
+  });
+
+  useEffect(() => {
+    setValue("ingredient", sortedIngredientsObj);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [ingredientsObj.length]);
 
   const dispatch = useAppDispatch();
 
@@ -113,12 +125,12 @@ export default function Table(props: TableProps) {
   const [selectValueNewItem, setSelectValueNewItem] = useState("select");
 
   const handleSubmitNewItem = (data: TableValues) => {
-    const { ingredientNameNew, amount } = data;
+    const { name, amount } = data.newIngredient;
 
-    if (ingredientNameNew || amount || selectValueNewItem !== "select") {
-      if (ingredientNameNew) {
+    if (name || amount || selectValueNewItem !== "select") {
+      if (name) {
         const newIngredientData = {
-          name: ingredientNameNew,
+          name,
           amount,
           measurementUnit:
             selectValueNewItem === "select"
@@ -152,7 +164,7 @@ export default function Table(props: TableProps) {
         reset();
         setIsActiveAddNewItem(false);
       } else {
-        setError("ingredientNameNew", {
+        setError("newIngredient.name", {
           message: "Ingredient name is required",
         });
       }
@@ -209,7 +221,7 @@ export default function Table(props: TableProps) {
         )}
         <div className="grid-table__delete cell cell_header">Delete</div>
       </div>
-      {sortedIngredientsObj.map((objItem, indx) => {
+      {fields.map((objItem, indx) => {
         return (
           <div
             className={`grid-table__row ${
@@ -230,23 +242,35 @@ export default function Table(props: TableProps) {
                 onSubmit={() => handleSubmitChangeItem(objItem)}
                 onBlur={() => handleSubmitChangeItem(objItem)}
               >
-                <TextField
-                  multiline
-                  defaultValue={objItem.name}
-                  required
-                  placeholder="Type ingredient name..."
-                  size="small"
-                  inputProps={{
-                    style: cellStyle,
-                    maxLength: 30,
+                <Controller
+                  name={`ingredient.${indx}.name`}
+                  control={control}
+                  rules={{
+                    required: "Ingredient name is required",
                   }}
-                  onChange={(e) =>
-                    setChangedIngredientData({
-                      name: e.currentTarget.value,
-                      amount: null,
-                      measure: null,
-                    })
-                  }
+                  render={({ field, fieldState: { error } }) => (
+                    <TextField
+                      {...field}
+                      multiline
+                      placeholder="Type ingredient name..."
+                      size="small"
+                      inputProps={{
+                        style: cellStyle,
+                        maxLength: 30,
+                      }}
+                      onChange={(e) => {
+                        setChangedIngredientData({
+                          name: e.currentTarget.value,
+                          amount: null,
+                          measure: null,
+                        });
+                        field.onChange(e);
+                      }}
+                      error={!!error?.message}
+                      helperText={error?.message}
+                      value={field.value}
+                    />
+                  )}
                 />
               </form>
               <form
@@ -280,7 +304,7 @@ export default function Table(props: TableProps) {
               >
                 <SelectMeasure
                   control={control}
-                  name="measure"
+                  name="newIngredient.measurementUnit"
                   setSelectValueNewItem={(value) =>
                     setSelectValueNewItem(value)
                   }
@@ -368,7 +392,7 @@ export default function Table(props: TableProps) {
             >
               <div className="grid-table__from">
                 <Controller
-                  name="ingredientNameNew"
+                  name="newIngredient.name"
                   control={control}
                   render={({ field }) => (
                     <TextField
@@ -386,11 +410,11 @@ export default function Table(props: TableProps) {
                       }}
                       {...field}
                       autoFocus
-                      error={!!errors.ingredientNameNew?.message}
+                      error={!!errors.newIngredient?.name?.message}
                       helperText={
-                        errors.ingredientNameNew?.message === ""
+                        errors.newIngredient?.name?.message === ""
                           ? ""
-                          : errors.ingredientNameNew?.message
+                          : errors.newIngredient?.name?.message
                       }
                     />
                   )}
@@ -398,7 +422,7 @@ export default function Table(props: TableProps) {
               </div>
               <div className="grid-table__from">
                 <Controller
-                  name="amount"
+                  name="newIngredient.amount"
                   control={control}
                   render={({ field }) => (
                     <TextField
@@ -422,7 +446,7 @@ export default function Table(props: TableProps) {
               <div className="grid-table__from">
                 <SelectMeasure
                   control={control}
-                  name="measure"
+                  name="newIngredient.measurementUnit"
                   setSelectValueNewItem={(value) =>
                     setSelectValueNewItem(value)
                   }

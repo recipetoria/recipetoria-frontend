@@ -157,13 +157,13 @@ export interface TableProps {
 }
 
 export interface TableValues {
-  ingredientName: string;
-  amount: number;
-  measure: string;
-  ingredientNameNew: string;
+  ingredient: Ingredient[];
+  newIngredient: Ingredient;
 }
 
-type SelectNameType = "measure";
+type SelectNameType =
+  // eslint-disable-next-line no-template-curly-in-string
+  `ingredient.${number}.measurementUnit` | "newIngredient.measurementUnit";
 
 export interface SelectMeasureProps {
   control: Control<TableValues>;
