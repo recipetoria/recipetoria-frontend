@@ -187,4 +187,8 @@ $sign-in-page-wrapper-padding-600-904: 32px;
       justify-content: center;
     }
   }
+
+  .disabled-link {
+    cursor: not-allowed;
+  }
 }
