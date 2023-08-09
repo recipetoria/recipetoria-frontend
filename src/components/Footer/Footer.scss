@@ -18,6 +18,15 @@
     margin: 1rem 11.04vw 1rem 10.83vw;
   }
 
+  &__left-side {
+    @media (max-width: 599px) {
+      display: flex;
+      flex-direction: column;
+      gap: 45px;
+      align-items: flex-start;
+    }
+  }
+
   .logo {
     object-fit: contain;
 
@@ -25,6 +34,10 @@
       display: flex;
       align-items: center;
       height: 60px;
+      
+      @media (max-width: 599px) {
+        height: 30px;
+      }
     }
   }
 
@@ -33,11 +46,29 @@
     gap: 3.88vw;
     align-items: center;
 
+    @media (max-width: 599px) {
+      flex-direction: column;
+    }
+
     &__right {
       font-size: 16px;
       font-weight: 400;
       line-height: 24px;
       color: $brow-light-color;
+
+      &_left-side {
+        display: none;
+        
+        @media (max-width: 599px) {
+          display: block;
+        }
+      }
+
+      &_right-side {
+        @media (max-width: 599px) {
+          display: none;
+        }
+      }
     }
   }
 }
