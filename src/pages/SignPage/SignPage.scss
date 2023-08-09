@@ -181,5 +181,10 @@ $sign-in-page-wrapper-padding-600-904: 32px;
       color: $blue-color;
       letter-spacing: 0.1px;
     }
+
+    @media (max-width: 599px) {
+      flex-wrap: wrap;
+      justify-content: center;
+    }
   }
 }
