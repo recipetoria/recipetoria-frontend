@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import "./Header.scss";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import Logo from "../../assets/svg/Logo";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { fetchUserPhoto, userPhotoValue } from "../../features/UserPhotoSlice";
@@ -30,6 +30,8 @@ export default function Header() {
       dispatch(userPhotoValue(""));
     }
   }, [dispatch, isAuth, token]);
+
+  const [isOpenBurgerMenu, setIsOpenBurgerMenu] = useState(false);
 
   return (
     <header className="header">
@@ -91,11 +93,18 @@ export default function Header() {
             </div>
           )}
         </article>
-        <button type="button" className="burger-btn">
+        <button
+          type="button"
+          className="burger-btn"
+          onClick={() => setIsOpenBurgerMenu(true)}
+        >
           <BurgerIcon />
         </button>
       </div>
-      <BurgerMenu />
+      <BurgerMenu
+        visible={isOpenBurgerMenu}
+        setIsOpenBurgerMenu={(value) => setIsOpenBurgerMenu(value)}
+      />
     </header>
   );
 }

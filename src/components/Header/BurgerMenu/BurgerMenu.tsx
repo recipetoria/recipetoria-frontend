@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import CrossIcon from "../../../assets/svg/CrossIcon";
 import UserPhoto from "../../UserPhoto/UserPhoto";
@@ -7,14 +7,39 @@ import useModal from "../../../hooks/useModal";
 import ModalContentWitInput from "../../ModalContentWitInput/ModalContentWitInput";
 import "./BurgerMenu.scss";
 
-export default function BurgerMenu() {
+interface BurgerMenuProps {
+  visible: boolean;
+  setIsOpenBurgerMenu: (value: boolean) => void;
+}
+
+export default function BurgerMenu(props: BurgerMenuProps) {
+  const { visible, setIsOpenBurgerMenu } = props;
+
   const { setModalContent } = useContext(ModalContentContext);
   const { toggle } = useModal();
 
+  const [direction, setDirection] = useState<"normal" | "reverse">("normal");
+
   return (
-    <aside className="burger-menu">
+    <aside
+      className={`burger-menu burger-menu_${direction}`}
+      style={{
+        display: visible ? "block" : "none",
+        zIndex: visible ? 9 : -9,
+      }}
+    >
       <div className="burger-menu__wrapper">
-        <button type="button" className="burger-menu__btn">
+        <button
+          type="button"
+          className="burger-menu__btn"
+          onClick={() => {
+            setDirection("reverse");
+            setTimeout(() => {
+              setIsOpenBurgerMenu(false);
+              setDirection("normal");
+            }, 1000);
+          }}
+        >
           <CrossIcon color="#707077" />
         </button>
         <section className="burger-menu__menu">
