@@ -4,6 +4,7 @@
 $sign-up-page-wrapper-padding-1280-1439: 56px; 
 $sign-up-page-wrapper-padding-905-1279: 40px; 
 $sign-in-page-wrapper-padding-1280-1439: 48px; 
+$sign-in-page-wrapper-padding-600-904: 32px; 
 
 .sign-page {
   display: flex;
@@ -19,8 +20,11 @@ $sign-in-page-wrapper-padding-1280-1439: 48px;
     padding: 56px 56px 56px 55px;
     
     background-color: $btn-bg-color;
-    
-    @media (min-width: 1280px) and (max-width: 1439px) {
+    border: 1px solid $total-black;
+    border-radius: 8px;
+    box-shadow: 4px 4px 0 $total-black;
+
+    @media (max-width: 1439px) {
       width: 65.781vw;
       padding: $sign-up-page-wrapper-padding-1280-1439;
 
@@ -30,7 +34,7 @@ $sign-in-page-wrapper-padding-1280-1439: 48px;
       }
     }
     
-    @media (min-width: 905px) and (max-width: 1279px) {
+    @media (max-width: 1279px) {
       gap: 32px;
       width: 100vw;
       max-width: 826px;
@@ -43,6 +47,26 @@ $sign-in-page-wrapper-padding-1280-1439: 48px;
       &_sign-in {
         max-width: 647px;
         padding: $sign-in-page-wrapper-padding-1280-1439;
+      }
+    }
+
+    @media (max-width: 904px) {
+      gap: 0;
+      width: 100vw;
+      max-width: 289px;
+      padding: $sign-up-page-wrapper-padding-905-1279;
+      
+      border: none;
+      border-radius: 0;
+      box-shadow: none;
+      
+      &_sign-in {
+        max-width: 267px;
+        padding: $sign-in-page-wrapper-padding-600-904;
+
+        border: 1px solid $total-black;
+        border-radius: 8px;
+        box-shadow: 4px 4px 0 $total-black;
       }
     }
   }
@@ -59,7 +83,7 @@ $sign-in-page-wrapper-padding-1280-1439: 48px;
       object-fit: cover;
     }
 
-    @media (min-width: 1280px) and (max-width: 1439px) {
+    @media (max-width: 1439px) {
       width: calc(48.047vw - $sign-up-page-wrapper-padding-1280-1439 * 2);
       
       &_sign-in {
@@ -67,20 +91,28 @@ $sign-in-page-wrapper-padding-1280-1439: 48px;
       }
     }
     
-    @media (min-width: 905px) and (max-width: 1279px) {
+    @media (max-width: 1279px) {
       width: calc(66.851vw - $sign-up-page-wrapper-padding-905-1279 * 2);
       
       &_sign-in {
         width: calc(48.177vw - $sign-in-page-wrapper-padding-1280-1439 * 2);
       }
     }
-  }
 
+    @media (max-width: 904px) {
+      display: none;
+    }
+  }
+  
   &__form-n-header {
     display: flex;
     flex-direction: column;
     flex-grow: 1;
     gap: 24px;
+    
+    @media (max-width: 904px) {
+      gap: 20px;
+    }
   }
 
   &__header {
