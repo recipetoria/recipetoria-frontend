@@ -130,8 +130,16 @@ export default function SignPage(props: ISignPageProps) {
   return (
     <main className="main">
       <article className="sign-page">
-        <div className="sign-page__wrapper">
-          <section className="sign-page__img-wrapper">
+        <div
+          className={`sign-page__wrapper ${
+            signMode === "signIn" ? "sign-page__wrapper_sign-in" : ""
+          }`}
+        >
+          <section
+            className={`sign-page__img-wrapper ${
+              signMode === "signIn" ? "sign-page__img-wrapper_sign-in" : ""
+            }`}
+          >
             <img src={Image} alt="recipe and plate" />
           </section>
           <section className="sign-page__form-n-header">

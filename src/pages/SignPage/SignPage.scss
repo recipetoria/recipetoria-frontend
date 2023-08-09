@@ -1,6 +1,9 @@
 @import '../../styles/variables';
 @import '../../styles/mixins';
 
+$sign-up-page-wrapper-padding-1280: 56px; 
+$sign-in-page-wrapper-padding-1280: 48px; 
+
 .sign-page {
   display: flex;
   align-items: center;
@@ -21,7 +24,14 @@
     
     @media (max-width: 1280px) {
       width: 65.781vw;
-      padding: 56px;
+      padding: $sign-up-page-wrapper-padding-1280;
+    }
+
+    &_sign-in {
+      @media (max-width: 1280px) {
+        width: 50.547vw;
+        padding: $sign-in-page-wrapper-padding-1280;
+      }
     }
   }
 
@@ -38,7 +48,13 @@
     }
 
     @media (max-width: 1280px) {
-      width: calc(48.047vw - 110px);
+      width: calc(48.047vw - $sign-up-page-wrapper-padding-1280 * 2);
+    }
+
+    &_sign-in {
+      @media (max-width: 1280px) {
+        width: calc(34.375vw - $sign-in-page-wrapper-padding-1280 * 2);
+      }
     }
   }
 
