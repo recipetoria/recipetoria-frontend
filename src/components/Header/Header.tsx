@@ -10,6 +10,8 @@ import ProfileModal from "../ProfileModal/ProfileModal";
 import { ModalContentContext } from "../../contexts/ModalContentContext";
 import ModalContentWitInput from "../ModalContentWitInput/ModalContentWitInput";
 import useModal from "../../hooks/useModal";
+import BurgerIcon from "../../assets/svg/BurgerIcon";
+import BurgerMenu from "./BurgerMenu/BurgerMenu";
 
 export default function Header() {
   const isAuth = useAppSelector((state) => state.present.authData.value.isAuth);
@@ -89,7 +91,11 @@ export default function Header() {
             </div>
           )}
         </article>
+        <button type="button" className="burger-btn">
+          <BurgerIcon />
+        </button>
       </div>
+      <BurgerMenu />
     </header>
   );
 }
