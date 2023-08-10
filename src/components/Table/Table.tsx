@@ -324,7 +324,7 @@ export default function Table(props: TableProps) {
                 mode === "shopList" ? "grid-table__data-wrapper_new-grid" : ""
               }`}
             >
-              <div className="grid-table__from">
+              <div className="grid-table__from grid-table__from_name">
                 <CellName
                   name="newIngredient.name"
                   control={control}
@@ -332,14 +332,14 @@ export default function Table(props: TableProps) {
                   autoFocus
                 />
               </div>
-              <div className="grid-table__from">
+              <div className="grid-table__from grid-table__from_amount">
                 <CellAmount
                   name="newIngredient.amount"
                   control={control}
                   withBorder
                 />
               </div>
-              <div className="grid-table__from">
+              <div className="grid-table__from grid-table__from_measure">
                 <SelectMeasure
                   control={control}
                   name="newIngredient.measurementUnit"
@@ -366,7 +366,9 @@ export default function Table(props: TableProps) {
       ) : (
         <button
           type="button"
-          className="grid-table__new-item-btn"
+          className={`grid-table__new-item-btn ${
+            mode === "shopList" ? "grid-table__new-item-btn_shop-list" : ""
+          }`}
           onClick={() => {
             setIsActiveAddNewItem(true);
           }}
