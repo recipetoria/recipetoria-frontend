@@ -25,7 +25,7 @@ export default function BurgerMenu(props: BurgerMenuProps) {
       className={`burger-menu burger-menu_${direction}`}
       style={{
         display: visible ? "block" : "none",
-        zIndex: visible ? 9 : -9,
+        zIndex: visible ? 99999 : -9,
       }}
     >
       <div className="burger-menu__wrapper">
@@ -67,6 +67,7 @@ export default function BurgerMenu(props: BurgerMenuProps) {
                     inputName="recipeNameWithoutTag"
                   />
                 );
+                setIsOpenBurgerMenu(false);
               }}
             >
               New recipe
