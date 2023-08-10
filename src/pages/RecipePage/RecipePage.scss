@@ -25,7 +25,7 @@
   .recipe-page-header {
     display: flex;
     gap: 4.861vw;
-    align-items: center;
+    align-items: flex-start;
     justify-content: space-between;
     width: 100%;
 
@@ -37,6 +37,12 @@
       font-weight: 400;
       line-height: 1.25;
       color: $brown-color;
+      
+      @media (max-width: 599px) {
+        font-size: 1.5rem;
+        line-height: 1.333;
+        
+      }
     }
   }
 
