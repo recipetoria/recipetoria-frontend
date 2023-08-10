@@ -2,10 +2,13 @@
 import { Controller } from "react-hook-form";
 import { TextField } from "@mui/material";
 import { CellNameProps } from "../../../types/types";
+import useResize from "../../../hooks/useResize";
 
 export default function CellName(props: CellNameProps) {
   const { name, control, withBorder, setChangedIngredientData, autoFocus } =
     props;
+
+  const { isScreenSm } = useResize();
 
   const inputPropsStyle = withBorder
     ? {
@@ -15,7 +18,7 @@ export default function CellName(props: CellNameProps) {
         borderRadius: "4px",
       }
     : {
-        padding: "8px 0.833vw",
+        padding: isScreenSm ? "0" : "8px 0.833vw",
         cursor: "pointer",
       };
 
@@ -51,6 +54,7 @@ export default function CellName(props: CellNameProps) {
           helperText={error?.message}
           value={field.value}
           autoFocus={autoFocus}
+          fullWidth={isScreenSm}
         />
       )}
     />

@@ -20,9 +20,17 @@
     grid-gap: 24px 3.889vw;
     width: inherit;
     margin: 40px;
-
+    
     color: $black-color;
-
+    
+    @media (max-width: 599px) {
+      grid-template-areas: 
+      "h3 add_new_item_btn"
+      "table table";
+      grid-template-columns: 37.288fr 47.797fr;
+      grid-gap: 17.5px auto;
+      margin: 16px;
+    }
   }
 
   &__h3 {
@@ -39,6 +47,10 @@
     grid-area: image;
     align-self: center;
     justify-self: end;
+
+    @media (max-width: 599px) {
+      display: none;
+    }
   }
 
   &__image {
@@ -47,7 +59,19 @@
     object-fit: cover;
   }
 
-  &__table {
+  .grid-table {
     grid-area: table;
+  }
+
+  &__add-new-item-btn {
+    @include btn;
+
+    grid-area: add_new_item_btn;
+    justify-self: flex-end;
+    max-width: 141px;
+
+    @media (min-width: 600px) {
+      display: none;
+    }
   }
 }

@@ -203,7 +203,7 @@ export default function Table(props: TableProps) {
               }`}
             >
               <form
-                className="grid-table__from"
+                className="grid-table__from grid-table__from_name"
                 onSubmit={() => handleSubmitChangeItem(objItem)}
                 onBlur={() => handleSubmitChangeItem(objItem)}
               >
@@ -218,7 +218,7 @@ export default function Table(props: TableProps) {
                 />
               </form>
               <form
-                className="grid-table__from"
+                className="grid-table__from grid-table__from_amount"
                 onSubmit={() => handleSubmitChangeItem(objItem)}
                 onBlur={() => handleSubmitChangeItem(objItem)}
               >
@@ -232,7 +232,7 @@ export default function Table(props: TableProps) {
                 />
               </form>
               <form
-                className="grid-table__from"
+                className="grid-table__from grid-table__from_measure"
                 onSubmit={() => handleSubmitChangeItem(objItem)}
                 onBlur={() => handleSubmitChangeItem(objItem)}
               >

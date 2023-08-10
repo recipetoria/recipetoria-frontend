@@ -3,15 +3,19 @@ import { KeyboardEvent } from "react";
 import { TextField } from "@mui/material";
 import { Controller } from "react-hook-form";
 import { CellAmountProps } from "../../../types/types";
+import useResize from "../../../hooks/useResize";
 
 export default function CellAmount(props: CellAmountProps) {
   const { name, control, withBorder, setChangedIngredientData } = props;
+
+  const { isScreenSm } = useResize();
 
   const inputPropsStyle: React.CSSProperties = withBorder
     ? {
         padding: "8px 0.833vw",
         cursor: "pointer",
         textAlign: "right",
+        fontSize: isScreenSm ? "14px" : "16px",
         border: "1px solid #D9D9D9",
         borderRadius: "4px",
       }
@@ -19,6 +23,7 @@ export default function CellAmount(props: CellAmountProps) {
         padding: "8px 0.833vw",
         cursor: "pointer",
         textAlign: "right",
+        fontSize: isScreenSm ? "14px" : "16px",
       };
 
   const regex = /[\d.,\\/-]+/;

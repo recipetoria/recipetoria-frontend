@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Controller } from "react-hook-form";
 import measureValues from "../../../assets/data/measureArray";
 import { SelectMeasureProps } from "../../../types/types";
+import useResize from "../../../hooks/useResize";
 
 export default function SelectMeasure(props: SelectMeasureProps) {
   const {
@@ -17,15 +18,17 @@ export default function SelectMeasure(props: SelectMeasureProps) {
 
   const [selectValue, setSelectValue] = useState(defaultValue || "select");
 
+  const { isScreenSm } = useResize();
+
   const sxStyle = withBorder
     ? {
-        width: "8.264vw",
+        width: "100%",
         maxWidth: "143px",
         border: "1px solid #D9D9D9",
         borderRadius: "4px",
       }
     : {
-        width: "8.264vw",
+        width: "100%",
         maxWidth: "143px",
       };
 
@@ -53,6 +56,7 @@ export default function SelectMeasure(props: SelectMeasureProps) {
           }}
           value={selectValue}
           sx={sxStyle}
+          InputProps={{ style: { fontSize: isScreenSm ? "14px" : "16px" } }}
           SelectProps={{
             MenuProps: {
               style: {
