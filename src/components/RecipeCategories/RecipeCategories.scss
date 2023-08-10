@@ -18,6 +18,10 @@
     align-items: flex-end;
     width: inherit;
     margin: 40px;
+    
+    @media (max-width: 599px) {
+      margin: 16px;
+    }
   }
 
   &__view-btn {
