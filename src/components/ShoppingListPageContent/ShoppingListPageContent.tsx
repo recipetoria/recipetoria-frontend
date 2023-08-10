@@ -39,13 +39,18 @@ export default function ShoppingListPageContent() {
           <article className="shopping-list-block__header">
             <h2 className="shopping-list-block__h2">Shopping list</h2>
             <section className="shopping-list-block__btns">
-              <Button icon={<Print />} onClick={handlePrint} />
-              <Button icon={<Share />} onClick={() => {}} />
+              <Button icon={<Print />} onClick={handlePrint} disabled={false} />
+              <Button
+                icon={<Share color="#94959A" />}
+                onClick={() => {}}
+                disabled
+              />
               <Button
                 icon={<Trash />}
                 onClick={() => {
                   dispatch(fetchCleanShoppingList({ token }));
                 }}
+                disabled={false}
               />
             </section>
           </article>
