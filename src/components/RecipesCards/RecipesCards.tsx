@@ -70,7 +70,7 @@ export default function RecipesCards(props: RecipesCardsProps) {
   return (
     <article className="cards">
       <button
-        className="recipe-card"
+        className="recipe-card card_create-new"
         type="button"
         onClick={() => {
           toggle();
