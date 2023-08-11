@@ -47,6 +47,15 @@
     }
   }
 
+  .small-size-btns {
+    display: flex;
+    gap: 11px;
+
+    @media (min-width: 600px) {
+      display: none;
+    }
+  }
+
 
   .burger-btn {
     display: flex;
@@ -57,10 +66,6 @@
     
     background: transparent;
     border: none;
-
-    @media (min-width: 600px) {
-      display: none;
-    }
   }
 
   .links-n-avatar {

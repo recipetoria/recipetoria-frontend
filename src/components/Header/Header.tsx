@@ -93,13 +93,26 @@ export default function Header() {
             </div>
           )}
         </article>
-        <button
-          type="button"
-          className="burger-btn"
-          onClick={() => setIsOpenBurgerMenu(true)}
-        >
-          <BurgerIcon />
-        </button>
+        <section className="small-size-btns">
+          {isAuth ? (
+            <button
+              type="button"
+              className="burger-btn"
+              onClick={() => setIsOpenBurgerMenu(true)}
+            >
+              <BurgerIcon />
+            </button>
+          ) : (
+            <>
+              <Link to="/sign_in" className="btn">
+                Log in
+              </Link>
+              <Link to="/sign_up" className="orange-btn">
+                Get started
+              </Link>
+            </>
+          )}
+        </section>
       </div>
       <BurgerMenu
         visible={isOpenBurgerMenu}
