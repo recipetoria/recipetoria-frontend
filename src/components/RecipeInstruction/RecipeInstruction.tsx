@@ -97,6 +97,7 @@ export default function RecipeInstruction(props: { recipeData: Recipe }) {
                 recipeData={recipeData}
               />
             </div>
+            {/* TODO: if long text without spaces */}
             <div className="instruction__text">
               {recipeData.instructions ||
                 "There are no instructions here yet! It's time to add them"}
