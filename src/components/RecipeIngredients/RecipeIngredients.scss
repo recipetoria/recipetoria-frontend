@@ -24,11 +24,9 @@
     color: $black-color;
     
     @media (max-width: 599px) {
-      grid-template-areas: 
-      "h3 add_new_item_btn"
-      "table table";
-      grid-template-columns: 37.288fr 47.797fr;
-      grid-gap: 17.5px auto;
+      display: flex;
+      flex-direction: column;
+      gap: 17.5px;
       margin: 16px;
     }
   }
@@ -61,17 +59,5 @@
 
   .grid-table {
     grid-area: table;
-  }
-
-  &__add-new-item-btn {
-    @include btn;
-
-    grid-area: add_new_item_btn;
-    justify-self: flex-end;
-    max-width: 141px;
-
-    @media (min-width: 600px) {
-      display: none;
-    }
   }
 }

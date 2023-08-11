@@ -47,9 +47,6 @@ export default function RecipeIngredients(props: { recipeData: Recipe }) {
             className="recipe-ingredients__image"
           />
         </div>
-        <button type="button" className="recipe-ingredients__add-new-item-btn">
-          Add ingredient
-        </button>
         <Table
           mode="recipe"
           ingredientsObj={recipeData.ingredientDTOs || []}

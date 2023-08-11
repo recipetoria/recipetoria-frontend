@@ -20,6 +20,7 @@ import {
 import SelectMeasure from "./Cells/SelectMeasure";
 import CellName from "./Cells/CellName";
 import CellAmount from "./Cells/CellAmount";
+import useResize from "../../hooks/useResize";
 
 export default function Table(props: TableProps) {
   const { mode, ingredientsObj, parentObj } = props;
@@ -47,6 +48,7 @@ export default function Table(props: TableProps) {
   }, [ingredientsObj.length]);
 
   const dispatch = useAppDispatch();
+  const { isScreenSm } = useResize();
 
   const token = useAppSelector((state) => state.present.authData.value.token);
 
@@ -268,7 +270,10 @@ export default function Table(props: TableProps) {
                 }}
               >
                 <PlusIcon />
-                <span>Add to shop list</span>
+                <span>
+                  Add <b className="small-size-text-in-action">item</b> to shop
+                  list
+                </span>
               </button>
             ) : (
               ""
@@ -366,15 +371,17 @@ export default function Table(props: TableProps) {
       ) : (
         <button
           type="button"
-          className={`grid-table__new-item-btn ${
-            mode === "shopList" ? "grid-table__new-item-btn_shop-list" : ""
-          }`}
+          className="grid-table__new-item-btn"
           onClick={() => {
             setIsActiveAddNewItem(true);
           }}
         >
           <span className="grid-table__add-btn-plus">+</span>
-          <span>Add new item</span>
+          <span>
+            {isScreenSm && mode === "recipe"
+              ? "New ingredient"
+              : "Add new item"}
+          </span>
         </button>
       )}
     </section>
