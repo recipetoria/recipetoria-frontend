@@ -146,12 +146,22 @@
   width: 16.11vw;
   max-width: 264px;
   padding: 1.11vw;
-
+  
   cursor: pointer;
-
+  
   background: $btn-bg-color;
-
+  
   transition: $transition;
+  
+  @media (max-width: 599px) {
+    width: 43vw;
+    max-width: 155px;
+    padding: 7px;
+    
+    &_create-new {
+      display: none;
+    }
+  }
 
   &__wrapper {
     position: relative;

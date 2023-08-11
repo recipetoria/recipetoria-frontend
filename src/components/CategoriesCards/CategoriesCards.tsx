@@ -44,7 +44,7 @@ export default function CategoriesCards(props: CategoriesCardsProps) {
   return (
     <article className="cards">
       <button
-        className="card"
+        className="card card_create-new"
         type="button"
         onClick={() => {
           toggle();
