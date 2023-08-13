@@ -26,7 +26,9 @@ export default function CellAmount(props: CellAmountProps) {
         fontSize: isScreenSm ? "14px" : "16px",
       };
 
-  const regex = /[\d.,\\/-]+/;
+  // TODO: uncomment when it add in server side
+  // const regex = /[\d.,\\/-]+/;
+  const regex = /[\d.]+/;
   const validateAmountField = (keyEvent: KeyboardEvent<HTMLDivElement>) => {
     if (
       !regex.test(keyEvent.key) &&
