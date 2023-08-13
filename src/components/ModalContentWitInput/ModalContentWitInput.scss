@@ -11,6 +11,11 @@
   width: 30.69vw;
   max-width: 442px;
 
+  @media (max-width: 599px) {
+    width: 100%;
+    max-width: 290px;
+  }
+
   .create-block-n-btns {
     display: flex;
     flex-direction: column;
