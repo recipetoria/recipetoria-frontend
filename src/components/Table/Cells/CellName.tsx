@@ -36,7 +36,7 @@ export default function CellName(props: CellNameProps) {
           placeholder="Type ingredient name..."
           size="small"
           inputProps={{
-            style: inputPropsStyle,
+            style: isScreenSm ? {} : inputPropsStyle,
             maxLength: 30,
           }}
           onChange={(e) => {
