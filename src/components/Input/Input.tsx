@@ -35,6 +35,7 @@ interface InputProps {
   updateCustomError?: (value: boolean) => void;
   defaultValue?: string;
   restriction?: RegExp;
+  disabled?: boolean;
 }
 
 interface ICustomError {
@@ -57,6 +58,7 @@ export default function Input(props: InputProps) {
     updateCustomError,
     defaultValue,
     restriction,
+    disabled,
   } = props;
 
   const [isShowedPassword, setShowPassword] = useState(false);
@@ -121,6 +123,7 @@ export default function Input(props: InputProps) {
             }
           }}
           defaultValue={defaultValue}
+          disabled={disabled}
         />
         {name === "password" ||
         name === "repeatPassword" ||

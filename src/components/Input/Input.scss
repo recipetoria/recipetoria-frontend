@@ -81,6 +81,15 @@
         background-repeat: no-repeat;
         background-position: center;
       }
+
+      &:disabled {
+        @include border($color: $gray-light-color);
+
+        cursor: not-allowed;
+
+        background: $primary-bg-menu;
+        box-shadow: 2px 2px 0 0 $gray-light-color;
+      }
     }
 
     &__btn {

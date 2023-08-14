@@ -243,6 +243,7 @@ export default function SignPage(props: ISignPageProps) {
                 required={signMode === "signUp"}
                 type="checkbox"
                 placeholder=""
+                disabled={signMode === "signIn"}
               />
               <article className="sign-social">
                 <span className="sign-social__text">or sign up with</span>
