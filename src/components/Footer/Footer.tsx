@@ -17,6 +17,7 @@ export default function Footer() {
             All right reserved
           </span>
         </section>
+        {/* TODO: куда ведут эти ссылки?) */}
         <article className="footer-links-n-rights">
           <a href="/#">Privacy policy</a>
           <a href="/#">Cookie policy</a>
