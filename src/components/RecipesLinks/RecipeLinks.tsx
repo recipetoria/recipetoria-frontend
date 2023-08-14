@@ -21,32 +21,38 @@ export default function RecipeLinks(props: { recipeData: Recipe }) {
     handleSubmit,
     formState: { errors },
     setError,
-  } = useForm<RecipeLinksFormValues>();
+  } = useForm<RecipeLinksFormValues>({ mode: "all" });
   const dispatch = useAppDispatch();
 
   const [linkValue, setLinkValue] = useState("");
   const token = useAppSelector((state) => state.present.authData.value.token);
 
-  // TODO: Add check if link exist
   const handleSubmitNewLink = () => {
     if (linkValue) {
       const isValid =
         linkValue.includes("http://") || linkValue.includes("https://");
       if (isValid) {
-        dispatch(
-          fetchUpdateRecipeInfo({
-            recipeId: recipeData.id,
-            token,
-            infoRecipeData: {
-              name: recipeData.name,
-              links:
-                recipeData.links !== null
-                  ? [...recipeData.links, linkValue]
-                  : [linkValue],
-            },
-          })
-        );
-        setLinkValue("");
+        const isExist = recipeData.links?.includes(linkValue);
+        if (!isExist) {
+          dispatch(
+            fetchUpdateRecipeInfo({
+              recipeId: recipeData.id,
+              token,
+              infoRecipeData: {
+                name: recipeData.name,
+                links:
+                  recipeData.links !== null
+                    ? [...recipeData.links, linkValue]
+                    : [linkValue],
+              },
+            })
+          );
+          setLinkValue("");
+        } else {
+          setError("addLink", {
+            message: "This link is already exist",
+          });
+        }
       } else {
         setError("addLink", {
           message: "The link should start with 'http://' or 'https://'",
@@ -109,10 +115,14 @@ export default function RecipeLinks(props: { recipeData: Recipe }) {
                     placeholder="Enter your link here"
                     fullWidth
                     helperText={
+                      errors.addLink?.message ||
                       "The link should start with 'http://' or 'https://'"
                     }
                     value={linkValue}
-                    onChange={(e) => setLinkValue(e.target.value)}
+                    onChange={(e) => {
+                      field.onChange(e);
+                      setLinkValue(e.target.value);
+                    }}
                   />
                 )}
               />
