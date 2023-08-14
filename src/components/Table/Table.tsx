@@ -20,6 +20,7 @@ import {
 import SelectMeasure from "./Cells/SelectMeasure";
 import CellName from "./Cells/CellName";
 import CellAmount from "./Cells/CellAmount";
+import useResize from "../../hooks/useResize";
 
 export default function Table(props: TableProps) {
   const { mode, ingredientsObj, parentObj } = props;
@@ -47,6 +48,7 @@ export default function Table(props: TableProps) {
   }, [ingredientsObj.length]);
 
   const dispatch = useAppDispatch();
+  const { isScreenSm } = useResize();
 
   const token = useAppSelector((state) => state.present.authData.value.token);
 
@@ -203,7 +205,7 @@ export default function Table(props: TableProps) {
               }`}
             >
               <form
-                className="grid-table__from"
+                className="grid-table__from grid-table__from_name"
                 onSubmit={() => handleSubmitChangeItem(objItem)}
                 onBlur={() => handleSubmitChangeItem(objItem)}
               >
@@ -218,7 +220,7 @@ export default function Table(props: TableProps) {
                 />
               </form>
               <form
-                className="grid-table__from"
+                className="grid-table__from grid-table__from_amount"
                 onSubmit={() => handleSubmitChangeItem(objItem)}
                 onBlur={() => handleSubmitChangeItem(objItem)}
               >
@@ -232,7 +234,7 @@ export default function Table(props: TableProps) {
                 />
               </form>
               <form
-                className="grid-table__from"
+                className="grid-table__from grid-table__from_measure"
                 onSubmit={() => handleSubmitChangeItem(objItem)}
                 onBlur={() => handleSubmitChangeItem(objItem)}
               >
@@ -268,7 +270,10 @@ export default function Table(props: TableProps) {
                 }}
               >
                 <PlusIcon />
-                <span>Add to shop list</span>
+                <span>
+                  Add <b className="small-size-text-in-action">item</b> to shop
+                  list
+                </span>
               </button>
             ) : (
               ""
@@ -324,7 +329,7 @@ export default function Table(props: TableProps) {
                 mode === "shopList" ? "grid-table__data-wrapper_new-grid" : ""
               }`}
             >
-              <div className="grid-table__from">
+              <div className="grid-table__from grid-table__from_name">
                 <CellName
                   name="newIngredient.name"
                   control={control}
@@ -332,14 +337,14 @@ export default function Table(props: TableProps) {
                   autoFocus
                 />
               </div>
-              <div className="grid-table__from">
+              <div className="grid-table__from grid-table__from_amount">
                 <CellAmount
                   name="newIngredient.amount"
                   control={control}
                   withBorder
                 />
               </div>
-              <div className="grid-table__from">
+              <div className="grid-table__from grid-table__from_measure">
                 <SelectMeasure
                   control={control}
                   name="newIngredient.measurementUnit"
@@ -372,7 +377,11 @@ export default function Table(props: TableProps) {
           }}
         >
           <span className="grid-table__add-btn-plus">+</span>
-          <span>Add new item</span>
+          <span>
+            {isScreenSm && mode === "recipe"
+              ? "New ingredient"
+              : "Add new item"}
+          </span>
         </button>
       )}
     </section>

@@ -7,6 +7,11 @@
   gap: 1.66vw;
   justify-content: flex-start;
   
+  @media (max-width: 599px) {
+    gap: 4vw;
+    justify-content: space-between;
+  }
+  
   .card {
     @include card;
   }

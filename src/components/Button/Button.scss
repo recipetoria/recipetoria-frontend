@@ -1,5 +1,17 @@
 @import '../../styles/variables';
+@import '../../styles/mixins';
 
 .trash {
   fill: $black-color;
+}
+
+.btn {
+  &:disabled {
+    @include border($color: $gray-light-color);
+
+    cursor: not-allowed;
+
+    background: $primary-bg-menu;
+    box-shadow: 3px 3px 0 0 $gray-light-color;
+  }
 }

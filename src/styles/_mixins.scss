@@ -61,6 +61,10 @@
     flex-direction: column;
     gap: 40px;
     align-items: flex-end;
+    
+    @media (max-width: 599px) {
+      gap: 24px;
+    }
   }
 
   &__submit-btn {
@@ -87,6 +91,10 @@
     width: 100%;
     max-width: 274px;
     margin: 40px 2.7777vw;
+    
+    @media (max-width: 599px) {
+      margin: 32px;      
+    }
   }
 
   &__header {
@@ -138,12 +146,22 @@
   width: 16.11vw;
   max-width: 264px;
   padding: 1.11vw;
-
+  
   cursor: pointer;
-
+  
   background: $btn-bg-color;
-
+  
   transition: $transition;
+  
+  @media (max-width: 599px) {
+    width: 43vw;
+    max-width: 140px;
+    padding: 7px;
+    
+    &_create-new {
+      display: none;
+    }
+  }
 
   &__wrapper {
     position: relative;

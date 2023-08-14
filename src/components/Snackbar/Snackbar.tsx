@@ -13,6 +13,8 @@ export default function Snackbar() {
     (state) => state.present.snackbarTextSlice.value.withUndo
   );
 
+  // TODO: disappear after some time
+
   return (
     <aside className={`snackbar snackbar_${text.length > 0 ? "show" : "hide"}`}>
       <span className="snackbar__text">{text}</span>

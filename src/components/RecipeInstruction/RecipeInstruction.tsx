@@ -22,20 +22,51 @@ import { ModalContentContext } from "../../contexts/ModalContentContext";
 import AddProfilePhoto from "../AddProfilePhoto/AddProfilePhoto";
 import CameraImage from "../../assets/png/add_category_photo.png";
 import RecipeInstructionSlide from "./RecipeInstructionSlide";
+import useResize from "../../hooks/useResize";
 
 export default function RecipeInstruction(props: { recipeData: Recipe }) {
   const { recipeData } = props;
 
   const { toggle } = useModal();
   const { setModalContent } = useContext(ModalContentContext);
+  const { isScreenSm, isScreenMd, isScreenLg, isScreenXl } = useResize();
+
+  let initialValueOfVisibleSlides = 5;
+  let naturalSlideWidth = 215;
+  let naturalSlideHeight = 165;
+  let slideStep = 3;
+  switch (true) {
+    case isScreenSm:
+      initialValueOfVisibleSlides = 2;
+      naturalSlideWidth = 133;
+      naturalSlideHeight = 103;
+      slideStep = 1;
+      break;
+    case isScreenMd:
+      initialValueOfVisibleSlides = 3;
+      naturalSlideWidth = 133;
+      naturalSlideHeight = 103;
+      slideStep = 2;
+      break;
+    case isScreenLg:
+      initialValueOfVisibleSlides = 3;
+      slideStep = 2;
+      break;
+    case isScreenXl:
+      initialValueOfVisibleSlides = 3;
+      slideStep = 2;
+      break;
+    default:
+      break;
+  }
 
   let photosData: string[] = [];
-  let visibleSlides = 5;
+  let visibleSlides = initialValueOfVisibleSlides;
   if (recipeData.instructionPhotos) {
     if (recipeData.instructionPhotos.length > 0) {
       photosData = [...recipeData.instructionPhotos];
     }
-    if (recipeData.instructionPhotos.length < 5) {
+    if (recipeData.instructionPhotos.length < initialValueOfVisibleSlides) {
       visibleSlides = recipeData.instructionPhotos.length;
     } else if (recipeData.instructionPhotos.length === 0) {
       visibleSlides = 1;
@@ -66,6 +97,7 @@ export default function RecipeInstruction(props: { recipeData: Recipe }) {
                 recipeData={recipeData}
               />
             </div>
+            {/* TODO: if long text without spaces */}
             <div className="instruction__text">
               {recipeData.instructions ||
                 "There are no instructions here yet! It's time to add them"}
@@ -79,13 +111,13 @@ export default function RecipeInstruction(props: { recipeData: Recipe }) {
               : "You haven't uploaded any photos yet"}
           </h4>
           <CarouselProvider
-            naturalSlideWidth={215}
-            naturalSlideHeight={165}
+            naturalSlideWidth={naturalSlideWidth}
+            naturalSlideHeight={naturalSlideHeight}
             totalSlides={photosData.length || 1}
             infinite
             isIntrinsicHeight
             visibleSlides={visibleSlides}
-            step={3}
+            step={slideStep}
             className="carousel"
           >
             <Slider>

@@ -59,7 +59,16 @@ export default function RecipeLinks(props: { recipeData: Recipe }) {
     <article className="recipe-links">
       <div className="recipe-links__wrapper">
         <section className="links-block">
-          <h3 className="links-block__h3">Links to external sources</h3>
+          <div className="links-block__header-wrapper">
+            <div className="recipe-links__image-wrapper">
+              <img
+                src={LinksImage}
+                alt="links"
+                className="recipe-links__image"
+              />
+            </div>
+            <h3 className="links-block__h3">Links to external sources</h3>
+          </div>
           <div className="links-block__links">
             {(recipeData.links || []).length && recipeData.links ? (
               <div className="links-block__table-block">
@@ -110,7 +119,7 @@ export default function RecipeLinks(props: { recipeData: Recipe }) {
             </form>
           </div>
         </section>
-        <div className="recipe-links__image-wrapper">
+        <div className="recipe-links__image-wrapper recipe-links__image-wrapper_on-full-width">
           <img src={LinksImage} alt="links" className="recipe-links__image" />
         </div>
       </div>

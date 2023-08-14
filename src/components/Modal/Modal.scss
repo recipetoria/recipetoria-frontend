@@ -29,4 +29,8 @@
   
   background: $white-color;
   box-shadow: 4px 4px 0 $total-black;
+
+  @media (max-width: 599px) {
+    padding: 16px;
+  }
 }

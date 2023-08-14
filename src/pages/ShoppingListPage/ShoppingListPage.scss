@@ -7,10 +7,39 @@
   height: 100%;
 
   .img-block {
+    position: relative;
+    z-index: 0;
+
     display: block;
     width: 37.5vw;
 
-    background-color: $grey-color;
+    background-color: $primary-color;
+
+    @media (max-width: 1239px) {
+      display: none;
+    }
+
+    @media (min-width: 2460px) {
+      overflow: hidden;
+    }
+
+    &__image-wrapper {
+      position: absolute;
+      top: 8.47%;
+      left: 2%;
+
+      width: 100%;
+
+      @media (max-width: 599px) {
+        top: 16px;
+      }
+    }
+
+    &__image {
+      width: 120%;
+
+      object-fit: contain;
+    }
   }
 
   .shopping-list-block {
@@ -23,12 +52,21 @@
       flex-direction: column;
       gap: 25px;
       margin: 8.47% 17.56% 0 8%;
+
+      @media (max-width: 599px) {
+        margin: 16px;
+      }
     }
 
     &__header {
       display: flex;
       align-items: center;
       justify-content: space-between;
+
+      @media (max-width: 599px) {
+        flex-direction: column;
+        align-items: flex-start;
+      }
     }
 
     &__btns {
@@ -48,6 +86,14 @@
       font-weight: 400;
       line-height: 1.25;
       color: $brown-color;
+
+      @media (max-width: 599px) {
+        font-size: 1.375rem;
+      }
+    }
+
+    &__table {
+      z-index: 4;
     }
   }
 }

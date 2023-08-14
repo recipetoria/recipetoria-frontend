@@ -6,16 +6,23 @@ export default function Footer() {
   return (
     <footer className="footer">
       <div className="footer__wrapper">
-        <Link to="/">
-          <div className="logo__wrapper">
-            <Logo color="#FAE8CD" />
-          </div>
-        </Link>
+        <section className="footer__left-side">
+          <Link to="/">
+            <div className="logo__wrapper">
+              <Logo color="#FAE8CD" />
+            </div>
+          </Link>
+
+          <span className="footer-links-n-rights__right footer-links-n-rights__right_left-side">
+            All right reserved
+          </span>
+        </section>
+        {/* TODO: куда ведут эти ссылки?) */}
         <article className="footer-links-n-rights">
           <a href="/#">Privacy policy</a>
           <a href="/#">Cookie policy</a>
           <a href="/#">Terms of use</a>
-          <span className="footer-links-n-rights__right">
+          <span className="footer-links-n-rights__right footer-links-n-rights__right_right-side">
             All right reserved
           </span>
         </article>

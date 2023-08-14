@@ -18,8 +18,12 @@
     align-items: flex-start;
     width: inherit;
     margin: 40px 0 40px 40px;
-
+    
     color: $black-color;
+    
+    @media (max-width: 599px) {
+      margin: 16px 0 16px 16px;
+    }
   }
 
   .photo-n-instruction {
@@ -27,6 +31,11 @@
     gap: 32px;
     align-items: flex-start;
     width: 100%;
+
+    @media (max-width: 599px) {
+      flex-direction: column;
+      align-items: center;
+    }
 
     &__photo-wrapper {
       @include border($color: $black-color, $rad: 8px);
@@ -37,8 +46,15 @@
       height: 21.528vw;
       max-height: 310px;
       overflow: hidden;
-
+      
       box-shadow: 6px 6px 0 0 $black-color;
+      
+      @media (max-width: 599px) {
+        width: 100%;
+        max-width: 290px;
+        height: auto;
+        max-height: 176px;
+      }
     }
 
     &__photo {
@@ -56,6 +72,11 @@
     align-items: flex-start;
     width: 100%;
     margin-right: 7.222vw;
+    
+    @media (max-width: 599px) {
+      width: auto;
+      margin-right: 16px;
+    }
 
     &__header {
       display: flex;
@@ -79,6 +100,12 @@
       line-height: 1.5;
       letter-spacing: 0.5px;
       white-space: pre-wrap;
+
+      @media (max-width: 599px) {
+        font-size: 0.875rem;
+        line-height: 1.429;
+        letter-spacing: 0.25px;
+      }
     }
   }
 
@@ -96,6 +123,12 @@
       font-weight: 400;
       line-height: 1.5;
       letter-spacing: 0.5px;
+
+      @media (max-width: 599px) {
+        font-size: 0.875rem;
+        line-height: 1.429;
+        letter-spacing: 0.25px;
+      }
     }
   }
 

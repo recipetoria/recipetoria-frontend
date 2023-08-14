@@ -17,10 +17,20 @@
     align-items: center;
     width: inherit;
     margin: 40px;
+    
+    @media (max-width: 599px) {
+      margin: 16px;
+    }
   }
   
   &__image-wrapper {
     width: auto;
+
+    &_on-full-width {
+      @media (max-width: 599px) {
+        display: none;
+      }
+    }
   }
 
   &__image {
@@ -37,6 +47,21 @@
     align-items: flex-start;
     width: 49.722vw;
     max-width: 716px;
+
+    &__header-wrapper {
+      @media (max-width: 599px) {
+        display: grid;
+        grid-template-columns: 29.73fr 64.865fr;
+        gap: 16px;
+        align-items: center;
+      }
+    }
+
+    &__links {
+      @media (max-width: 599px) {
+        width: 100%;
+      }
+    }
 
     &__h3 {
       margin-block-start: 0;

@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useContext } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import "./RecipesPage.scss";
@@ -7,6 +7,8 @@ import useModal from "../../hooks/useModal";
 import { getTags } from "../../API/tags";
 import { Tag } from "../../types/types";
 import { fetchRecipes } from "../../features/RecipesSlice";
+import { ModalContentContext } from "../../contexts/ModalContentContext";
+import ModalContentWitInput from "../../components/ModalContentWitInput/ModalContentWitInput";
 
 export default function RecipesPage() {
   const { tagName, tagId } = useParams();
@@ -15,6 +17,7 @@ export default function RecipesPage() {
   const componentRef = useRef<HTMLDivElement>(null);
   const dispatch = useAppDispatch();
   const { toggle } = useModal();
+  const { setModalContent } = useContext(ModalContentContext);
 
   const token = useAppSelector((state) => state.present.authData.value.token);
   const isAuth = useAppSelector(
@@ -55,7 +58,26 @@ export default function RecipesPage() {
 
   return (
     <div ref={componentRef} className="categories-page__wrapper-div">
-      <h2 className="categories-page__h2">{tagName}</h2>
+      <section className="categories-page__header">
+        <h2 className="categories-page__h2">{tagName}</h2>
+        <button
+          type="button"
+          className="categories-page__btn"
+          onClick={() => {
+            toggle();
+            setModalContent(
+              <ModalContentWitInput
+                label="Create new recipe"
+                placeholder="Enter recipe name"
+                inputName="recipeName"
+                tagId={tagIdToPass}
+              />
+            );
+          }}
+        >
+          Add recipe
+        </button>
+      </section>
       <div className="categories-page__breadcrumbs">
         <Link to="/all_categories">Categories</Link>
         <span>&nbsp;/&nbsp;</span>

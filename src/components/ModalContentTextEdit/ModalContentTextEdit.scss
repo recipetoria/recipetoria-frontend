@@ -8,6 +8,11 @@
   align-items: flex-start;
   width: 41.667vw;
   max-width: 600px;
+  
+  @media (max-width: 599px) {
+    width: 80.556vw;
+    max-width: 290px;
+  }
 
   &__h3 {
     margin-block-start: 0;
@@ -51,6 +56,11 @@
     align-items: flex-start;
     width: 100%;
     padding: 16px 4px 16px 16px;
+    
+    @media (max-width: 599px) {
+      padding: 8px 0 8px 4px;
+      
+    }
 
     /* stylelint-disable-next-line selector-class-pattern */
     .MuiOutlinedInput-notchedOutline {

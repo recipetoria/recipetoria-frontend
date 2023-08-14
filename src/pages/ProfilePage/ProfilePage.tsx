@@ -47,6 +47,8 @@ export default function ProfilePage() {
           <main>
             <article className="profile-page">
               <div className="profile-page__wrapper">
+                <h3 className="profile-page__h3">Profile</h3>
+                {/* TODO: в две строчки */}
                 <section className="profile-menu">
                   <div className="profile-menu__wrapper">
                     <div className="profile-menu__btns">

@@ -3,12 +3,18 @@
 
 .modal-content-text-with-img {
   @include cross-btn;
+
   display: flex;
   flex-direction: column;
   align-items: flex-end;
   align-self: center;
   width: 24vw;
   max-width: 343px;
+
+  @media (max-width: 599px) {
+    width: 58.889vw;
+    max-width: 212px;
+  }
 
   .modal-content {
     display: flex;

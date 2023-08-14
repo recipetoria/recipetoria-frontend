@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import "./Header.scss";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import Logo from "../../assets/svg/Logo";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { fetchUserPhoto, userPhotoValue } from "../../features/UserPhotoSlice";
@@ -10,6 +10,8 @@ import ProfileModal from "../ProfileModal/ProfileModal";
 import { ModalContentContext } from "../../contexts/ModalContentContext";
 import ModalContentWitInput from "../ModalContentWitInput/ModalContentWitInput";
 import useModal from "../../hooks/useModal";
+import BurgerIcon from "../../assets/svg/BurgerIcon";
+import BurgerMenu from "./BurgerMenu/BurgerMenu";
 
 export default function Header() {
   const isAuth = useAppSelector((state) => state.present.authData.value.isAuth);
@@ -28,6 +30,8 @@ export default function Header() {
       dispatch(userPhotoValue(""));
     }
   }, [dispatch, isAuth, token]);
+
+  const [isOpenBurgerMenu, setIsOpenBurgerMenu] = useState(false);
 
   return (
     <header className="header">
@@ -89,7 +93,31 @@ export default function Header() {
             </div>
           )}
         </article>
+        <section className="small-size-btns">
+          {isAuth ? (
+            <button
+              type="button"
+              className="burger-btn"
+              onClick={() => setIsOpenBurgerMenu(true)}
+            >
+              <BurgerIcon />
+            </button>
+          ) : (
+            <>
+              <Link to="/sign_in" className="btn">
+                Log in
+              </Link>
+              <Link to="/sign_up" className="orange-btn">
+                Get started
+              </Link>
+            </>
+          )}
+        </section>
       </div>
+      <BurgerMenu
+        visible={isOpenBurgerMenu}
+        setIsOpenBurgerMenu={(value) => setIsOpenBurgerMenu(value)}
+      />
     </header>
   );
 }

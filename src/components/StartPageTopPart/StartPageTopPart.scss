@@ -12,6 +12,11 @@
     gap: 5.2778vw;
     justify-content: space-between;
     margin: 84px 0 75px 10.83vw;
+    
+    @media (max-width: 599px) {
+      flex-direction: column;
+      margin: 0 0 54px 6.250vw;
+    }
   }
 
   .image-wrapper {

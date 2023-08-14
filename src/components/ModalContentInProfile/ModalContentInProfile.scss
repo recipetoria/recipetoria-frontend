@@ -9,11 +9,22 @@
   gap: 24px;
   align-items: flex-end;
 
+  @media (max-width: 599px) {
+    max-width: 182px;
+    padding: 8px;
+    
+    text-align: center;
+  }
+
   &__content {
     display: flex;
     flex-direction: column;
     gap: 24px;
     align-items: center;
+  }
+
+  &__img-wrapper {
+    max-width: 142px;
   }
   
   &__img {

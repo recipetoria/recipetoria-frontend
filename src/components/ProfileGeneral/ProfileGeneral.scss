@@ -11,6 +11,10 @@
       display: flex;
       gap: 1.1111vw;
       align-items: flex-start;
+      
+      @media (max-width: 599px) {
+        gap: 4.444vw;
+      }
     }
 
     &__btn-n-caption {
