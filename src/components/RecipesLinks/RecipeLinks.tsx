@@ -122,7 +122,12 @@ export default function RecipeLinks(props: { recipeData: Recipe }) {
                     value={linkValue}
                     onChange={(e) => {
                       field.onChange(e);
-                      setLinkValue(e.target.value);
+                      setLinkValue(e.target.value.replaceAll(" ", ""));
+                    }}
+                    onKeyDown={(keyEvent) => {
+                      if (keyEvent.key === " ") {
+                        keyEvent.preventDefault();
+                      }
                     }}
                   />
                 )}
