@@ -30,7 +30,8 @@ export default function RecipeLinks(props: { recipeData: Recipe }) {
   const handleSubmitNewLink = () => {
     if (linkValue) {
       const isValid =
-        linkValue.includes("http://") || linkValue.includes("https://");
+        (linkValue.includes("http://") || linkValue.includes("https://")) &&
+        (linkValue.startsWith("http://") || linkValue.startsWith("https://"));
       if (isValid) {
         const isExist = recipeData.links?.includes(linkValue);
         if (!isExist) {
