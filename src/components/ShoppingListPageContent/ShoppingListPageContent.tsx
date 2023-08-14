@@ -11,6 +11,7 @@ import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import useModal from "../../hooks/useModal";
 import { ModalContentContext } from "../../contexts/ModalContentContext";
 import { fetchCleanShoppingList } from "../../features/ShoppingListSlice";
+import ShopListImage from "../../assets/png/img-1-shop-list-img.png";
 
 export default function ShoppingListPageContent() {
   const componentRef = useRef(null);
@@ -33,7 +34,15 @@ export default function ShoppingListPageContent() {
 
   return (
     <article className="shopping-list-page">
-      <section className="img-block" />
+      <section className="img-block">
+        <div className="img-block__image-wrapper">
+          <img
+            src={ShopListImage}
+            alt="shop list groceries"
+            className="img-block__image"
+          />
+        </div>
+      </section>
       <section className="shopping-list-block">
         <div className="shopping-list-block__wrapper">
           <article className="shopping-list-block__header">
