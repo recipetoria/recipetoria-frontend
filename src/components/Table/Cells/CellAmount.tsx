@@ -64,14 +64,19 @@ export default function CellAmount(props: CellAmountProps) {
           }}
           onKeyDown={(keyEvent) => validateAmountField(keyEvent)}
           onChange={(e) => {
-            if (setChangedIngredientData) {
-              setChangedIngredientData({
-                name: null,
-                amount: +e.currentTarget.value,
-                measure: null,
-              });
+            if (
+              +e.currentTarget.value <= 9999.99 &&
+              +e.currentTarget.value.length <= 7
+            ) {
+              if (setChangedIngredientData) {
+                setChangedIngredientData({
+                  name: null,
+                  amount: +e.currentTarget.value,
+                  measure: null,
+                });
+              }
+              field.onChange(e);
             }
-            field.onChange(e);
           }}
           error={!!error?.message}
           helperText={error?.message}
