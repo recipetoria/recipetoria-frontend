@@ -71,6 +71,7 @@ export default function CategoriesCards(props: CategoriesCardsProps) {
           </section>
         </div>
       </button>
+      {categoriesCardsJsx}
       <CategoryCard
         name="Uncategorized"
         mainPhoto={null}
@@ -78,7 +79,6 @@ export default function CategoriesCards(props: CategoriesCardsProps) {
         toggle={toggle}
         id="uncategorized"
       />
-      {categoriesCardsJsx}
     </article>
   );
 }
