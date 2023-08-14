@@ -28,7 +28,7 @@ export default function StartPage() {
       setModalContent(null);
       dispatch(isOpenModalValue(false));
       dispatch(isOpenModalMode("none"));
-    }, 2000);
+    }, 5000);
   }
 
   useEffect(() => {
