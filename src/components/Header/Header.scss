@@ -18,8 +18,9 @@
     margin: 1rem 11.04vw 1rem 10.83vw;
     
     @media (max-width: 599px) {
+      gap: 1vw;
       height: 24px;
-      margin: 23px 5.031vw 24px 4.844vw;
+      margin: 23px 4vw 24px;
     }
   }
 
@@ -49,7 +50,7 @@
 
   .small-size-btns {
     display: flex;
-    gap: 11px;
+    gap: 3vw;
 
     @media (min-width: 600px) {
       display: none;
