@@ -69,6 +69,8 @@ export default function Table(props: TableProps) {
     measure: null,
   });
 
+  const [selectValueNewItem, setSelectValueNewItem] = useState("select");
+
   const handleSubmitChangeItem = (ingredientObj: Ingredient) => {
     const { id, name, amount, measurementUnit } = ingredientObj;
 
@@ -109,10 +111,9 @@ export default function Table(props: TableProps) {
           })
         );
       }
+      setSelectValueNewItem("select");
     }
   };
-
-  const [selectValueNewItem, setSelectValueNewItem] = useState("select");
 
   const handleSubmitNewItem = (data: TableValues) => {
     const { name, amount } = data.newIngredient;
@@ -153,10 +154,12 @@ export default function Table(props: TableProps) {
         }
         reset();
         setIsActiveAddNewItem(false);
+        setSelectValueNewItem("select");
       }
     } else {
       reset();
       setIsActiveAddNewItem(false);
+      setSelectValueNewItem("select");
     }
   };
 
@@ -368,6 +371,7 @@ export default function Table(props: TableProps) {
                 reset();
                 setIsActiveAddNewItem(false);
                 setIsHoveredByTrashId(null);
+                setSelectValueNewItem("select");
               }}
             />
           </form>
