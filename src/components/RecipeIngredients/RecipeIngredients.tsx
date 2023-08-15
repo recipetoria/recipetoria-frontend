@@ -13,6 +13,9 @@ export default function RecipeIngredients(props: { recipeData: Recipe }) {
 
   const token = useAppSelector((state) => state.present.authData.value.token);
 
+  // TODO: REC-225: возможно дважды отправляется запрос на сервер, так как на бэке две строчки подряд с таким именем
+  // Возможно стоит переписать в виде строки с изменяемыми ячейками и данными в виде placeholder, либо проверять если рецепта нет то сразу ставить мод с включенный новой строкой setIsActiveAddNewItem(true)
+
   useEffect(() => {
     if (recipeData.ingredientDTOs) {
       if (recipeData.ingredientDTOs?.length === 0) {
