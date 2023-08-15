@@ -26,10 +26,12 @@ export default function CellAmount(props: CellAmountProps) {
         fontSize: isScreenSm ? "14px" : "16px",
       };
 
-  // TODO: uncomment when it add in server side
-  // const regex = /[\d.,\\/-]+/;
   const regex = /[\d.]+/;
-  const validateAmountField = (keyEvent: KeyboardEvent<HTMLDivElement>) => {
+  const validateAmountField = (
+    keyEvent: KeyboardEvent<HTMLDivElement>,
+    fieldValue: string | undefined
+  ) => {
+    const arrFromValueByDot = fieldValue?.split(".");
     if (
       !regex.test(keyEvent.key) &&
       keyEvent.key !== "Backspace" &&
@@ -37,6 +39,17 @@ export default function CellAmount(props: CellAmountProps) {
       keyEvent.key !== "ArrowLeft"
     ) {
       keyEvent.preventDefault();
+    }
+
+    if (arrFromValueByDot && arrFromValueByDot.length > 1) {
+      if (
+        arrFromValueByDot[1].length > 1 &&
+        keyEvent.key !== "Backspace" &&
+        keyEvent.key !== "ArrowRight" &&
+        keyEvent.key !== "ArrowLeft"
+      ) {
+        keyEvent.preventDefault();
+      }
     }
 
     // TODO: add submit by enter for all fields
@@ -55,14 +68,14 @@ export default function CellAmount(props: CellAmountProps) {
       render={({ field, fieldState: { error } }) => (
         <TextField
           {...field}
-          multiline
           placeholder="-"
-          type="number"
           size="small"
           inputProps={{
             style: inputPropsStyle,
           }}
-          onKeyDown={(keyEvent) => validateAmountField(keyEvent)}
+          onKeyDown={(keyEvent) =>
+            validateAmountField(keyEvent, field.value?.toString())
+          }
           onChange={(e) => {
             if (
               +e.currentTarget.value <= 9999.99 &&
