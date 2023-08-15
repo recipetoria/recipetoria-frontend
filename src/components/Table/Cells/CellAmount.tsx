@@ -12,7 +12,7 @@ export default function CellAmount(props: CellAmountProps) {
 
   const inputPropsStyle: React.CSSProperties = withBorder
     ? {
-        padding: "8px 0.833vw",
+        padding: "8px",
         cursor: "pointer",
         textAlign: "right",
         fontSize: isScreenSm ? "14px" : "16px",
@@ -20,7 +20,7 @@ export default function CellAmount(props: CellAmountProps) {
         borderRadius: "4px",
       }
     : {
-        padding: "8px 0.833vw",
+        padding: "8px",
         cursor: "pointer",
         textAlign: "right",
         fontSize: isScreenSm ? "14px" : "16px",
@@ -94,6 +94,7 @@ export default function CellAmount(props: CellAmountProps) {
           error={!!error?.message}
           helperText={error?.message}
           value={field.value || ""}
+          fullWidth
         />
       )}
     />

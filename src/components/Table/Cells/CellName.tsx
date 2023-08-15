@@ -12,13 +12,11 @@ export default function CellName(props: CellNameProps) {
 
   const inputPropsStyle = withBorder
     ? {
-        padding: "8px 0.833vw",
         cursor: "pointer",
         border: "1px solid #D9D9D9",
         borderRadius: "4px",
       }
     : {
-        padding: isScreenSm ? "0" : "8px 0.833vw",
         cursor: "pointer",
       };
 
@@ -54,7 +52,7 @@ export default function CellName(props: CellNameProps) {
           helperText={error?.message}
           value={field.value}
           autoFocus={autoFocus}
-          fullWidth={isScreenSm}
+          fullWidth
         />
       )}
     />

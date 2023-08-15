@@ -2,6 +2,9 @@
 @import "../../styles/variables";
 @import "../../styles/mixins";
 
+$amount-static-width-full-size: 100px;
+$measure-static-width-full-size: 130px;
+
 .grid-table {
   display: flex;
   flex-direction: column;
@@ -11,7 +14,7 @@
     display: grid;
     grid-template-areas: 
       "number data_wrapper shop_add_btn trash";
-    grid-template-columns: 6.598fr 55.627fr 19.146fr 6.210fr;
+    grid-template-columns: 5fr 55.627fr 19.146fr 9fr;
     width: 100%;
     padding: 4px 0;
 
@@ -69,7 +72,7 @@
     grid-area: data_wrapper;
     grid-template-areas: 
       "name amount measure";
-    grid-template-columns: 27.296fr 9.832fr 18.499fr;
+    grid-template-columns: auto $amount-static-width-full-size $measure-static-width-full-size;
     
     @media (max-width: 599px) {
       grid-template-areas: 
@@ -80,7 +83,7 @@
     }
 
     &_new-grid {
-      grid-template-columns: 36.713fr 13.287fr 25.000fr;
+      grid-template-columns: 36.713fr $amount-static-width-full-size $measure-static-width-full-size;
 
       @media (max-width: 599px) {
         grid-template-columns: 1fr 1fr;
@@ -154,7 +157,7 @@
     @include border($color: transparent);
 
     padding: 8px 0.833vw;
-    margin-right: 1.667vw;
+    margin-right: 8px;
 
     cursor: pointer;
 
@@ -175,6 +178,10 @@
       &:hover {
         border: none;
       }
+    }
+
+    &_header-amount {
+      padding: 0;
     }
 
     &_btn {
@@ -219,6 +226,7 @@
     grid-area: shop_add_btn;
     align-items: flex-start;
     padding: 8px 0.556vw;
+    margin: 0;
 
     font-size: 0.875rem;
     font-weight: 500;
@@ -266,17 +274,33 @@
   }
 
   .grid-table &__delete {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    width: inherit;
+    height: 100%;
+    padding: 8px 0;
     margin: 0;
-
+    
+    
     .trash {
       fill: $gray-light-color;
     }
-
+    
     &:hover {
       border: 1px solid transparent;
-
+      
       .trash {
         fill: $black-color;
+      }
+    }
+    
+    &_header {
+      padding: 0;
+      border: none;
+  
+      &:hover {
+        border: none;
       }
     }
   }

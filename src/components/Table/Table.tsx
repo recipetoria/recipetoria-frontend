@@ -176,7 +176,9 @@ export default function Table(props: TableProps) {
           }`}
         >
           <div className="grid-table__name cell cell_header">Name</div>
-          <div className="grid-table__amount cell cell_header">Amount</div>
+          <div className="grid-table__amount cell cell_header cell_header-amount">
+            Amount
+          </div>
           <div className="grid-table__measure cell cell_header">Measure</div>
         </div>
         {mode === "recipe" ? (
@@ -186,7 +188,9 @@ export default function Table(props: TableProps) {
         ) : (
           ""
         )}
-        <div className="grid-table__delete cell cell_header">Delete</div>
+        <div className="grid-table__delete grid-table__delete_header cell cell_header">
+          Delete
+        </div>
       </div>
       {fields.map((objItem, indx) => {
         return (
