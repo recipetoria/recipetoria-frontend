@@ -231,7 +231,7 @@ export default function ModalContentWitInput(props: IModalContentWitInput) {
                 message: "Please enter a maximum of 30 characters",
               },
             }}
-            restriction={/[#/\\%]/g}
+            restriction={/[\p{Alphabetic}0-9\-.,()№"':\s]+/u}
           />
         </section>
         <section className="btns">

@@ -103,12 +103,6 @@ export default function Input(props: InputProps) {
           {...register(name, validationSchema)}
           className={`input ${type === "checkbox" ? "input_checkbox" : ""}`}
           onInput={(e) => {
-            if (restriction) {
-              e.currentTarget.value = e.currentTarget.value.replaceAll(
-                restriction,
-                ""
-              );
-            }
             if (updateData) {
               updateData(e.currentTarget.value);
             }
@@ -124,6 +118,18 @@ export default function Input(props: InputProps) {
           }}
           defaultValue={defaultValue}
           disabled={disabled}
+          onKeyDown={(keyEvent) => {
+            if (restriction) {
+              if (
+                !restriction.test(keyEvent.key) &&
+                keyEvent.key !== "Backspace" &&
+                keyEvent.key !== "ArrowRight" &&
+                keyEvent.key !== "ArrowLeft"
+              ) {
+                keyEvent.preventDefault();
+              }
+            }
+          }}
         />
         {name === "password" ||
         name === "repeatPassword" ||
