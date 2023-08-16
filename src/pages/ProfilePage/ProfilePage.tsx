@@ -1,4 +1,4 @@
-import { ReactNode, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import Footer from "../../components/Footer/Footer";
@@ -14,6 +14,7 @@ import DeleteAccountImg from "../../assets/png/delete_account.png";
 import LogOutImg from "../../assets/png/log_out.png";
 import deleteAccount from "../../API/deleteAccount";
 import { SnackbarTextValue } from "../../features/SnackbarTextSlice";
+import { ModalContentContext } from "../../contexts/ModalContentContext";
 
 type ProfileStates = "general" | "changePassword";
 
@@ -37,7 +38,7 @@ export default function ProfilePage() {
     SetProfileState(state);
   }
 
-  const [modalChildren, setModalChildren] = useState<ReactNode>(<div />);
+  const { modalContent, setModalContent } = useContext(ModalContentContext);
 
   return (
     <div className="app__wrapper">
@@ -77,7 +78,7 @@ export default function ProfilePage() {
                         className="profile-menu__btn"
                         onClick={() => {
                           toggle();
-                          setModalChildren(
+                          setModalContent(
                             <ModalContentInProfile
                               imageSrc={LogOutImg}
                               text="Are you sure you want to log out?"
@@ -102,7 +103,7 @@ export default function ProfilePage() {
                       className="profile-menu__btn"
                       onClick={() => {
                         toggle();
-                        setModalChildren(
+                        setModalContent(
                           <ModalContentInProfile
                             imageSrc={DeleteAccountImg}
                             text="Are you sure you want to delete your account?"
@@ -137,7 +138,7 @@ export default function ProfilePage() {
                     <ProfileGeneral
                       toggle={toggle}
                       modalChildren={(modalChild) =>
-                        setModalChildren(modalChild)
+                        setModalContent(modalChild)
                       }
                     />
                   )}
@@ -147,7 +148,7 @@ export default function ProfilePage() {
                 </section>
               </div>
               <Modal isOpen={isOpen} toggle={toggle}>
-                {modalChildren}
+                {modalContent}
               </Modal>
             </article>
           </main>
