@@ -110,7 +110,9 @@
       transition: $transition;
 
       &:last-child {
-        align-self: flex-end;
+        @media (max-width: 599px) {
+          align-self: flex-end;
+        }
       }
 
       &:hover {

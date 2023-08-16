@@ -69,6 +69,8 @@ export default function Table(props: TableProps) {
     measure: null,
   });
 
+  const [selectValueNewItem, setSelectValueNewItem] = useState("select");
+
   const handleSubmitChangeItem = (ingredientObj: Ingredient) => {
     const { id, name, amount, measurementUnit } = ingredientObj;
 
@@ -109,10 +111,9 @@ export default function Table(props: TableProps) {
           })
         );
       }
+      setSelectValueNewItem("select");
     }
   };
-
-  const [selectValueNewItem, setSelectValueNewItem] = useState("select");
 
   const handleSubmitNewItem = (data: TableValues) => {
     const { name, amount } = data.newIngredient;
@@ -153,10 +154,12 @@ export default function Table(props: TableProps) {
         }
         reset();
         setIsActiveAddNewItem(false);
+        setSelectValueNewItem("select");
       }
     } else {
       reset();
       setIsActiveAddNewItem(false);
+      setSelectValueNewItem("select");
     }
   };
 
@@ -176,7 +179,9 @@ export default function Table(props: TableProps) {
           }`}
         >
           <div className="grid-table__name cell cell_header">Name</div>
-          <div className="grid-table__amount cell cell_header">Amount</div>
+          <div className="grid-table__amount cell cell_header cell_header-amount">
+            Amount
+          </div>
           <div className="grid-table__measure cell cell_header">Measure</div>
         </div>
         {mode === "recipe" ? (
@@ -186,7 +191,9 @@ export default function Table(props: TableProps) {
         ) : (
           ""
         )}
-        <div className="grid-table__delete cell cell_header">Delete</div>
+        <div className="grid-table__delete grid-table__delete_header cell cell_header">
+          Delete
+        </div>
       </div>
       {fields.map((objItem, indx) => {
         return (
@@ -303,7 +310,7 @@ export default function Table(props: TableProps) {
           </div>
         );
       })}
-      {isActiveAddNewItem ? (
+      {isActiveAddNewItem || ingredientsObj.length === 0 ? (
         <>
           <button
             type="button"
@@ -364,6 +371,7 @@ export default function Table(props: TableProps) {
                 reset();
                 setIsActiveAddNewItem(false);
                 setIsHoveredByTrashId(null);
+                setSelectValueNewItem("select");
               }}
             />
           </form>
