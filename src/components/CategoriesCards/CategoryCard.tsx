@@ -117,7 +117,7 @@ export default function CategoryCard(props: CategoryCardProps) {
                               dispatch(isOpenModalValue(false));
                               dispatch(
                                 SnackbarTextValue({
-                                  text: "The category was deleted",
+                                  text: "The category has been deleted",
                                   withUndo: true,
                                 })
                               );

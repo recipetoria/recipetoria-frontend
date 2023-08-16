@@ -62,13 +62,13 @@ export default function ModalContentTextEdit(props: ModalContentTextEditProps) {
 
   return (
     <form className="modal-edit-text" onSubmit={handleSubmit(onSubmit)}>
-      <h3 className="modal-edit-text__h3">Edit cooking instruction</h3>
+      <h3 className="modal-edit-text__h3">Edit cooking instructions</h3>
       <section className="edit-block">
         <section className="textarea-n-caption">
           <div className="textarea-n-trash-btn">
             <TextField
               multiline
-              placeholder="Type your instruction..."
+              placeholder="Type your instructions..."
               minRows={2}
               maxRows={16}
               inputProps={{

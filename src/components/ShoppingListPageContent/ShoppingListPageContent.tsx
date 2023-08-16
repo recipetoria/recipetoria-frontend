@@ -46,7 +46,7 @@ export default function ShoppingListPageContent() {
       <section className="shopping-list-block">
         <div className="shopping-list-block__wrapper">
           <article className="shopping-list-block__header">
-            <h2 className="shopping-list-block__h2">Shopping list</h2>
+            <h2 className="shopping-list-block__h2">Shopping List</h2>
             <section className="shopping-list-block__btns">
               <Button icon={<Print />} onClick={handlePrint} disabled={false} />
               <Button

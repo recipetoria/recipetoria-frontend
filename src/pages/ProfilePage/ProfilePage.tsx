@@ -95,7 +95,7 @@ export default function ProfilePage() {
                           );
                         }}
                       >
-                        Log Out
+                        Log out
                       </button>
                     </div>
                     <button

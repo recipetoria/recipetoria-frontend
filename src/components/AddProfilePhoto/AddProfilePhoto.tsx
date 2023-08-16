@@ -80,7 +80,7 @@ export default function AddProfilePhoto(props: AddProfilePhotoProps) {
       case "size":
         setDropPhotoData({
           photo: ScaleUpImage,
-          text: "Your image is too big.\nChoose a smaller photo",
+          text: "File is too large.\nChoose a smaller file",
         });
         break;
       case "type":
@@ -128,7 +128,7 @@ export default function AddProfilePhoto(props: AddProfilePhotoProps) {
             onTypeError={() => handleError("type")}
             onSizeError={() => handleError("size")}
           >
-            <div className="add-profile-photo__upload">Upload picture</div>
+            <div className="add-profile-photo__upload">Upload photo</div>
           </FileUploader>
         </section>
       </article>

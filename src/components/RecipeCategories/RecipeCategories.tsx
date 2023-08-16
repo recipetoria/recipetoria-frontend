@@ -73,7 +73,7 @@ export default function RecipeCategories(props: { recipeData: Recipe }) {
           <section className="categories-n-header__header">
             <h3 className="categories-n-header__h3">Categories</h3>
             <span className="categories-n-header__text">
-              Assign a category to the recipe
+              Assign categories to the recipe
             </span>
           </section>
           <section

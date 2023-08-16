@@ -46,7 +46,7 @@ export default function Header() {
             {isAuth ? (
               <>
                 <Link to="/all_categories">Categories</Link>
-                <Link to="/shopping_list">Shopping list</Link>
+                <Link to="/shopping_list">Shopping List</Link>
                 <button
                   type="button"
                   className="header__btn"

@@ -74,7 +74,7 @@ export default function RecipeLinks(props: { recipeData: Recipe }) {
                 className="recipe-links__image"
               />
             </div>
-            <h3 className="links-block__h3">Links to external sources</h3>
+            <h3 className="links-block__h3">Links to External Sources</h3>
           </div>
           <div className="links-block__links">
             {(recipeData.links || []).length && recipeData.links ? (

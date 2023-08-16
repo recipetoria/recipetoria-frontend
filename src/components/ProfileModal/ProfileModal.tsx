@@ -49,7 +49,7 @@ export default function ProfileModal() {
                       className="data-btn-cross__btn"
                       onClick={toggleModal}
                     >
-                      Enter to profile
+                      Enter profile
                     </button>
                   </Link>
                 </section>

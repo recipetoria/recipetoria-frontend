@@ -93,7 +93,7 @@ export default function ProfileChangePassword() {
                     message: "Please enter a minimum of 6 characters",
                   },
                 }}
-                caption="Minimum 6 characters"
+                caption="Min 6 characters"
                 updateData={(value: string) => setPasswordValue(value)}
               />
               <Input

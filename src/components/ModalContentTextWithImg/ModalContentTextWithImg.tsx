@@ -16,7 +16,7 @@ export default function ModalContentTextWithImg() {
         <CrossIcon color="#707077" />
       </button>
       <section className="modal-content">
-        <h2 className="modal-content__h2">Congratulation!</h2>
+        <h2 className="modal-content__h2">Congratulations!</h2>
         <h3 className="modal-content__h3">You have successfully registered</h3>
         <div className="modal-content__img-wrapper">
           <img src={LaptopImage} alt="laptop" className="modal-content__img" />

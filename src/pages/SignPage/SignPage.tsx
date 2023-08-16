@@ -147,7 +147,9 @@ export default function SignPage(props: ISignPageProps) {
               <h3 className="sign-page__header">Welcome to Recipetoria!</h3>
             ) : (
               <div className="sign-page__headers">
-                <h3 className="sign-page__header">Welcome back!</h3>
+                <h3 className="sign-page__header">
+                  Welcome back{name ? "," : "!"}
+                </h3>
                 {name ? <h3 className="sign-page__header">{name}</h3> : ""}
               </div>
             )}
@@ -172,21 +174,21 @@ export default function SignPage(props: ISignPageProps) {
                     },
                   }}
                   placeholder="Enter your text here"
-                  caption="Max 30 symbols"
+                  caption="Max 30 characters"
                 />
               )}
               <Input
-                label="E-mail"
+                label="Email"
                 name="email"
                 type="text"
                 register={register}
                 errors={errors}
                 required
                 validationSchema={{
-                  required: "E-mail is required",
+                  required: "Email is required",
                   pattern: {
                     value: /^[\w-\\.]+@([\w-]+\.)+[\w-]{2,4}$/,
-                    message: "Please enter a correct e-mail",
+                    message: "Please enter a correct Email",
                   },
                 }}
                 placeholder="example@gmail.com"
@@ -206,7 +208,7 @@ export default function SignPage(props: ISignPageProps) {
                   },
                 }}
                 placeholder="Enter password"
-                caption={signMode === "signUp" ? "Minimum 6 characters" : ""}
+                caption={signMode === "signUp" ? "Min 6 characters" : ""}
                 updateData={(value: string) => setPasswordValue(value)}
               />
               {signMode === "signUp" && (
@@ -235,7 +237,7 @@ export default function SignPage(props: ISignPageProps) {
                 name="checkbox"
                 label={
                   signMode === "signUp"
-                    ? "Agree to terms & conditions"
+                    ? "Agree to Terms & Conditions"
                     : "Remember me"
                 }
                 register={register}

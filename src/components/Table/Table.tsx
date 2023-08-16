@@ -182,7 +182,7 @@ export default function Table(props: TableProps) {
           <div className="grid-table__amount cell cell_header cell_header-amount">
             Amount
           </div>
-          <div className="grid-table__measure cell cell_header">Measure</div>
+          <div className="grid-table__measure cell cell_header">Unit</div>
         </div>
         {mode === "recipe" ? (
           <div className="grid-table__action grid-table__action_header cell cell_header">
@@ -278,8 +278,8 @@ export default function Table(props: TableProps) {
               >
                 <PlusIcon />
                 <span>
-                  Add <b className="small-size-text-in-action">item</b> to shop
-                  list
+                  Add <b className="small-size-text-in-action">item</b> to
+                  shopping list
                 </span>
               </button>
             ) : (

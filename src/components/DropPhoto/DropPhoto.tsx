@@ -13,7 +13,7 @@ export default function DropPhoto(props: DropPhotoProps) {
         <div className="drop-photo__img-wrapper">
           <img src={imageSrc} alt="upload" className="drop-photo__img" />
         </div>
-        <span className="drop-photo__text">Drag and drop your image here</span>
+        <span className="drop-photo__text">Drag and drop your photo here</span>
       </div>
     </section>
   );

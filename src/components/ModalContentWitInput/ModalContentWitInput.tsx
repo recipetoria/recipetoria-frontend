@@ -84,7 +84,7 @@ export default function ModalContentWitInput(props: IModalContentWitInput) {
           })
         );
         objForSnackbar = {
-          text: "New category was created",
+          text: "New category has been created",
           withUndo: false,
         };
         successCreate();
@@ -110,7 +110,7 @@ export default function ModalContentWitInput(props: IModalContentWitInput) {
             })
           );
           objForSnackbar = {
-            text: "The category was renamed",
+            text: "The category has been renamed",
             withUndo: true,
           };
           successCreate();
@@ -219,7 +219,7 @@ export default function ModalContentWitInput(props: IModalContentWitInput) {
             required
             type="text"
             placeholder={placeholder}
-            caption="Max 30 symbols"
+            caption="Max 30 characters"
             validationSchema={{
               required: "Category name is required",
               minLength: {

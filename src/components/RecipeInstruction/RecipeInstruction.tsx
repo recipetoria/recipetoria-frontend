@@ -84,13 +84,13 @@ export default function RecipeInstruction(props: { recipeData: Recipe }) {
                   ? getPhotoFromBytes(recipeData.mainPhoto)
                   : NoPhotoImageBig
               }
-              alt="instruction"
+              alt="instructions"
               className="photo-n-instruction__photo"
             />
           </div>
           <section className="instruction">
             <div className="instruction__header">
-              <h3 className="instruction__h3">Cooking instruction</h3>
+              <h3 className="instruction__h3">Cooking instructions</h3>
               <ButtonEdit
                 tipText="text"
                 editMode="recipeEditText"

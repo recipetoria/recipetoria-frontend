@@ -80,7 +80,7 @@ export default function ProfileGeneral(props: ProfileGeneralProps) {
                     );
                   }}
                 >
-                  Replace picture
+                  Change photo
                 </button>
                 <span className="general__caption">
                   Allowed types: jpeg, jpg or png Maximum file size is 5 MB
@@ -107,7 +107,7 @@ export default function ProfileGeneral(props: ProfileGeneralProps) {
                   },
                 }}
                 placeholder="Enter your text here"
-                caption="Max 30 symbols"
+                caption="Max 30 characters"
                 defaultValue={userInfo.name}
               />
             </div>

@@ -52,7 +52,7 @@ export default function BurgerMenu(props: BurgerMenuProps) {
               Categories
             </Link>
             <Link to="/shopping_list" className="burger-menu__menu-item-link">
-              Shopping list
+              Shopping List
             </Link>
             <button
               type="button"
