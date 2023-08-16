@@ -13,7 +13,6 @@ export default function CellName(props: CellNameProps) {
   const inputPropsStyle = withBorder
     ? {
         cursor: "pointer",
-        border: "1px solid #D9D9D9",
         borderRadius: "4px",
       }
     : {
