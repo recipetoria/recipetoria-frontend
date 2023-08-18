@@ -212,13 +212,17 @@
     justify-content: center;
     width: 12.9861vw;
     padding: 4px 0;
-
+    
     background: $btn-bg-color;
     border-radius: 4px;
     box-shadow: 0 4px 4px 0 rgba($total-black, .25);
-
+    
     opacity: 0;
     transition: $transition;
+    
+    @media (max-width: 599px) {
+      width: 100%;
+    }
 
     &_active {
       z-index: 9999;
@@ -276,6 +280,12 @@
 
     opacity: 0;
     transition: $transition;
+
+    @media screen {
+      width: 70px;
+
+      opacity: 1;
+    }
   }
 
   &:hover {

@@ -11,6 +11,8 @@
   
   @media (max-width: 599px) {
     gap: 16px;
+    width: 68.056vw;
+    max-width: 245px;
   }
 
   &__header {
@@ -33,6 +35,10 @@
     flex-direction: column;
     gap: 16px;
     align-items: center;
+    
+    @media (max-width: 599px) {
+      gap: 12px;
+    }
   }
 
   &__text {
@@ -41,6 +47,12 @@
     text-align: center;
     letter-spacing: 0.5px;
     white-space: pre-line;
+
+    @media (max-width: 599px) {
+      font-size: 0.75rem;
+      line-height: 1.333;
+      letter-spacing: 0.4px;
+    }
   }
 
   &__btns {

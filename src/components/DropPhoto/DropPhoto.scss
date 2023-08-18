@@ -26,6 +26,10 @@
 
   &__img-wrapper {
     margin: 0 .5903vw;
+
+    @media (max-width: 599px) {
+      max-width: 125px;
+    }
   }
 
   &__img {
