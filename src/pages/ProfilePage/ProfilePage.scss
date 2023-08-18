@@ -12,7 +12,7 @@
 
   background: $primary-color;
 
-  @media (max-width: 599px) {
+  @media (max-width: 904px) {
     align-items: center;
   }
 
@@ -24,6 +24,15 @@
     margin-top: 5.2288vh;
     margin-bottom: 5.2288vh;
     
+    @media (max-width: 904px) {
+      flex-direction: column;
+      gap: 24px;
+      width: 100%;
+      max-width: 328px;
+      margin-top: 32px;
+      margin-bottom: 88px;
+    }
+
     @media (max-width: 599px) {
       flex-direction: column;
       gap: 24px;
@@ -46,7 +55,7 @@
     line-height: 1.33;
     color: $black-3-color;
 
-    @media (min-width: 600px) {
+    @media (min-width: 905px) {
       display: none;
     }
   }
@@ -61,7 +70,7 @@
     
     background: $btn-bg-color;
     
-    @media (max-width: 599px) {
+    @media (max-width: 904px) {
       width: 100%;
       margin-top: 0;
     }
@@ -73,7 +82,7 @@
       justify-content: center;
       margin: 32px 2.2223vw;
       
-      @media (max-width: 599px) {
+      @media (max-width: 904px) {
         gap: 8px;
         width: 100%;
         margin: 8px;
@@ -86,7 +95,7 @@
     }
 
     
-    @media (max-width: 599px) {
+    @media (max-width: 904px) {
       &__btns,
       &__delete-btn-wrapper {
         display: grid;
@@ -111,12 +120,6 @@
 
       transition: $transition;
 
-      &:last-child {
-        @media (max-width: 599px) {
-          align-self: flex-end;
-        }
-      }
-
       &:hover {
         background: $bg-menu-active-color;
       }
@@ -125,7 +128,7 @@
         background: $bg-menu-active-color;
       }
 
-      @media (max-width: 599px) {
+      @media (max-width: 904px) {
         padding: 8px 16px;
       }
     }
@@ -138,7 +141,7 @@
     justify-content: flex-start;
     width: 55%;
 
-    @media (max-width: 599px) {
+    @media (max-width: 904px) {
       width: 100%;
     }
 
@@ -152,7 +155,7 @@
       line-height: 1.25;
       color: $black-3-color;
 
-      @media (max-width: 599px) {
+      @media (max-width: 904px) {
         display: none;
       }
     }

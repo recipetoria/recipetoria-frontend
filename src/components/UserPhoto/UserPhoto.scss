@@ -20,6 +20,13 @@
     height: 5.83vw;
     max-height: 84px;
     
+    @media (max-width: 904px) {
+      width: 13.477vw;
+      max-width: 80.86px;
+      height: 13.477vw;
+      max-height: 80px;
+    }
+
     @media (max-width: 599px) {
       width: 22.222vw;
       max-width: 80.86px;
@@ -46,7 +53,13 @@
         padding-top: .84vw;
     
         transform: scale(1.2);
-        
+
+        @media (max-width: 904px) {
+          padding-top: 2vw;
+
+          transform: scale(1.15);
+        }
+
         @media (max-width: 599px) {
           padding-top: 3vw;
 

@@ -26,7 +26,7 @@ export default function ProfilePage() {
   const dispatch = useAppDispatch();
   const [profileState, SetProfileState] = useState<ProfileStates>("general");
   const { toggle } = useModal();
-  const { isScreenSm } = useResize();
+  const { isScreenSm, isScreenMd } = useResize();
 
   useEffect(() => {
     if (isAuth !== true) {
@@ -72,10 +72,10 @@ export default function ProfilePage() {
                       >
                         Change password
                       </button>
-                      {isScreenSm ? "" : <LogOutBtn />}
+                      {isScreenSm || isScreenMd ? "" : <LogOutBtn />}
                     </div>
                     <div className="profile-menu__delete-btn-wrapper">
-                      {isScreenSm ? <LogOutBtn /> : ""}
+                      {isScreenSm || isScreenMd ? <LogOutBtn /> : ""}
                       <button
                         type="button"
                         className="profile-menu__btn"
