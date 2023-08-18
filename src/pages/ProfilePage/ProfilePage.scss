@@ -24,6 +24,13 @@
     margin-top: 5.2288vh;
     margin-bottom: 5.2288vh;
     
+    @media (max-width: 1239px) {
+      gap: 6.188vw;
+      width: 69.724vw;
+      margin-top: 48px;
+      margin-bottom: 88px;
+    }
+
     @media (max-width: 904px) {
       flex-direction: column;
       gap: 24px;
