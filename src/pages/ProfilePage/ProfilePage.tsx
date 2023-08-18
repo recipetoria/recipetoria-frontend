@@ -75,7 +75,7 @@ export default function ProfilePage() {
                       {isScreenSm ? "" : <LogOutBtn />}
                     </div>
                     <div className="profile-menu__delete-btn-wrapper">
-                      <LogOutBtn />
+                      {isScreenSm ? <LogOutBtn /> : ""}
                       <button
                         type="button"
                         className="profile-menu__btn"
