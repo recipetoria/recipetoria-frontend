@@ -67,6 +67,7 @@
 
       @media (max-width: 599px) {
         flex-direction: column;
+        gap: 16px;
         align-items: flex-start;
       }
     }
@@ -90,6 +91,9 @@
       color: $brown-color;
 
       @media (max-width: 599px) {
+        margin-block-start: 0;
+        margin-block-end: 0;
+
         font-size: 1.375rem;
       }
     }
