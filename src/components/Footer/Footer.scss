@@ -16,6 +16,11 @@
     align-items: center;
     justify-content: space-between;
     margin: 1rem 11.04vw 1rem 10.83vw;
+    
+    @media (max-width: 904px) {
+      align-items: flex-start;
+      margin: 32px 5.333vw;
+    }
   }
 
   &__left-side {
@@ -35,6 +40,10 @@
       align-items: center;
       height: 60px;
       
+      @media (max-width: 904px) {
+        height: 20px;
+      }
+      
       @media (max-width: 599px) {
         height: 30px;
       }
@@ -45,6 +54,13 @@
     display: flex;
     gap: 3.88vw;
     align-items: center;
+    
+    @media (max-width: 904px) {
+      flex-wrap: wrap;
+      row-gap: 8px;
+      column-gap: 5.333vw;
+      justify-content: flex-end;
+    }
 
     @media (max-width: 599px) {
       flex-direction: column;
