@@ -20,7 +20,7 @@
     @media (max-width: 599px) {
       gap: 1vw;
       height: 24px;
-      margin: 23px 4vw 24px;
+      margin: 23px 5vw 24px 4vw;
     }
   }
 
@@ -43,14 +43,15 @@
       height: 60px;
       
       @media (max-width: 599px) {
-        height: 14.4px;
+        width: 83px;
+        height: 15px;
       }
     }
   }
 
   .small-size-btns {
     display: flex;
-    gap: 3vw;
+    gap: 3.5vw;
 
     @media (min-width: 600px) {
       display: none;
