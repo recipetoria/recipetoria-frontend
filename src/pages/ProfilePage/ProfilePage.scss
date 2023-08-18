@@ -77,18 +77,20 @@
         gap: 8px;
         width: 100%;
         margin: 8px;
-        
       }
     }
 
     &__btns {
       display: flex;
       flex-direction: column;
+    }
 
-      @media (max-width: 599px) {
-        flex-direction: row;
-        align-items: flex-start;
-        justify-content: space-between;
+    
+    @media (max-width: 599px) {
+      &__btns,
+      &__delete-btn-wrapper {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
       }
     }
 
