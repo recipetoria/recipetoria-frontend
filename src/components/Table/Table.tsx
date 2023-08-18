@@ -310,7 +310,7 @@ export default function Table(props: TableProps) {
           </div>
         );
       })}
-      {isActiveAddNewItem || ingredientsObj.length === 0 ? (
+      {isActiveAddNewItem ? (
         <>
           <button
             type="button"
