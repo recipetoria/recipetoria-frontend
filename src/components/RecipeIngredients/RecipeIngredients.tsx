@@ -1,15 +1,17 @@
 import "./RecipeIngredients.scss";
 import { useEffect } from "react";
-import CartImage from "../../assets/png/cart.png";
 import Table from "../Table/Table";
 import { Recipe } from "../../types/types";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { fetchUpdateRecipeInfo } from "../../features/OneRecipeSlice";
+import useResize from "../../hooks/useResize";
+import Cart from "./Images/Cart";
 
 export default function RecipeIngredients(props: { recipeData: Recipe }) {
   const { recipeData } = props;
 
   const dispatch = useAppDispatch();
+  const { isScreenMd } = useResize();
 
   const token = useAppSelector((state) => state.present.authData.value.token);
 
@@ -40,14 +42,11 @@ export default function RecipeIngredients(props: { recipeData: Recipe }) {
   return (
     <article className="recipe-ingredients">
       <div className="recipe-ingredients__wrapper">
-        <h3 className="recipe-ingredients__h3">Ingredients</h3>
-        <div className="recipe-ingredients__image-wrapper">
-          <img
-            src={CartImage}
-            alt="cart"
-            className="recipe-ingredients__image"
-          />
+        <div className="recipe-ingredients__h3-wrapper">
+          {isScreenMd ? <Cart /> : ""}
+          <h3 className="recipe-ingredients__h3">Ingredients</h3>
         </div>
+        {isScreenMd ? "" : <Cart />}
         <Table
           mode="recipe"
           ingredientsObj={recipeData.ingredientDTOs || []}

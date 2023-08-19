@@ -11,6 +11,12 @@
 
   background: $btn-bg-color;
 
+  &__h3-wrapper {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+  }
+
   &__wrapper {
     display: grid ;
     grid-template-areas: 
@@ -23,6 +29,13 @@
     
     color: $black-color;
     
+    @media (max-width: 904px) {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      margin: 24px;
+    }
+
     @media (max-width: 599px) {
       display: flex;
       flex-direction: column;
@@ -45,6 +58,10 @@
     grid-area: image;
     align-self: center;
     justify-self: end;
+
+    @media (max-width: 904px) {
+      width: 100px;
+    }
 
     @media (max-width: 599px) {
       display: none;
