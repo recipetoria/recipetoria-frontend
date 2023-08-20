@@ -96,6 +96,8 @@ $measure-static-width-full-size: 130px;
 
     .caption {
       @include caption;
+      
+      bottom: -20px;
     }
 
     &_delete {
