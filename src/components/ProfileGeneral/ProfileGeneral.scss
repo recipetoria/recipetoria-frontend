@@ -12,6 +12,10 @@
       gap: 1.1111vw;
       align-items: flex-start;
       
+      @media (max-width: 904px) {
+        gap: 3.190vw;
+      }
+
       @media (max-width: 599px) {
         gap: 4.444vw;
       }

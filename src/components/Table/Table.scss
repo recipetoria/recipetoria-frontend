@@ -26,7 +26,7 @@ $measure-static-width-full-size: 130px;
     
     border-top: 1px solid $gray-light-1-color;
     
-    @media (max-width: 599px) {
+    @media (max-width: 904px) {
       grid-template-areas: 
         "number data_wrapper trash"
         "shop_add_btn shop_add_btn shop_add_btn";
@@ -44,7 +44,7 @@ $measure-static-width-full-size: 130px;
 
       border-top: none;
 
-      @media (max-width: 599px) {
+      @media (max-width: 904px) {
         display: none;
       }
     }
@@ -56,7 +56,7 @@ $measure-static-width-full-size: 130px;
     &_form-new-item {
       z-index: 3;
 
-      @media (max-width: 599px) {
+      @media (max-width: 904px) {
         grid-template-areas: 
         "number data_wrapper trash";
       }
@@ -74,7 +74,7 @@ $measure-static-width-full-size: 130px;
       "name amount measure";
     grid-template-columns: auto $amount-static-width-full-size $measure-static-width-full-size;
     
-    @media (max-width: 599px) {
+    @media (max-width: 904px) {
       grid-template-areas: 
         "name name"
         "measure amount";
@@ -85,7 +85,7 @@ $measure-static-width-full-size: 130px;
     &_new-grid {
       grid-template-columns: 36.713fr $amount-static-width-full-size $measure-static-width-full-size;
 
-      @media (max-width: 599px) {
+      @media (max-width: 904px) {
         grid-template-columns: 1fr 1fr;
       }
     }
@@ -96,6 +96,8 @@ $measure-static-width-full-size: 130px;
 
     .caption {
       @include caption;
+      
+      bottom: -20px;
     }
 
     &_delete {
@@ -254,12 +256,12 @@ $measure-static-width-full-size: 130px;
       color: $black-light;
       letter-spacing: 0.1px;
 
-      @media (min-width: 600px) {
+      @media (min-width: 905px) {
         display: none;
       }
     }
 
-    @media (max-width: 599px) {
+    @media (max-width: 904px) {
       gap: 10px;
       align-items: center;
       justify-content: flex-start;
@@ -331,7 +333,7 @@ $measure-static-width-full-size: 130px;
       background: $bg-menu-active-color;
     }
 
-    @media (max-width: 599px) {
+    @media (max-width: 904px) {
       border-top: 1px solid var(--primary-typography-gray, #707077);
       border-radius: 0;
       border-bottom-right-radius: 4px;

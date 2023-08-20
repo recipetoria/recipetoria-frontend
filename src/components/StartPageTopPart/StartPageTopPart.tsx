@@ -1,11 +1,14 @@
 import "./StartPageTopPart.scss";
-import LaptopNPhoto from "../../assets/png/laptop-n-photo.png";
-import FoldersImage from "../../assets/png/folders.png";
-import TomatosNPhoneImage from "../../assets/png/tomatos_branch_phone.png";
-import CursorImage from "../../assets/png/coursor.png";
 import StarIcon from "../../assets/svg/StarIcon";
+import useResize from "../../hooks/useResize";
+import Cursor from "./Images/Cursor";
+import Folders from "./Images/Folders";
+import TomatoesNPhone from "./Images/TomatoesNPhone";
+import Laptop from "./Images/Laptop";
 
 export default function StartPageTopPart() {
+  const { isScreenSm } = useResize();
+
   return (
     <article className="start-page-top-part">
       <div className="start-page-top-part__wrapper">
@@ -18,36 +21,33 @@ export default function StartPageTopPart() {
                 </span>
                 <StarIcon />
               </div>
-              <h2 className="left-container__h2">
-                Recipe{" "}
-                <span className="left-container__h2_orange">organizer</span> and
-                grocery{" "}
-                <span className="left-container__h2_orange">optimizer</span>
-              </h2>
+              <div className="left-container__h2-wrapper">
+                {isScreenSm ? <Cursor /> : ""}
+                <h2 className="left-container__h2">
+                  Recipe{" "}
+                  <span className="left-container__h2_orange">organiser</span>{" "}
+                  and grocery{" "}
+                  <span className="left-container__h2_orange">optimiser</span>
+                </h2>
+              </div>
             </div>
-            <div className="image-wrapper image-wrapper_folders">
-              <img src={FoldersImage} alt="folders" className="image" />
-            </div>
+            {isScreenSm ? "" : <Folders />}
           </section>
           <section className="left-container__bottom">
-            <div className="image-wrapper image-wrapper_tomatoes-n-phone">
-              <img src={TomatosNPhoneImage} alt="folders" className="image" />
-            </div>
+            {isScreenSm ? "" : <TomatoesNPhone />}
             <div className="text-n-cursor">
               <span className="text-n-cursor__text">
                 Bring together your personal recipes in one place and develop a
                 grocery list based on your requirements.
               </span>
-              <div className="image-wrapper image-wrapper_cursor">
-                <img src={CursorImage} alt="cursor" className="image" />
-              </div>
+              {isScreenSm ? "" : <Cursor />}
             </div>
           </section>
         </section>
         <section className="right-container">
-          <div className="image-wrapper image-wrapper_laptop">
-            <img src={LaptopNPhoto} alt="laptop" className="image" />
-          </div>
+          {isScreenSm ? <TomatoesNPhone /> : ""}
+          {isScreenSm ? <Folders /> : ""}
+          <Laptop />
         </section>
       </div>
     </article>

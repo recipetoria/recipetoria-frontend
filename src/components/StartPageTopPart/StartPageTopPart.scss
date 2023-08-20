@@ -5,6 +5,10 @@
   display: flex;
 
   background: linear-gradient(135deg, rgba($pink-color, .27) 20%, rgba($green-color, .2));
+
+  @media (max-width: 599px) {
+    justify-content: center;
+  }
   
   &__wrapper {
     display: flex;
@@ -15,6 +19,8 @@
     
     @media (max-width: 599px) {
       flex-direction: column;
+      gap: 23.03px;
+      align-items: center;
       margin: 0 0 54px 6.250vw;
     }
   }
@@ -24,21 +30,64 @@
 
     &_folders {
       max-width: 105px;
+
+      @media (max-width: 599px) {
+        position: absolute;
+        top: 10px;
+        right: 500%;
+        left: 50%;
+
+        width: 61.202px;
+
+        transform: translateX(-50%);
+      }
     }
 
     &_cursor {
       align-self: flex-end;
       max-width: 64px;
       padding-right: 1.0889vw;
+      
+      @media (max-width: 599px) {
+        position: absolute;
+        bottom: 12.77px;
+        left: 8px;
+        
+        max-width: 35.5px;
+        padding-right: 0;
+      }
     }
 
     &_laptop {
       width: 28.61vw;
       max-width: 410px;
+
+      @media (max-width: 599px) {
+        position: absolute;
+        right: -60px;
+
+        width: initial;
+        max-width: none;
+        height: 100%;
+
+        .image {
+          height: 100%;
+          
+          object-fit: contain;
+        }
+      }
     }
 
     &_tomatoes-n-phone {
       max-width: 212px;
+
+      @media (max-width: 599px) {
+        position: absolute;
+        top: 20px;
+        left: 0;
+
+        width: 200px;
+      }
     }
   }
 
@@ -53,6 +102,12 @@
     flex-direction: column;
     gap: 32px;
     padding-top: 29px;
+    
+    @media (max-width: 599px) {
+      gap: 18px;
+      align-items: center;
+      padding-top: 32px;
+    }
 
     &__top {
       display: flex;
@@ -66,12 +121,25 @@
       flex-direction: column;
       gap: 16px;
       padding-top: 9px;
+      
+      @media (max-width: 599px) {
+        gap: 12px;
+        align-items: center;
+        padding-top: 0;
+      }
 
       .text-n-star {
         display: flex;
         gap: 4px;
         align-items: center;
         padding: 0;
+
+        @media (max-width: 599px) {
+          svg {
+            width: 20px;
+            height: 20px;
+          }
+        }
 
         &__text {
           font-family: Konnect, sans-serif;
@@ -83,7 +151,21 @@
           text-align: center;
           text-transform: uppercase;
           letter-spacing: 0.1px;
+
+          @media (max-width: 599px) {
+            font-size: 0.5rem;
+            color: $total-black;
+          }
         }
+      }
+    }
+
+    &__h2-wrapper {
+      @media (max-width: 599px) {
+        position: relative;
+
+        display: flex;
+        height: 120px;
       }
     }
 
@@ -101,6 +183,18 @@
 
       &_orange {
         color: $orange-color;
+      }
+
+      @media (max-width: 599px) {
+        font-size: 2rem;
+        font-weight: 600;
+        line-height: 1.25;
+        text-align: center;
+        letter-spacing: 0.64px;
+
+        &_orange {
+          font-weight: 700;
+        }
       }
     }
 
@@ -120,8 +214,24 @@
           font-weight: 400;
           line-height: 1.33;          
           color: $black-color;
+          
+          @media (max-width: 599px) {
+            font-size: 1.125rem;
+            line-height: 1.444;          
+            color: $total-black;
+          }
         }
       }
+    }
+  }
+
+  .right-container {
+    @media (max-width: 599px) {
+      position: relative;
+
+      display: flex;
+      width: 100%;
+      height: 263.057px;
     }
   }
 }

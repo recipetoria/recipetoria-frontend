@@ -8,9 +8,12 @@
   border: 1px solid $black-color;
   border-radius: 8px;
 
+  @media (max-width: 904px) {
+    padding: 20px;
+  }
+
   @media (max-width: 599px) {
     padding: 16px;
-    
   }
 
   .table {
