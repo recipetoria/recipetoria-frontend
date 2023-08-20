@@ -19,6 +19,13 @@
     margin-top: 3.7135vh;
     margin-bottom: 6.8965vh;
     
+    @media (max-width: 904px) {
+      width: 100%;
+      padding: 0 32px;
+      margin-top: 32px;
+      margin-bottom: 32px;
+    }
+
     @media (max-width: 599px) {
       width: 100%;
       padding: 0 16px;
@@ -31,6 +38,10 @@
     gap: 32px;
     justify-content: flex-start;
     width: 100%;
+    
+    @media (max-width: 904px) {
+      gap: 16px; 
+    }
   }
 
   &__header {
@@ -48,7 +59,7 @@
     line-height: 1.22;
     color: $brown-color;
 
-    @media (max-width: 599px) {
+    @media (max-width: 904px) {
       font-size: 1.5rem;
       line-height: 1.333;
     }
