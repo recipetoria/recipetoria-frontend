@@ -7,6 +7,11 @@
   gap: 1.66vw;
   justify-content: flex-start;
   
+  @media (max-width: 1279px) {
+    gap: 2.652vw;
+    justify-content: flex-start;
+  }
+
   @media (max-width: 904px) {
     gap: 2vw;
     justify-content: space-between;
