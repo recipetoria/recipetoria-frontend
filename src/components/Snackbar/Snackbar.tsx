@@ -13,7 +13,9 @@ export default function Snackbar() {
     (state) => state.present.snackbarTextSlice.value.withUndo
   );
 
-  // TODO: disappear after some time
+  setTimeout(() => {
+    dispatch(SnackbarTextValue({ text: "", withUndo: false }));
+  }, 5000);
 
   return (
     <aside className={`snackbar snackbar_${text.length > 0 ? "show" : "hide"}`}>
