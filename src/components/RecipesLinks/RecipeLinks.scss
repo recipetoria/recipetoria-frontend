@@ -30,7 +30,7 @@
   &__image-wrapper {
     width: auto;
 
-    @media (max-width: 1279px) {
+    @media (max-width: 1439px) {
       max-width: 115px;
     }
   }
@@ -50,13 +50,13 @@
     width: 49.722vw;
     max-width: 716px;
 
-    @media (max-width: 1279px) {
+    @media (max-width: 1439px) {
       width: 100%;
       max-width: none;
     }
 
     &__header-wrapper {
-      @media (max-width: 1279px) {
+      @media (max-width: 1439px) {
         display: flex;
         gap: 24px;
         align-items: center;
@@ -71,7 +71,7 @@
     }
 
     &__links {
-      @media (max-width: 1279px) {
+      @media (max-width: 1439px) {
         width: 100%;
       }
     }
@@ -120,7 +120,7 @@
     }
 
     &__add-link {
-      @media (max-width: 1279px) {
+      @media (max-width: 1439px) {
         width: 55%;
       }
 

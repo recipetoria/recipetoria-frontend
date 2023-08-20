@@ -24,7 +24,7 @@ export default function RecipeLinks(props: { recipeData: Recipe }) {
     setError,
   } = useForm<RecipeLinksFormValues>({ mode: "all" });
   const dispatch = useAppDispatch();
-  const { isScreenLg } = useResize();
+  const { isScreenXl } = useResize();
 
   const [linkValue, setLinkValue] = useState("");
   const token = useAppSelector((state) => state.present.authData.value.token);
@@ -69,7 +69,7 @@ export default function RecipeLinks(props: { recipeData: Recipe }) {
       <div className="recipe-links__wrapper">
         <section className="links-block">
           <div className="links-block__header-wrapper">
-            {isScreenLg ? <LinkImageBlock /> : ""}
+            {isScreenXl ? <LinkImageBlock /> : ""}
             <h3 className="links-block__h3">Links to External Sources</h3>
           </div>
           <div className="links-block__links">
@@ -131,7 +131,7 @@ export default function RecipeLinks(props: { recipeData: Recipe }) {
             </form>
           </div>
         </section>
-        {isScreenLg ? "" : <LinkImageBlock />}
+        {isScreenXl ? "" : <LinkImageBlock />}
       </div>
     </article>
   );
