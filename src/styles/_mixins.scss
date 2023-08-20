@@ -153,6 +153,12 @@
   
   transition: $transition;
   
+  @media (max-width: 1439px) {
+    width: 19.141vw;
+    max-width: 245px;
+    padding: 15px;
+  }
+
   @media (max-width: 1279px) {
     width: 38vw;
     max-width: 226px;
