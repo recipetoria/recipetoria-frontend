@@ -3,11 +3,12 @@ import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import "./RecipeLinks.scss";
 import { TextField } from "@mui/material";
-import LinksImage from "../../assets/png/links_image.png";
 import { Recipe } from "../../types/types";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { fetchUpdateRecipeInfo } from "../../features/OneRecipeSlice";
 import RecipeLinksTable from "./RecipeLinksTable";
+import LinkImageBlock from "./Images/LinksImageBlock";
+import useResize from "../../hooks/useResize";
 
 interface RecipeLinksFormValues {
   addLink: string;
@@ -23,6 +24,7 @@ export default function RecipeLinks(props: { recipeData: Recipe }) {
     setError,
   } = useForm<RecipeLinksFormValues>({ mode: "all" });
   const dispatch = useAppDispatch();
+  const { isScreenLg } = useResize();
 
   const [linkValue, setLinkValue] = useState("");
   const token = useAppSelector((state) => state.present.authData.value.token);
@@ -67,13 +69,7 @@ export default function RecipeLinks(props: { recipeData: Recipe }) {
       <div className="recipe-links__wrapper">
         <section className="links-block">
           <div className="links-block__header-wrapper">
-            <div className="recipe-links__image-wrapper">
-              <img
-                src={LinksImage}
-                alt="links"
-                className="recipe-links__image"
-              />
-            </div>
+            {isScreenLg ? <LinkImageBlock /> : ""}
             <h3 className="links-block__h3">Links to External Sources</h3>
           </div>
           <div className="links-block__links">
@@ -135,9 +131,7 @@ export default function RecipeLinks(props: { recipeData: Recipe }) {
             </form>
           </div>
         </section>
-        <div className="recipe-links__image-wrapper recipe-links__image-wrapper_on-full-width">
-          <img src={LinksImage} alt="links" className="recipe-links__image" />
-        </div>
+        {isScreenLg ? "" : <LinkImageBlock />}
       </div>
     </article>
   );

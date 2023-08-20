@@ -13,8 +13,15 @@
 
   &__h3-wrapper {
     display: flex;
-    gap: 16px;
     align-items: center;
+
+    @media (max-width: 1279px) {
+      gap: 24px;
+    }
+
+    @media (max-width: 904px) {
+      gap: 16px;
+    }
   }
 
   &__wrapper {
@@ -29,6 +36,12 @@
     
     color: $black-color;
     
+    @media (max-width: 1279px) {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
     @media (max-width: 904px) {
       display: flex;
       flex-direction: column;
@@ -58,6 +71,10 @@
     grid-area: image;
     align-self: center;
     justify-self: end;
+
+    @media (max-width: 1279px) {
+      width: 115px;
+    }
 
     @media (max-width: 904px) {
       width: 100px;

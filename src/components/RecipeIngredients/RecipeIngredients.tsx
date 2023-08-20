@@ -11,7 +11,7 @@ export default function RecipeIngredients(props: { recipeData: Recipe }) {
   const { recipeData } = props;
 
   const dispatch = useAppDispatch();
-  const { isScreenMd } = useResize();
+  const { isScreenLg } = useResize();
 
   const token = useAppSelector((state) => state.present.authData.value.token);
 
@@ -43,10 +43,10 @@ export default function RecipeIngredients(props: { recipeData: Recipe }) {
     <article className="recipe-ingredients">
       <div className="recipe-ingredients__wrapper">
         <div className="recipe-ingredients__h3-wrapper">
-          {isScreenMd ? <Cart /> : ""}
+          {isScreenLg ? <Cart /> : ""}
           <h3 className="recipe-ingredients__h3">Ingredients</h3>
         </div>
-        {isScreenMd ? "" : <Cart />}
+        {isScreenLg ? "" : <Cart />}
         <Table
           mode="recipe"
           ingredientsObj={recipeData.ingredientDTOs || []}
