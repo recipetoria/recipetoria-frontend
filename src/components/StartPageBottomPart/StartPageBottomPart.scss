@@ -14,6 +14,10 @@
     gap: 40px;
     align-items: center;
     margin: 80px 1vw 125px;
+
+    @media (max-width: 904px) {
+      margin: 56px;
+    }
     
     @media (max-width: 599px) {
       gap: 16px;
@@ -43,7 +47,7 @@
     align-items: flex-start;
     justify-content: center;
     
-    @media (max-width: 599px) {
+    @media (max-width: 904px) {
       flex-direction: column;
       align-items: center;
       justify-content: flex-start;

@@ -16,6 +16,11 @@
     gap: 5.2778vw;
     justify-content: space-between;
     margin: 84px 0 75px 10.83vw;
+
+    @media (max-width: 904px) {
+      gap: 22.5px;
+      margin: 32px 0 32px 5.333vw;
+    }
     
     @media (max-width: 599px) {
       flex-direction: column;
@@ -30,6 +35,13 @@
 
     &_folders {
       max-width: 105px;
+
+      @media (max-width: 904px) {
+        position: absolute;
+        right: 0;
+
+        width: 61.203px;
+      }
 
       @media (max-width: 599px) {
         position: absolute;
@@ -47,6 +59,10 @@
       align-self: flex-end;
       max-width: 64px;
       padding-right: 1.0889vw;
+
+      @media (max-width: 904px) {
+        max-width: 35.5px;
+      }
       
       @media (max-width: 599px) {
         position: absolute;
@@ -61,6 +77,21 @@
     &_laptop {
       width: 28.61vw;
       max-width: 410px;
+
+      @media (max-width: 904px) {
+        position: absolute;
+        right: -60px;
+
+        width: initial;
+        max-width: none;
+        height: 100%;
+
+        .image {
+          height: 100%;
+          
+          object-fit: contain;
+        }
+      }
 
       @media (max-width: 599px) {
         position: absolute;
@@ -80,6 +111,10 @@
 
     &_tomatoes-n-phone {
       max-width: 212px;
+      
+      @media (max-width: 904px) {
+        max-width: 122px;
+      }
 
       @media (max-width: 599px) {
         position: absolute;
@@ -103,6 +138,11 @@
     gap: 32px;
     padding-top: 29px;
     
+    @media (max-width: 904px) {
+      gap: 18px;
+      padding-top: 0;
+    }
+    
     @media (max-width: 599px) {
       gap: 18px;
       align-items: center;
@@ -114,6 +154,10 @@
       flex-grow: 1;
       gap: 1vw;
       justify-content: space-between;
+
+      @media (max-width: 904px) {
+        position: relative;
+      }
     }
 
     &__top-text-wrapper {
@@ -122,6 +166,11 @@
       gap: 16px;
       padding-top: 9px;
       
+      @media (max-width: 904px) {
+        gap: 12px;
+        padding-top: 29.77px;
+      }
+
       @media (max-width: 599px) {
         gap: 12px;
         align-items: center;
@@ -134,7 +183,7 @@
         align-items: center;
         padding: 0;
 
-        @media (max-width: 599px) {
+        @media (max-width: 904px) {
           svg {
             width: 20px;
             height: 20px;
@@ -152,7 +201,7 @@
           text-transform: uppercase;
           letter-spacing: 0.1px;
 
-          @media (max-width: 599px) {
+          @media (max-width: 904px) {
             font-size: 0.5rem;
             color: $total-black;
           }
@@ -185,6 +234,17 @@
         color: $orange-color;
       }
 
+      @media (max-width: 904px) {
+        font-size: 2rem;
+        font-weight: 600;
+        line-height: 1.25;
+        letter-spacing: 0.64px;
+
+        &_orange {
+          font-weight: 700;
+        }
+      }
+
       @media (max-width: 599px) {
         font-size: 2rem;
         font-weight: 600;
@@ -201,11 +261,19 @@
     &__bottom {
       display: flex;
       gap: 5.2778vw;
+      
+      @media (max-width: 904px) {
+        gap: 4.500vw;
+      }
 
       .text-n-cursor {
         display: flex;
         flex-direction: column;
         gap: 60px;
+
+        @media (max-width: 904px) {
+          gap: 5px;
+        }
 
         &__text {
           font-family: Konnect, sans-serif;
@@ -215,7 +283,7 @@
           line-height: 1.33;          
           color: $black-color;
           
-          @media (max-width: 599px) {
+          @media (max-width: 904px) {
             font-size: 1.125rem;
             line-height: 1.444;          
             color: $total-black;
@@ -226,10 +294,15 @@
   }
 
   .right-container {
-    @media (max-width: 599px) {
-      position: relative;
+    position: relative;
+    display: flex;
+    
+    @media (max-width: 904px) {
+      width: 307px;
+      height: 246px;
+    }
 
-      display: flex;
+    @media (max-width: 599px) {
       width: 100%;
       height: 263.057px;
     }
