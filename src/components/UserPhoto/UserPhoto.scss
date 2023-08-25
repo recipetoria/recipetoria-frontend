@@ -54,7 +54,14 @@
     
         transform: scale(1.2);
 
+        @media (min-width: 1440px) {
+          max-width: 90px;
+          max-height: 90px;
+        }
+
         @media (max-width: 904px) {
+          max-width: 90px;
+          max-height: 90px;
           padding-top: 2vw;
 
           transform: scale(1.15);

@@ -9,9 +9,18 @@
   width: 19.79vw;
   min-width: 150px;
   max-width: 285px;
+
+  @media (max-width: 1279px) {
+    width: 25.967vw;
+    max-width: 235px;
+  }
+
+  @media (max-width: 904px) {
+    flex-direction: column-reverse;
+    width: 47.500vw;
+  }
   
   @media (max-width: 599px) {
-    flex-direction: column-reverse;
     gap: 16px;
     width: 79.167vw;
     min-width: 285px;
@@ -38,7 +47,7 @@
     
     color: $black-color;
     
-    @media (max-width: 599px) {
+    @media (max-width: 904px) {
       align-items: center;
     }
   }
