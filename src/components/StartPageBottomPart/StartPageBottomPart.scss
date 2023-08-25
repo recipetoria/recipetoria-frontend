@@ -15,6 +15,12 @@
     align-items: center;
     margin: 80px 1vw 125px;
 
+    @media (max-width: 1279px) {
+      flex: 1 0 auto;
+      justify-content: space-between;
+      margin: 60px 2.762vw 80px;
+    }
+
     @media (max-width: 904px) {
       margin: 56px;
     }
@@ -46,6 +52,10 @@
     gap: 9.44vw;
     align-items: flex-start;
     justify-content: center;
+    
+    @media (max-width: 1279px) {
+      gap: 8.398vw;
+    }
     
     @media (max-width: 904px) {
       flex-direction: column;
