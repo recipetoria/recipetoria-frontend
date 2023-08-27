@@ -1,4 +1,5 @@
 import { ReactNode, useContext } from "react";
+import { Loader } from "@mantine/core";
 import CreateNewCategoryImage from "../../assets/png/create_new_category.png";
 import PlusIcon from "../../assets/svg/PlusIcon";
 import "./CategoriesCards.scss";
@@ -23,7 +24,7 @@ export default function CategoriesCards(props: CategoriesCardsProps) {
   let categoriesCardsJsx: ReactNode = <div />;
 
   if (tagsIsLoading) {
-    categoriesCardsJsx = <h3>is loading... (for loader in future)</h3>;
+    categoriesCardsJsx = <Loader color="orange" size="xl" variant="dots" />;
   } else if (tagsError) {
     categoriesCardsJsx = <h3>Something went wrong</h3>;
   } else if (tagsValue.length) {

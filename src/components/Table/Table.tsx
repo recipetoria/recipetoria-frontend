@@ -21,6 +21,7 @@ import SelectMeasure from "./Cells/SelectMeasure";
 import CellName from "./Cells/CellName";
 import CellAmount from "./Cells/CellAmount";
 import useResize from "../../hooks/useResize";
+import { SnackbarTextValue } from "../../features/SnackbarTextSlice";
 
 export default function Table(props: TableProps) {
   const { mode, ingredientsObj, parentObj } = props;
@@ -273,6 +274,12 @@ export default function Table(props: TableProps) {
                         ingredientId: objItem.id,
                       })
                     );
+                    dispatch(
+                      SnackbarTextValue({
+                        text: "The item has been added to the shopping list",
+                        withUndo: true,
+                      })
+                    );
                   }
                 }}
               >
@@ -305,6 +312,12 @@ export default function Table(props: TableProps) {
                     })
                   );
                 }
+                dispatch(
+                  SnackbarTextValue({
+                    text: "The row was moved to trash",
+                    withUndo: true,
+                  })
+                );
               }}
             />
           </div>

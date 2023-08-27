@@ -250,6 +250,10 @@
     
         opacity: 0;
         transition: $transition;
+
+        @media (max-width: 1279px) {
+          width: 100%;
+        }
     
         &_active {
           z-index: 9999;
@@ -307,6 +311,12 @@
     
         opacity: 0;
         transition: $transition;
+
+        @media screen {
+          width: 70px;
+    
+          opacity: 1;
+        }
       }
     
       &:hover {

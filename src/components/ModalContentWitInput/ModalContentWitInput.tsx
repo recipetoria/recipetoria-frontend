@@ -169,7 +169,7 @@ export default function ModalContentWitInput(props: IModalContentWitInput) {
               })
             );
             objForSnackbar = {
-              text: "New recipe was renamed",
+              text: "The recipe was renamed",
               withUndo: true,
             };
             successCreate();
