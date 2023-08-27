@@ -1,4 +1,5 @@
 import { ReactNode, useContext } from "react";
+import { Loader } from "@mantine/core";
 import "./RecipesCards.scss";
 import { ModalContentContext } from "../../contexts/ModalContentContext";
 import ModalContentWitInput from "../ModalContentWitInput/ModalContentWitInput";
@@ -45,7 +46,7 @@ export default function RecipesCards(props: RecipesCardsProps) {
   let recipesCards: ReactNode = <div />;
 
   if (recipesIsLoading) {
-    recipesCards = <h3>is loading... (for loader in future)</h3>;
+    recipesCards = <Loader color="orange" size="xl" variant="dots" />;
   } else if (recipesError) {
     recipesCards = <h3>Something went wrong</h3>;
   } else if (typeof recipesArr === "object" && recipesArr.length > 0) {
