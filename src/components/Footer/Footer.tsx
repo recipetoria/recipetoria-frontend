@@ -13,9 +13,16 @@ export default function Footer() {
             </div>
           </Link>
 
-          <span className="footer-links-n-rights__right footer-links-n-rights__right_left-side">
+          <div className="footer-links-n-rights__right footer-links-n-rights__right_left-side">
+            <a
+              href="https://forms.gle/XCD3VydkJoR43iVs8"
+              target="_blank"
+              rel="noreferrer"
+            >
+              Leave feedback
+            </a>
             All right reserved
-          </span>
+          </div>
         </section>
         {/* TODO: куда ведут эти ссылки?) */}
         <article className="footer-links-n-rights">
@@ -23,6 +30,13 @@ export default function Footer() {
           <a href="/#">Cookie Policy</a>
           <a href="/#">Terms of Use</a>
           <span className="footer-links-n-rights__right footer-links-n-rights__right_right-side">
+            <a
+              href="https://forms.gle/XCD3VydkJoR43iVs8"
+              target="_blank"
+              rel="noreferrer"
+            >
+              Leave feedback
+            </a>
             All right reserved
           </span>
         </article>
