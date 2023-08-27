@@ -2,6 +2,7 @@ import { useState } from "react";
 import Trash from "../../assets/svg/Trash";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { fetchUpdateRecipeInfo } from "../../features/OneRecipeSlice";
+import { SnackbarTextValue } from "../../features/SnackbarTextSlice";
 
 export default function RecipeLinksTable(props: {
   links: string[];
@@ -64,6 +65,12 @@ export default function RecipeLinksTable(props: {
                           name: recipeName,
                           links: copyArr,
                         },
+                      })
+                    );
+                    dispatch(
+                      SnackbarTextValue({
+                        text: "The link was moved to trash",
+                        withUndo: false,
                       })
                     );
                   } else {
