@@ -21,6 +21,7 @@ import {
   isOpenModalMode,
   isOpenModalValue,
 } from "../../features/IsOpenModalSlice";
+import logOut from "../../API/logOut";
 
 type SignMode = "signUp" | "signIn";
 
@@ -34,14 +35,16 @@ export default function SignPage(props: ISignPageProps) {
   const { signMode } = props;
 
   const isAuth = useAppSelector((state) => state.present.authData.value.isAuth);
+  const name = useAppSelector((state) => state.present.authData.value.name);
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
   useEffect(() => {
     if (isAuth === true) {
-      navigate("/*");
+      logOut(name);
     }
-  });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const {
     register,
@@ -54,7 +57,6 @@ export default function SignPage(props: ISignPageProps) {
 
   const [passwordValue, setPasswordValue] = useState("");
   const [customError, setCustomError] = useState<boolean>();
-  const name = useAppSelector((state) => state.present.authData.value.name);
   const { setModalContent } = useContext(ModalContentContext);
 
   const submitText = () => {

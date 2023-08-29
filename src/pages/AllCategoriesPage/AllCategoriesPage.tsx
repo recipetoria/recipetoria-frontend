@@ -1,5 +1,5 @@
 import { useContext, useEffect } from "react";
-import { Outlet, useNavigate } from "react-router-dom";
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import Footer from "../../components/Footer/Footer";
 import Header from "../../components/Header/Header";
 import "./AllCategoriesPage.scss";
@@ -9,6 +9,7 @@ import useModal from "../../hooks/useModal";
 import Snackbar from "../../components/Snackbar/Snackbar";
 import { fetchTags } from "../../features/CategorySlice";
 import { ModalContentContext } from "../../contexts/ModalContentContext";
+import getUserInfo from "../../API/getUserInfo";
 
 export default function AllCategoriesPage() {
   const isAuth = useAppSelector(
@@ -21,12 +22,20 @@ export default function AllCategoriesPage() {
 
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
+  const location = useLocation();
 
   useEffect(() => {
-    if (isAuth !== true) {
+    if (isAuth !== true && location.pathname !== "sign_in") {
       navigate("/*");
+    } else if (token !== "") {
+      getUserInfo(token)
+        .then(() => {
+          dispatch(fetchTags(token));
+        })
+        .catch(() => {
+          navigate("/sign_in");
+        });
     }
-    dispatch(fetchTags(token));
   });
 
   return (
