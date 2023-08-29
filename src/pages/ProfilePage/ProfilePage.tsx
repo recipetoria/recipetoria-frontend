@@ -16,7 +16,6 @@ import { ModalContentContext } from "../../contexts/ModalContentContext";
 import LogOutBtn from "./Btns/LogOutBtn";
 import useResize from "../../hooks/useResize";
 import getUserInfo from "../../API/getUserInfo";
-import { fetchTags } from "../../features/CategorySlice";
 
 type ProfileStates = "general" | "changePassword";
 
