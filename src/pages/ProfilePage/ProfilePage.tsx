@@ -35,13 +35,9 @@ export default function ProfilePage() {
     if (isAuth !== true && location.pathname !== "sign_in") {
       navigate("/*");
     } else if (token !== "") {
-      getUserInfo(token)
-        .then(() => {
-          dispatch(fetchTags(token));
-        })
-        .catch(() => {
-          navigate("/sign_in");
-        });
+      getUserInfo(token).catch(() => {
+        navigate("/sign_in");
+      });
     }
   });
 
