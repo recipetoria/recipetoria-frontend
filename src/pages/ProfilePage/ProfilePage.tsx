@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import Footer from "../../components/Footer/Footer";
 import Header from "../../components/Header/Header";
@@ -15,6 +15,8 @@ import { SnackbarTextValue } from "../../features/SnackbarTextSlice";
 import { ModalContentContext } from "../../contexts/ModalContentContext";
 import LogOutBtn from "./Btns/LogOutBtn";
 import useResize from "../../hooks/useResize";
+import getUserInfo from "../../API/getUserInfo";
+import { fetchTags } from "../../features/CategorySlice";
 
 type ProfileStates = "general" | "changePassword";
 
@@ -24,13 +26,22 @@ export default function ProfilePage() {
   const isOpen = useAppSelector((state) => state.present.IsOpenModal.value);
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
+  const location = useLocation();
   const [profileState, SetProfileState] = useState<ProfileStates>("general");
   const { toggle } = useModal();
   const { isScreenSm, isScreenMd } = useResize();
 
   useEffect(() => {
-    if (isAuth !== true) {
+    if (isAuth !== true && location.pathname !== "sign_in") {
       navigate("/*");
+    } else if (token !== "") {
+      getUserInfo(token)
+        .then(() => {
+          dispatch(fetchTags(token));
+        })
+        .catch(() => {
+          navigate("/sign_in");
+        });
     }
   });
 

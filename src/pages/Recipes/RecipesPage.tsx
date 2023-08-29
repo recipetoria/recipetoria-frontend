@@ -1,5 +1,5 @@
 import { useEffect, useRef, useContext } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import "./RecipesPage.scss";
 import RecipesCards from "../../components/RecipesCards/RecipesCards";
@@ -9,6 +9,7 @@ import { Tag } from "../../types/types";
 import { fetchRecipes } from "../../features/RecipesSlice";
 import { ModalContentContext } from "../../contexts/ModalContentContext";
 import ModalContentWitInput from "../../components/ModalContentWitInput/ModalContentWitInput";
+import getUserInfo from "../../API/getUserInfo";
 
 export default function RecipesPage() {
   const { tagName, tagId } = useParams();
@@ -17,6 +18,7 @@ export default function RecipesPage() {
   const componentRef = useRef<HTMLDivElement>(null);
   const dispatch = useAppDispatch();
   const { toggle } = useModal();
+  const location = useLocation();
   const { setModalContent } = useContext(ModalContentContext);
 
   const token = useAppSelector((state) => state.present.authData.value.token);
@@ -25,13 +27,22 @@ export default function RecipesPage() {
   );
 
   useEffect(() => {
-    if (isAuth !== true) {
+    if (isAuth !== true && location.pathname !== "sign_in") {
       navigate("/*");
-    }
-    if (tagId) {
-      dispatch(fetchRecipes(token));
-    } else {
-      throw new Error(`Error: Something went wrong with tag id: ${tagId}`);
+    } else if (token !== "") {
+      getUserInfo(token)
+        .then(() => {
+          if (tagId) {
+            dispatch(fetchRecipes(token));
+          } else {
+            throw new Error(
+              `Error: Something went wrong with tag id: ${tagId}`
+            );
+          }
+        })
+        .catch(() => {
+          navigate("/sign_in");
+        });
     }
   });
 
