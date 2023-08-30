@@ -37,6 +37,13 @@ export async function createRecipe(
     tagId === undefined
       ? JSON.stringify({
           name,
+          ingredientDTOs: [
+            {
+              name: " ",
+              amount: 1,
+              measurementUnit: "PACK",
+            },
+          ],
         })
       : JSON.stringify({
           name,
