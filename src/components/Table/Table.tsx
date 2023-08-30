@@ -33,9 +33,10 @@ export default function Table(props: TableProps) {
     return 1;
   });
 
-  const { handleSubmit, reset, control, setValue } = useForm<TableValues>({
-    mode: "all",
-  });
+  const { handleSubmit, reset, control, setValue, setError } =
+    useForm<TableValues>({
+      mode: "all",
+    });
 
   const { fields } = useFieldArray({
     control,
@@ -267,19 +268,26 @@ export default function Table(props: TableProps) {
                 onClick={(e) => {
                   e.preventDefault();
                   if (parentObj) {
-                    dispatch(
-                      fetchAddIngredientFromRecipeToShopList({
-                        recipeId: parentObj.id,
-                        token,
-                        ingredientId: objItem.id,
-                      })
-                    );
-                    dispatch(
-                      SnackbarTextValue({
-                        text: "The item has been added to the shopping list",
-                        withUndo: true,
-                      })
-                    );
+                    if (objItem.name.trim()) {
+                      dispatch(
+                        fetchAddIngredientFromRecipeToShopList({
+                          recipeId: parentObj.id,
+                          token,
+                          ingredientId: objItem.id,
+                        })
+                      );
+                      dispatch(
+                        SnackbarTextValue({
+                          text: "The item has been added to the shopping list",
+                          withUndo: true,
+                        })
+                      );
+                    } else {
+                      setError(`ingredient.${indx}.name`, {
+                        type: "required",
+                        message: "Ingredient name is required",
+                      });
+                    }
                   }
                 }}
               >

@@ -49,7 +49,7 @@ export default function CellName(props: CellNameProps) {
           }}
           error={!!error?.message}
           helperText={error?.message}
-          value={field.value}
+          value={field.value ? field.value.trimStart() : field.value}
           autoFocus={autoFocus}
           fullWidth
         />
