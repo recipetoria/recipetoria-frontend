@@ -36,7 +36,8 @@ export default function CellAmount(props: CellAmountProps) {
       !regex.test(keyEvent.key) &&
       keyEvent.key !== "Backspace" &&
       keyEvent.key !== "ArrowRight" &&
-      keyEvent.key !== "ArrowLeft"
+      keyEvent.key !== "ArrowLeft" &&
+      keyEvent.key !== "Tab"
     ) {
       keyEvent.preventDefault();
     }

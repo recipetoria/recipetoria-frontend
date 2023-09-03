@@ -235,6 +235,8 @@ $measure-static-width-full-size: 130px;
     line-height: 1.429;
     color: $black-light;
     letter-spacing: 0.1px;
+    
+    outline: none;
 
     &_header {
       display: flex;
@@ -280,10 +282,14 @@ $measure-static-width-full-size: 130px;
     align-items: flex-start;
     justify-content: center;
     width: inherit;
-    height: 100%;
     padding: 8px 0;
     margin: 0;
+
+    outline: none;
     
+    &:focus {
+        @include border($color: $purple-color, $width: 2px);
+    }
     
     .trash {
       fill: $gray-light-color;
