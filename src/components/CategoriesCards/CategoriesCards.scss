@@ -1,0 +1,28 @@
+@import "../../styles/variables";
+@import "../../styles/mixins";
+
+.cards {  
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.66vw;
+  justify-content: flex-start;
+  
+  @media (max-width: 1439px) {
+    gap: 1.8vw;
+    justify-content: flex-start;
+  }
+
+  @media (max-width: 904px) {
+    gap: 2vw;
+    justify-content: space-between;
+  }
+
+  @media (max-width: 599px) {
+    gap: 4vw;
+    justify-content: space-between;
+  }
+  
+  .card {
+    @include card;
+  }
+}

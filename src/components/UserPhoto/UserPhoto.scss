@@ -1,0 +1,78 @@
+@import "../../styles/variables";
+@import "../../styles/mixins";
+
+.avatar {
+  position: relative;
+
+  flex: 1 0 auto;
+  width: 52px;
+  height: 52px;
+
+  overflow: hidden;
+
+  border: 1.5px solid $black-color;
+  border-radius: 50%;
+  box-shadow: 3px 2px 0 0 $black-color;
+
+  &_profile {
+    width: 5.83vw;
+    max-width: 84px;
+    height: 5.83vw;
+    max-height: 84px;
+    
+    @media (max-width: 904px) {
+      width: 13.477vw;
+      max-width: 80.86px;
+      height: 13.477vw;
+      max-height: 80px;
+    }
+
+    @media (max-width: 599px) {
+      width: 22.222vw;
+      max-width: 80.86px;
+      height: 22.222vw;
+      max-height: 80px;
+    }
+  }
+
+  &__image {
+    width: inherit;
+    height: inherit;
+
+    object-fit: cover;
+
+    &_default {
+      width: 100%;
+      padding-top: 8px;
+    
+      background-color: $green-color;
+    
+      transform: scale(-1, 1) scale(1.16);
+
+      &_profile {
+        padding-top: .84vw;
+    
+        transform: scale(1.2);
+
+        @media (min-width: 1440px) {
+          max-width: 90px;
+          max-height: 90px;
+        }
+
+        @media (max-width: 904px) {
+          max-width: 90px;
+          max-height: 90px;
+          padding-top: 2vw;
+
+          transform: scale(1.15);
+        }
+
+        @media (max-width: 599px) {
+          padding-top: 3vw;
+
+          transform: scale(1.15);
+        }
+      }
+    }
+  }
+}

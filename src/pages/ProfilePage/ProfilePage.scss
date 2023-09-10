@@ -6,17 +6,65 @@
   
   display: flex;
   flex-grow: 1;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
   height: 100%;
 
   background: $primary-color;
 
+  @media (max-width: 904px) {
+    align-items: center;
+  }
+
   &__wrapper {
     display: flex;
-    gap: 3.889VW;
+    gap: 3.889vw;
     align-items: flex-start;
     width: 44.5138vw;
+    margin-top: 5.2288vh;
+    margin-bottom: 5.2288vh;
+    
+    @media (max-width: 1239px) {
+      gap: 6.188vw;
+      width: 69.724vw;
+      margin-top: 48px;
+      margin-bottom: 88px;
+    }
+
+    @media (max-width: 904px) {
+      flex-direction: column;
+      gap: 24px;
+      width: 100%;
+      max-width: 328px;
+      margin-top: 32px;
+      margin-bottom: 88px;
+    }
+
+    @media (max-width: 599px) {
+      flex-direction: column;
+      gap: 24px;
+      width: 100%;
+      max-width: 328px;
+      margin-top: 24px;
+      margin-bottom: 70px;
+    }
+  }
+
+  &__h3 {
+    display: flex;
+    justify-content: flex-start;
+    margin-block-start: 0;
+    margin-block-end: 0;
+
+    font-size: 1.5rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1.33;
+    color: $black-3-color;
+
+    @media (min-width: 905px) {
+      display: none;
+    }
   }
 
   .profile-menu {
@@ -26,8 +74,13 @@
     align-items: center;
     justify-content: center;
     margin-top: 80px;
-
+    
     background: $btn-bg-color;
+    
+    @media (max-width: 904px) {
+      width: 100%;
+      margin-top: 0;
+    }
 
     &__wrapper {
       display: flex;
@@ -35,11 +88,26 @@
       gap: 34px;
       justify-content: center;
       margin: 32px 2.2223vw;
+      
+      @media (max-width: 904px) {
+        gap: 8px;
+        width: 100%;
+        margin: 8px;
+      }
     }
 
     &__btns {
       display: flex;
       flex-direction: column;
+    }
+
+    
+    @media (max-width: 904px) {
+      &__btns,
+      &__delete-btn-wrapper {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+      }
     }
 
     &__btn {
@@ -66,6 +134,10 @@
       &_active {
         background: $bg-menu-active-color;
       }
+
+      @media (max-width: 904px) {
+        padding: 8px 16px;
+      }
     }
   }
 
@@ -76,6 +148,10 @@
     justify-content: flex-start;
     width: 55%;
 
+    @media (max-width: 904px) {
+      width: 100%;
+    }
+
     &__h3 {
       margin-block-start: 0;
       margin-block-end: 0;
@@ -85,6 +161,10 @@
       font-weight: 400;
       line-height: 1.25;
       color: $black-3-color;
+
+      @media (max-width: 904px) {
+        display: none;
+      }
     }
   }
 }

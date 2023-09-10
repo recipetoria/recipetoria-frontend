@@ -1,0 +1,230 @@
+@import "../../styles/variables";
+@import "../../styles/mixins";
+
+.recipe-links {
+  @include border($color: $black-color, $rad: 8px);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: inherit;
+
+  background: $btn-bg-color;
+
+  &__wrapper {
+    display: flex;
+    gap: 4.444vw;
+    align-items: center;
+    width: inherit;
+    margin: 40px;
+    
+    @media (max-width: 904px) {
+      margin: 24px;
+    }
+
+    @media (max-width: 599px) {
+      margin: 16px;
+    }
+  }
+  
+  &__image-wrapper {
+    width: auto;
+
+    @media (max-width: 1439px) {
+      max-width: 115px;
+    }
+  }
+
+  &__image {
+    width: 100%;
+
+    object-fit: cover;
+  }
+
+  .links-block {
+    display: flex;
+    flex: 1 0 auto;
+    flex-direction: column;
+    gap: 16px;
+    align-items: flex-start;
+    width: 49.722vw;
+    max-width: 716px;
+
+    @media (max-width: 1439px) {
+      width: 100%;
+      max-width: none;
+    }
+
+    &__header-wrapper {
+      @media (max-width: 1439px) {
+        display: flex;
+        gap: 24px;
+        align-items: center;
+      }
+
+      @media (max-width: 904px) {
+        display: grid;
+        grid-template-columns: 29.73fr 64.865fr;
+        gap: 16px;
+        align-items: center;
+      }
+    }
+
+    &__links {
+      @media (max-width: 1439px) {
+        width: 100%;
+      }
+    }
+
+    &__h3 {
+      margin-block-start: 0;
+      margin-block-end: 0;
+
+      font-size: 1.375rem;
+      font-weight: 400;
+      line-height: 1.272;
+      color: $black-color;
+    }
+
+    &__h4 {
+      margin-block-start: 0;
+      margin-block-end: 0;
+
+      font-size: 1rem;
+      font-weight: 400;
+      line-height: 1.5;
+      color: $black-color;
+      letter-spacing: 0.5px;
+    }
+
+    &__text {
+      letter-spacing: 0.5px;
+    }
+
+    &__table-header {
+      display: flex;
+      flex-grow: 1;
+      justify-content: flex-end;
+
+      font-size: 1rem;
+      font-weight: 500;
+      line-height: 1.5;
+      color: $m-3-sys-light-on-secondary-container;
+      letter-spacing: 0.15px;
+    }
+
+    &__table-block {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    &__add-link {
+      @media (max-width: 1439px) {
+        width: 55%;
+      }
+
+      @media (min-width: 600px) and (max-width: 904px) {
+        width: 98%;
+      }
+    }
+  }
+
+  .table-links {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    width: 100%;
+    
+    &__row {
+      display: grid;
+      grid-template-columns: 95fr 5fr;
+      gap: 8px;    
+      align-items: center;
+      width: 100%;
+
+      &_hover-by-trash {
+        background: $bg-menu-active-color;
+      }
+    }
+
+    &__number-n-link {
+      display: grid;
+      grid-template-columns: 5fr 95fr;
+      gap: 4px;
+      align-items: center;
+      width: 100%;
+
+      font-size: 1rem;
+      font-weight: 400;
+      line-height: 1.5;
+      color: $black-color;
+      letter-spacing: 0.5px;
+    }
+
+    &__cell {
+      &_number {
+        width: 20px;
+
+        text-align: right;
+      }
+
+      &_link {
+        width: 100%;
+        padding: 16px 0.556vw;
+      
+        overflow: hidden;
+
+        color: $blue-color;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+    }
+    
+    &__form {
+      .caption {
+        @include caption;
+      }
+
+      &_delete {
+        position: relative;
+      }
+    }
+
+    &__delete {
+      @include border($color: transparent);
+
+      box-sizing: content-box;
+
+      display: flex;
+      gap: 0.556vw;
+      align-items: center;
+      justify-content: center;
+      padding: 8px 12px;
+      margin: 0;
+
+      cursor: pointer;
+
+      background: transparent;
+
+      transition: $transition;
+
+      .trash {
+        fill: $gray-light-color;
+      }
+  
+      &:hover {
+        border: 1px solid transparent;
+  
+        .trash {
+          fill: $black-color;
+        }
+      }
+    }
+  }
+}
+
+/* stylelint-disable-next-line selector-class-pattern */
+.table-links__form_delete:hover .caption {
+  opacity: 1;
+}

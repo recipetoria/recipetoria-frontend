@@ -2,12 +2,9 @@ import axios, { AxiosResponse, AxiosError } from "axios";
 import { URL_AUTHENTICATE } from "../utils/constants";
 import { SignResponse } from "../types/types";
 import setRegister from "../utils/storage";
+import getUserInfo from "./getUserInfo";
 
-export default async function signIn(
-  email: string,
-  password: string,
-  name: string
-) {
+export default async function signIn(email: string, password: string) {
   const data = JSON.stringify({
     email,
     password,
@@ -26,17 +23,21 @@ export default async function signIn(
   try {
     resp = await axios
       .request(config)
-      .then((response: AxiosResponse<SignResponse>) => {
-        setRegister(
-          response.data.data.authenticationResponse.token,
-          name,
-          true
-        );
-        return response.status;
-      });
+      .then((response: AxiosResponse<SignResponse>) =>
+        getUserInfo(response.data.data.authenticationResponse.token)
+          .then((userInfoResponse) => {
+            setRegister(
+              response.data.data.authenticationResponse.token,
+              userInfoResponse.name,
+              true
+            );
+            return response.status;
+          })
+          .catch((err) => err.message)
+      );
   } catch (error) {
     const err = error as AxiosError;
-    throw new Error(err.message);
+    resp = (err.response as AxiosResponse<SignResponse>).data.message;
   }
 
   return resp;

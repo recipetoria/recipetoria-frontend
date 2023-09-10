@@ -1,24 +1,21 @@
 import axios from "axios";
-import { URL_UPDATE_USER_PROFILE_PHOTO } from "../utils/constants";
+import { URL_USER_PROFILE_PHOTO } from "../utils/constants";
 
-export default function updateUserProfilePhoto(data: FormData, token: string) {
+export default async function updateUserProfilePhoto(
+  dataBody: FormData,
+  token: string
+) {
   const config = {
-    method: "patch",
+    method: "put",
     maxBodyLength: Infinity,
-    url: URL_UPDATE_USER_PROFILE_PHOTO,
+    url: URL_USER_PROFILE_PHOTO,
     headers: {
       Authorization: `Bearer ${token}`,
     },
-    data,
+    data: dataBody,
   };
 
-  axios
-    .request(config)
-    .then((response) => {
-      console.log(response);
-    })
-    .catch((error) => {
-      console.log(error);
-      throw new Error(error);
-    });
+  const res = axios.request(config);
+  const { data } = await res;
+  return data;
 }

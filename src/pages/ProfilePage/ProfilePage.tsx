@@ -1,6 +1,6 @@
-import { ReactNode, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { useAppSelector } from "../../app/hooks";
+import { useContext, useEffect, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import Footer from "../../components/Footer/Footer";
 import Header from "../../components/Header/Header";
 import "./ProfilePage.scss";
@@ -8,22 +8,35 @@ import ProfileGeneral from "../../components/ProfileGeneral/ProfileGeneral";
 import ProfileChangePassword from "../../components/ProfileChangePassword/ProfileChangePassword";
 import Modal from "../../components/Modal/Modal";
 import useModal from "../../hooks/useModal";
-import DeleteAccount from "../../components/DeleteAccount/DeleteAccount";
-import logOut from "../../API/logOut";
+import ModalContentInProfile from "../../components/ModalContentInProfile/ModalContentInProfile";
+import DeleteAccountImg from "../../assets/png/delete_account.png";
+import deleteAccount from "../../API/deleteAccount";
+import { SnackbarTextValue } from "../../features/SnackbarTextSlice";
+import { ModalContentContext } from "../../contexts/ModalContentContext";
+import LogOutBtn from "./Btns/LogOutBtn";
+import useResize from "../../hooks/useResize";
+import getUserInfo from "../../API/getUserInfo";
 
 type ProfileStates = "general" | "changePassword";
 
 export default function ProfilePage() {
   const isAuth = useAppSelector((state) => state.present.authData.value.isAuth);
-  const name = useAppSelector((state) => state.present.authData.value.name);
+  const token = useAppSelector((state) => state.present.authData.value.token);
   const isOpen = useAppSelector((state) => state.present.IsOpenModal.value);
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+  const location = useLocation();
   const [profileState, SetProfileState] = useState<ProfileStates>("general");
   const { toggle } = useModal();
+  const { isScreenSm, isScreenMd } = useResize();
 
   useEffect(() => {
-    if (isAuth !== true) {
+    if (isAuth !== true && location.pathname !== "sign_in") {
       navigate("/*");
+    } else if (token !== "") {
+      getUserInfo(token).catch(() => {
+        navigate("/sign_in");
+      });
     }
   });
 
@@ -31,7 +44,7 @@ export default function ProfilePage() {
     SetProfileState(state);
   }
 
-  const [modalChildren, setModalChildren] = useState<ReactNode>(<div />);
+  const { modalContent, setModalContent } = useContext(ModalContentContext);
 
   return (
     <div className="app__wrapper">
@@ -41,6 +54,7 @@ export default function ProfilePage() {
           <main>
             <article className="profile-page">
               <div className="profile-page__wrapper">
+                <h3 className="profile-page__h3">Profile</h3>
                 <section className="profile-menu">
                   <div className="profile-menu__wrapper">
                     <div className="profile-menu__btns">
@@ -64,27 +78,43 @@ export default function ProfilePage() {
                       >
                         Change password
                       </button>
+                      {isScreenSm || isScreenMd ? "" : <LogOutBtn />}
+                    </div>
+                    <div className="profile-menu__delete-btn-wrapper">
+                      {isScreenSm || isScreenMd ? <LogOutBtn /> : ""}
                       <button
                         type="button"
                         className="profile-menu__btn"
                         onClick={() => {
-                          navigate("/");
-                          logOut(name);
+                          toggle();
+                          setModalContent(
+                            <ModalContentInProfile
+                              imageSrc={DeleteAccountImg}
+                              text="Are you sure you want to delete your account?"
+                              handleClickByOkBtn={() => {
+                                deleteAccount(token).then(() => {
+                                  toggle();
+                                  navigate("/");
+                                  dispatch(
+                                    SnackbarTextValue({
+                                      text: "Your account was deleted",
+                                      withUndo: false,
+                                    })
+                                  );
+                                });
+                              }}
+                              submitBtn={{
+                                text: "Ok",
+                                style: "btn",
+                              }}
+                              cancelBtnStyle="borderNone"
+                            />
+                          );
                         }}
                       >
-                        Log Out
+                        Delete account
                       </button>
                     </div>
-                    <button
-                      type="button"
-                      className="profile-menu__btn"
-                      onClick={() => {
-                        toggle();
-                        setModalChildren(<DeleteAccount />);
-                      }}
-                    >
-                      Delete account
-                    </button>
                   </div>
                 </section>
                 <section className="profile-data">
@@ -93,7 +123,7 @@ export default function ProfilePage() {
                     <ProfileGeneral
                       toggle={toggle}
                       modalChildren={(modalChild) =>
-                        setModalChildren(modalChild)
+                        setModalContent(modalChild)
                       }
                     />
                   )}
@@ -103,7 +133,7 @@ export default function ProfilePage() {
                 </section>
               </div>
               <Modal isOpen={isOpen} toggle={toggle}>
-                {modalChildren}
+                {modalContent}
               </Modal>
             </article>
           </main>

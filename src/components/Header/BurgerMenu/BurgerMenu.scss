@@ -1,0 +1,136 @@
+@import "../../../styles/variables";
+@import "../../../styles/mixins";
+
+.burger-menu {
+  @include border($color: $total-black, $rad: 8px);
+
+  position: absolute;
+  top: 8px;
+  right: 8px;
+
+  display: flex;
+  align-items: center;  
+  justify-content: center;
+  width: 215px;
+  padding: 16px 16px 32px;
+  
+
+  background: $btn-bg-color;
+  box-shadow: 4px 4px 0 0 $total-black, 6px 8px 9px 0 rgba($total-black, 0.25);
+
+  &_normal {
+    animation: burger-menu-anim 1s cubic-bezier(0.34, 1.56, 0.64, 1) 0s 1 normal forwards;
+
+    @keyframes burger-menu-anim {
+      0% {
+        opacity: 0;
+        transform: rotateX(-100deg);
+        transform-origin: top;
+      }
+    
+      100% {
+        opacity: 1;
+        transform: rotateX(0deg);
+        transform-origin: top;
+      }
+    }
+  }
+  
+  &_reverse {
+    animation: burger-menu-anim 1s cubic-bezier(0.34, 1.56, 0.64, 1) .9s 1 reverse forwards;
+
+    @keyframes burger-menu-anim {
+      0% {
+        opacity: 0;
+        transform: rotateX(-100deg);
+        transform-origin: top;
+      }
+    
+      100% {
+        opacity: 1;
+        transform: rotateX(0deg);
+        transform-origin: top;
+      }
+    }
+  }
+  
+
+  &__wrapper {
+    display: flex;
+    flex: 1 0 auto;
+    flex-direction: column;
+    gap: 4px;
+    align-items: flex-end;
+  }
+
+  &__btn {
+    display: flex;
+
+    cursor: pointer;
+
+    background: transparent;
+    border: none;
+  }
+
+  &__menu {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-self: flex-start;
+    width: 100%;
+  }
+
+  &__menu-item-link,
+  &__menu-item-btn {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 16px 24px;
+    margin: 0;
+  }
+
+  &__profile,
+  &__menu-item-link,
+  &__menu-item-btn {
+    
+    font-size: .875rem;
+    font-weight: 500;
+    line-height: 1.429;
+    color: $brown-color;
+    letter-spacing: 0.1px;
+    cursor: pointer;
+
+    background: transparent;
+    border: none;
+    border-radius: 4px;
+    
+    transition: $transition;
+
+    &:hover {
+      background: $bg-menu-active-color;
+      
+      transition: $transition;
+    }
+  }
+
+  /* stylelint-disable-next-line no-descending-specificity */
+  &__profile {
+    display: flex;
+    gap: 14px;
+    align-items: center;
+
+    border-top-left-radius: 25px;
+    border-bottom-left-radius: 25px;
+
+    .avatar {
+      flex: 0 1 auto;
+      width: 48px;
+      height: 48px;
+    }
+  }
+
+  &__menu-items {
+    display: flex;
+    flex-direction: column;
+  }
+}

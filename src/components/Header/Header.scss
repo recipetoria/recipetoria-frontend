@@ -2,6 +2,8 @@
 @import '../../styles/mixins';
 
 .header {
+  position: relative;
+
   font-size: .875rem;
   font-weight: 500;
   line-height: 1.43;
@@ -14,6 +16,30 @@
     align-items: center;
     justify-content: space-between;
     margin: 1rem 11.04vw 1rem 10.83vw;
+    
+    @media (max-width: 1279px) {
+      margin: 26px 2.707vw 19px;
+    }
+
+    @media (max-width: 904px) {
+      margin: 21px 5.333vw 18px;
+    }
+
+    @media (max-width: 599px) {
+      gap: 1vw;
+      height: 24px;
+      margin: 23px 5vw 24px 4vw;
+    }
+  }
+
+  &__btn {
+    @include btn;
+
+    box-sizing: content-box;
+
+    font-size: .875rem;
+    font-weight: 500;
+    line-height: 1.43;
   }
 
   .logo {
@@ -23,13 +49,43 @@
       display: flex;
       align-items: center;
       height: 60px;
+      
+      @media (max-width: 599px) {
+        width: 83px;
+        height: 15px;
+      }
     }
+  }
+
+  .small-size-btns {
+    display: flex;
+    gap: 3.5vw;
+
+    @media (min-width: 600px) {
+      display: none;
+    }
+  }
+
+
+  .burger-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    cursor: pointer;
+    
+    background: transparent;
+    border: none;
   }
 
   .links-n-avatar {
     display: flex;
     gap: 2.98vw;
     align-items: center;
+
+    @media (max-width: 599px) {
+      display: none;
+    }
   }
 
   .links {
@@ -39,14 +95,14 @@
 
     &_not-auth {
       gap: 1.11vw;
-    }
-  }
 
-  .default-avatar {
-    @include default-avatar;
+      @media (max-width: 1279px) {
+        gap: 1.768vw;
+      }
 
-    &__wrapper {
-      @include default-avatar-wrapper;
+      @media (max-width: 904px) {
+        gap: 2.667vw;
+      }
     }
   }
 
@@ -54,5 +110,19 @@
     @include orange-btn;
 
     font-weight: 500;
+  }
+
+  .profile-btn-popup {
+    position: relative;
+
+    &__btn {
+      padding: 0;
+
+      cursor: pointer;
+
+      background: transparent;
+      border: none;
+      outline: none;
+    }
   }
 }

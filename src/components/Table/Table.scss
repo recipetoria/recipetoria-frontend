@@ -1,0 +1,365 @@
+/* stylelint-disable selector-class-pattern */
+@import "../../styles/variables";
+@import "../../styles/mixins";
+
+$amount-static-width-full-size: 100px;
+$measure-static-width-full-size: 130px;
+
+.grid-table {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+
+  &__row {
+    display: grid;
+    grid-template-areas: 
+      "number data_wrapper shop_add_btn trash";
+    grid-template-columns: 5fr 55.627fr 19.146fr 9fr;
+    width: 100%;
+    padding: 4px 0;
+
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: $black-color;
+    letter-spacing: 0.5px;
+    
+    border-top: 1px solid $gray-light-1-color;
+    
+    @media (max-width: 904px) {
+      grid-template-areas: 
+        "number data_wrapper trash"
+        "shop_add_btn shop_add_btn shop_add_btn";
+      grid-template-columns: 11.5fr 72.203fr 12.881fr;
+      
+      border-top: none;
+    }
+
+    &_header {
+      padding-top: 0;
+      padding-bottom: 8px;
+
+      font-weight: 500;
+      letter-spacing: 0.15px;
+
+      border-top: none;
+
+      @media (max-width: 904px) {
+        display: none;
+      }
+    }
+
+    &_hover-by-trash {
+      background: $bg-menu-active-color;
+    }
+
+    &_form-new-item {
+      z-index: 3;
+
+      @media (max-width: 904px) {
+        grid-template-areas: 
+        "number data_wrapper trash";
+      }
+    }
+
+    &_new-grid {
+      grid-template-columns: 8.916fr 75fr 8.392fr;
+    }
+  }
+
+  &__data-wrapper {
+    display: grid;
+    grid-area: data_wrapper;
+    grid-template-areas: 
+      "name amount measure";
+    grid-template-columns: auto $amount-static-width-full-size $measure-static-width-full-size;
+    
+    @media (max-width: 904px) {
+      grid-template-areas: 
+        "name name"
+        "measure amount";
+      grid-template-columns: 1fr 1fr;
+      margin-right: 5.556vw;
+    }
+
+    &_new-grid {
+      grid-template-columns: 36.713fr $amount-static-width-full-size $measure-static-width-full-size;
+
+      @media (max-width: 904px) {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+  }
+
+  &__from {
+    width: 100%;
+
+    .caption {
+      @include caption;
+      
+      bottom: -20px;
+    }
+
+    &_delete {
+      position: relative;
+
+      grid-area: trash;
+    }
+
+    &_name {
+      grid-area: name;
+    }
+
+    &_amount {
+      grid-area: amount;
+    }
+
+    &_measure {
+      grid-area: measure;
+    }
+  }
+
+  .MuiTextField-root {
+    margin-right: 1.667vw;
+   
+    cursor: pointer;
+    
+    transition: $transition;
+  }
+
+  .css-1qxw4jt-MuiInputBase-root-MuiOutlinedInput-root {
+    padding: 0;
+  }
+
+  .MuiOutlinedInput-notchedOutline {
+    @include border($color: transparent);
+
+    transition: $transition;
+  }
+
+  .css-1qxw4jt-MuiInputBase-root-MuiOutlinedInput-root:hover
+  .MuiOutlinedInput-notchedOutline,
+  .css-9ddj71-MuiInputBase-root-MuiOutlinedInput-root:hover 
+  .MuiOutlinedInput-notchedOutline,
+  .css-md26zr-MuiInputBase-root-MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline {
+    @include border($color: $gray-light-1-color);
+
+    transition: $transition;
+  }
+
+  .css-1qxw4jt-MuiInputBase-root-MuiOutlinedInput-root.Mui-focused 
+  .MuiOutlinedInput-notchedOutline,
+  .css-9ddj71-MuiInputBase-root-MuiOutlinedInput-root.Mui-focused
+  .MuiOutlinedInput-notchedOutline,
+  .css-md26zr-MuiInputBase-root-MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
+    @include border($color: $purple-color, $width: 2px);
+  }
+
+  .cell {
+    @include border($color: transparent);
+
+    padding: 8px 0.833vw;
+    margin-right: 8px;
+
+    cursor: pointer;
+
+    transition: $transition;
+
+    &:hover {
+      @include border($color: $gray-light-1-color)
+    }
+
+    &_header {
+      padding: 0 0.833vw;
+
+      text-transform: none;
+      cursor: text;
+
+      border: none;
+
+      &:hover {
+        border: none;
+      }
+    }
+
+    &_header-amount {
+      padding: 0;
+    }
+
+    &_btn {
+      box-sizing: content-box;
+      display: flex;
+      gap: 0.556vw;
+      align-items: center;
+      justify-content: center;
+
+      background: transparent;
+    }
+  }
+  
+  .grid-table &__number {
+    grid-area: number;
+    padding: 8px 0.833vw 8px 0.278vw;
+    margin: 0;
+
+    text-align: right;
+    cursor: text;
+    
+    border: none;
+    
+    &_header {
+      padding: 0 0.833vw;
+    }
+    
+    &:hover {
+      border: none;
+    }
+  }
+
+  &__amount {
+    text-align: right;
+  }
+
+  &__measure {
+    text-transform: lowercase;
+  }
+
+  .grid-table &__action {
+    grid-area: shop_add_btn;
+    align-items: flex-start;
+    padding: 8px 0.556vw;
+    margin: 0;
+
+    font-size: 0.875rem;
+    font-weight: 500;
+    line-height: 1.429;
+    color: $black-light;
+    letter-spacing: 0.1px;
+    
+    outline: none;
+
+    &_header {
+      display: flex;
+      justify-content: center;
+      padding: 0 0.556vw;
+
+      font-size: 1rem;
+      letter-spacing: 0.15px;
+    }
+    
+    &:focus {
+      @include border($color: $purple-color, $width: 2px);
+    }
+
+    .small-size-text-in-action {
+      font-size: 0.875rem;
+      font-weight: 500;
+      line-height: 1.429;
+      color: $black-light;
+      letter-spacing: 0.1px;
+
+      @media (min-width: 905px) {
+        display: none;
+      }
+    }
+
+    @media (max-width: 904px) {
+      gap: 10px;
+      align-items: center;
+      justify-content: flex-start;
+      width: 100%;
+      padding: 4px 8px 4px 4px;
+      margin: 0;
+
+      .plus-icon {
+        display: none;
+      }
+    }
+  }
+
+  .grid-table &__delete {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    width: inherit;
+    padding: 8px 0;
+    margin: 0;
+
+    outline: none;
+    
+    &:focus {
+        @include border($color: $purple-color, $width: 2px);
+    }
+    
+    .trash {
+      fill: $gray-light-color;
+    }
+    
+    &:hover {
+      border: 1px solid transparent;
+      
+      .trash {
+        fill: $black-color;
+      }
+    }
+    
+    &_header {
+      padding: 0;
+      border: none;
+  
+      &:hover {
+        border: none;
+      }
+    }
+  }
+
+  &__new-item-btn {
+    display: flex;
+    gap: 4px;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 12px;
+
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: $gray-light-color;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+
+    background: transparent;
+    border: none;
+    border-radius: 4px;
+
+    transition: $transition;
+
+    &:hover {
+      color: $black-color;
+
+      background: $bg-menu-active-color;
+    }
+
+    @media (max-width: 904px) {
+      border-top: 1px solid var(--primary-typography-gray, #707077);
+      border-radius: 0;
+      border-bottom-right-radius: 4px;
+      border-bottom-left-radius: 4px;
+    }
+  }
+}
+
+.grid-table__from_delete:hover .caption {
+  opacity: 1;
+}
+
+.form-mask {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+
+  width: 100%;
+  height: 100%;
+
+  background: transparent;
+}

@@ -3,33 +3,101 @@ import { FileUploader } from "react-drag-drop-files";
 import "./AddProfilePhoto.scss";
 import DropPhoto from "../DropPhoto/DropPhoto";
 import useModal from "../../hooks/useModal";
-import updateUserProfilePhoto from "../../API/updateUserProfilePhoto";
-import { useAppSelector } from "../../app/hooks";
-import ErrorInForm from "../ErrorInForm/ErrorInForm";
+import { useAppDispatch, useAppSelector } from "../../app/hooks";
+import { fetchUpdateUserPhoto } from "../../features/UserPhotoSlice";
+import { fetchUpdateTagPhoto } from "../../features/CategorySlice";
+import { AddProfilePhotoProps } from "../../types/types";
+import ScaleUpImage from "../../assets/png/scale_up.png";
+import FolderImage from "../../assets/png/folder.png";
+import { fetchUpdateRecipeMainPhoto } from "../../features/RecipesSlice";
+import { fetchAddRecipePhoto } from "../../features/OneRecipeSlice";
 
-export default function AddProfilePhoto() {
+export default function AddProfilePhoto(props: AddProfilePhotoProps) {
+  const { mode, imageSrc, tagId, recipeId } = props;
+
   const fileTypes = ["JPG", "jpeg", "PNG", "GIF"];
   const fileSize = "5";
   const token = useAppSelector((state) => state.present.authData.value.token);
   const { toggle } = useModal();
-  const [error, setError] = useState("");
+  const initialDropPhotoData = {
+    photo: imageSrc,
+    text: "or",
+  };
+
+  const [dropPhotoData, setDropPhotoData] = useState(initialDropPhotoData);
+  const dispatch = useAppDispatch();
 
   const handleChange = (file: File) => {
     if (file) {
-      setError("");
+      setDropPhotoData(initialDropPhotoData);
       const formData = new FormData();
       formData.append("file", file);
-      updateUserProfilePhoto(formData, token);
+
+      if (mode === "profile") {
+        dispatch(fetchUpdateUserPhoto({ data: formData, token }));
+      } else if (mode === "category") {
+        if (tagId && tagId !== "uncategorized") {
+          dispatch(fetchUpdateTagPhoto({ token, data: formData, tagId }));
+        } else {
+          throw new Error(`Something went wrong with tag id: ${tagId}`);
+        }
+      } else if (mode === "recipe main") {
+        if (recipeId) {
+          dispatch(
+            fetchUpdateRecipeMainPhoto({
+              data: formData,
+              recipeId,
+              token,
+            })
+          );
+        } else {
+          throw new Error(`Something went wrong with recipe id: ${recipeId}`);
+        }
+      } else if (mode === "recipe") {
+        if (recipeId) {
+          dispatch(
+            fetchAddRecipePhoto({
+              recipeId,
+              token,
+              data: formData,
+            })
+          );
+        } else {
+          throw new Error(
+            `Custom error: something went wrong with recipe id: ${recipeId}`
+          );
+        }
+      }
+
       toggle();
     } else {
       throw new Error("Something went wong with file...");
     }
   };
 
+  const handleError = (error: "type" | "size") => {
+    switch (error) {
+      case "size":
+        setDropPhotoData({
+          photo: ScaleUpImage,
+          text: "File is too large.\nChoose a smaller file",
+        });
+        break;
+      case "type":
+        setDropPhotoData({
+          photo: FolderImage,
+          text: "Try a different file format.\nAllowed types: jpeg, jpg, png",
+        });
+        break;
+      default:
+        setDropPhotoData(initialDropPhotoData);
+        break;
+    }
+  };
+
   return (
     <section className="add-profile-photo">
-      <h3 className="add-profile-photo__header">Add profile photo</h3>
-      {error !== "" && <ErrorInForm errorMessage={error} />}
+      <h3 className="add-profile-photo__header">Add {mode} photo</h3>
       <article className="add-profile-photo__content">
         <section className="add-photo">
           <FileUploader
@@ -37,13 +105,13 @@ export default function AddProfilePhoto() {
             name="file"
             types={fileTypes}
             maxSize={fileSize}
-            onTypeError={setError}
-            onSizeError={setError}
+            onTypeError={() => handleError("type")}
+            onSizeError={() => handleError("size")}
           >
-            <DropPhoto />
+            <DropPhoto imageSrc={dropPhotoData.photo} />
           </FileUploader>
         </section>
-        <span className="add-profile-photo__text">or</span>
+        <span className="add-profile-photo__text">{dropPhotoData.text}</span>
         <section className="add-profile-photo__btns">
           <button
             type="button"
@@ -57,10 +125,10 @@ export default function AddProfilePhoto() {
             name="file"
             maxSize={fileSize}
             handleChange={handleChange}
-            onTypeError={setError}
-            onSizeError={setError}
+            onTypeError={() => handleError("type")}
+            onSizeError={() => handleError("size")}
           >
-            <div className="add-profile-photo__upload">Upload picture</div>
+            <div className="add-profile-photo__upload">Upload photo</div>
           </FileUploader>
         </section>
       </article>

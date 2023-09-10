@@ -1,13 +1,14 @@
 import { SubmitHandler, useForm } from "react-hook-form";
 import "./ProfileGeneral.scss";
 import { ReactNode, useState } from "react";
-import DefaultAvatar from "../../assets/png/default_ava.png";
 import Input from "../Input/Input";
 import { FormValues, UserInfo } from "../../types/types";
 import AddProfilePhoto from "../AddProfilePhoto/AddProfilePhoto";
 import { useAppSelector } from "../../app/hooks";
 import getUserInfo from "../../API/getUserInfo";
-import updateUserNameAndEmail from "../../API/updateUserNameAndEmail";
+import updateUserName from "../../API/updateUserName";
+import UserPhoto from "../UserPhoto/UserPhoto";
+import UploadPhoto from "../../assets/png/upload_photo.png";
 
 interface ProfileGeneralProps {
   toggle: () => void;
@@ -31,9 +32,9 @@ export default function ProfileGeneral(props: ProfileGeneralProps) {
   } = useForm<FormValues>();
 
   const onSubmit: SubmitHandler<FormValues> = (data) => {
-    const { nickname, email } = data;
-    if (email && nickname) {
-      updateUserNameAndEmail(email, nickname, token);
+    const { nickname } = data;
+    if (nickname) {
+      updateUserName(nickname, token);
     }
   };
 
@@ -67,19 +68,19 @@ export default function ProfileGeneral(props: ProfileGeneralProps) {
           <div className="general__wrapper">
             <span className="general__header">General</span>
             <section className="general__avatar-n-btn">
-              <div className="general__avatar-wrapper">
-                <img src={DefaultAvatar} alt="" className="default-avatar" />
-              </div>
+              <UserPhoto parent="Profile" />
               <div className="general__btn-n-caption">
                 <button
                   type="button"
                   className="general__btn btn"
                   onClick={() => {
                     toggle();
-                    modalChildren(<AddProfilePhoto />);
+                    modalChildren(
+                      <AddProfilePhoto mode="profile" imageSrc={UploadPhoto} />
+                    );
                   }}
                 >
-                  Replace picture
+                  Change photo
                 </button>
                 <span className="general__caption">
                   Allowed types: jpeg, jpg or png Maximum file size is 5 MB
@@ -95,7 +96,7 @@ export default function ProfileGeneral(props: ProfileGeneralProps) {
                 errors={errors}
                 required
                 validationSchema={{
-                  required: "New nickname is required",
+                  required: "New new nickname is required",
                   minLength: {
                     value: 3,
                     message: "Please enter a minimum of 3 characters",
@@ -106,25 +107,8 @@ export default function ProfileGeneral(props: ProfileGeneralProps) {
                   },
                 }}
                 placeholder="Enter your text here"
-                caption="Max 30 symbols"
+                caption="Max 30 characters"
                 defaultValue={userInfo.name}
-              />
-              <Input
-                name="email"
-                label="E-mail"
-                type="text"
-                register={register}
-                errors={errors}
-                required
-                validationSchema={{
-                  required: "New e-mail is required",
-                  pattern: {
-                    value: /^[\w-\\.]+@([\w-]+\.)+[\w-]{2,4}$/,
-                    message: "Please enter a correct e-mail",
-                  },
-                }}
-                placeholder="example@gmail.com"
-                defaultValue={userInfo.email}
               />
             </div>
           </div>

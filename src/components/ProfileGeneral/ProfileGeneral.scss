@@ -11,22 +11,13 @@
       display: flex;
       gap: 1.1111vw;
       align-items: flex-start;
-    }
+      
+      @media (max-width: 904px) {
+        gap: 3.190vw;
+      }
 
-    &__avatar-wrapper {
-      @include default-avatar-wrapper;
-  
-      width: 5.83vw;
-      max-width: 84px;
-      height: 5.83vw;
-      max-height: 84px;
-  
-      .default-avatar {
-        @include default-avatar;
-  
-        padding-top: .84vw;
-    
-        transform: scale(1.2);
+      @media (max-width: 599px) {
+        gap: 4.444vw;
       }
     }
 

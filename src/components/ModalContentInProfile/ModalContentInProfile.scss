@@ -1,0 +1,81 @@
+@import "../../styles/variables";
+@import "../../styles/mixins";
+
+.delete-account {
+  @include cross-btn;
+
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  align-items: flex-end;
+  
+  @media (max-width: 599px) {
+    gap: 0;
+    max-width: 193px;
+    padding: 8px;
+    
+    text-align: center;
+  }
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    align-items: center;
+  }
+
+  &__img-wrapper {
+    max-width: 142px;
+    
+    @media (max-width: 599px) {
+      max-width: 100px;
+    }
+  }
+  
+  &__img {
+    width: 100%;
+
+    object-fit: contain;
+  }
+
+  &__text-n-btns {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    align-items: flex-end;
+  }
+
+  &__text {
+    font-style: normal;
+    color: $black-color;
+    letter-spacing: 0.5px;
+  }
+
+  &__btns {
+    display: flex;
+    gap: .8333rem;
+    align-items: center;
+  }
+
+  &__cancel {
+    @include cancel-btn;
+
+    &_btn {
+      @include btn;
+    }
+  }
+
+  &__ok {
+    @include btn;
+
+    &_orange_btn {
+      @include orange-btn;
+    }
+
+    font-size: .875;
+    font-weight: 500;
+    line-height: 1.43;
+    color: $black-color;
+    letter-spacing: 0.1px;
+  }
+}

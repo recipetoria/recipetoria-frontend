@@ -2,18 +2,12 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import { UseFormRegister, FieldErrors } from "react-hook-form";
 import { useState } from "react";
-import { FormValues } from "../../types/types";
+import { FormValues, InputNames } from "../../types/types";
 import "./Input.scss";
 import EyeIcon from "../../assets/svg/EyeIcon";
 
 interface InputProps {
-  name:
-    | "nickname"
-    | "email"
-    | "password"
-    | "checkbox"
-    | "repeatPassword"
-    | "oldPassword";
+  name: InputNames;
   label: string;
   register: UseFormRegister<FormValues>;
   errors: FieldErrors<FormValues>;
@@ -40,6 +34,8 @@ interface InputProps {
   passwordValue?: string;
   updateCustomError?: (value: boolean) => void;
   defaultValue?: string;
+  restriction?: RegExp;
+  disabled?: boolean;
 }
 
 interface ICustomError {
@@ -61,6 +57,8 @@ export default function Input(props: InputProps) {
     passwordValue,
     updateCustomError,
     defaultValue,
+    restriction,
+    disabled,
   } = props;
 
   const [isShowedPassword, setShowPassword] = useState(false);
@@ -119,6 +117,19 @@ export default function Input(props: InputProps) {
             }
           }}
           defaultValue={defaultValue}
+          disabled={disabled}
+          onKeyDown={(keyEvent) => {
+            if (restriction) {
+              if (
+                !restriction.test(keyEvent.key) &&
+                keyEvent.key !== "Backspace" &&
+                keyEvent.key !== "ArrowRight" &&
+                keyEvent.key !== "ArrowLeft"
+              ) {
+                keyEvent.preventDefault();
+              }
+            }
+          }}
         />
         {name === "password" ||
         name === "repeatPassword" ||

@@ -22,5 +22,8 @@ export default async function getUserInfo(token: string) {
     .request(config)
     .then((response: AxiosResponse<GetUserInfoResponse>) => {
       return response.data.data.applicationUserDTO;
+    })
+    .catch((error) => {
+      throw new Error(error);
     });
 }
