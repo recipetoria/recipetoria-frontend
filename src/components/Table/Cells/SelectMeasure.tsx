@@ -13,6 +13,7 @@ export default function SelectMeasure(props: SelectMeasureProps) {
     defaultValue,
     withBorder,
     setSelectValueNewItem,
+    changedIngredientData,
     setChangedIngredientData,
   } = props;
 
@@ -48,8 +49,10 @@ export default function SelectMeasure(props: SelectMeasureProps) {
 
             if (setChangedIngredientData) {
               setChangedIngredientData({
-                name: null,
-                amount: null,
+                name: changedIngredientData ? changedIngredientData.name : null,
+                amount: changedIngredientData
+                  ? changedIngredientData.amount
+                  : null,
                 measure: e.target.value,
               });
             }

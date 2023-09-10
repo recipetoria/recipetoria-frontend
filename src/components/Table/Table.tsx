@@ -223,6 +223,7 @@ export default function Table(props: TableProps) {
                   control={control}
                   withBorder={false}
                   autoFocus={false}
+                  changedIngredientData={changedIngredientData}
                   setChangedIngredientData={(value) =>
                     setChangedIngredientData(value)
                   }
@@ -237,6 +238,7 @@ export default function Table(props: TableProps) {
                   name={`ingredient.${indx}.amount`}
                   control={control}
                   withBorder={false}
+                  changedIngredientData={changedIngredientData}
                   setChangedIngredientData={(value) =>
                     setChangedIngredientData(value)
                   }
@@ -254,6 +256,7 @@ export default function Table(props: TableProps) {
                     setSelectValueNewItem(value)
                   }
                   defaultValue={objItem.measurementUnit?.toLowerCase()}
+                  changedIngredientData={changedIngredientData}
                   setChangedIngredientData={(value) =>
                     setChangedIngredientData(value)
                   }

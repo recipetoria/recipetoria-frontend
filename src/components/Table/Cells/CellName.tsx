@@ -5,8 +5,14 @@ import { CellNameProps } from "../../../types/types";
 import useResize from "../../../hooks/useResize";
 
 export default function CellName(props: CellNameProps) {
-  const { name, control, withBorder, setChangedIngredientData, autoFocus } =
-    props;
+  const {
+    name,
+    control,
+    withBorder,
+    changedIngredientData,
+    setChangedIngredientData,
+    autoFocus,
+  } = props;
 
   const { isScreenSm } = useResize();
 
@@ -40,8 +46,12 @@ export default function CellName(props: CellNameProps) {
             if (setChangedIngredientData) {
               setChangedIngredientData({
                 name: e.currentTarget.value,
-                amount: null,
-                measure: null,
+                amount: changedIngredientData
+                  ? changedIngredientData.amount
+                  : null,
+                measure: changedIngredientData
+                  ? changedIngredientData.measure
+                  : null,
               });
             }
 

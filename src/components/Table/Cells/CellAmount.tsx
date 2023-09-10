@@ -6,7 +6,13 @@ import { CellAmountProps } from "../../../types/types";
 import useResize from "../../../hooks/useResize";
 
 export default function CellAmount(props: CellAmountProps) {
-  const { name, control, withBorder, setChangedIngredientData } = props;
+  const {
+    name,
+    control,
+    withBorder,
+    changedIngredientData,
+    setChangedIngredientData,
+  } = props;
 
   const { isScreenSm } = useResize();
 
@@ -84,9 +90,13 @@ export default function CellAmount(props: CellAmountProps) {
             ) {
               if (setChangedIngredientData) {
                 setChangedIngredientData({
-                  name: null,
+                  name: changedIngredientData
+                    ? changedIngredientData.name
+                    : null,
                   amount: +e.currentTarget.value,
-                  measure: null,
+                  measure: changedIngredientData
+                    ? changedIngredientData.measure
+                    : null,
                 });
               }
               field.onChange(e);
