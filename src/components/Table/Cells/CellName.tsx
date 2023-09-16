@@ -57,6 +57,11 @@ export default function CellName(props: CellNameProps) {
 
             field.onChange(e);
           }}
+          onKeyDown={(keyEvent) => {
+            if (keyEvent.key === "Enter") {
+              keyEvent.preventDefault();
+            }
+          }}
           error={!!error?.message}
           helperText={error?.message}
           value={field.value ? field.value.trimStart() : field.value}
