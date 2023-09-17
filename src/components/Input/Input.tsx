@@ -115,6 +115,9 @@ export default function Input(props: InputProps) {
                 if (updateCustomError) updateCustomError(false);
               }
             }
+            if (name === "email") {
+              e.currentTarget.value = e.currentTarget.value.toLowerCase();
+            }
           }}
           defaultValue={defaultValue}
           disabled={disabled}
