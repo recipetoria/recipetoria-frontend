@@ -1,5 +1,5 @@
-import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
+import { useContext, useState } from "react";
 import DefaultCategoryPhoto from "../../assets/png/no_photo_categ.png";
 import getPhotoFromBytes from "../../utils/getPhotoFromBytes";
 import PencilIcon from "../../assets/svg/PencilIcon";
