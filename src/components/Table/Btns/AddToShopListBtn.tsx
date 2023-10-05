@@ -1,5 +1,3 @@
-import PlusIcon from "../../../assets/svg/PlusIcon";
-
 interface AddToShopListBtnProps {
   handleClick: (event: React.MouseEvent) => void;
 }
@@ -13,7 +11,6 @@ export default function AddToShopListBtn(props: AddToShopListBtnProps) {
       className="grid-table__action cell cell_btn"
       onClick={(e) => handleClick(e)}
     >
-      <PlusIcon />
       <span>
         Add <b className="small-size-text-in-action">item</b> to shopping list
       </span>
