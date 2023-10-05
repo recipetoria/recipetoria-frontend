@@ -1,7 +1,6 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import { useState, useEffect } from "react";
 import { useFieldArray, useForm } from "react-hook-form";
-import PlusIcon from "../../assets/svg/PlusIcon";
 import { Ingredient, TableProps, TableValues } from "../../types/types";
 import "./Table.scss";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
