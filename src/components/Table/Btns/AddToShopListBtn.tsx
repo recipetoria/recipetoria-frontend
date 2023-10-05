@@ -11,9 +11,7 @@ export default function AddToShopListBtn(props: AddToShopListBtnProps) {
       className="grid-table__action cell cell_btn"
       onClick={(e) => handleClick(e)}
     >
-      <span>
-        Add <b className="small-size-text-in-action">item</b> to shopping list
-      </span>
+      <span>Add item to shopping list</span>
     </button>
   );
 }

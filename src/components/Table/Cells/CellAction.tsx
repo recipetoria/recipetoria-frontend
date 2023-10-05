@@ -18,12 +18,14 @@ export default function CellAction(props: CellActionProps) {
 
   return (
     <section className="action-cell">
-      <SaveBtn handleClick={handleSaveClick} />
-      <TrashBtn
-        setIsHoveredByTrashId={(value) => setIsHoveredByTrashId(value)}
-        ingredientIndex={ingredientIndex}
-        handleClick={handleTrashClick}
-      />
+      <div className="action-cell__wrapper">
+        <SaveBtn handleClick={handleSaveClick} />
+        <TrashBtn
+          setIsHoveredByTrashId={(value) => setIsHoveredByTrashId(value)}
+          ingredientIndex={ingredientIndex}
+          handleClick={handleTrashClick}
+        />
+      </div>
     </section>
   );
 }

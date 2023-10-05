@@ -186,16 +186,14 @@ export default function Table(props: TableProps) {
           </div>
           <div className="grid-table__measure cell cell_header">Unit</div>
         </div>
-        {mode === "recipe" ? (
-          <div className="grid-table__action grid-table__action_header cell cell_header">
-            Action
-          </div>
-        ) : (
-          ""
-        )}
         <div className="grid-table__delete grid-table__delete_header cell cell_header">
           Action
         </div>
+        {mode === "recipe" ? (
+          <div className="grid-table__action grid-table__action_header cell cell_header" />
+        ) : (
+          ""
+        )}
       </div>
       {fields.map((objItem, indx) => {
         return (
@@ -264,6 +262,35 @@ export default function Table(props: TableProps) {
                 />
               </form>
             </div>
+            <CellAction
+              handleSaveClick={() => handleSubmitChangeItem(objItem)}
+              setIsHoveredByTrashId={(value) => setIsHoveredByTrashId(value)}
+              ingredientIndex={indx}
+              handleTrashClick={() => {
+                if (mode === "recipe" && parentObj) {
+                  dispatch(
+                    fetchDeleteIngredient({
+                      recipeId: parentObj.id,
+                      token,
+                      ingredientId: objItem.id,
+                    })
+                  );
+                } else if (mode === "shopList") {
+                  dispatch(
+                    fetchDeleteIngredientFromShopList({
+                      token,
+                      ingredientId: objItem.id,
+                    })
+                  );
+                }
+                dispatch(
+                  SnackbarTextValue({
+                    text: "The row was moved to trash",
+                    withUndo: true,
+                  })
+                );
+              }}
+            />
             {mode === "recipe" ? (
               <AddToShopListBtn
                 handleClick={(e) => {
@@ -295,35 +322,6 @@ export default function Table(props: TableProps) {
             ) : (
               ""
             )}
-            <CellAction
-              handleSaveClick={() => handleSubmitChangeItem(objItem)}
-              setIsHoveredByTrashId={(value) => setIsHoveredByTrashId(value)}
-              ingredientIndex={indx}
-              handleTrashClick={() => {
-                if (mode === "recipe" && parentObj) {
-                  dispatch(
-                    fetchDeleteIngredient({
-                      recipeId: parentObj.id,
-                      token,
-                      ingredientId: objItem.id,
-                    })
-                  );
-                } else if (mode === "shopList") {
-                  dispatch(
-                    fetchDeleteIngredientFromShopList({
-                      token,
-                      ingredientId: objItem.id,
-                    })
-                  );
-                }
-                dispatch(
-                  SnackbarTextValue({
-                    text: "The row was moved to trash",
-                    withUndo: true,
-                  })
-                );
-              }}
-            />
           </div>
         );
       })}
@@ -380,7 +378,6 @@ export default function Table(props: TableProps) {
                 />
               </div>
             </div>
-            {mode === "recipe" ? <div /> : ""}
             <CellAction
               handleSaveClick={handleSubmit(handleSubmitNewItem)}
               handleTrashClick={() => {
@@ -392,6 +389,7 @@ export default function Table(props: TableProps) {
               setIsHoveredByTrashId={(value) => setIsHoveredByTrashId(value)}
               ingredientIndex={ingredientsObj.length}
             />
+            {mode === "recipe" ? <div /> : ""}
           </form>
         </>
       ) : (
