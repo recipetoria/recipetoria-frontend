@@ -11,7 +11,6 @@ import {
   fetchUpdateIngredient,
   fetchUpdateRecipeInfo,
 } from "../../features/OneRecipeSlice";
-import CellTrash from "./Cells/CellTrash";
 import {
   fetchUpdateIngredientFromShopList,
   fetchCreateNewIngredient,
@@ -22,6 +21,7 @@ import CellName from "./Cells/CellName";
 import CellAmount from "./Cells/CellAmount";
 import useResize from "../../hooks/useResize";
 import { SnackbarTextValue } from "../../features/SnackbarTextSlice";
+import CellAction from "./Cells/CellAction";
 
 export default function Table(props: TableProps) {
   const { mode, ingredientsObj, parentObj } = props;
@@ -194,7 +194,7 @@ export default function Table(props: TableProps) {
           ""
         )}
         <div className="grid-table__delete grid-table__delete_header cell cell_header">
-          Delete
+          Action
         </div>
       </div>
       {fields.map((objItem, indx) => {
@@ -303,10 +303,11 @@ export default function Table(props: TableProps) {
             ) : (
               ""
             )}
-            <CellTrash
+            <CellAction
+              handleSaveClick={() => handleSubmitChangeItem(objItem)}
               setIsHoveredByTrashId={(value) => setIsHoveredByTrashId(value)}
               ingredientIndex={indx}
-              handleClick={() => {
+              handleTrashClick={() => {
                 if (mode === "recipe" && parentObj) {
                   dispatch(
                     fetchDeleteIngredient({
@@ -388,15 +389,16 @@ export default function Table(props: TableProps) {
               </div>
             </div>
             {mode === "recipe" ? <div /> : ""}
-            <CellTrash
-              setIsHoveredByTrashId={(value) => setIsHoveredByTrashId(value)}
-              ingredientIndex={ingredientsObj.length}
-              handleClick={() => {
+            <CellAction
+              handleSaveClick={handleSubmit(handleSubmitNewItem)}
+              handleTrashClick={() => {
                 reset();
                 setIsActiveAddNewItem(false);
                 setIsHoveredByTrashId(null);
                 setSelectValueNewItem("select");
               }}
+              setIsHoveredByTrashId={(value) => setIsHoveredByTrashId(value)}
+              ingredientIndex={ingredientsObj.length}
             />
           </form>
         </>

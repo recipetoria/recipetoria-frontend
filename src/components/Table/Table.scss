@@ -346,6 +346,12 @@ $measure-static-width-full-size: 130px;
       border-bottom-left-radius: 4px;
     }
   }
+
+  .action-cell {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+  }
 }
 
 .grid-table__from_delete:hover .caption {
