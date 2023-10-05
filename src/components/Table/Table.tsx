@@ -21,6 +21,7 @@ import CellAmount from "./Cells/CellAmount";
 import useResize from "../../hooks/useResize";
 import { SnackbarTextValue } from "../../features/SnackbarTextSlice";
 import CellAction from "./Cells/CellAction";
+import AddToShopListBtn from "./Btns/AddToShopListBtn";
 
 export default function Table(props: TableProps) {
   const { mode, ingredientsObj, parentObj } = props;
