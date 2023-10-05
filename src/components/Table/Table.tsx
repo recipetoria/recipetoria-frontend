@@ -265,10 +265,8 @@ export default function Table(props: TableProps) {
               </form>
             </div>
             {mode === "recipe" ? (
-              <button
-                type="button"
-                className="grid-table__action cell cell_btn"
-                onClick={(e) => {
+              <AddToShopListBtn
+                handleClick={(e) => {
                   e.preventDefault();
                   if (parentObj) {
                     if (objItem.name.trim()) {
@@ -293,13 +291,7 @@ export default function Table(props: TableProps) {
                     }
                   }
                 }}
-              >
-                <PlusIcon />
-                <span>
-                  Add <b className="small-size-text-in-action">item</b> to
-                  shopping list
-                </span>
-              </button>
+              />
             ) : (
               ""
             )}
