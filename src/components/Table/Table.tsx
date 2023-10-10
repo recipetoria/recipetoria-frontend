@@ -1,7 +1,6 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import { useState, useEffect } from "react";
 import { useFieldArray, useForm } from "react-hook-form";
-import PlusIcon from "../../assets/svg/PlusIcon";
 import { Ingredient, TableProps, TableValues } from "../../types/types";
 import "./Table.scss";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
@@ -11,7 +10,6 @@ import {
   fetchUpdateIngredient,
   fetchUpdateRecipeInfo,
 } from "../../features/OneRecipeSlice";
-import CellTrash from "./Cells/CellTrash";
 import {
   fetchUpdateIngredientFromShopList,
   fetchCreateNewIngredient,
@@ -22,6 +20,8 @@ import CellName from "./Cells/CellName";
 import CellAmount from "./Cells/CellAmount";
 import useResize from "../../hooks/useResize";
 import { SnackbarTextValue } from "../../features/SnackbarTextSlice";
+import CellAction from "./Cells/CellAction";
+import AddToShopListBtn from "./Btns/AddToShopListBtn";
 
 export default function Table(props: TableProps) {
   const { mode, ingredientsObj, parentObj } = props;
@@ -186,16 +186,14 @@ export default function Table(props: TableProps) {
           </div>
           <div className="grid-table__measure cell cell_header">Unit</div>
         </div>
+        <div className="grid-table__delete grid-table__delete_header cell cell_header">
+          Action
+        </div>
         {mode === "recipe" ? (
-          <div className="grid-table__action grid-table__action_header cell cell_header">
-            Action
-          </div>
+          <div className="grid-table__action grid-table__action_header cell cell_header" />
         ) : (
           ""
         )}
-        <div className="grid-table__delete grid-table__delete_header cell cell_header">
-          Delete
-        </div>
       </div>
       {fields.map((objItem, indx) => {
         return (
@@ -264,49 +262,11 @@ export default function Table(props: TableProps) {
                 />
               </form>
             </div>
-            {mode === "recipe" ? (
-              <button
-                type="button"
-                className="grid-table__action cell cell_btn"
-                onClick={(e) => {
-                  e.preventDefault();
-                  if (parentObj) {
-                    if (objItem.name.trim()) {
-                      dispatch(
-                        fetchAddIngredientFromRecipeToShopList({
-                          recipeId: parentObj.id,
-                          token,
-                          ingredientId: objItem.id,
-                        })
-                      );
-                      dispatch(
-                        SnackbarTextValue({
-                          text: "The item has been added to the shopping list",
-                          withUndo: true,
-                        })
-                      );
-                    } else {
-                      setError(`ingredient.${indx}.name`, {
-                        type: "required",
-                        message: "Ingredient name is required",
-                      });
-                    }
-                  }
-                }}
-              >
-                <PlusIcon />
-                <span>
-                  Add <b className="small-size-text-in-action">item</b> to
-                  shopping list
-                </span>
-              </button>
-            ) : (
-              ""
-            )}
-            <CellTrash
+            <CellAction
+              handleSaveClick={() => handleSubmitChangeItem(objItem)}
               setIsHoveredByTrashId={(value) => setIsHoveredByTrashId(value)}
               ingredientIndex={indx}
-              handleClick={() => {
+              handleTrashClick={() => {
                 if (mode === "recipe" && parentObj) {
                   dispatch(
                     fetchDeleteIngredient({
@@ -331,6 +291,37 @@ export default function Table(props: TableProps) {
                 );
               }}
             />
+            {mode === "recipe" ? (
+              <AddToShopListBtn
+                handleClick={(e) => {
+                  e.preventDefault();
+                  if (parentObj) {
+                    if (objItem.name.trim()) {
+                      dispatch(
+                        fetchAddIngredientFromRecipeToShopList({
+                          recipeId: parentObj.id,
+                          token,
+                          ingredientId: objItem.id,
+                        })
+                      );
+                      dispatch(
+                        SnackbarTextValue({
+                          text: "The item has been added to the shopping list",
+                          withUndo: true,
+                        })
+                      );
+                    } else {
+                      setError(`ingredient.${indx}.name`, {
+                        type: "required",
+                        message: "Ingredient name is required",
+                      });
+                    }
+                  }
+                }}
+              />
+            ) : (
+              ""
+            )}
           </div>
         );
       })}
@@ -387,17 +378,18 @@ export default function Table(props: TableProps) {
                 />
               </div>
             </div>
-            {mode === "recipe" ? <div /> : ""}
-            <CellTrash
-              setIsHoveredByTrashId={(value) => setIsHoveredByTrashId(value)}
-              ingredientIndex={ingredientsObj.length}
-              handleClick={() => {
+            <CellAction
+              handleSaveClick={handleSubmit(handleSubmitNewItem)}
+              handleTrashClick={() => {
                 reset();
                 setIsActiveAddNewItem(false);
                 setIsHoveredByTrashId(null);
                 setSelectValueNewItem("select");
               }}
+              setIsHoveredByTrashId={(value) => setIsHoveredByTrashId(value)}
+              ingredientIndex={ingredientsObj.length}
             />
+            {mode === "recipe" ? <div /> : ""}
           </form>
         </>
       ) : (

@@ -1,12 +1,12 @@
 import Trash from "../../../assets/svg/Trash";
 
-interface CellTrashProps {
+interface TrashBtnProps {
   setIsHoveredByTrashId: (value: number | null) => void;
   ingredientIndex: number;
   handleClick: () => void;
 }
 
-export default function CellTrash(props: CellTrashProps) {
+export default function TrashBtn(props: TrashBtnProps) {
   const { setIsHoveredByTrashId, ingredientIndex, handleClick } = props;
 
   return (
