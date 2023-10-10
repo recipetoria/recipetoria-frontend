@@ -3,7 +3,7 @@
 @import "../../styles/mixins";
 
 $amount-static-width-full-size: 100px;
-$measure-static-width-full-size: 130px;
+$measure-static-width-full-size: 90px;
 
 .grid-table {
   display: flex;
@@ -78,14 +78,14 @@ $measure-static-width-full-size: 130px;
       grid-template-areas: 
         "name name"
         "amount measure ";
-      grid-template-columns: min-content auto;
+        grid-template-columns: 80px $measure-static-width-full-size;
     }
 
     &_new-grid {
       grid-template-columns: 36.713fr $amount-static-width-full-size $measure-static-width-full-size;
 
       @media (max-width: 599px) {
-        grid-template-columns: min-content auto;
+        grid-template-columns: 80px $measure-static-width-full-size;
       }
     }
   }
