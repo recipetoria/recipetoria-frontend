@@ -305,7 +305,7 @@ $measure-static-width-full-size: 90px;
     background: transparent;
     border: none;
     border-top: 1px solid $gray-1-color;
-    border-radius: 4px;
+    border-radius: none;
 
     transition: $transition;
 
@@ -313,6 +313,7 @@ $measure-static-width-full-size: 90px;
       color: $black-color;
 
       background: $bg-menu-active-color;
+      border-radius: 4px;
     }
 
     @media (max-width: 904px) {
